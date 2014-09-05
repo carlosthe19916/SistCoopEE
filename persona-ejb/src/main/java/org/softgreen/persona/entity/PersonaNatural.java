@@ -1,5 +1,6 @@
 package org.softgreen.persona.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,6 +24,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.URL;
@@ -33,7 +36,21 @@ import org.softgreen.persona.entity.type.Sexo;
 @Table(indexes = { @Index(columnList = "id") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
-public class PersonaNatural extends Persona {
+@NamedQueries({ 
+		@NamedQuery(name = PersonaNatural.findAll, query = "SELECT p FROM PersonaNatural p ORDER BY p.apellidoPaterno, p.apellidoMaterno, p.nombres, p.idPersonaNatural"), 
+		@NamedQuery(name = PersonaNatural.findByTipoAndNumeroDocumento, query = "SELECT p FROM PersonaNatural p WHERE p.tipoDocumento = :tipoDocumento AND p.numeroDocumento = :numeroDocumento "),
+		@NamedQuery(name = PersonaNatural.findByFilterText, query = "SELECT p FROM PersonaNatural p WHERE p.numeroDocumento LIKE :filterText OR UPPER(CONCAT(p.apellidoPaterno,' ', p.apellidoMaterno,' ',p.nombres)) LIKE :filterText ORDER BY p.apellidoPaterno, p.apellidoMaterno, p.nombres, p.idPersonaNatural") })
+public class PersonaNatural extends Persona implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public final static String base = "org.softgreen.persona.entity.PersonaNatural";
+	public final static String findAll = base + "findAll";
+	public final static String findByTipoAndNumeroDocumento = base + "findByTipoAndNumeroDocumento";
+	public final static String findByFilterText = base + "findByFilterText";
 
 	private Long id;
 	private String apellidoPaterno;

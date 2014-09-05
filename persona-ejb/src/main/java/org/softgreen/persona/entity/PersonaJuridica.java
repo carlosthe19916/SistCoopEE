@@ -1,5 +1,6 @@
 package org.softgreen.persona.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,6 +27,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -35,8 +38,20 @@ import org.softgreen.persona.entity.type.TipoEmpresa;
 @Table(indexes = { @Index(columnList = "id") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
-public class PersonaJuridica extends Persona {
+@NamedQueries({
+	@NamedQuery(name = PersonaJuridica.FindAll, query = "SELECT p FROM PersonaJuridica p"),
+	@NamedQuery(name = PersonaJuridica.findByTipoAndNumeroDocumento, query = "SELECT p FROM PersonaJuridica p WHERE p.tipoDocumento.idTipoDocumento = :idtipodocumento AND p.numeroDocumento = :numerodocumento"),
+	@NamedQuery(name = PersonaJuridica.findByFilterText, query = "SELECT p FROM PersonaJuridica p WHERE p.numeroDocumento like :filtertext OR UPPER(p.razonSocial) LIKE :filtertext") })
+public class PersonaJuridica extends Persona implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;	
+	public final static String FindAll = "PersonaJuridica.FindAll";
+	public final static String findByTipoAndNumeroDocumento = "PersonaJuridica.FindByTipoAndNumeroDocumento";
+	public final static String findByFilterText = "PersonaJuridica.FindByFilterText";	
+	
 	private Long id;
 	private String razonSocial;
 	private String nombreComercial;
