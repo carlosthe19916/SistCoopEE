@@ -38,7 +38,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
 
-import org.softgreen.dao.DAO;
+import org.softgreen.organizacion.dao.DAO;
 import org.softgreen.organizacion.entity.Agencia;
 
 /**

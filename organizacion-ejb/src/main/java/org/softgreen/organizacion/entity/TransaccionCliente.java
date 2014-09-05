@@ -48,7 +48,7 @@ public class TransaccionCliente implements Serializable {
 	private HistorialCaja historialCaja;
 	private Set<DetalleTransaccionCliente> detalle = new HashSet<DetalleTransaccionCliente>();
 
-	private Timestamp version;
+	private Timestamp optlk;
 
 	public TransaccionCliente() {
 		// TODO Auto-generated constructor stub
@@ -137,12 +137,12 @@ public class TransaccionCliente implements Serializable {
 
 	@XmlTransient
 	@Version
-	public Timestamp getVersion() {
-		return version;
+	public Timestamp getOptlk() {
+		return optlk;
 	}
 
-	public void setVersion(Timestamp version) {
-		this.version = version;
+	public void setOptlk(Timestamp optlk) {
+		this.optlk = optlk;
 	}
 
 	@Override

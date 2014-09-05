@@ -36,7 +36,7 @@ public class Entidad {
 	private boolean estado;
 	private Set<TransaccionBovedaEntidad> transaccionesBovedaEntidad = new HashSet<TransaccionBovedaEntidad>(0);
 
-	private Timestamp version;
+	private Timestamp optlk;
 
 	public Entidad() {
 		// TODO Auto-generated constructor stub
@@ -99,12 +99,12 @@ public class Entidad {
 
 	@XmlTransient
 	@Version
-	public Timestamp getVersion() {
-		return version;
+	public Timestamp getOptlk() {
+		return optlk;
 	}
 
-	public void setVersion(Timestamp version) {
-		this.version = version;
+	public void setOptlk(Timestamp optlk) {
+		this.optlk = optlk;
 	}
 
 	@Override
@@ -131,4 +131,5 @@ public class Entidad {
 			return false;
 		return true;
 	}
+
 }

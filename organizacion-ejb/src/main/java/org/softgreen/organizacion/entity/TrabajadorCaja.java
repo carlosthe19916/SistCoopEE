@@ -30,7 +30,7 @@ public class TrabajadorCaja {
 	private Trabajador trabajador;
 	private Caja caja;
 
-	private Timestamp version;
+	private Timestamp optlk;
 
 	public TrabajadorCaja() {
 		// TODO Auto-generated constructor stub
@@ -72,12 +72,12 @@ public class TrabajadorCaja {
 
 	@XmlTransient
 	@Version
-	public Timestamp getVersion() {
-		return version;
+	public Timestamp getOptlk() {
+		return optlk;
 	}
 
-	public void setVersion(Timestamp version) {
-		this.version = version;
+	public void setOptlk(Timestamp optlk) {
+		this.optlk = optlk;
 	}
 
 	@Override
@@ -85,8 +85,7 @@ public class TrabajadorCaja {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((caja == null) ? 0 : caja.hashCode());
-		result = prime * result
-				+ ((trabajador == null) ? 0 : trabajador.hashCode());
+		result = prime * result + ((trabajador == null) ? 0 : trabajador.hashCode());
 		return result;
 	}
 

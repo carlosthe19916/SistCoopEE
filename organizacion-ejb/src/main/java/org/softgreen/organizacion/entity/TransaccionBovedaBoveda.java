@@ -2,6 +2,7 @@ package org.softgreen.organizacion.entity;
 
 // Generated 02-may-2014 11:48:28 by Hibernate Tools 4.0.0
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
@@ -18,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.NONE)
-public class TransaccionBovedaBoveda extends TransaccionInterna implements java.io.Serializable {
+public class TransaccionBovedaBoveda extends TransaccionInterna implements Serializable {
 
 	/**
 	 * 
@@ -31,15 +32,87 @@ public class TransaccionBovedaBoveda extends TransaccionInterna implements java.
 
 	private BigDecimal saldoDisponibleOrigen;
 	private BigDecimal saldoDisponibleDestino;
-	
+
 	private boolean estadoSolicitud;
 	private boolean estadoConfirmacion;
-	
+
 	private String origen;
-	
+
 	private Set detalle = new HashSet(0);
 
 	public TransaccionBovedaBoveda() {
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public HistorialBoveda getHistorialBoveda() {
+		return historialBoveda;
+	}
+
+	public void setHistorialBoveda(HistorialBoveda historialBoveda) {
+		this.historialBoveda = historialBoveda;
+	}
+
+	public HistorialCaja getHistorialCaja() {
+		return historialCaja;
+	}
+
+	public void setHistorialCaja(HistorialCaja historialCaja) {
+		this.historialCaja = historialCaja;
+	}
+
+	public BigDecimal getSaldoDisponibleOrigen() {
+		return saldoDisponibleOrigen;
+	}
+
+	public void setSaldoDisponibleOrigen(BigDecimal saldoDisponibleOrigen) {
+		this.saldoDisponibleOrigen = saldoDisponibleOrigen;
+	}
+
+	public BigDecimal getSaldoDisponibleDestino() {
+		return saldoDisponibleDestino;
+	}
+
+	public void setSaldoDisponibleDestino(BigDecimal saldoDisponibleDestino) {
+		this.saldoDisponibleDestino = saldoDisponibleDestino;
+	}
+
+	public boolean isEstadoSolicitud() {
+		return estadoSolicitud;
+	}
+
+	public void setEstadoSolicitud(boolean estadoSolicitud) {
+		this.estadoSolicitud = estadoSolicitud;
+	}
+
+	public boolean isEstadoConfirmacion() {
+		return estadoConfirmacion;
+	}
+
+	public void setEstadoConfirmacion(boolean estadoConfirmacion) {
+		this.estadoConfirmacion = estadoConfirmacion;
+	}
+
+	public String getOrigen() {
+		return origen;
+	}
+
+	public void setOrigen(String origen) {
+		this.origen = origen;
+	}
+
+	public Set getDetalle() {
+		return detalle;
+	}
+
+	public void setDetalle(Set detalle) {
+		this.detalle = detalle;
 	}
 
 }

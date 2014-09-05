@@ -38,7 +38,7 @@ public class Sucursal {
 
 	private Set<Agencia> agencias = new HashSet<Agencia>();
 
-	private Timestamp version;
+	private Timestamp optlk;
 
 	public Sucursal() {
 		// TODO Auto-generated constructor stub
@@ -113,12 +113,12 @@ public class Sucursal {
 
 	@XmlTransient
 	@Version
-	public Timestamp getVersion() {
-		return version;
+	public Timestamp getOptlk() {
+		return optlk;
 	}
 
-	public void setVersion(Timestamp version) {
-		this.version = version;
+	public void setOptlk(Timestamp optlk) {
+		this.optlk = optlk;
 	}
 
 	@Override

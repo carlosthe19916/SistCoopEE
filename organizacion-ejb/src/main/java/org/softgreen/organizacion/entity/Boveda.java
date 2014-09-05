@@ -57,7 +57,7 @@ public class Boveda implements Serializable {
 	private Set<HistorialBoveda> historiales = new HashSet<HistorialBoveda>();
 	private Set<BovedaCaja> bovedaCajas = new HashSet<BovedaCaja>();
 
-	private Timestamp version;
+	private Timestamp optlk;
 
 	@Id
 	@GeneratedValue(generator = "SgGenericGenerator")
@@ -158,12 +158,12 @@ public class Boveda implements Serializable {
 
 	@XmlTransient
 	@Version
-	public Timestamp getVersion() {
-		return version;
+	public Timestamp getOptlk() {
+		return optlk;
 	}
 
-	public void setVersion(Timestamp version) {
-		this.version = version;
+	public void setOptlk(Timestamp optlk) {
+		this.optlk = optlk;
 	}
 
 	@Override

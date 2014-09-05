@@ -7,8 +7,8 @@ import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 
-import org.softgreen.dao.DAO;
-import org.softgreen.dao.QueryParameter;
+import org.softgreen.organizacion.dao.DAO;
+import org.softgreen.organizacion.dao.QueryParameter;
 import org.softgreen.organizacion.entity.Caja;
 
 /**

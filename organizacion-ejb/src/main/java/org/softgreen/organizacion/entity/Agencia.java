@@ -1,5 +1,6 @@
 package org.softgreen.organizacion.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
@@ -34,8 +35,13 @@ import org.hibernate.validator.constraints.NotEmpty;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @NamedQueries(value = { @NamedQuery(name = Agencia.findByCodigo, query = "SELECT a FROM Agencia a WHERE a.codigo = :codigo") })
-public class Agencia {
+public class Agencia implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	public final static String base = "org.softgreen.organizacion.entity.Agencia.";
 	public final static String findByCodigo = base + "findByCodigo";
 
@@ -52,7 +58,7 @@ public class Agencia {
 	private Set<Caja> cajas = new HashSet<Caja>();
 	private Set<Trabajador> trabajadores = new HashSet<Trabajador>();
 
-	private Timestamp version;
+	private Timestamp optlk;
 
 	public Agencia() {
 		// TODO Auto-generated constructor stub
@@ -170,12 +176,12 @@ public class Agencia {
 
 	@XmlTransient
 	@Version
-	public Timestamp getVersion() {
-		return version;
+	public Timestamp getOptlk() {
+		return optlk;
 	}
 
-	public void setVersion(Timestamp version) {
-		this.version = version;
+	public void setOptlk(Timestamp optlk) {
+		this.optlk = optlk;
 	}
 
 	@Override
@@ -202,5 +208,7 @@ public class Agencia {
 			return false;
 		return true;
 	}
+
+	
 
 }

@@ -33,7 +33,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
 
-import org.softgreen.dao.DAO;
+import org.softgreen.organizacion.dao.DAO;
 import org.softgreen.organizacion.entity.Boveda;
 
 /**

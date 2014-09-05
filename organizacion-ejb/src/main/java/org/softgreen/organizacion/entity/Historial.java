@@ -39,7 +39,7 @@ public abstract class Historial {
 
 	private Set<DetalleHistorial> detalle = new HashSet<DetalleHistorial>();
 
-	private Timestamp version;
+	private Timestamp optlk;
 
 	@Id
 	@GeneratedValue(generator = "SgGenericGenerator")
@@ -111,12 +111,12 @@ public abstract class Historial {
 
 	@XmlTransient
 	@Version
-	public Timestamp getVersion() {
-		return version;
+	public Timestamp getOptlk() {
+		return optlk;
 	}
 
-	public void setVersion(Timestamp version) {
-		this.version = version;
+	public void setOptlk(Timestamp optlk) {
+		this.optlk = optlk;
 	}
 
 	@Override

@@ -3,12 +3,8 @@ package org.softgreen.organizacion.entity;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
-import javax.persistence.FetchType;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Version;
@@ -36,7 +32,7 @@ public abstract class TransaccionInterna implements Serializable {
 	private boolean estadoSolicitud;
 	private boolean estadoConfirmacion;
 
-	private Timestamp version;
+	private Timestamp optlk;
 
 	public TransaccionInterna() {
 		// TODO Auto-generated constructor stub
@@ -106,12 +102,12 @@ public abstract class TransaccionInterna implements Serializable {
 
 	@XmlTransient
 	@Version
-	public Timestamp getVersion() {
-		return version;
+	public Timestamp getOptlk() {
+		return optlk;
 	}
 
-	public void setVersion(Timestamp version) {
-		this.version = version;
+	public void setOptlk(Timestamp optlk) {
+		this.optlk = optlk;
 	}
 
 }

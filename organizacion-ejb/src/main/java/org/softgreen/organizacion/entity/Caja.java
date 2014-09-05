@@ -50,7 +50,7 @@ public class Caja {
 	private Set<BovedaCaja> bovedaCajas = new HashSet<BovedaCaja>();
 	private Set<TrabajadorCaja> trabajadorCajas = new HashSet<TrabajadorCaja>();
 
-	private Timestamp version;
+	private Timestamp optlk;
 
 	public Caja() {
 		// TODO Auto-generated constructor stub
@@ -153,12 +153,12 @@ public class Caja {
 
 	@XmlTransient
 	@Version
-	public Timestamp getVersion() {
-		return version;
+	public Timestamp getOptlk() {
+		return optlk;
 	}
 
-	public void setVersion(Timestamp version) {
-		this.version = version;
+	public void setOptlk(Timestamp optlk) {
+		this.optlk = optlk;
 	}
 
 	@Override
@@ -166,8 +166,7 @@ public class Caja {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((agencia == null) ? 0 : agencia.hashCode());
-		result = prime * result
-				+ ((denominacion == null) ? 0 : denominacion.hashCode());
+		result = prime * result + ((denominacion == null) ? 0 : denominacion.hashCode());
 		return result;
 	}
 
