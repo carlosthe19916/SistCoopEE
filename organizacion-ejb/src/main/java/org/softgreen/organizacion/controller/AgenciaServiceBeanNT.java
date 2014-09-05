@@ -26,7 +26,7 @@ public class AgenciaServiceBeanNT implements AgenciaServiceNT {
 	private DAO<Integer, Agencia> agenciaDAO;
 
 	@Override
-	public Agencia findById(Integer id) {
+	public Agencia findById(Integer id) {		
 		return agenciaDAO.find(id);
 	}
 
