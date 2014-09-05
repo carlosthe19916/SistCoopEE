@@ -1,12 +1,16 @@
 package org.softgreen.persona.entity;
 
+import java.sql.Timestamp;
+
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
+import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
@@ -27,6 +31,8 @@ public abstract class Persona {
 	private String telefono;
 	private String celular;
 	private String email;
+
+	private Timestamp optlk;
 
 	public Persona() {
 		// TODO Auto-generated constructor stub
@@ -119,6 +125,16 @@ public abstract class Persona {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	@Version
+	@XmlTransient
+	public Timestamp getOptlk() {
+		return optlk;
+	}
+
+	public void setOptlk(Timestamp optlk) {
+		this.optlk = optlk;
 	}
 
 	@Override

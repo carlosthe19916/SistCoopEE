@@ -3,6 +3,7 @@ package org.softgreen.persona.entity;
 // Generated 02-may-2014 11:48:28 by Hibernate Tools 4.0.0
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Version;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Digits;
@@ -21,6 +23,7 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.NaturalId;
 
@@ -39,6 +42,8 @@ public class Accionista implements java.io.Serializable {
 	private PersonaNatural personaNatural;
 	private PersonaJuridica personaJuridica;
 	private BigDecimal porcentajeParticipacion;
+
+	private Timestamp optlk;
 
 	public Accionista() {
 
@@ -90,6 +95,16 @@ public class Accionista implements java.io.Serializable {
 
 	public void setPorcentajeParticipacion(BigDecimal porcentajeParticipacion) {
 		this.porcentajeParticipacion = porcentajeParticipacion;
+	}
+
+	@Version
+	@XmlTransient
+	public Timestamp getOptlk() {
+		return optlk;
+	}
+
+	public void setOptlk(Timestamp optlk) {
+		this.optlk = optlk;
 	}
 
 	@Override
