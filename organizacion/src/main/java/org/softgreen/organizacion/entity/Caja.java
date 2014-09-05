@@ -22,6 +22,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
@@ -31,7 +33,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(indexes = { @Index(columnList = "id") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
+@NamedQueries({ @NamedQuery(name = Caja.findByUsername, query = "SELECT c FROM Caja c INNER JOIN c.trabajadorCajas tc INNER JOIN tc.trabajador t WHERE t.usuario = :username") })
 public class Caja {
+
+	public final static String findByUsername = "Caja.findByUsername";
 
 	private Integer id;
 	private String denominacion;
@@ -43,6 +48,7 @@ public class Caja {
 
 	private Set<HistorialCaja> historiales = new HashSet<HistorialCaja>();
 	private Set<BovedaCaja> bovedaCajas = new HashSet<BovedaCaja>();
+	private Set<TrabajadorCaja> trabajadorCajas = new HashSet<TrabajadorCaja>();
 
 	private Timestamp version;
 
@@ -136,6 +142,16 @@ public class Caja {
 	}
 
 	@XmlTransient
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "caja")
+	public Set<TrabajadorCaja> getTrabajadorCajas() {
+		return trabajadorCajas;
+	}
+
+	public void setTrabajadorCajas(Set<TrabajadorCaja> trabajadorCajas) {
+		this.trabajadorCajas = trabajadorCajas;
+	}
+
+	@XmlTransient
 	@Version
 	public Timestamp getVersion() {
 		return version;
@@ -150,7 +166,8 @@ public class Caja {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((agencia == null) ? 0 : agencia.hashCode());
-		result = prime * result + ((denominacion == null) ? 0 : denominacion.hashCode());
+		result = prime * result
+				+ ((denominacion == null) ? 0 : denominacion.hashCode());
 		return result;
 	}
 

@@ -1,5 +1,6 @@
 package org.softgreen.organizacion.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
@@ -22,6 +23,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
@@ -31,7 +34,16 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(indexes = { @Index(columnList = "id") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
-public class Boveda {
+@NamedQueries({ @NamedQuery(name = Boveda.findAllByIdAgencia, query = "SELECT b FROM Boveda b INNER JOIN b.agencia a WHERE a.id = :idAgencia") })
+public class Boveda implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public static final String base = "org.softgreen.organizacion.entity.Boveda.";
+	public static final String findAllByIdAgencia = base + "findAllByIdAgencia";
 
 	private Integer id;
 	private String moneda;

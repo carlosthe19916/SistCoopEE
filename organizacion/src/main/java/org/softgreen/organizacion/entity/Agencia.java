@@ -22,6 +22,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.NotBlank;
@@ -31,7 +33,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(indexes = { @Index(columnList = "id") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
+@NamedQueries(value = { @NamedQuery(name = Agencia.findByCodigo, query = "SELECT a FROM Agencia a WHERE a.codigo = :codigo") })
 public class Agencia {
+
+	public final static String base = "org.softgreen.organizacion.entity.Agencia.";
+	public final static String findByCodigo = base + "findByCodigo";
 
 	private Integer id;
 	private String codigo;
