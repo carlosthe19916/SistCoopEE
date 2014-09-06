@@ -16,11 +16,14 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
 
+import org.joda.time.LocalDate;
 import org.softgreen.exception.NonexistentEntityException;
 import org.softgreen.exception.PreexistingEntityException;
 import org.softgreen.exception.RollbackFailureException;
 import org.softgreen.organizacion.dao.DAO;
+import org.softgreen.organizacion.dao.QueryParameter;
 import org.softgreen.organizacion.entity.Boveda;
+import org.softgreen.organizacion.entity.BovedaCaja;
 import org.softgreen.organizacion.entity.Caja;
 import org.softgreen.organizacion.entity.DetalleHistorial;
 import org.softgreen.organizacion.entity.HistorialCaja;
@@ -34,6 +37,9 @@ public class CajaServiceBean implements CajaService {
 
 	@Inject
 	private DAO<Integer, Caja> cajaDAO;
+
+	@Inject
+	private DAO<Long, HistorialCaja> historialCajaDAO;
 
 	@Inject
 	private Validator validator;
@@ -92,14 +98,36 @@ public class CajaServiceBean implements CajaService {
 
 	@Override
 	public Set<Boveda> getBovedas(Integer idCaja) {
-		// TODO Auto-generated method stub
-		return null;
+		Caja caja = cajaDAO.find(idCaja);
+		if (caja != null) {
+			Set<BovedaCaja> bovedaCajas = caja.getBovedaCajas();
+			Set<Boveda> result = new HashSet<Boveda>();
+			for (BovedaCaja bc : bovedaCajas) {
+				Boveda boveda = bc.getBoveda();
+				result.add(boveda);
+			}
+			return result;
+		} else {
+			return null;
+		}
 	}
 
 	@Override
-	public Set<HistorialCaja> getHistorial(Integer idCaja, Date dateDesde, Date dateHasta) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<HistorialCaja> getHistorial(Integer idCaja, Date dateDesde, Date dateHasta) {
+		Caja caja = cajaDAO.find(idCaja);
+		if (caja != null) {
+			LocalDate localDesde = new LocalDate(dateDesde);
+			LocalDate localHasta = new LocalDate(dateHasta);
+
+			Date dateDesdeQuery = localDesde.toDateTimeAtStartOfDay().toDate();
+			Date dateHastaQuery = localHasta.toDateTimeAtStartOfDay().toDate();
+
+			QueryParameter queryParameter = QueryParameter.with("idCaja", caja.getId()).and("desde", dateDesdeQuery).and("hasta", dateHastaQuery);
+			List<HistorialCaja> list = historialCajaDAO.findByNamedQuery(HistorialCaja.findByHistorialDateRange, queryParameter.parameters());
+			return list;
+		} else {
+			return null;
+		}
 	}
 
 	@Override
@@ -111,7 +139,7 @@ public class CajaServiceBean implements CajaService {
 	@Override
 	public void desactivar(Integer idCaja) throws org.softgreen.organizacion.exception.RollbackFailureException {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

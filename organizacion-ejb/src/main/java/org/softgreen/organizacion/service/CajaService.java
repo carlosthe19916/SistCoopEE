@@ -1,6 +1,7 @@
 package org.softgreen.organizacion.service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -17,7 +18,7 @@ public interface CajaService extends AbstractService<Integer, Caja> {
 
 	public Set<Boveda> getBovedas(Integer idCaja);
 
-	public Set<HistorialCaja> getHistorial(Integer idCaja, Date dateDesde, Date dateHasta);
+	public List<HistorialCaja> getHistorial(Integer idCaja, Date dateDesde, Date dateHasta);
 
 	public Map<String, DetalleHistorial> getDetalle(Integer idCaja);
 

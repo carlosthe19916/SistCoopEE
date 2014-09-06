@@ -14,8 +14,14 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 @Entity
 @DiscriminatorValue("caja")
+@NamedQueries({ 
+	@NamedQuery(name = HistorialCaja.findByHistorialActivo, query = "SELECT h FROM HistorialCaja h INNER JOIN h.caja c WHERE c.id = :idCaja AND h.estado = true"), 
+	@NamedQuery(name = HistorialCaja.findByHistorialDateRange, query = "SELECT h FROM HistorialCaja h INNER JOIN h.caja c WHERE c.id = :idCaja AND h.fechaApertura BETWEEN :desde AND :hasta AND h.estado = false ORDER BY h.horaApertura DESC")})
 public class HistorialCaja extends Historial implements Serializable {
 
 	/**
@@ -23,6 +29,10 @@ public class HistorialCaja extends Historial implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public final static String base = "org.softgreen.organizacion.entity.HistorialCaja.";
+	public final static String findByHistorialActivo = base+"findByHistorialActivo";
+	public final static String findByHistorialDateRange = base+"findByHistorialDateRange";
+	
 	private Caja caja;
 	private Set<TransaccionBovedaCaja> transaccionesBovedaCaja = new HashSet<TransaccionBovedaCaja>();
 	private Set<TransaccionCajaCaja> transaccionesCajaCajaOrigen = new HashSet<TransaccionCajaCaja>();
