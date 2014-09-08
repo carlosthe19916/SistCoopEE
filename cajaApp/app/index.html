@@ -9,9 +9,9 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
       <!-- Latest compiled and minified CSS -->
-      <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-
-      <link rel="stylesheet" href="styles/bootplus/css/bootplus.css">
+    <link rel="stylesheet" href="../bower_components/todc-bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../bower_components/todc-bootstrap/dist/css/todc-bootstrap.css">
+    <link rel="stylesheet" href="styles/bootplus/css/bootplus.css">
     <link rel="stylesheet" href="styles/bootplus/css/bootplus-responsive.css">
 
 
@@ -27,7 +27,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top" style="min-height: 20px;">
         <div class="navbar-inner">
             <div class="container-fluid">
                 <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -36,8 +36,8 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="brand" href="#">Project name</a>
-                <div class="nav-collapse collapse">
-                    <p class="navbar-text pull-right">
+                <div class="nav-collapse collapse" style="display: inherit;">
+                    <p class="navbar-text pull-right" style="margin-top: 0;">
                         Logged in as <a href="#" class="navbar-link">Username</a>
                     </p>
                     <ul class="nav">
