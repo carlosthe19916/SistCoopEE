@@ -8,7 +8,7 @@ require.config({
         'angular-sanitize': '../bower_components/angular-sanitize/angular-sanitize',
         'angular-scenario': '../bower_components/angular-scenario/angular-scenario',
         'angular-mocks': '../bower_components/angular-mocks/angular-mocks',
-        'angular-route': '../bower_components/angular-route/angular-route'
+        'ui-router': '../bower_components/angular-ui-router/release/angular-ui-router'
     },
     shim: {
         jquery: {
@@ -29,7 +29,7 @@ require.config({
         'angular-scenario':{
             deps: ['angular']
         },
-        'angular-route':{
+        'ui-router':{
             deps: ['angular']
         },
         'angular-mocks': {
@@ -56,7 +56,7 @@ require([
     'angular-cookies',
     'angular-sanitize',
     'angular-scenario',
-    'angular-route',
+    'ui-router',
     'angular-mocks'
 ], function(angular, app) {
     'use strict';

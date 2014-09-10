@@ -1,17 +1,14 @@
 define(['./app'], function(app) {
     'use strict';
-    return app.config(function ($routeProvider) {
-        $routeProvider
-            .when('/', {
-                templateUrl: 'views/main.html',
-                controller: 'MainCtrl'
+    return app.config(function ($stateProvider) {
+        $stateProvider
+            .state('home', {
+                url: '/home',
+                templateUrl: 'views/themplate/themplate01.html'
             })
-            .when('/about', {
-                templateUrl: 'views/about.html',
-                controller: 'AboutCtrl'
-            })
-            .otherwise({
-                redirectTo: '/'
+            .state('app', {
+                url: '/app',
+                templateUrl: 'views/themplate/themplate02.html'
             });
     });
 

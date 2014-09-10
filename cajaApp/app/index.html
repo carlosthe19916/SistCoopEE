@@ -42,49 +42,18 @@
                         Logged in as <a href="#" class="navbar-link">Username</a>
                     </p>
                     <ul class="nav">
-                        <li class="active"><a href="#" ng-click="resetMenu()">Home</a></li>
-                        <li><a href="#about" ng-click="setMenuCaja()">Caja</a></li>
-                        <li><a href="#about" ng-click="setMenuTransaccion()">Transacciones</a></li>
-                        <li><a href="#contact" ng-click="setMenuSocio()">Cuentas personales</a></li>
-                        <li><a href="#contact" ng-click="setMenuAdministracion()">Administracion</a></li>
+                        <li ui-sref-active="active"><a href="#" ui-sref="home">Home</a></li>
+                        <li ui-sref-active="active"><a href="#about" ui-sref="app">Caja</a></li>
+                        <li ui-sref-active="active"><a href="#about">Transacciones</a></li>
+                        <li ui-sref-active="active"><a href="#contact">Cuentas personales</a></li>
+                        <li ui-sref-active="active"><a href="#contact">Administracion</a></li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
         </div>
     </div>
 
-    <div class="container-fluid">
-        <div class="row-fluid">
-            <div class="span3">
-                <div class="sidebar-nav">
-                    <ul class="nav nav-list">
-                        <li ng-repeat="submenu in currentSubMenu" ng-class="{'nav-header': submenu.header == true}">
-                            <span ng-if="submenu.header" ng-bind="submenu.name"></span>
-                            <a href="#" ng-if="!submenu.header" ng-bind="submenu.name"></a>
-                        </li>
-                    </ul>
-                </div><!--/.well -->
-            </div><!--/span-->
-
-            <div class="span9">
-                <div class="row-fluid">
-                    <div class="span12">
-                        <div class="card">
-                            <h2 class="card-heading simple">Crear persona natural</h2>
-                            <div class="card-body">
-
-                            </div>
-                        </div>
-                    </div><!--/span-->
-                </div><!--/row-->
-            </div><!--/span-->
-        </div><!--/row-->
-
-        <hr>
-
-        <footer>
-            <p>© Softgreen 2014</p>
-        </footer>
+    <div ui-view>
 
     </div>
 </div>

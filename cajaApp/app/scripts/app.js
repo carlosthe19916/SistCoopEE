@@ -16,9 +16,9 @@ define([
             'cajaApp.services',
 
             /*angJSDeps*/
+            'ui.router',
             'ngAnimate',
             'ngCookies',
-            'ngRoute',
             'ngSanitize'
         ]);
     }
