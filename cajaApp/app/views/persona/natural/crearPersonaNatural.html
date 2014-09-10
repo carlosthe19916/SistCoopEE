@@ -1,7 +1,5 @@
-<pre><strong>DATOS PERSONALES</strong></pre>
 <div>
 <form name="formCrearPersonanatural" ng-submit="crearTransaccion()" novalidate>
-
 <div class="row">
     <div class="col-sm-4">
         <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.pais.$invalid && (control.submitted || formCrearPersonanatural.pais.$dirty)}">
@@ -65,7 +63,6 @@
     <div class="col-sm-4">
         <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.apellidoPaterno.$invalid && (control.submitted || formCrearPersonanatural.apellidoPaterno.$dirty)}">
             <label>Apellido Paterno</label>
-            <label style="color: brown;">(*)</label>
             <input name="apellidoPaterno" type="text" ng-model="view.apellidoPaterno" ng-minlength="1" ng-maxlength="60" class="form-control" placeholder="Apellido Paterno" capitalize required/>
             <div ng-show="formCrearPersonanatural.apellidoPaterno.$invalid && (control.submitted || formCrearPersonanatural.apellidoPaterno.$dirty)">
                 <p class="help-block" ng-show="formCrearPersonanatural.apellidoPaterno.$error.required">
@@ -83,7 +80,6 @@
     <div class="col-sm-4">
         <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.apellidoMaterno.$invalid && (control.submitted || formCrearPersonanatural.apellidoMaterno.$dirty)}">
             <label>Apellido Materno</label>
-            <label style="color: brown;">(*)</label>
             <input name="apellidoMaterno" type="text" ng-model="view.apellidoMaterno" ng-minlength="1" ng-maxlength="60" class="form-control" placeholder="Apellido Materno" capitalize required/>
             <div ng-show="formCrearPersonanatural.apellidoMaterno.$invalid && (control.submitted || formCrearPersonanatural.apellidoMaterno.$dirty)">
                 <p class="help-block" ng-show="formCrearPersonanatural.apellidoMaterno.$error.required">
@@ -101,7 +97,6 @@
     <div class="col-sm-4">
         <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.nombres.$invalid && (control.submitted || formCrearPersonanatural.nombres.$dirty)}">
             <label>Nombres</label>
-            <label style="color: brown;">(*)</label>
             <input name="nombres" type="text" ng-model="view.nombres" ng-minlength="1" ng-maxlength="70" class="form-control" placeholder="Nombres" capitalize required  />
             <div ng-show="formCrearPersonanatural.nombres.$invalid && (control.submitted || formCrearPersonanatural.nombres.$dirty)">
                 <p class="help-block" ng-show="formCrearPersonanatural.nombres.$error.required">
@@ -121,7 +116,6 @@
     <div class="col-sm-4">
         <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.fechanacimiento.$invalid && control.submitted}">
             <label>Fecha Nacimiento</label>
-            <label style="color: brown;">(*)</label>
             <div class="input-group">
                 <input type="text" name="fechanacimiento" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="view.fechaNacimiento" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" placeholder="dd/mm/yyyy" required>
                     <span class="input-group-btn">
@@ -143,7 +137,6 @@
     <div class="col-sm-4">
         <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.sexo.$invalid && control.submitted}">
             <label>Sexo</label>
-            <label style="color: brown;">(*)</label>
             <select name="sexo" ng-options="sexo as sexo for sexo in combo.sexos" ng-model="view.sexo" class="form-control" required>
                 <option value="">--Seleccione--</option>
             </select>

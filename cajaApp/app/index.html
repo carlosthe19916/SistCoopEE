@@ -42,11 +42,21 @@
                         Logged in as <a href="#" class="navbar-link">Username</a>
                     </p>
                     <ul class="nav">
-                        <li ui-sref-active="active"><a href="#" ui-sref="home">Home</a></li>
-                        <li ui-sref-active="active"><a href="#about" ui-sref="app">Caja</a></li>
-                        <li ui-sref-active="active"><a href="#about">Transacciones</a></li>
-                        <li ui-sref-active="active"><a href="#contact">Cuentas personales</a></li>
-                        <li ui-sref-active="active"><a href="#contact">Administracion</a></li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="home">Home</a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="app.caja">Caja</a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="app.transaccion">Transacciones</a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="app.socio">Cuentas personales</a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="app.administracion">Administracion</a>
+                        </li>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -54,7 +64,7 @@
     </div>
 
     <div ui-view>
-
+        <span>Loading...</span>
     </div>
 </div>
 
