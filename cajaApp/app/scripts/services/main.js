@@ -1,0 +1,6 @@
+define([
+    'angular',
+    './ConfiguracionService'
+], function () {
+
+});
