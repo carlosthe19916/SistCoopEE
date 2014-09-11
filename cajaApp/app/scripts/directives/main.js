@@ -1,6 +1,7 @@
 define([
     'angular',
-    './CapitalizeDirective'
+    './CapitalizeDirective',
+    './AccessibleFormDirective'
 ], function () {
 
 });
