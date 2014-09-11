@@ -9,7 +9,8 @@ require.config({
         'angular-scenario': '../bower_components/angular-scenario/angular-scenario',
         'angular-mocks': '../bower_components/angular-mocks/angular-mocks',
         'angular-messages': '../bower_components/angular-messages/angular-messages',
-        'ui-router': '../bower_components/angular-ui-router/release/angular-ui-router'
+        'ui-router': '../bower_components/angular-ui-router/release/angular-ui-router',
+        'ui.bootstrap': '../bower_components/angular-bootstrap/ui-bootstrap-tpls'
     },
     shim: {
         jquery: {
@@ -34,6 +35,9 @@ require.config({
             deps: ['angular']
         },
         'ui-router':{
+            deps: ['angular']
+        },
+        'ui.bootstrap':{
             deps: ['angular']
         },
         'angular-mocks': {
@@ -62,6 +66,7 @@ require([
     'angular-scenario',
     'angular-messages',
     'ui-router',
+    'ui.bootstrap',
     'angular-mocks'
 ], function(angular, app) {
     'use strict';

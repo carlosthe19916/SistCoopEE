@@ -1,6 +1,8 @@
 define([
     'angular',
-    './MainController'
+    './MainController',
+
+    './persona/natural/CrearPersonaNaturalController'
 ], function () {
 
 });

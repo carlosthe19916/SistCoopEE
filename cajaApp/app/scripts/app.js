@@ -20,7 +20,8 @@ define([
             'ngAnimate',
             'ngCookies',
             'ngSanitize',
-            'ngMessages'
+            'ngMessages',
+            'ui.bootstrap'
         ]);
     }
 );

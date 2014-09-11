@@ -1,8 +1,8 @@
-<div>
+<div ng-controller="CrearPersonaNaturalController">
 <form name="formCrearPersonanatural" ng-submit="crearTransaccion()" novalidate>
 <div class="row">
     <div class="col-sm-4">
-        <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.pais.$error && (formCrearPersonanatural.pais.$touched || formCrearPersonanatural.$submitted)}">
+        <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.pais.$invalid && (formCrearPersonanatural.pais.$touched || formCrearPersonanatural.$submitted)}">
             <label>Nacionalidad </label>
             <div class="input-group">
                 <span ng-bind="view.codigoPais" class="input-group-addon"></span>
@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="col-sm-4">
-        <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.tipoDocumento.$error && (formCrearPersonanatural.tipoDocumento.$touched || formCrearPersonanatural.$submitted)}">
+        <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.tipoDocumento.$invalid && (formCrearPersonanatural.tipoDocumento.$touched || formCrearPersonanatural.$submitted)}">
             <label>Tipo Documento</label>
             <select name="tipoDocumento" ng-options="tipodocumento.id as tipodocumento.abreviatura for tipodocumento in combo.tipoDocumentos | orderBy : 'id'" ng-model="view.idTipoDocumento" class="form-control" required>
                 <option value="">--Seleccione--</option>
@@ -27,7 +27,7 @@
         </div>
     </div>
     <div class="col-sm-4">
-        <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.numeroDocumento.$error && (formCrearPersonanatural.numeroDocumento.$touched || formCrearPersonanatural.$submitted)}">
+        <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.numeroDocumento.$invalid && (formCrearPersonanatural.numeroDocumento.$touched || formCrearPersonanatural.$submitted)}">
             <label>N&uacute;mero Documento</label>
             <input name="numeroDocumento" type="text" ng-model="view.numeroDocumento" ng-pattern="/^[0-9]+$/" ng-minlength="1" ng-maxlength="20" class="form-control" placeholder="N&uacute;mero Documento" required/>
             <div ng-messages="formCrearPersonanatural.numeroDocumento.$error" ng-if="formCrearPersonanatural.numeroDocumento.$touched || formCrearPersonanatural.$submitted">
@@ -41,7 +41,7 @@
 </div>
 <div class="row">
     <div class="col-sm-4">
-        <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.apellidoPaterno.$error && (formCrearPersonanatural.apellidoPaterno.$touched || formCrearPersonanatural.$submitted)}">
+        <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.apellidoPaterno.$invalid && (formCrearPersonanatural.apellidoPaterno.$touched || formCrearPersonanatural.$submitted)}">
             <label>Apellido Paterno</label>
             <input name="apellidoPaterno" type="text" ng-model="view.apellidoPaterno" ng-minlength="1" ng-maxlength="60" class="form-control" placeholder="Apellido Paterno" capitalize required/>
             <div ng-messages="formCrearPersonanatural.apellidoPaterno.$error" ng-if="formCrearPersonanatural.apellidoPaterno.$touched || formCrearPersonanatural.$submitted">
@@ -52,7 +52,7 @@
         </div>
     </div>
     <div class="col-sm-4">
-        <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.apellidoMaterno.$error && (formCrearPersonanatural.apellidoMaterno.$touched || formCrearPersonanatural.$submitted)}">
+        <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.apellidoMaterno.$invalid && (formCrearPersonanatural.apellidoMaterno.$touched || formCrearPersonanatural.$submitted)}">
             <label>Apellido Materno</label>
             <input name="apellidoMaterno" type="text" ng-model="view.apellidoMaterno" ng-minlength="1" ng-maxlength="60" class="form-control" placeholder="Apellido Materno" capitalize required/>
             <div ng-messages="formCrearPersonanatural.apellidoMaterno.$error" ng-if="formCrearPersonanatural.apellidoMaterno.$touched || formCrearPersonanatural.$submitted">
@@ -63,7 +63,7 @@
         </div>
     </div>
     <div class="col-sm-4">
-        <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.nombres.$error && (formCrearPersonanatural.nombres.$touched || formCrearPersonanatural.$submitted)}">
+        <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.nombres.$invalid && (formCrearPersonanatural.nombres.$touched || formCrearPersonanatural.$submitted)}">
             <label>Nombres</label>
             <input name="nombres" type="text" ng-model="view.nombres" ng-minlength="1" ng-maxlength="70" class="form-control" placeholder="Nombres" capitalize required  />
             <div ng-messages="formCrearPersonanatural.nombres.$error" ng-if="formCrearPersonanatural.nombres.$touched || formCrearPersonanatural.$submitted">
@@ -76,7 +76,7 @@
 </div>
 <div class="row">
     <div class="col-sm-4">
-        <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.fechanacimiento.$invalid && control.submitted}">
+        <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.fechanacimiento.$invalid && (formCrearPersonanatural.fechanacimiento.$touched || formCrearPersonanatural.$submitted)}">
             <label>Fecha Nacimiento</label>
             <div class="input-group">
                 <input type="text" name="fechanacimiento" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="view.fechaNacimiento" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" placeholder="dd/mm/yyyy" required>
@@ -86,13 +86,8 @@
                         </button>
                     </span>
             </div>
-            <div ng-show="formCrearPersonanatural.fechanacimiento.$invalid && control.submitted">
-                <p class="help-block" ng-show="formCrearPersonanatural.fechanacimiento.$error.required">
-                    Ingrese Fecha.
-                </p>
-                <p class="help-block" ng-show="formCrearPersonanatural.fechanacimiento.$invalid">
-                    Fecha no Valida.
-                </p>
+            <div ng-messages="formCrearPersonanatural.fechanacimiento.$error" ng-if="formCrearPersonanatural.fechanacimiento.$touched || formCrearPersonanatural.$submitted">
+                <div class="help-block" ng-message="required">Ingrese fecha nacimiento.</div>
             </div>
         </div>
     </div>
@@ -162,73 +157,59 @@
     </div>
     <div class="row">
         <div class="col-sm-4">
-            <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.direccion.$invalid && control.submitted}">
+            <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.direccion.$invalid && (formCrearPersonanatural.direccion.$touched || formCrearPersonanatural.$submitted)}">
                 <label>Direcci&oacute;n</label>
                 <input name="direccion" type="text" ng-model="view.direccion" ng-maxlength="70" class="form-control" placeholder="Direcci&oacute;n" capitalize />
-                <div ng-show="formCrearPersonanatural.direccion.$invalid && control.submitted">
-                    <p class="help-block" ng-show="formCrearPersonanatural.direccion.$error.maxlength">
-                        Maximo 70 Caracteres.
-                    </p>
+                <div ng-messages="formCrearPersonanatural.direccion.$error" ng-if="formCrearPersonanatural.direccion.$touched || formCrearPersonanatural.$submitted">
+                    <div class="help-block" ng-message="maxlength">Maximo 70 Caracteres.</div>
                 </div>
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.referencia.$invalid && control.submitted}">
+            <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.referencia.$invalid && (formCrearPersonanatural.referencia.$touched || formCrearPersonanatural.$submitted)}">
                 <label>Referencia</label>
                 <input name="referencia" type="text" ng-model="view.referencia" ng-maxlength="70" class="form-control" placeholder="Referencia" capitalize />
-                <div ng-show="formCrearPersonanatural.referencia.$invalid && control.submitted">
-                    <p class="help-block" ng-show="formCrearPersonanatural.referencia.$error.maxlength">
-                        Maximo 70 Caracteres.
-                    </p>
+                <div ng-messages="formCrearPersonanatural.referencia.$error" ng-if="formCrearPersonanatural.referencia.$touched || formCrearPersonanatural.$submitted">
+                    <div class="help-block" ng-message="maxlength">Maximo 70 Caracteres.</div>
                 </div>
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.ocupacion.$invalid && control.submitted}">
+            <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.ocupacion.$invalid && (formCrearPersonanatural.ocupacion.$touched || formCrearPersonanatural.$submitted)}">
                 <label>Ocupaci&oacute;n</label>
                 <input name="ocupacion" type="text" ng-model="view.ocupacion" ng-maxlength="70" class="form-control" placeholder="Ocupaci&oacute;n" capitalize />
-                <div ng-show="formCrearPersonanatural.nombres.$invalid && control.submitted">
-                    <p class="help-block" ng-show="formCrearPersonanatural.ocupacion.$error.maxlength">
-                        Maximo 70 Caracteres.
-                    </p>
+                <div ng-messages="formCrearPersonanatural.ocupacion.$error" ng-if="formCrearPersonanatural.ocupacion.$touched || formCrearPersonanatural.$submitted">
+                    <div class="help-block" ng-message="maxlength">Maximo 70 Caracteres.</div>
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-4">
-            <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.telefono.$invalid && control.submitted}">
+            <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.telefono.$invalid && (formCrearPersonanatural.telefono.$touched || formCrearPersonanatural.$submitted)}">
                 <label>Telefono</label>
-                <input name="telefono" type="text" ng-model="view.telefono" ng-maxlength="70" class="form-control" placeholder="Telefono" />
-                <div ng-show="formCrearPersonanatural.telefono.$invalid && control.submitted">
-                    <p class="help-block" ng-show="formCrearPersonanatural.telefono.$error.maxlength">
-                        Maximo 70 Caracteres.
-                    </p>
+                <input name="telefono" type="text" ng-model="view.telefono" ng-maxlength="20" class="form-control" placeholder="Telefono" />
+                <div ng-messages="formCrearPersonanatural.telefono.$error" ng-if="formCrearPersonanatural.telefono.$touched || formCrearPersonanatural.$submitted">
+                    <div class="help-block" ng-message="maxlength">Maximo 20 Caracteres.</div>
                 </div>
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.celular.$invalid && control.submitted}">
+            <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.celular.$invalid && (formCrearPersonanatural.celular.$touched || formCrearPersonanatural.$submitted)}">
                 <label>Celular</label>
-                <input name="celular" type="text" ng-model="view.celular" ng-maxlength="70" class="form-control" placeholder="Celular" />
-                <div ng-show="formCrearPersonanatural.celular.$invalid && control.submitted">
-                    <p class="help-block" ng-show="formCrearPersonanatural.celular.$error.maxlength">
-                        Maximo 70 Caracteres.
-                    </p>
+                <input name="celular" type="text" ng-model="view.celular" ng-maxlength="20" class="form-control" placeholder="Celular" />
+                <div ng-messages="formCrearPersonanatural.celular.$error" ng-if="formCrearPersonanatural.celular.$touched || formCrearPersonanatural.$submitted">
+                    <div class="help-block" ng-message="maxlength">Maximo 20 Caracteres.</div>
                 </div>
             </div>
         </div>
         <div class="col-sm-4">
-            <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.email.$invalid && control.submitted}">
+            <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.email.$invalid && (formCrearPersonanatural.email.$touched || formCrearPersonanatural.$submitted)}">
                 <label>Email</label>
                 <input name="email" type="email" ng-model="view.email" ng-maxlength="70" class="form-control" placeholder="correo@dominio.com"/>
-                <div ng-show="formCrearPersonanatural.email.$invalid && control.submitted">
-                    <p class="help-block" ng-show="formCrearPersonanatural.email.$invalid">
-                        Email Incorrecto.
-                    </p>
-                    <p class="help-block" ng-show="formCrearPersonanatural.email.$error.maxlength">
-                        Maximo 70 Caracteres.
-                    </p>
+                <div ng-messages="formCrearPersonanatural.email.$error" ng-if="formCrearPersonanatural.email.$touched || formCrearPersonanatural.$submitted">
+                    <div class="help-block" ng-message="email">Email Incorrecto.</div>
+                    <div class="help-block" ng-message="maxlength">Maximo 70 Caracteres.</div>
                 </div>
             </div>
         </div>
@@ -236,25 +217,5 @@
 </fieldset>
 <button type="submit" class="btn btn-primary" ladda="control.inProcess" data-style="expand-right">Guardar</button>
 <button type="button" class="btn btn-default" ng-click="cancel()">Cancelar</button>
-
-<button type="button" class="btn btn-default">Default</button>
-
-<!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
-<button type="button" class="btn btn-primary">Primary</button>
-
-<!-- Indicates a successful or positive action -->
-<button type="button" class="btn btn-success">Success</button>
-
-<!-- Contextual button for informational alert messages -->
-<button type="button" class="btn btn-info">Info</button>
-
-<!-- Indicates caution should be taken with this action -->
-<button type="button" class="btn btn-warning">Warning</button>
-
-<!-- Indicates a dangerous or potentially negative action -->
-<button type="button" class="btn btn-danger">Danger</button>
-
-<!-- Deemphasize a button by making it look like a link while maintaining button behavior -->
-<button type="button" class="btn btn-link">Link</button>
 </form>
 </div>
