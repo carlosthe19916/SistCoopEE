@@ -19,7 +19,8 @@ define([
             'ui.router',
             'ngAnimate',
             'ngCookies',
-            'ngSanitize'
+            'ngSanitize',
+            'ngMessages'
         ]);
     }
 );

@@ -2,7 +2,7 @@
 <form name="formCrearPersonanatural" ng-submit="crearTransaccion()" novalidate>
 <div class="row">
     <div class="col-sm-4">
-        <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.pais.$invalid && (control.submitted || formCrearPersonanatural.pais.$dirty)}">
+        <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.pais.$error && (formCrearPersonanatural.pais.$touched || formCrearPersonanatural.$submitted)}">
             <label>Nacionalidad </label>
             <div class="input-group">
                 <span ng-bind="view.codigoPais" class="input-group-addon"></span>
@@ -10,104 +10,66 @@
                     <option value="">--Seleccione--</option>
                 </select>
             </div>
-            <div ng-show="formCrearPersonanatural.pais.$invalid && (control.submitted || formCrearPersonanatural.pais.$dirty)">
-                <p class="help-block" ng-show="formCrearPersonanatural.pais.$error.required">
-                    Seleccione Nacionalidad.
-                </p>
+            <div ng-messages="formCrearPersonanatural.pais.$error" ng-if="formCrearPersonanatural.pais.$touched || formCrearPersonanatural.$submitted">
+                <div class="help-block" ng-message="required">Ingrese nacionalidad.</div>
             </div>
         </div>
     </div>
     <div class="col-sm-4">
-        <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.tipoDocumento.$invalid && (control.submitted || formCrearPersonanatural.tipoDocumento.$dirty)}">
+        <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.tipoDocumento.$error && (formCrearPersonanatural.tipoDocumento.$touched || formCrearPersonanatural.$submitted)}">
             <label>Tipo Documento</label>
             <select name="tipoDocumento" ng-options="tipodocumento.id as tipodocumento.abreviatura for tipodocumento in combo.tipoDocumentos | orderBy : 'id'" ng-model="view.idTipoDocumento" class="form-control" required>
                 <option value="">--Seleccione--</option>
             </select>
-            <div ng-show="formCrearPersonanatural.tipoDocumento.$invalid && (control.submitted || formCrearPersonanatural.tipoDocumento.$dirty)">
-                <p class="help-block" ng-show="formCrearPersonanatural.tipoDocumento.$error.required">
-                    Seleccione Tipo Documento.
-                </p>
+            <div ng-messages="formCrearPersonanatural.tipoDocumento.$error" ng-if="formCrearPersonanatural.tipoDocumento.$touched || formCrearPersonanatural.$submitted">
+                <div class="help-block" ng-message="required">Ingrese documento.</div>
             </div>
         </div>
     </div>
     <div class="col-sm-4">
-        <div class="form-group" ng-class="{ 'has-error' : (control.errorForm.numeroDocumento || formCrearPersonanatural.numeroDocumento.$invalid) && (control.submitted || formCrearPersonanatural.numeroDocumento.$dirty)}">
+        <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.numeroDocumento.$error && (formCrearPersonanatural.numeroDocumento.$touched || formCrearPersonanatural.$submitted)}">
             <label>N&uacute;mero Documento</label>
             <input name="numeroDocumento" type="text" ng-model="view.numeroDocumento" ng-pattern="/^[0-9]+$/" ng-minlength="1" ng-maxlength="20" class="form-control" placeholder="N&uacute;mero Documento" required/>
-            <div ng-show="formCrearPersonanatural.numeroDocumento.$invalid && (control.submitted || formCrearPersonanatural.numeroDocumento.$dirty)">
-                <p class="help-block" ng-show="formCrearPersonanatural.numeroDocumento.$error.required">
-                    Ingrese Numero de Documento.
-                </p>
-                <p class="help-block" ng-show="formCrearPersonanatural.numeroDocumento.$error.minlength">
-                    Minimo 1 Caracter.
-                </p>
-                <p class="help-block" ng-show="formCrearPersonanatural.numeroDocumento.$error.maxlength">
-                    Maximo 20 Caracteres.
-                </p>
-                <p class="help-block" ng-show="formCrearPersonanatural.numeroDocumento.$error.pattern">
-                    Numero de documento no valido.
-                </p>
-                <p class="help-block" ng-show="formCrearPersonanatural.numeroDocumento.$error.sgmaxlength">
-                    Debe tener <span ng-bind="getTipoDocumento().numeroCaracteres"></span> caracteres.
-                </p>
-            </div>
-            <div ng-show="control.errorForm.numeroDocumento && control.submitted">
-                <p class="help-block" ng-show="control.errorForm.numeroDocumento">
-                    Maximo <span ng-bind="persona.tipoDocumento.numeroCaracteres"></span> caracteres.
-                </p>
+            <div ng-messages="formCrearPersonanatural.numeroDocumento.$error" ng-if="formCrearPersonanatural.numeroDocumento.$touched || formCrearPersonanatural.$submitted">
+                <div class="help-block" ng-message="required">Ingrese documento.</div>
+                <div class="help-block" ng-message="minlength">Ingrese documento.</div>
+                <div class="help-block" ng-message="maxlength">Maximo 20 caracteres.</div>
+                <div class="help-block" ng-message="pattern">Numero documento  no valido.</div>
             </div>
         </div>
     </div>
 </div>
 <div class="row">
     <div class="col-sm-4">
-        <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.apellidoPaterno.$invalid && (control.submitted || formCrearPersonanatural.apellidoPaterno.$dirty)}">
+        <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.apellidoPaterno.$error && (formCrearPersonanatural.apellidoPaterno.$touched || formCrearPersonanatural.$submitted)}">
             <label>Apellido Paterno</label>
             <input name="apellidoPaterno" type="text" ng-model="view.apellidoPaterno" ng-minlength="1" ng-maxlength="60" class="form-control" placeholder="Apellido Paterno" capitalize required/>
-            <div ng-show="formCrearPersonanatural.apellidoPaterno.$invalid && (control.submitted || formCrearPersonanatural.apellidoPaterno.$dirty)">
-                <p class="help-block" ng-show="formCrearPersonanatural.apellidoPaterno.$error.required">
-                    Ingrese Apellido Paterno.
-                </p>
-                <p class="help-block" ng-show="formCrearPersonanatural.apellidoPaterno.$error.minlength">
-                    Minimo 1 Caracter.
-                </p>
-                <p class="help-block" ng-show="formCrearPersonanatural.apellidopaterno.$error.maxlength">
-                    Maximo 60 Caracteres.
-                </p>
+            <div ng-messages="formCrearPersonanatural.apellidoPaterno.$error" ng-if="formCrearPersonanatural.apellidoPaterno.$touched || formCrearPersonanatural.$submitted">
+                <div class="help-block" ng-message="required">Ingrese apellido paterno.</div>
+                <div class="help-block" ng-message="minlength">Ingrese apellido paterno.</div>
+                <div class="help-block" ng-message="maxlength">Apellido muy extenso, maximo 60 caracteres.</div>
             </div>
         </div>
     </div>
     <div class="col-sm-4">
-        <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.apellidoMaterno.$invalid && (control.submitted || formCrearPersonanatural.apellidoMaterno.$dirty)}">
+        <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.apellidoMaterno.$error && (formCrearPersonanatural.apellidoMaterno.$touched || formCrearPersonanatural.$submitted)}">
             <label>Apellido Materno</label>
             <input name="apellidoMaterno" type="text" ng-model="view.apellidoMaterno" ng-minlength="1" ng-maxlength="60" class="form-control" placeholder="Apellido Materno" capitalize required/>
-            <div ng-show="formCrearPersonanatural.apellidoMaterno.$invalid && (control.submitted || formCrearPersonanatural.apellidoMaterno.$dirty)">
-                <p class="help-block" ng-show="formCrearPersonanatural.apellidoMaterno.$error.required">
-                    Ingrese Apellido Materno.
-                </p>
-                <p class="help-block" ng-show="formCrearPersonanatural.apellidoMaterno.$error.minlength">
-                    Minimo 1 Caracter.
-                </p>
-                <p class="help-block" ng-show="formCrearPersonanatural.apellidoMaterno.$error.maxlength">
-                    Maximo 60 Caracteres.
-                </p>
+            <div ng-messages="formCrearPersonanatural.apellidoMaterno.$error" ng-if="formCrearPersonanatural.apellidoMaterno.$touched || formCrearPersonanatural.$submitted">
+                <div class="help-block" ng-message="required">Ingrese apellido materno.</div>
+                <div class="help-block" ng-message="minlength">Ingrese apellido materno.</div>
+                <div class="help-block" ng-message="maxlength">Apellido muy extenso, maximo 60 caracteres.</div>
             </div>
         </div>
     </div>
     <div class="col-sm-4">
-        <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.nombres.$invalid && (control.submitted || formCrearPersonanatural.nombres.$dirty)}">
+        <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.nombres.$error && (formCrearPersonanatural.nombres.$touched || formCrearPersonanatural.$submitted)}">
             <label>Nombres</label>
             <input name="nombres" type="text" ng-model="view.nombres" ng-minlength="1" ng-maxlength="70" class="form-control" placeholder="Nombres" capitalize required  />
-            <div ng-show="formCrearPersonanatural.nombres.$invalid && (control.submitted || formCrearPersonanatural.nombres.$dirty)">
-                <p class="help-block" ng-show="formCrearPersonanatural.nombres.$error.required">
-                    Ingrese Nombres.
-                </p>
-                <p class="help-block" ng-show="formCrearPersonanatural.nombres.$error.minlength">
-                    Minimo 1 Caracter.
-                </p>
-                <p class="help-block" ng-show="formCrearPersonanatural.nombres.$error.maxlength">
-                    Maximo 70 Caracteres.
-                </p>
+            <div ng-messages="formCrearPersonanatural.nombres.$error" ng-if="formCrearPersonanatural.nombres.$touched || formCrearPersonanatural.$submitted">
+                <div class="help-block" ng-message="required">Ingrese nombres.</div>
+                <div class="help-block" ng-message="minlength">Ingrese nombres.</div>
+                <div class="help-block" ng-message="maxlength">Nombre muy extenso, maximo 70 caracteres.</div>
             </div>
         </div>
     </div>
@@ -135,29 +97,22 @@
         </div>
     </div>
     <div class="col-sm-4">
-        <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.sexo.$invalid && control.submitted}">
+        <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.sexo.$error && (formCrearPersonanatural.sexo.$touched || formCrearPersonanatural.$submitted)}">
             <label>Sexo</label>
             <select name="sexo" ng-options="sexo as sexo for sexo in combo.sexos" ng-model="view.sexo" class="form-control" required>
                 <option value="">--Seleccione--</option>
             </select>
-            <div ng-show="formCrearPersonanatural.sexo.$invalid && control.submitted">
-                <p class="help-block" ng-show="formCrearPersonanatural.sexo.$error.required">
-                    Seleccione Sexo.
-                </p>
+            <div ng-messages="formCrearPersonanatural.sexo.$error" ng-if="formCrearPersonanatural.sexo.$touched || formCrearPersonanatural.$submitted">
+                <div class="help-block" ng-message="required">Ingrese sexo.</div>
             </div>
         </div>
     </div>
     <div class="col-sm-4">
-        <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.estadocivil.$invalid && formCrearPersonanatural.submitted}">
+        <div class="form-group">
             <label>Estado Civil</label>
             <select name="estadocivil" ng-options="estadocivil as estadocivil for estadocivil in combo.estadosCiviles" ng-model="view.estadoCivil" class="form-control">
                 <option value="">--Seleccione--</option>
             </select>
-            <div ng-show="formCrearPersonanatural.estadocivil.$invalid && control.submitted">
-                <p class="help-block" ng-show="formCrearPersonanatural.estadocivil.$invalid">
-                    Estado Civil Invalido.
-                </p>
-            </div>
         </div>
     </div>
 </div>

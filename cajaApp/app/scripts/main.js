@@ -8,6 +8,7 @@ require.config({
         'angular-sanitize': '../bower_components/angular-sanitize/angular-sanitize',
         'angular-scenario': '../bower_components/angular-scenario/angular-scenario',
         'angular-mocks': '../bower_components/angular-mocks/angular-mocks',
+        'angular-messages': '../bower_components/angular-messages/angular-messages',
         'ui-router': '../bower_components/angular-ui-router/release/angular-ui-router'
     },
     shim: {
@@ -27,6 +28,9 @@ require.config({
             deps: ['angular']
         },
         'angular-scenario':{
+            deps: ['angular']
+        },
+        'angular-messages':{
             deps: ['angular']
         },
         'ui-router':{
@@ -56,6 +60,7 @@ require([
     'angular-cookies',
     'angular-sanitize',
     'angular-scenario',
+    'angular-messages',
     'ui-router',
     'angular-mocks'
 ], function(angular, app) {
