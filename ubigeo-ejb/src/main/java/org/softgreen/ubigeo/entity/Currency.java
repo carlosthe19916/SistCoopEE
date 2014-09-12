@@ -38,7 +38,6 @@ public class Currency implements Serializable{
 	private String code;
 	private String denomination;
 	private String simbol;
-	private Country country;
 	private Set<Denomination> denominations = new HashSet<Denomination>();
 
 	private Timestamp version;
@@ -80,16 +79,6 @@ public class Currency implements Serializable{
 
 	public void setSimbol(String simbol) {
 		this.simbol = simbol;
-	}
-
-	@XmlTransient
-	@OneToOne
-	public Country getCountry() {
-		return country;
-	}
-
-	public void setCountry(Country country) {
-		this.country = country;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY)

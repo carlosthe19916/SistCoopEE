@@ -21,7 +21,9 @@ define([
             'ngCookies',
             'ngSanitize',
             'ngMessages',
-            'ui.bootstrap'
+            'ui.bootstrap',
+
+            'ubigeoSDK'
         ]);
     }
 );

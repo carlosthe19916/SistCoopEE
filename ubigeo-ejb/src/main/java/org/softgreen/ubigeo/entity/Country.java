@@ -152,7 +152,6 @@ public class Country implements Serializable {
 		this.numericCode = numericCode;
 	}
 
-	@NotNull
 	@Size(min = 0, max = 300)
 	@NotBlank
 	@NotEmpty
@@ -175,7 +174,6 @@ public class Country implements Serializable {
 		this.independent = independent;
 	}
 
-	@NotNull
 	@Size(min = 0, max = 300)
 	@NotBlank
 	@NotEmpty
@@ -187,7 +185,6 @@ public class Country implements Serializable {
 		this.territoryName = territoryName;
 	}
 
-	@NotNull
 	@Size(min = 0, max = 100)
 	@NotBlank
 	@NotEmpty
@@ -199,7 +196,6 @@ public class Country implements Serializable {
 		this.status = status;
 	}
 
-	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(foreignKey = @ForeignKey)
 	public Currency getCurrency() {

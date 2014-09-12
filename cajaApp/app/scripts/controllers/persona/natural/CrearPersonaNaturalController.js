@@ -1,7 +1,9 @@
 define(['../../module'], function (controllers) {
     'use strict';
-    controllers.controller('CrearPersonaNaturalController', ['$scope','$state',
-        function($scope,$state) {
+    controllers.controller('CrearPersonaNaturalController', ['$scope','$state','Country',
+        function($scope,$state,Country) {
+
+            $scope.cuntries = Country.$search();
 
             $scope.control = {
                 success:false,

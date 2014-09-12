@@ -10,7 +10,10 @@ require.config({
         'angular-mocks': '../bower_components/angular-mocks/angular-mocks',
         'angular-messages': '../bower_components/angular-messages/angular-messages',
         'ui-router': '../bower_components/angular-ui-router/release/angular-ui-router',
-        'ui.bootstrap': '../bower_components/angular-bootstrap/ui-bootstrap-tpls'
+        'angular-restmod': '../bower_components/angular-restmod/dist/angular-restmod-bundle',
+        'ui.bootstrap': '../bower_components/angular-bootstrap/ui-bootstrap-tpls',
+
+        'ubigeoSDK': 'ubigeoSDK'
     },
     shim: {
         jquery: {
@@ -37,8 +40,18 @@ require.config({
         'ui-router':{
             deps: ['angular']
         },
+        'angular-restmod': {
+            deps: ['angular']
+        },
         'ui.bootstrap':{
             deps: ['angular']
+        },
+
+        'ubigeoSDK':{
+            deps: [
+                'angular',
+                'angular-restmod'
+            ]
         },
         'angular-mocks': {
             deps: [
@@ -66,8 +79,12 @@ require([
     'angular-scenario',
     'angular-messages',
     'ui-router',
+    'angular-restmod',
     'ui.bootstrap',
-    'angular-mocks'
+    'angular-mocks',
+
+    'ubigeoSDK'
+
 ], function(angular, app) {
     'use strict';
     /* jshint ignore:start */
