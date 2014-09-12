@@ -4,5 +4,7 @@
   "auth-server-url": "http://localhost:8080/auth",
   "ssl-required": "external",
   "resource": "ubigeo-restapi",
-  "public-client": true
+  "credentials": {
+    "secret": "10a034d7-e134-4700-9ecc-a2d31d71dfc9"
+  }
 }
