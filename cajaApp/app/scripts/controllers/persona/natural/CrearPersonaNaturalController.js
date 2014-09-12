@@ -10,10 +10,10 @@ define(['../../module'], function (controllers) {
             };
 
             $scope.combo = {
-                paises: Country.$search(),
-                tipoDocumentos: undefined,
-                sexos: undefined,
-                estadosCiviles: undefined
+                pais: Country.$search(),
+                tipoDocumento: undefined,
+                sexo: undefined,
+                estadoCivil: undefined
             };
 
 
@@ -53,6 +53,9 @@ define(['../../module'], function (controllers) {
                 $scope.view.idTipoDocumento = parseInt($scope.params.idTipoDocumento);
             };
 
+            $scope.crearTransaccion = function(){
+                $scope.addSuccessMessage("Persona creada satisfactoriamente.");
+            };
 
         }]);
 });
