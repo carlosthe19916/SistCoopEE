@@ -1,5 +1,6 @@
 package org.softgreen.ubigeo.entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -31,8 +32,13 @@ import org.hibernate.annotations.NaturalId;
 @Table
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
-public class ExchangeRate {
+public class ExchangeRate implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	public final static String base = "org.softgreen.ubigeo.entity.TasaCambio";
 	public final static String findByCurrencyOriginDestiny = base + "findByCurrencyOriginDestiny";
 
