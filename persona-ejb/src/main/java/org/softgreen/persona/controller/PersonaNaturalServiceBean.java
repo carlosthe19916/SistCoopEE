@@ -17,14 +17,14 @@ import javax.validation.Validator;
 import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.softgreen.dao.DAO;
-import org.softgreen.dao.QueryParameter;
-import org.softgreen.exception.IllegalResultException;
-import org.softgreen.exception.NonexistentEntityException;
-import org.softgreen.exception.PreexistingEntityException;
-import org.softgreen.exception.RollbackFailureException;
+import org.softgreen.persona.dao.DAO;
+import org.softgreen.persona.dao.QueryParameter;
 import org.softgreen.persona.entity.PersonaNatural;
 import org.softgreen.persona.entity.TipoDocumento;
+import org.softgreen.persona.exception.IllegalResultException;
+import org.softgreen.persona.exception.NonexistentEntityException;
+import org.softgreen.persona.exception.PreexistingEntityException;
+import org.softgreen.persona.exception.RollbackFailureException;
 import org.softgreen.persona.service.PersonaNaturalService;
 
 @Named

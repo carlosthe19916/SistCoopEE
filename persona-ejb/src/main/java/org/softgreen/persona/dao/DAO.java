@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.opensource.org/licenses/gpl-2.
  * Copyright (c) 22. June 2009 Adam Bien, blog.adam-bien.com
  * http://press.adam-bien.com
  */
-package org.softgreen.dao;
+package org.softgreen.persona.dao;
 
 import java.util.Collection;
 import java.util.List;

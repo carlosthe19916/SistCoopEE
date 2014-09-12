@@ -1,4 +1,4 @@
-package org.softgreen.exception;
+package org.softgreen.persona.exception;
 
 import javax.ejb.ApplicationException;
 

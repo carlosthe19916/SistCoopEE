@@ -2,9 +2,9 @@ package org.softgreen.persona.service;
 
 import java.util.List;
 
-import org.softgreen.exception.NonexistentEntityException;
-import org.softgreen.exception.PreexistingEntityException;
-import org.softgreen.exception.RollbackFailureException;
+import org.softgreen.persona.exception.NonexistentEntityException;
+import org.softgreen.persona.exception.PreexistingEntityException;
+import org.softgreen.persona.exception.RollbackFailureException;
 
 public interface AbstractService<K, T> {
 

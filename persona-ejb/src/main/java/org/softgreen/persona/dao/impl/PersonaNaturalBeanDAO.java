@@ -17,9 +17,8 @@ along with this program.  If not, see <http://www.opensource.org/licenses/gpl-2.
  * Copyright (c) 22. June 2009 Adam Bien, blog.adam-bien.com
  * http://press.adam-bien.com
  */
-package org.softgreen.persona.dao;
+package org.softgreen.persona.dao.impl;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -29,17 +28,13 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
-import javax.validation.Validator;
 
-import org.softgreen.dao.DAO;
-import org.softgreen.persona.entity.PersonaJuridica;
+import org.softgreen.persona.dao.DAO;
+import org.softgreen.persona.entity.PersonaNatural;
 
 /**
  * A minimalistic CRUD implementation. Usually provides the implementation of
@@ -50,51 +45,40 @@ import org.softgreen.persona.entity.PersonaJuridica;
 @Stateless
 @Local(DAO.class)
 @TransactionAttribute(TransactionAttributeType.MANDATORY)
-public class PersonaJuridicaBeanDAO implements DAO<Long, PersonaJuridica> {
+public class PersonaNaturalBeanDAO implements DAO<Long, PersonaNatural> {
 
 	@PersistenceContext
 	private EntityManager em;
 
-	@Inject
-	protected Validator validator;
-
-	public PersonaJuridica create(PersonaJuridica t) {
-		Set<ConstraintViolation<PersonaJuridica>> violations = validator.validate(t);
-		if (!violations.isEmpty()) {
-			throw new ConstraintViolationException(new HashSet<ConstraintViolation<?>>(violations));
-		}
+	public PersonaNatural create(PersonaNatural t) {
 		this.em.persist(t);
 		return t;
 	}
 
-	public void delete(PersonaJuridica t) {
+	public void delete(PersonaNatural t) {
 		t = this.em.merge(t);
 		this.em.remove(t);
 	}
 
-	public PersonaJuridica find(Long id) {
-		return this.em.find(PersonaJuridica.class, id);
+	public PersonaNatural find(Long id) {
+		return this.em.find(PersonaNatural.class, id);
 	}
 
-	public PersonaJuridica update(PersonaJuridica t) {
-		Set<ConstraintViolation<PersonaJuridica>> violations = validator.validate(t);
-		if (!violations.isEmpty()) {
-			throw new ConstraintViolationException(new HashSet<ConstraintViolation<?>>(violations));
-		}
+	public PersonaNatural update(PersonaNatural t) {
 		return this.em.merge(t);
 	}
 
-	public List<PersonaJuridica> findAll() {
-		List<PersonaJuridica> list = null;
+	public List<PersonaNatural> findAll() {
+		List<PersonaNatural> list = null;
 		CriteriaQuery cq = this.em.getCriteriaBuilder().createQuery();
-		cq.select(cq.from(PersonaJuridica.class));
+		cq.select(cq.from(PersonaNatural.class));
 		list = this.em.createQuery(cq).getResultList();
 		return list;
 	}
 
-	public List<PersonaJuridica> findRange(int[] range) {
+	public List<PersonaNatural> findRange(int[] range) {
 		javax.persistence.criteria.CriteriaQuery cq = this.em.getCriteriaBuilder().createQuery();
-		cq.select(cq.from(PersonaJuridica.class));
+		cq.select(cq.from(PersonaNatural.class));
 		javax.persistence.Query q = this.em.createQuery(cq);
 		q.setMaxResults(range[1] - range[0]);
 		q.setFirstResult(range[0]);
@@ -103,25 +87,25 @@ public class PersonaJuridicaBeanDAO implements DAO<Long, PersonaJuridica> {
 
 	public int count() {
 		javax.persistence.criteria.CriteriaQuery cq = this.em.getCriteriaBuilder().createQuery();
-		javax.persistence.criteria.Root<PersonaJuridica> rt = cq.from(PersonaJuridica.class);
+		javax.persistence.criteria.Root<PersonaNatural> rt = cq.from(PersonaNatural.class);
 		cq.select(this.em.getCriteriaBuilder().count(rt));
 		javax.persistence.Query q = this.em.createQuery(cq);
 		return ((Long) q.getSingleResult()).intValue();
 	}
 
-	public List<PersonaJuridica> findByNamedQuery(String namedQueryName) {
+	public List<PersonaNatural> findByNamedQuery(String namedQueryName) {
 		return this.em.createNamedQuery(namedQueryName).getResultList();
 	}
 
-	public List<PersonaJuridica> findByNamedQuery(String namedQueryName, Map<String, Object> parameters) {
+	public List<PersonaNatural> findByNamedQuery(String namedQueryName, Map<String, Object> parameters) {
 		return findByNamedQuery(namedQueryName, parameters, 0);
 	}
 
-	public List<PersonaJuridica> findByNamedQuery(String queryName, int resultLimit) {
+	public List<PersonaNatural> findByNamedQuery(String queryName, int resultLimit) {
 		return this.em.createNamedQuery(queryName).setMaxResults(resultLimit).getResultList();
 	}
 
-	public List<PersonaJuridica> findByNamedQuery(String namedQueryName, Map<String, Object> parameters, int resultLimit) {
+	public List<PersonaNatural> findByNamedQuery(String namedQueryName, Map<String, Object> parameters, int resultLimit) {
 		Set<Entry<String, Object>> rawParameters = parameters.entrySet();
 		Query query = this.em.createNamedQuery(namedQueryName);
 		if (resultLimit > 0)
@@ -132,7 +116,7 @@ public class PersonaJuridicaBeanDAO implements DAO<Long, PersonaJuridica> {
 		return query.getResultList();
 	}
 
-	public List<PersonaJuridica> findByNamedQuery(String namedQueryName, Map<String, Object> parameters, Integer offset, Integer limit) {
+	public List<PersonaNatural> findByNamedQuery(String namedQueryName, Map<String, Object> parameters, Integer offset, Integer limit) {
 		Set<Entry<String, Object>> rawParameters = parameters.entrySet();
 		Query query = this.em.createNamedQuery(namedQueryName);
 		for (Entry<String, Object> entry : rawParameters) {

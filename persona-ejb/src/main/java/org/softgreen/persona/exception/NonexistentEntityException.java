@@ -1,4 +1,4 @@
-package org.softgreen.exception;
+package org.softgreen.persona.exception;
 
 public class NonexistentEntityException extends Exception {
 

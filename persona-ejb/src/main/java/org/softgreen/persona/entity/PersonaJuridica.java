@@ -40,7 +40,7 @@ import org.softgreen.persona.entity.type.TipoEmpresa;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @NamedQueries({
 	@NamedQuery(name = PersonaJuridica.FindAll, query = "SELECT p FROM PersonaJuridica p"),
-	@NamedQuery(name = PersonaJuridica.findByTipoAndNumeroDocumento, query = "SELECT p FROM PersonaJuridica p WHERE p.tipoDocumento.idTipoDocumento = :idtipodocumento AND p.numeroDocumento = :numerodocumento"),
+	@NamedQuery(name = PersonaJuridica.findByTipoAndNumeroDocumento, query = "SELECT p FROM PersonaJuridica p WHERE p.tipoDocumento.abreviatura = :tipoDocumento AND p.numeroDocumento = :numeroDocumento"),
 	@NamedQuery(name = PersonaJuridica.findByFilterText, query = "SELECT p FROM PersonaJuridica p WHERE p.numeroDocumento like :filtertext OR UPPER(p.razonSocial) LIKE :filtertext") })
 public class PersonaJuridica extends Persona implements Serializable{
 

@@ -37,9 +37,9 @@ import org.softgreen.persona.entity.type.Sexo;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @NamedQueries({ 
-		@NamedQuery(name = PersonaNatural.findAll, query = "SELECT p FROM PersonaNatural p ORDER BY p.apellidoPaterno, p.apellidoMaterno, p.nombres, p.idPersonaNatural"), 
-		@NamedQuery(name = PersonaNatural.findByTipoAndNumeroDocumento, query = "SELECT p FROM PersonaNatural p WHERE p.tipoDocumento = :tipoDocumento AND p.numeroDocumento = :numeroDocumento "),
-		@NamedQuery(name = PersonaNatural.findByFilterText, query = "SELECT p FROM PersonaNatural p WHERE p.numeroDocumento LIKE :filterText OR UPPER(CONCAT(p.apellidoPaterno,' ', p.apellidoMaterno,' ',p.nombres)) LIKE :filterText ORDER BY p.apellidoPaterno, p.apellidoMaterno, p.nombres, p.idPersonaNatural") })
+		@NamedQuery(name = PersonaNatural.findAll, query = "SELECT p FROM PersonaNatural p ORDER BY p.apellidoPaterno, p.apellidoMaterno, p.nombres, p.id"), 
+		@NamedQuery(name = PersonaNatural.findByTipoAndNumeroDocumento, query = "SELECT p FROM PersonaNatural p WHERE p.tipoDocumento.abreviatura = :tipoDocumento AND p.numeroDocumento = :numeroDocumento "),
+		@NamedQuery(name = PersonaNatural.findByFilterText, query = "SELECT p FROM PersonaNatural p WHERE p.numeroDocumento LIKE :filterText OR UPPER(CONCAT(p.apellidoPaterno,' ', p.apellidoMaterno,' ',p.nombres)) LIKE :filterText ORDER BY p.apellidoPaterno, p.apellidoMaterno, p.nombres, p.id") })
 public class PersonaNatural extends Persona implements Serializable {
 
 	/**
