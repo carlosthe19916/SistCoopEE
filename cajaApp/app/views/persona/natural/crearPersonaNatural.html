@@ -6,7 +6,7 @@
             <label>Nacionalidad </label>
             <div class="input-group">
                 <span ng-bind="view.codigoPais" class="input-group-addon"></span>
-                <select focus-on="focusPais" name="pais" ng-options="pais.abreviatura as pais.denominacion for pais in combo.paises" ng-model="view.codigoPais" class="form-control" required autofocus>
+                <select focus-on="focusPais" name="pais" ng-options="pais.alpha3Code as pais.fullName for pais in combo.paises" ng-model="view.codigoPais" class="form-control" required autofocus>
                     <option value="">--Seleccione--</option>
                 </select>
             </div>

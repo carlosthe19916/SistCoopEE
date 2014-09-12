@@ -3,8 +3,6 @@ define(['../../module'], function (controllers) {
     controllers.controller('CrearPersonaNaturalController', ['$scope','$state','Country',
         function($scope,$state,Country) {
 
-            $scope.cuntries = Country.$search();
-
             $scope.control = {
                 success:false,
                 inProcess: false,
@@ -12,11 +10,12 @@ define(['../../module'], function (controllers) {
             };
 
             $scope.combo = {
-                paises: undefined,
+                paises: Country.$search(),
                 tipoDocumentos: undefined,
                 sexos: undefined,
                 estadosCiviles: undefined
             };
+
 
             $scope.view = {
                 id: undefined,

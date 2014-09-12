@@ -88,7 +88,7 @@ public class Country implements Serializable {
 	}
 
 	@NotNull
-	@Size(min = 1, max = 30)
+	@Size(min = 1, max = 150)
 	@NotBlank
 	@NotEmpty
 	@Column(unique = true)
@@ -101,7 +101,7 @@ public class Country implements Serializable {
 	}
 
 	@NotNull
-	@Size(min = 1, max = 30)
+	@Size(min = 1, max = 150)
 	@NotBlank
 	@NotEmpty
 	@Column(unique = true)
@@ -165,7 +165,6 @@ public class Country implements Serializable {
 
 	@NotNull
 	@Type(type = "org.hibernate.type.TrueFalseType")
-	@Column(name = "ESTADO")
 	public boolean isIndependent() {
 		return independent;
 	}
