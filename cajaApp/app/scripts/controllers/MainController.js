@@ -47,5 +47,7 @@ define(['./module'], function (controllers) {
             $scope.dangerAlerts.splice(index, 1);
         };
 
+        $scope.addSuccessMessage("dfdfd");
+
     });
 });
