@@ -1,0 +1,10 @@
+{
+  "realm": "SistemaFinanciero",
+  "realm-public-key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCf4/NJLHfM5znP6jzgF0o0xAbCSO67aIFKITH8rWYpOJx5K5e8BgQL1AmV8M11p6wrPh6ggId2aQoHDHBBFdeDuwIKGtEYGR3ZCqpv3l5Jc52f2ArMQlt01DbJjXs9XFpifZzU7yHkY+NYuCU39duGt8JaxD//u1DZKmCqJiydUQIDAQAB",
+  "auth-server-url": "http://localhost:8080/auth",
+  "ssl-required": "external",
+  "resource": "persona-restapi",
+  "credentials": {
+    "secret": "10a034d7-e134-4700-9ecc-a2d31d71dfc9"
+  }
+}
