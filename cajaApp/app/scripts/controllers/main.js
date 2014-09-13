@@ -2,7 +2,9 @@ define([
     'angular',
     './MainController',
 
-    './persona/natural/CrearPersonaNaturalController'
+    './persona/natural/CrearPersonaNaturalController',
+
+    './util/TransactionalController'
 ], function () {
 
 });

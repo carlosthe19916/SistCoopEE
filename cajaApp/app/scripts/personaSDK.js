@@ -32,7 +32,30 @@ module.factory('PersonaJuridica', function(restmod, personaConfig) {
 });
 
 module.factory('PersonaNatural', function(restmod, personaConfig) {
-    return restmod.model(personaConfig.urlPrefix + '/personas/naturales');
+    return restmod.model(personaConfig.urlPrefix + '/personas/naturales').$mix({
+        id: {init: undefined},
+
+        tipoDocumento: {init: undefined},
+        numeroDocumento: {init: undefined},
+
+        apellidoPaterno: {init: undefined},
+        apellidoMaterno: {init: undefined},
+        nombres: {init: undefined},
+        fechaNacimiento: {init: undefined},
+        sexo: {init: undefined},
+        estadoCivil: {init: undefined},
+        ocupacion: {init: undefined},
+        urlFoto: {init: undefined},
+        urlFirma: {init: undefined},
+
+        codigoPais: {init: undefined},
+        ubigeo: {init: undefined},
+        direccion: {init: undefined},
+        referencia: {init: undefined},
+        telefono: {init: undefined},
+        celular: {init: undefined},
+        email: {init: undefined}
+    });
 });
 
 module.factory('TipoDocumento', function(restmod, personaConfig) {

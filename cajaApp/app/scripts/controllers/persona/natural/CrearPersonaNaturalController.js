@@ -1,13 +1,7 @@
 define(['../../module'], function (controllers) {
     'use strict';
-    controllers.controller('CrearPersonaNaturalController', ['$scope','$state','Country','TipoDocumento','Sexo','EstadoCivil',
-        function($scope,$state,Country, TipoDocumento, Sexo, EstadoCivil) {
-
-            $scope.control = {
-                success:false,
-                inProcess: false,
-                submitted : false
-            };
+    controllers.controller('CrearPersonaNaturalController', ['$scope','$state','PersonaNatural','Country','TipoDocumento','Sexo','EstadoCivil',
+        function($scope,$state,PersonaNatural,Country,TipoDocumento,Sexo,EstadoCivil) {
 
             $scope.combo = {
                 pais: Country.$search(),
@@ -16,44 +10,17 @@ define(['../../module'], function (controllers) {
                 estadoCivil: EstadoCivil.$search()
             };
 
-
             $scope.view = {
-                id: undefined,
-                tipoDocumento: undefined,
-                numeroDocumento: undefined,
-                apellidoPaterno: undefined,
-                apellidoMaterno: undefined,
-                nombres: undefined,
-                fechaNacimiento: undefined,
-                sexo: undefined,
-                estadoCivil: undefined,
-                ocupacion: undefined,
-                direccion: undefined,
-                referencia: undefined,
-                telefono: undefined,
-                celular: undefined,
-                email: undefined,
-                ubigeo: undefined,
-                codigoPais: undefined
-            };
-
-            $scope.dateOptions = {
-                formatYear: 'yyyy',
-                startingDay: 1
-            };
-
-            $scope.open = function($event) {
-                $event.preventDefault();
-                $event.stopPropagation();
-                $scope.opened = true;
+                personaNatural: PersonaNatural.$build()
             };
 
             $scope.loadParametros = function(){
-                $scope.view.numeroDocumento = $scope.params.numeroDocumento;
-                $scope.view.idTipoDocumento = parseInt($scope.params.idTipoDocumento);
+                $scope.view.personaNatural.numeroDocumento = $scope.params.numeroDocumento;
+                $scope.view.personaNatural.tipoDocumento = $scope.params.tipoDocumento;
             };
 
             $scope.crearTransaccion = function(){
+                console.log($scope.view.personaNatural);
                 $scope.addSuccessMessage("Persona creada satisfactoriamente.");
             };
 
