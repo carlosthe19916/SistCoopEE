@@ -22,13 +22,18 @@ import org.softgreen.persona.service.MaestroService;
 public class MaestroServiceBean implements MaestroService {
 
 	@Inject
-	private DAO<String, TipoDocumento> tipodocumentoDAO;
+	private DAO<String, TipoDocumento> tipoDocumentoDAO;
 
 	@Override
 	public List<TipoDocumento> getTipoDocumento(TipoPersona tipoPersona) {
-		List<TipoDocumento> list = null;
-		QueryParameter queryParameter = QueryParameter.with("tipoPersona", tipoPersona.toString());
-		list = tipodocumentoDAO.findByNamedQuery(TipoDocumento.findByTipopersona, queryParameter.parameters());
-		return list;
+		if(tipoPersona != null){
+			List<TipoDocumento> list = null;
+			QueryParameter queryParameter = QueryParameter.with("tipoPersona", tipoPersona.toString());
+			list = tipoDocumentoDAO.findByNamedQuery(TipoDocumento.findByTipopersona, queryParameter.parameters());
+			return list;
+		} else {
+			return tipoDocumentoDAO.findAll();
+		}
+		
 	}
 }

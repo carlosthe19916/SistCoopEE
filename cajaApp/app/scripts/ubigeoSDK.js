@@ -4,14 +4,19 @@
 var module = angular.module('ubigeoSDK', ['restmod']);
 
 module.config(function(restmodProvider) {
-    restmodProvider.rebase({
+    //restmodProvider.rebase('AMSApi');
+   /* restmodProvider.rebase({
         // or use setProperty('urlPrefix', '/api/v1') in a definition function
         URL_PREFIX: 'http://localhost:8080/ubigeo-restapi/rest/v1'
-    });
+    });*/
 });
 
-module.factory('Country', function(restmod) {
-    return restmod.model('/countries').$mix({
+module.service('ubigeoConfig', function(){
+    this.urlPrefix = 'http://localhost:8080/ubigeo-restapi/rest/v1';
+});
+
+module.factory('Country', function(restmod, ubigeoConfig) {
+    return restmod.model(ubigeoConfig.urlPrefix + '/countries').$mix({
         alpha2Code: {init: undefined},
         shortName: {init: undefined},
         shortNameLowerCase: {init: undefined},
@@ -25,8 +30,8 @@ module.factory('Country', function(restmod) {
     });
 });
 
-module.factory('Currency', function(restmod) {
-    return restmod.model('/currencies').$mix({
+module.factory('Currency', function(restmod, ubigeoConfig) {
+    return restmod.model(ubigeoConfig.urlPrefix +'/currencies').$mix({
         code: undefined,
         denomination: undefined,
         simbol: undefined,
@@ -35,22 +40,22 @@ module.factory('Currency', function(restmod) {
     });
 });
 
-module.factory('Denomination', function(restmod) {
-    return restmod.model('/currencies').$mix({
+module.factory('Denomination', function(restmod, ubigeoConfig) {
+    return restmod.model(ubigeoConfig.urlPrefix +'/currencies').$mix({
         value: undefined
     });
 });
 
-module.factory('Departamento', function(restmod) {
-    return restmod.model('/departamentos').$mix({
+module.factory('Departamento', function(restmod, ubigeoConfig) {
+    return restmod.model(ubigeoConfig.urlPrefix +'/departamentos').$mix({
         codigo: undefined,
         denominacion: undefined,
         provincias: { hasMany: 'Provincia'}
     })
 });
 
-module.factory('Provincia', function(restmod) {
-    return restmod.model('/provincias').$mix({
+module.factory('Provincia', function(restmod, ubigeoConfig) {
+    return restmod.model(ubigeoConfig.urlPrefix +'/provincias').$mix({
         codigo: undefined,
         denominacion: undefined,
         departamento: { hasOne: 'Departamento' },
@@ -58,8 +63,8 @@ module.factory('Provincia', function(restmod) {
     });
 });
 
-module.factory('Distrito', function(restmod) {
-    return restmod.model('/distritos').$mix({
+module.factory('Distrito', function(restmod, ubigeoConfig) {
+    return restmod.model(ubigeoConfig.urlPrefix +'/distritos').$mix({
         codigo: undefined,
         denominacion: undefined,
         provincia: { hasOne: 'Provincia' }

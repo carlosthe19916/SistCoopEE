@@ -11,9 +11,11 @@ require.config({
         'angular-messages': '../bower_components/angular-messages/angular-messages',
         'ui-router': '../bower_components/angular-ui-router/release/angular-ui-router',
         'angular-restmod': '../bower_components/angular-restmod/dist/angular-restmod-bundle',
+        'angular-restmod-style': '../bower_components/angular-restmod/dist/styles/ams',
         'ui.bootstrap': '../bower_components/angular-bootstrap/ui-bootstrap-tpls',
 
-        'ubigeoSDK': 'ubigeoSDK'
+        'ubigeoSDK': 'ubigeoSDK',
+        'personaSDK': 'personaSDK'
     },
     shim: {
         jquery: {
@@ -43,11 +45,23 @@ require.config({
         'angular-restmod': {
             deps: ['angular']
         },
+        'angular-restmod-style': {
+            deps: [
+                'angular',
+                'angular-restmod'
+            ]
+        },
         'ui.bootstrap':{
             deps: ['angular']
         },
 
         'ubigeoSDK':{
+            deps: [
+                'angular',
+                'angular-restmod'
+            ]
+        },
+        'personaSDK':{
             deps: [
                 'angular',
                 'angular-restmod'
@@ -80,10 +94,12 @@ require([
     'angular-messages',
     'ui-router',
     'angular-restmod',
+    'angular-restmod-style',
     'ui.bootstrap',
     'angular-mocks',
 
-    'ubigeoSDK'
+    'ubigeoSDK',
+    'personaSDK'
 
 ], function(angular, app) {
     'use strict';

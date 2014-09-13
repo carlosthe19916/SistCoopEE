@@ -1,5 +1,6 @@
 <div ng-controller="CrearPersonaNaturalController">
 <form name="formCrearPersonanatural" ng-submit="crearTransaccion()" novalidate>
+<h4><strong>Datos personales</strong> </h4>
 <div class="row">
     <div class="col-sm-4">
         <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.pais.$invalid && (formCrearPersonanatural.pais.$touched || formCrearPersonanatural.$submitted)}">
@@ -18,7 +19,7 @@
     <div class="col-sm-4">
         <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.tipoDocumento.$invalid && (formCrearPersonanatural.tipoDocumento.$touched || formCrearPersonanatural.$submitted)}">
             <label>Tipo Documento</label>
-            <select name="tipoDocumento" ng-options="tipodocumento.id as tipodocumento.abreviatura for tipodocumento in combo.tipoDocumentos | orderBy : 'id'" ng-model="view.idTipoDocumento" class="form-control" required>
+            <select name="tipoDocumento" ng-options="tipodocumento.abreviatura as tipodocumento.abreviatura for tipodocumento in combo.tipoDocumento" ng-model="view.tipoDocumento" class="form-control" required>
                 <option value="">--Seleccione--</option>
             </select>
             <div ng-messages="formCrearPersonanatural.tipoDocumento.$error" ng-if="formCrearPersonanatural.tipoDocumento.$touched || formCrearPersonanatural.$submitted">
@@ -94,7 +95,7 @@
     <div class="col-sm-4">
         <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.sexo.$error && (formCrearPersonanatural.sexo.$touched || formCrearPersonanatural.$submitted)}">
             <label>Sexo</label>
-            <select name="sexo" ng-options="sexo as sexo for sexo in combo.sexos" ng-model="view.sexo" class="form-control" required>
+            <select name="sexo" ng-options="sexo as sexo for sexo in combo.sexo" ng-model="view.sexo" class="form-control" required>
                 <option value="">--Seleccione--</option>
             </select>
             <div ng-messages="formCrearPersonanatural.sexo.$error" ng-if="formCrearPersonanatural.sexo.$touched || formCrearPersonanatural.$submitted">
@@ -105,7 +106,7 @@
     <div class="col-sm-4">
         <div class="form-group">
             <label>Estado Civil</label>
-            <select name="estadocivil" ng-options="estadocivil as estadocivil for estadocivil in combo.estadosCiviles" ng-model="view.estadoCivil" class="form-control">
+            <select name="estadocivil" ng-options="estadocivil as estadocivil for estadocivil in combo.estadoCivil" ng-model="view.estadoCivil" class="form-control">
                 <option value="">--Seleccione--</option>
             </select>
         </div>

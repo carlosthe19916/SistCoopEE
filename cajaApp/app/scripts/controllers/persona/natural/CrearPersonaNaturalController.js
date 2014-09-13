@@ -1,7 +1,7 @@
 define(['../../module'], function (controllers) {
     'use strict';
-    controllers.controller('CrearPersonaNaturalController', ['$scope','$state','Country',
-        function($scope,$state,Country) {
+    controllers.controller('CrearPersonaNaturalController', ['$scope','$state','Country','TipoDocumento','Sexo','EstadoCivil',
+        function($scope,$state,Country, TipoDocumento, Sexo, EstadoCivil) {
 
             $scope.control = {
                 success:false,
@@ -11,15 +11,15 @@ define(['../../module'], function (controllers) {
 
             $scope.combo = {
                 pais: Country.$search(),
-                tipoDocumento: undefined,
-                sexo: undefined,
-                estadoCivil: undefined
+                tipoDocumento: TipoDocumento.$search(),
+                sexo: Sexo.$search(),
+                estadoCivil: EstadoCivil.$search()
             };
 
 
             $scope.view = {
                 id: undefined,
-                idTipoDocumento: -1,
+                tipoDocumento: undefined,
                 numeroDocumento: undefined,
                 apellidoPaterno: undefined,
                 apellidoMaterno: undefined,

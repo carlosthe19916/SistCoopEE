@@ -23,7 +23,8 @@ define([
             'ngMessages',
             'ui.bootstrap',
 
-            'ubigeoSDK'
+            'ubigeoSDK',
+            'personaSDK'
         ]);
     }
 );

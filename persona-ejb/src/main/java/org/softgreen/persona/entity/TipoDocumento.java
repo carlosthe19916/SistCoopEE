@@ -18,6 +18,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.softgreen.persona.entity.type.TipoPersona;
@@ -26,6 +28,7 @@ import org.softgreen.persona.entity.type.TipoPersona;
 @Table(indexes = { @Index(columnList = "abreviatura") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
+@NamedQueries({ @NamedQuery(name = TipoDocumento.findByTipopersona, query = "SELECT t FROM TipoDocumento t WHERE t.tipoPersona = :tipoPersona") })
 public class TipoDocumento {
 
 	private String abreviatura;
@@ -35,6 +38,8 @@ public class TipoDocumento {
 	private TipoPersona tipoPersona;
 
 	private Timestamp optlk;
+
+	public final static String findByTipopersona = "TipoDocumento.findByTipopersona";
 
 	public TipoDocumento() {
 
