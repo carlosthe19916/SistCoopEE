@@ -4,6 +4,7 @@ define([
 
     './persona/natural/CrearPersonaNaturalController',
 
+    './util/DateController',
     './util/TransactionalController'
 ], function () {
 

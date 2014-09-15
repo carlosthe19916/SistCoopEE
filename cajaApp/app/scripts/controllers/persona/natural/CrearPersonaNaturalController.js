@@ -1,7 +1,7 @@
 define(['../../module'], function (controllers) {
     'use strict';
-    controllers.controller('CrearPersonaNaturalController', ['$scope','$state','PersonaNatural','Country','TipoDocumento','Sexo','EstadoCivil',
-        function($scope,$state,PersonaNatural,Country,TipoDocumento,Sexo,EstadoCivil) {
+    controllers.controller('CrearPersonaNaturalController', ['$scope','$state','PersonaNatural','Country','TipoDocumento','Sexo','EstadoCivil','HelperService',
+        function($scope,$state,PersonaNatural,Country,TipoDocumento,Sexo,EstadoCivil,HelperService) {
 
             $scope.combo = {
                 pais: Country.$search(),
@@ -14,15 +14,16 @@ define(['../../module'], function (controllers) {
                 personaNatural: PersonaNatural.$build()
             };
 
-            $scope.loadParametros = function(){
-                $scope.view.personaNatural.numeroDocumento = $scope.params.numeroDocumento;
-                $scope.view.personaNatural.tipoDocumento = $scope.params.tipoDocumento;
+            $scope.getTipoDocumentoLength = function(){
+                return HelperService.getTipoDocumentoLength($scope.combo.tipoDocumento, $scope.view.personaNatural.tipoDocumento);
             };
 
             $scope.crearTransaccion = function(){
-                console.log($scope.view.personaNatural);
+                console.log($scope.formCrearPersonanatural);
                 $scope.addSuccessMessage("Persona creada satisfactoriamente.");
             };
+
+            $scope.tamanio = 3;
 
         }]);
 });

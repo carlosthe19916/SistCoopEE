@@ -1,7 +1,8 @@
 define([
     'angular',
     './CapitalizeDirective',
-    './AccessibleFormDirective'
+    './AccessibleFormDirective',
+    './SgMaxLength'
 ], function () {
 
 });

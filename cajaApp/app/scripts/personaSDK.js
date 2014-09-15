@@ -59,5 +59,17 @@ module.factory('PersonaNatural', function(restmod, personaConfig) {
 });
 
 module.factory('TipoDocumento', function(restmod, personaConfig) {
-    return restmod.model(personaConfig.urlPrefix + '/tiposDocumento');
+    return restmod.model(personaConfig.urlPrefix + '/tiposDocumento').$mix({
+
+        abreviatura: {init: undefined},
+        denominacion: {init: undefined},
+        numeroCaracteres: {init: undefined},
+
+        getId: function(){
+            return this.abreviatura;
+        },
+        getMaxLength: function(){
+            return this.numeroCaracteres;
+        }
+    });
 });

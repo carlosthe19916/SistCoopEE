@@ -30,12 +30,13 @@
     <div class="col-sm-4">
         <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.numeroDocumento.$invalid && (formCrearPersonanatural.numeroDocumento.$touched || formCrearPersonanatural.$submitted)}">
             <label>N&uacute;mero Documento</label>
-            <input name="numeroDocumento" type="text" ng-model="view.personaNatural.numeroDocumento" ng-pattern="/^[0-9]+$/" ng-minlength="1" ng-maxlength="20" class="form-control" placeholder="N&uacute;mero Documento" required/>
+            <input name="numeroDocumento" type="text" sg-maxlength="getTipoDocumentoLength()" ng-model="view.personaNatural.numeroDocumento" ng-pattern="/^[0-9]+$/" ng-minlength="1" ng-maxlength="20" class="form-control" placeholder="N&uacute;mero Documento" required/>
             <div ng-messages="formCrearPersonanatural.numeroDocumento.$error" ng-if="formCrearPersonanatural.numeroDocumento.$touched || formCrearPersonanatural.$submitted">
                 <div class="help-block" ng-message="required">Ingrese documento.</div>
                 <div class="help-block" ng-message="minlength">Ingrese documento.</div>
                 <div class="help-block" ng-message="maxlength">Maximo 20 caracteres.</div>
                 <div class="help-block" ng-message="pattern">Numero documento  no valido.</div>
+                <div class="help-block" ng-message="sgmaxlength">Maximo <span ng-bind="getTipoDocumentoLength()"></span> caracteres.</div>
             </div>
         </div>
     </div>
@@ -76,7 +77,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-4" ng-controller="DateController">
         <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.fechanacimiento.$invalid && (formCrearPersonanatural.fechanacimiento.$touched || formCrearPersonanatural.$submitted)}">
             <label>Fecha Nacimiento</label>
             <div class="input-group">
