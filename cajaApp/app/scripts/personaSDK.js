@@ -63,13 +63,13 @@ module.factory('TipoDocumento', function(restmod, personaConfig) {
 
         abreviatura: {init: undefined},
         denominacion: {init: undefined},
-        numeroCaracteres: {init: undefined},
+        cantidadCaracteres: {init: undefined},
 
         getId: function(){
             return this.abreviatura;
         },
         getMaxLength: function(){
-            return this.numeroCaracteres;
+            return this.cantidadCaracteres;
         }
     });
 });

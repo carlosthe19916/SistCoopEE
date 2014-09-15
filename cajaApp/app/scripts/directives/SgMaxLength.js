@@ -12,7 +12,7 @@ define(['./module'], function (directives) {
                         var valueModel = modelValue || viewValue;
                         if(!valueModel)
                             valueModel = '';
-                        return valueModel.length <= value ? true : false;
+                        return valueModel.length == value;
                     };
                 });
             }

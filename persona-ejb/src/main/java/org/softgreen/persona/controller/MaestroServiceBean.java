@@ -28,7 +28,7 @@ public class MaestroServiceBean implements MaestroService {
 	public List<TipoDocumento> getTipoDocumento(TipoPersona tipoPersona) {
 		if(tipoPersona != null){
 			List<TipoDocumento> list = null;
-			QueryParameter queryParameter = QueryParameter.with("tipoPersona", tipoPersona.toString());
+			QueryParameter queryParameter = QueryParameter.with("tipoPersona", tipoPersona);
 			list = tipoDocumentoDAO.findByNamedQuery(TipoDocumento.findByTipopersona, queryParameter.parameters());
 			return list;
 		} else {
