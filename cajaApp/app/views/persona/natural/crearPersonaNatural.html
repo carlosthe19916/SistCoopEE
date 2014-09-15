@@ -96,7 +96,7 @@
     <div class="col-sm-4">
         <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.sexo.$error && (formCrearPersonanatural.sexo.$touched || formCrearPersonanatural.$submitted)}">
             <label>Sexo</label>
-            <select name="sexo" ng-options="sexo as sexo for sexo in combo.sexo" ng-model="view.personaNatural.sexo" class="form-control" required>
+            <select name="sexo" ng-options="sexo for sexo in combo.sexo" ng-model="view.personaNatural.sexo" class="form-control" required>
                 <option value="">--Seleccione--</option>
             </select>
             <div ng-messages="formCrearPersonanatural.sexo.$error" ng-if="formCrearPersonanatural.sexo.$touched || formCrearPersonanatural.$submitted">

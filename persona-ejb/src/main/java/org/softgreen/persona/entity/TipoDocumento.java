@@ -1,5 +1,6 @@
 package org.softgreen.persona.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.Entity;
@@ -29,8 +30,13 @@ import org.softgreen.persona.entity.type.TipoPersona;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @NamedQueries({ @NamedQuery(name = TipoDocumento.findByTipopersona, query = "SELECT t FROM TipoDocumento t WHERE t.tipoPersona = :tipoPersona") })
-public class TipoDocumento {
+public class TipoDocumento implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private String abreviatura;
 	private String denominacion;
 	private int cantidadCaracteres;
