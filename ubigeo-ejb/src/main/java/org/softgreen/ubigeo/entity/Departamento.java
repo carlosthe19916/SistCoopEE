@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -16,6 +18,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.NaturalId;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -23,13 +26,14 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
-public class Departamento implements Serializable{
+public class Departamento implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
+	private Integer id;
 	private String codigo;
 	private String denominacion;
 
@@ -39,7 +43,22 @@ public class Departamento implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
+	@XmlTransient
 	@Id
+	@GeneratedValue(generator = "SgGenericGenerator")
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	@NotNull
+	@Size(min = 2, max = 2)
+	@NotBlank
+	@NotEmpty
+	@NaturalId
 	public String getCodigo() {
 		return codigo;
 	}
@@ -48,9 +67,8 @@ public class Departamento implements Serializable{
 		this.codigo = codigo;
 	}
 
-	@Size(min = 1, max = 100)
-	@NotBlank
-	@NotEmpty
+	@Size(min = 0, max = 100)
+	@Column(nullable = true)
 	public String getDenominacion() {
 		return denominacion;
 	}

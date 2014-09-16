@@ -2,9 +2,11 @@ package org.softgreen.ubigeo.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -14,9 +16,11 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
+import org.hibernate.annotations.NaturalId;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -24,8 +28,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
-@NamedQueries({
-	@NamedQuery(name = Distrito.findByCodDepartamentoProvincia, query = "SELECT d FROM Distrito d INNER JOIN d.provincia p INNER JOIN p.departamento dep WHERE dep.codigo = :codigoDepartamento AND p.codigo = :codigoProvincia Order By d.denominacion") })
+@NamedQueries({ @NamedQuery(name = Distrito.findByCodDepartamentoProvincia, query = "SELECT d FROM Distrito d INNER JOIN d.provincia p INNER JOIN p.departamento dep WHERE dep.codigo = :codigoDepartamento AND p.codigo = :codigoProvincia Order By d.denominacion") })
 public class Distrito implements Serializable {
 
 	public final static String findByCodDepartamentoProvincia = "org.softgreen.ubigeo.entity.Distrito.findByCodDepartamentoProvincia";
@@ -35,6 +38,7 @@ public class Distrito implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private Integer id;
 	private String codigo;
 	private String denominacion;
 	private Provincia provincia;
@@ -43,7 +47,21 @@ public class Distrito implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
+	@XmlTransient
 	@Id
+	@GeneratedValue(generator = "SgGenericGenerator")
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	@NotNull
+	@Size(min = 2, max = 2)
+	@NotBlank
+	@NotEmpty
 	public String getCodigo() {
 		return codigo;
 	}
@@ -52,10 +70,8 @@ public class Distrito implements Serializable {
 		this.codigo = codigo;
 	}
 
-	@NotNull
-	@Size(min = 1, max = 100)
-	@NotBlank
-	@NotEmpty
+	@Size(min = 0, max = 100)
+	@Column(nullable = true)
 	public String getDenominacion() {
 		return denominacion;
 	}
@@ -80,8 +96,7 @@ public class Distrito implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
-		result = prime * result
-				+ ((provincia == null) ? 0 : provincia.hashCode());
+		result = prime * result + ((provincia == null) ? 0 : provincia.hashCode());
 		return result;
 	}
 
