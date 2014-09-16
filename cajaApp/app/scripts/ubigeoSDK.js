@@ -48,25 +48,25 @@ module.factory('Denomination', function(restmod, ubigeoConfig) {
 
 module.factory('Departamento', function(restmod, ubigeoConfig) {
     return restmod.model(ubigeoConfig.urlPrefix +'/departamentos').$mix({
-        codigo: undefined,
-        denominacion: undefined,
+        codigo: {init: undefined},
+        denominacion: {init: undefined},
         provincias: { hasMany: 'Provincia'}
     })
 });
 
 module.factory('Provincia', function(restmod, ubigeoConfig) {
     return restmod.model(ubigeoConfig.urlPrefix +'/provincias').$mix({
-        codigo: undefined,
-        denominacion: undefined,
-        departamento: { hasOne: 'Departamento' },
+        codigo: {init: undefined},
+        denominacion: {init: undefined},
+        //departamento: { hasOne: 'Departamento' },
         distritos: { hasMany: 'Distrito'}
     });
 });
 
 module.factory('Distrito', function(restmod, ubigeoConfig) {
     return restmod.model(ubigeoConfig.urlPrefix +'/distritos').$mix({
-        codigo: undefined,
-        denominacion: undefined,
+        codigo: {init: undefined},
+        denominacion: {init: undefined},
         provincia: { hasOne: 'Provincia' }
     });
 });

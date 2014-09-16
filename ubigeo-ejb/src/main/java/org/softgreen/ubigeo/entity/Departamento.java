@@ -48,7 +48,6 @@ public class Departamento implements Serializable{
 		this.codigo = codigo;
 	}
 
-	@NotNull
 	@Size(min = 1, max = 100)
 	@NotBlank
 	@NotEmpty

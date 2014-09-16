@@ -2,7 +2,8 @@ define([
     'angular',
     './CapitalizeDirective',
     './AccessibleFormDirective',
-    './SgDocumentoIdentidad'
+    './SgDocumentoIdentidad',
+    './SgUbigeo'
 ], function () {
 
 });

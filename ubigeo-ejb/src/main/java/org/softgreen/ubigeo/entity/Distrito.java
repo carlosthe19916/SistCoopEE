@@ -15,6 +15,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -22,7 +24,11 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
+@NamedQueries({
+	@NamedQuery(name = Distrito.findByCodDepartamentoProvincia, query = "SELECT d FROM Distrito d INNER JOIN d.provincia p INNER JOIN p.departamento dep WHERE dep.codigo = :codigoDepartamento AND p.codigo = :codigoProvincia Order By d.denominacion") })
 public class Distrito implements Serializable {
+
+	public final static String findByCodDepartamentoProvincia = "org.softgreen.ubigeo.entity.Distrito.findByCodDepartamentoProvincia";
 
 	/**
 	 * 
