@@ -15,8 +15,8 @@ require.config({
         'ui.bootstrap': '../bower_components/angular-bootstrap/ui-bootstrap-tpls',
         'angular-ladda': '../bower_components/angular-ladda/dist/angular-ladda.min',
 
-        'ubigeoSDK': 'ubigeoSDK',
-        'personaSDK': 'personaSDK'
+        'ubigeoSDK': '../js/ubigeoSDK',
+        'personaSDK': '../js/personaSDK'
     },
     shim: {
         jquery: {
