@@ -181,8 +181,7 @@ public class Country implements Serializable {
 	}
 
 	@Size(min = 0, max = 100)
-	@NotBlank
-	@NotEmpty
+	@Column(nullable = true)
 	public String getStatus() {
 		return status;
 	}
