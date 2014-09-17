@@ -48,7 +48,6 @@ public interface PersonaNaturalREST {
 	public Response update(@PathParam("id")Long id, PersonaNatural personaNatural);
 
 	@POST
-	@Consumes({ "application/xml", "application/json" })
 	@Produces({ "application/xml", "application/json" })
 	public Response create(PersonaNatural personaNatural);
 

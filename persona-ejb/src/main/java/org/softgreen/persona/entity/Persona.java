@@ -73,7 +73,7 @@ public abstract class Persona {
 		this.codigoPais = codigoPais;
 	}
 
-	@Size(min = 0, max = 3)
+	@Size(min = 0, max = 6)
 	public String getUbigeo() {
 		return ubigeo;
 	}
