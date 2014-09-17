@@ -19,7 +19,7 @@ define(['./module'], function (directives) {
 
                 $scope.changeDepartamento = function(){
                     if(!angular.isUndefined($scope.ubigeo.departamento)){
-                        $scope.provincias = $scope.ubigeo.departamento.provincias;
+                        $scope.provincias = $scope.ubigeo.departamento.provincias.$fetch();
                         console.log($scope.provincias);
                     } else {
                         $scope.provincias = undefined;
