@@ -108,7 +108,26 @@ public class PersonaNaturalRESTService implements PersonaNaturalREST {
 			if (!violations.isEmpty()) {
 				throw new ConstraintViolationException(new HashSet<ConstraintViolation<?>>(violations));
 			}
-			Long idPersona = personaNaturalService.create(personaNatural);	
+			PersonaNatural persona = new PersonaNatural();
+			persona.setId(null);
+			persona.setCodigoPais(personaNatural.getCodigoPais());
+			persona.setTipoDocumento(personaNatural.getTipoDocumento());
+			persona.setNumeroDocumento(personaNatural.getNumeroDocumento());
+			persona.setApellidoPaterno(personaNatural.getApellidoPaterno());
+			persona.setApellidoMaterno(personaNatural.getApellidoMaterno());
+			persona.setNombres(personaNatural.getNombres());
+			persona.setFechaNacimiento(personaNatural.getFechaNacimiento());
+			persona.setSexo(personaNatural.getSexo());
+			persona.setEstadoCivil(personaNatural.getEstadoCivil());
+			persona.setOcupacion(personaNatural.getOcupacion());
+			persona.setDireccion(personaNatural.getDireccion());
+			persona.setReferencia(persona.getOcupacion());
+			persona.setUbigeo(personaNatural.getUbigeo());
+			persona.setTelefono(personaNatural.getTelefono());
+			persona.setCelular(personaNatural.getCelular());
+			persona.setEmail(personaNatural.getEmail());
+			
+			Long idPersona = personaNaturalService.create(persona);	
 			response = Response.status(Status.CREATED).entity(Jsend.getSuccessJSend(idPersona)).build();
 		} catch (ConstraintViolationException e) {
 			Jsend jsend = Jsend.getErrorJSend("datos invalidos");

@@ -126,10 +126,7 @@ public class PersonaNatural extends Persona implements Serializable {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	@NotNull
-	@Size(min = 1, max = 50)
-	@NotEmpty
-	@NotBlank
+	@NotNull	
 	@Enumerated(EnumType.STRING)
 	public Sexo getSexo() {
 		return sexo;
@@ -139,10 +136,6 @@ public class PersonaNatural extends Persona implements Serializable {
 		this.sexo = sexo;
 	}
 
-	@NotNull
-	@Size(min = 1, max = 50)
-	@NotEmpty
-	@NotBlank
 	@Enumerated(EnumType.STRING)
 	public EstadoCivil getEstadoCivil() {
 		return estadoCivil;
