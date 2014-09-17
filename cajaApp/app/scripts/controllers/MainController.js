@@ -2,6 +2,11 @@ define(['./module'], function (controllers) {
     'use strict';
     controllers.controller('MainController', function($scope, $timeout){
 
+        $scope.control = {
+            success: false,
+            inProcess: false
+        };
+
         $scope.successAlerts = [];
         $scope.infoAlerts = [];
         $scope.warningAlerts = [];

@@ -22,6 +22,7 @@ define([
             'ngSanitize',
             'ngMessages',
             'ui.bootstrap',
+            'angular-ladda',
 
             'ubigeoSDK',
             'personaSDK'

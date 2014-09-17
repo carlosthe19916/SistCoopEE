@@ -1,7 +1,7 @@
 define(['../../module'], function (controllers) {
     'use strict';
-    controllers.controller('CrearPersonaNaturalController', ['$scope','$state','PersonaNatural','Country','TipoDocumento','Sexo','EstadoCivil','HelperService',
-        function($scope,$state,PersonaNatural,Country,TipoDocumento,Sexo,EstadoCivil,HelperService) {
+    controllers.controller('CrearPersonaNaturalController', ['$scope','$state','PersonaNatural','Country','TipoDocumento','Sexo','EstadoCivil',
+        function($scope,$state,PersonaNatural,Country,TipoDocumento,Sexo,EstadoCivil) {
 
             $scope.combo = {
                 pais: Country.$search(),
@@ -14,10 +14,18 @@ define(['../../module'], function (controllers) {
             };
 
             $scope.crearTransaccion = function(){
-                console.log($scope.formCrearPersonanatural);
-                $scope.addSuccessMessage("Persona creada satisfactoriamente.");
+                if ($scope.formCrearPersonanatural.$valid) {
+                    $scope.control.inProcess = true;
+
+                    console.log($scope.view.personaNatural);
+                    $scope.view.personaNatural.$save();
+                    $scope.addSuccessMessage("Persona creada satisfactoriamente.");
+                }
             };
 
+            $scope.cancelar = function () {
+                console.log("cancelando");
+            };
 
         }]);
 });

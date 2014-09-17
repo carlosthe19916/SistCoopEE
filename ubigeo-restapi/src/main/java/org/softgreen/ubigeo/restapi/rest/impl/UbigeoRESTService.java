@@ -21,23 +21,21 @@ public class UbigeoRESTService implements UbigeoREST {
 	@Override
 	public Response findAll() {
 		List<Departamento> list = ubigeoService.getDepartamentos();
-		JsonAPI api = new JsonAPI();
-		api.setData(list);
-		Response response = Response.status(Status.OK).entity(api).build();		
+		Response response = Response.status(Status.OK).entity(JsonAPI.getSuccess(list)).build();		
 		return response;
 	}
 
 	@Override
 	public Response getProvincias(String codigoDepartamento) {
 		List<Provincia> list = ubigeoService.getProvincias(codigoDepartamento);
-		Response response = Response.status(Status.OK).entity(list).build();
+		Response response = Response.status(Status.OK).entity(JsonAPI.getSuccess(list)).build();
 		return response;
 	}
 
 	@Override
 	public Response getDistritos(String codigoDepartamento, String codigoProvincia) {
 		List<Distrito> list = ubigeoService.getDistritos(codigoDepartamento, codigoProvincia);
-		Response response = Response.status(Status.OK).entity(list).build();
+		Response response = Response.status(Status.OK).entity(JsonAPI.getSuccess(list)).build();
 		return response;
 	}
 

@@ -84,6 +84,7 @@ public class Provincia implements Serializable {
 		this.denominacion = denominacion;
 	}
 
+	@XmlTransient
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(foreignKey = @ForeignKey)

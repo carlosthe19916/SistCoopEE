@@ -42,6 +42,8 @@ module.factory('PersonaJuridica', function(restmod, personaConfig) {
 
 module.factory('PersonaNatural', function(restmod, personaConfig) {
     return restmod.model(personaConfig.urlPrefix + '/personas/naturales').$mix({
+        PRIMARY_KEY: 'id',
+
         id: {init: undefined},
 
         tipoDocumento: {init: undefined},

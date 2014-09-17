@@ -13,6 +13,7 @@ require.config({
         'angular-restmod': '../bower_components/angular-restmod/dist/angular-restmod-bundle',
         'angular-restmod-style': '../bower_components/angular-restmod/dist/styles/ams',
         'ui.bootstrap': '../bower_components/angular-bootstrap/ui-bootstrap-tpls',
+        'angular-ladda': '../bower_components/angular-ladda/dist/angular-ladda.min',
 
         'ubigeoSDK': 'ubigeoSDK',
         'personaSDK': 'personaSDK'
@@ -53,6 +54,11 @@ require.config({
         },
         'ui.bootstrap':{
             deps: ['angular']
+        },
+        'angular-ladda':{
+            deps: [
+                'angular'
+            ]
         },
 
         'ubigeoSDK':{
@@ -96,6 +102,7 @@ require([
     'angular-restmod',
     'angular-restmod-style',
     'ui.bootstrap',
+    'angular-ladda',
     'angular-mocks',
 
     'ubigeoSDK',

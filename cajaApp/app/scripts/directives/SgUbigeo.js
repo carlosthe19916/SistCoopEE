@@ -20,7 +20,6 @@ define(['./module'], function (directives) {
                 $scope.changeDepartamento = function(){
                     if(!angular.isUndefined($scope.ubigeo.departamento)){
                         $scope.provincias = $scope.ubigeo.departamento.provincias.$fetch();
-                        console.log($scope.provincias);
                     } else {
                         $scope.provincias = undefined;
                         $scope.distritos = undefined;
@@ -56,7 +55,7 @@ define(['./module'], function (directives) {
                 +'<div class="col-sm-4">'
                 +'<div class="form-group" ng-class="{ \'has-error\' : formCrearPersonanatural.provincia.$invalid && (formCrearPersonanatural.provincia.$touched || formCrearPersonanatural.$submitted)}">'
                     +'<label>Provincia</label>'
-                    +'<select name="provincia" ng-options="provincia.codigo as provincia.denominacion for provincia in combos.provincias" ng-model="ubigeo.codigoProvincia" ng-change="changeProvincia()" class="form-control">'
+                    +'<select name="provincia" ng-options="prov.denominacion for prov in provincias" ng-model="ubigeo.provincia" ng-change="changeProvincia()" class="form-control" ng-required="{{requerido}}">'
                         +'<option value="">--Seleccione--</option>'
                     +'</select>'
                     +'<div ng-messages="formCrearPersonanatural.provincia.$error" ng-if="formCrearPersonanatural.provincia.$touched || formCrearPersonanatural.$submitted">'
@@ -67,7 +66,7 @@ define(['./module'], function (directives) {
                 +'<div class="col-sm-4">'
                     +'<div class="form-group" ng-class="{ \'has-error\' : formCrearPersonanatural.provincia.$invalid && (formCrearPersonanatural.provincia.$touched || formCrearPersonanatural.$submitted)}">'
                         +'<label>Distrito</label>'
-                        +'<select name="distrito" ng-options="distrito.codigo as distrito.denominacion for distrito in combos.distritos" ng-model="ubigeo.codigoDistrito" ng-change="changeDistrito()" class="form-control">'
+                        +'<select name="distrito" ng-options="dist.denominacion for dist in distritos" ng-model="ubigeo.distrito" ng-change="changeDistrito()" class="form-control" ng-required="{{requerido}}">'
                             +'<option value="">--Seleccione--</option>'
                         +'</select>'
                         +'<div ng-messages="formCrearPersonanatural.distrito.$error" ng-if="formCrearPersonanatural.distrito.$touched || formCrearPersonanatural.$submitted">'
