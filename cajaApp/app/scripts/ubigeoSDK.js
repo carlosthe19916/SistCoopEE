@@ -4,7 +4,7 @@
 var module = angular.module('ubigeoSDK', ['restmod']);
 
 module.config(function(restmodProvider) {
-    //restmodProvider.rebase('AMSApi');
+    restmodProvider.rebase('AMSApi');
    /* restmodProvider.rebase({
         // or use setProperty('urlPrefix', '/api/v1') in a definition function
         URL_PREFIX: 'http://localhost:8080/ubigeo-restapi/rest/v1'
@@ -58,7 +58,7 @@ module.factory('Provincia', function(restmod, ubigeoConfig) {
     return restmod.model(ubigeoConfig.urlPrefix +'/provincias').$mix({
         codigo: {init: undefined},
         denominacion: {init: undefined},
-        //departamento: { hasOne: 'Departamento' },
+        departamento: { hasOne: 'Departamento' },
         distritos: { hasMany: 'Distrito'}
     });
 });

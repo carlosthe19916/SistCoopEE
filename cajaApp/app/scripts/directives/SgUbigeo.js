@@ -7,11 +7,6 @@ define(['./module'], function (directives) {
             require: ['^form','ngModel'],
             link: function($scope, elem, attrs, ngModel){
 
-                ngModel[1].$validators.sgubigeo = function(modelValue,viewValue){
-                    var value = modelValue || viewValue;
-                    return value.length == 6;
-                };
-
                 $scope.departamentos = Departamento.$search();
                 $scope.provincias = undefined;
                 $scope.distritos = undefined;
@@ -24,8 +19,8 @@ define(['./module'], function (directives) {
 
                 $scope.changeDepartamento = function(){
                     if(!angular.isUndefined($scope.ubigeo.departamento)){
-                        console.log($scope.ubigeo.departamento);
-                        $scope.provincias = $scope.ubigeo.departamento.provincias.$fetch();
+                        $scope.provincias = $scope.ubigeo.departamento.provincias;
+                        console.log($scope.provincias);
                     } else {
                         $scope.provincias = undefined;
                         $scope.distritos = undefined;
