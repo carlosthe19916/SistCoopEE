@@ -153,8 +153,6 @@ public class Country implements Serializable {
 	}
 
 	@Size(min = 0, max = 300)
-	@NotBlank
-	@NotEmpty
 	public String getRemarks() {
 		return remarks;
 	}
@@ -174,8 +172,6 @@ public class Country implements Serializable {
 	}
 
 	@Size(min = 0, max = 300)
-	@NotBlank
-	@NotEmpty
 	public String getTerritoryName() {
 		return territoryName;
 	}

@@ -7,6 +7,7 @@ import javax.ws.rs.core.Response;
 
 import org.softgreen.persona.entity.TipoDocumento;
 import org.softgreen.persona.entity.type.TipoPersona;
+import org.softgreen.persona.restapi.rest.JsonAPI;
 import org.softgreen.persona.restapi.rest.TipoDocumentoREST;
 import org.softgreen.persona.service.MaestroService;
 
@@ -18,7 +19,9 @@ public class TiposDocumentoRESTService implements TipoDocumentoREST {
 	@Override
 	public Response findAll(TipoPersona tipoPersona) {
 		List<TipoDocumento> list = maestroService.getTipoDocumento(tipoPersona);
-		Response response = Response.status(Response.Status.OK).entity(list).build();
+		JsonAPI api = new JsonAPI();
+		api.setData(list);
+		Response response = Response.status(Response.Status.OK).entity(api).build();
 		return response;
 	}
 

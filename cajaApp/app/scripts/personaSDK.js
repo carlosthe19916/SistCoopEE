@@ -12,11 +12,17 @@ module.service('personaConfig', function(){
 });
 
 module.factory('EstadoCivil', function(restmod, personaConfig) {
-    return restmod.model(personaConfig.urlPrefix + '/estadosCiviles');
+    return restmod.model(personaConfig.urlPrefix + '/estadosCiviles').$mix({
+        NAME: 'data',
+        PLURAL: 'data'
+    });
 });
 
 module.factory('Sexo', function(restmod, personaConfig) {
-    return restmod.model(personaConfig.urlPrefix + '/sexos');
+    return restmod.model(personaConfig.urlPrefix + '/sexos').$mix({
+        NAME: 'data',
+        PLURAL: 'data'
+    });
 });
 
 module.factory('TipoPersona', function(restmod, personaConfig) {
@@ -60,6 +66,8 @@ module.factory('PersonaNatural', function(restmod, personaConfig) {
 
 module.factory('TipoDocumento', function(restmod, personaConfig) {
     return restmod.model(personaConfig.urlPrefix + '/tiposDocumento').$mix({
+        NAME: 'data',
+        PLURAL: 'data',
 
         abreviatura: {init: undefined},
         denominacion: {init: undefined},

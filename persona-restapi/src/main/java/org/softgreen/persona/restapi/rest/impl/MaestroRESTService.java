@@ -26,6 +26,7 @@ import org.softgreen.persona.entity.type.EstadoCivil;
 import org.softgreen.persona.entity.type.Sexo;
 import org.softgreen.persona.entity.type.TipoEmpresa;
 import org.softgreen.persona.entity.type.TipoPersona;
+import org.softgreen.persona.restapi.rest.JsonAPI;
 import org.softgreen.persona.restapi.rest.MaestroREST;
 import org.softgreen.persona.service.MaestroService;
 
@@ -42,7 +43,9 @@ public class MaestroRESTService implements MaestroREST {
 		for (int i = 0; i < s.length; i++) {
 			list.add(s[i]);
 		}
-		response = Response.status(Response.Status.OK).entity(list).build();
+		JsonAPI api = new JsonAPI();
+		api.setData(list);
+		response = Response.status(Response.Status.OK).entity(api).build();
 		return response;
 	}
 
@@ -54,7 +57,9 @@ public class MaestroRESTService implements MaestroREST {
 		for (int i = 0; i < e.length; i++) {
 			list.add(e[i]);
 		}
-		response = Response.status(Response.Status.OK).entity(list).build();
+		JsonAPI api = new JsonAPI();
+		api.setData(list);
+		response = Response.status(Response.Status.OK).entity(api).build();
 		return response;
 	}
 
@@ -66,7 +71,9 @@ public class MaestroRESTService implements MaestroREST {
 		for (int i = 0; i < s.length; i++) {
 			list.add(s[i]);
 		}
-		response = Response.status(Response.Status.OK).entity(list).build();
+		JsonAPI api = new JsonAPI();
+		api.setData(list);
+		response = Response.status(Response.Status.OK).entity(api).build();
 		return response;
 	}
 
@@ -78,7 +85,9 @@ public class MaestroRESTService implements MaestroREST {
 		for (int i = 0; i < s.length; i++) {
 			list.add(s[i]);
 		}
-		response = Response.status(Response.Status.OK).entity(list).build();
+		JsonAPI api = new JsonAPI();
+		api.setData(list);
+		response = Response.status(Response.Status.OK).entity(api).build();
 		return response;
 	}
 

@@ -8,6 +8,7 @@ import javax.ws.rs.core.Response.Status;
 
 import org.softgreen.ubigeo.entity.Country;
 import org.softgreen.ubigeo.restapi.rest.CountryREST;
+import org.softgreen.ubigeo.restapi.rest.JsonAPI;
 import org.softgreen.ubigeo.service.CountryService;
 
 public class CountryRESTService implements CountryREST {
@@ -17,8 +18,10 @@ public class CountryRESTService implements CountryREST {
 
 	@Override
 	public Response listAllMembers() {
-		List<Country> list = countryService.findAll();
-		Response response = Response.status(Status.OK).entity(list).build();
+		List<Country> list = countryService.findAll();	
+		JsonAPI api = new JsonAPI();
+		api.setData(list);
+		Response response = Response.status(Status.OK).entity(api).build();
 		return response;
 	}
 
