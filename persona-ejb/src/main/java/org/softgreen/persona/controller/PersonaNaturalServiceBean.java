@@ -39,6 +39,9 @@ public class PersonaNaturalServiceBean implements PersonaNaturalService {
 	private DAO<Long, PersonaNatural> personaNaturalDAO;
 
 	@Inject
+	private DAO<String, TipoDocumento> tipoDocumentoDAO;
+	
+	@Inject
 	private Validator validator;
 
 	@Override
@@ -121,18 +124,25 @@ public class PersonaNaturalServiceBean implements PersonaNaturalService {
 		return personaNaturalDAO.count();
 	}
 
-	public Long create(PersonaNatural personanatural) throws PreexistingEntityException {
+	public Long create(PersonaNatural personanatural) throws PreexistingEntityException, RollbackFailureException {
 		Set<ConstraintViolation<PersonaNatural>> violations = validator.validate(personanatural);
 		if (!violations.isEmpty()) {
 			throw new ConstraintViolationException(new HashSet<ConstraintViolation<?>>(violations));
 		}
-		TipoDocumento tipoDocumento = personanatural.getTipoDocumento();
+		String tipoDocumentoId = personanatural.getTipoDocumento().getAbreviatura();
+		TipoDocumento tipoDocumento = tipoDocumentoDAO.find(tipoDocumentoId);
+		if(tipoDocumento == null)
+			throw new RollbackFailureException("Tipo documento no encontrado");
+				
 		String numeroDocumento = personanatural.getNumeroDocumento();
 		PersonaNatural obj = find(tipoDocumento.getAbreviatura(), numeroDocumento);
-		if (obj == null)
+		if (obj == null){
+			personanatural.setTipoDocumento(tipoDocumento);
 			personaNaturalDAO.create(personanatural);
-		else
-			throw new PreexistingEntityException("La persona con el Tipo y Numero de documento ya existe");
+		}			
+		else {
+			throw new PreexistingEntityException("La persona con el Tipo y Numero de documento ya existe");	
+		}			
 		return personanatural.getId();
 	}
 

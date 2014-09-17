@@ -1,5 +1,6 @@
 package org.softgreen.persona.entity;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 import javax.persistence.FetchType;
@@ -17,8 +18,13 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @MappedSuperclass
-public abstract class Persona {
+public abstract class Persona implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private TipoDocumento tipoDocumento;
 	private String numeroDocumento;
 
