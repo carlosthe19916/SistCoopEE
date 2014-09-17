@@ -5,8 +5,8 @@ define(['../../module'], function (controllers) {
 
             $scope.combo = {
                 pais: Country.$search(),
-                sexo: Sexo.$search(),
-                estadoCivil: EstadoCivil.$search()
+                sexo: ['MASCULINO','FEMENINO'],
+                estadoCivil: ['SOLTERO', 'CASADO', 'DIVORCIADO', 'VIUDO']
             };
 
             $scope.view = {

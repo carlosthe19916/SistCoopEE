@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -33,13 +34,14 @@ public class JsonAPI implements Serializable {
 	public JsonAPI() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	public static JsonAPI getSuccess(Object object){
+
+	public static JsonAPI getSuccess(Object object) {
 		JsonAPI jsonAPI = new JsonAPI();
 		jsonAPI.setData(object);
 		return jsonAPI;
 	}
 
+	@XmlElement
 	public String getApi_version() {
 		return api_version;
 	}
@@ -48,6 +50,7 @@ public class JsonAPI implements Serializable {
 		this.api_version = api_version;
 	}
 
+	@XmlElement
 	public Object getData() {
 		return data;
 	}
@@ -57,6 +60,7 @@ public class JsonAPI implements Serializable {
 	}
 
 	@SuppressWarnings("rawtypes")
+	@XmlElement
 	public List getMessages() {
 		return messages;
 	}
@@ -66,6 +70,7 @@ public class JsonAPI implements Serializable {
 		this.messages = messages;
 	}
 
+	@XmlElement
 	public Object getMeta() {
 		return meta;
 	}
@@ -75,6 +80,7 @@ public class JsonAPI implements Serializable {
 	}
 
 	@SuppressWarnings("rawtypes")
+	@XmlElement
 	public List getLinks() {
 		return links;
 	}
@@ -85,6 +91,7 @@ public class JsonAPI implements Serializable {
 	}
 
 	@SuppressWarnings("rawtypes")
+	@XmlElement
 	public List getLinked() {
 		return linked;
 	}

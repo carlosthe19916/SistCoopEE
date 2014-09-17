@@ -9,9 +9,11 @@ module.config(function(restmodProvider) {
         // or use setProperty('urlPrefix', '/api/v1') in a definition function
         URL_PREFIX: 'http://localhost:8080/ubigeo-restapi/rest/v1'
     });*/
-   /* restmodProvider.rebase({
-        PACKER: 'default'
-    });*/
+    restmodProvider.rebase({
+        PACKER: 'default',
+        NAME: 'data',
+        PLURAL: 'data'
+    });
 });
 
 module.service('ubigeoConfig', function(){
@@ -20,9 +22,6 @@ module.service('ubigeoConfig', function(){
 
 module.factory('Country', function(restmod, ubigeoConfig) {
     return restmod.model(ubigeoConfig.urlPrefix + '/countries').$mix({
-        NAME: 'data',
-        PLURAL: 'data',
-
         alpha2Code: {init: undefined},
         shortName: {init: undefined},
         shortNameLowerCase: {init: undefined},
@@ -56,9 +55,6 @@ module.factory('Denomination', function(restmod, ubigeoConfig) {
 
 module.factory('Departamento', function(restmod, ubigeoConfig) {
     return restmod.model(ubigeoConfig.urlPrefix +'/departamentos').$mix({
-        NAME: 'data',
-        PLURAL: 'data',
-
         codigo: {init: undefined},
         denominacion: {init: undefined},
         provincias: { hasMany: 'Provincia'}
@@ -67,9 +63,6 @@ module.factory('Departamento', function(restmod, ubigeoConfig) {
 
 module.factory('Provincia', function(restmod, ubigeoConfig) {
     return restmod.model(ubigeoConfig.urlPrefix +'/provincias').$mix({
-        NAME: 'data',
-        PLURAL: 'data',
-
         codigo: {init: undefined},
         denominacion: {init: undefined},
         departamento: { hasOne: 'Departamento' },
@@ -79,9 +72,6 @@ module.factory('Provincia', function(restmod, ubigeoConfig) {
 
 module.factory('Distrito', function(restmod, ubigeoConfig) {
     return restmod.model(ubigeoConfig.urlPrefix +'/distritos').$mix({
-        NAME: 'data',
-        PLURAL: 'data',
-
         codigo: {init: undefined},
         denominacion: {init: undefined},
         provincia: { hasOne: 'Provincia' }

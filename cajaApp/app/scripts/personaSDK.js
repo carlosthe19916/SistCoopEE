@@ -4,7 +4,12 @@
 var module = angular.module('personaSDK', ['restmod']);
 
 module.config(function(restmodProvider) {
-
+    restmodProvider.rebase('AMSApi');
+    restmodProvider.rebase({
+        PACKER: 'default',
+        NAME: 'data',
+        PLURAL: 'data'
+    });
 });
 
 module.service('personaConfig', function(){
@@ -13,15 +18,13 @@ module.service('personaConfig', function(){
 
 module.factory('EstadoCivil', function(restmod, personaConfig) {
     return restmod.model(personaConfig.urlPrefix + '/estadosCiviles').$mix({
-        NAME: 'data',
-        PLURAL: 'data'
+
     });
 });
 
 module.factory('Sexo', function(restmod, personaConfig) {
     return restmod.model(personaConfig.urlPrefix + '/sexos').$mix({
-        NAME: 'data',
-        PLURAL: 'data'
+
     });
 });
 
