@@ -18,10 +18,8 @@ public class CountryRESTService implements CountryREST {
 
 	@Override
 	public Response listAllMembers() {
-		List<Country> list = countryService.findAll();	
-		JsonAPI api = new JsonAPI();
-		api.setData(list);
-		Response response = Response.status(Status.OK).entity(api).build();
+		List<Country> list = countryService.findAll();		
+		Response response = Response.status(Status.OK).entity(JsonAPI.getSuccess(list)).build();
 		return response;
 	}
 
