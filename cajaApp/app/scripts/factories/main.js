@@ -1,0 +1,6 @@
+define([
+    'angular',
+    './spinnerInterceptor'
+], function () {
+
+});

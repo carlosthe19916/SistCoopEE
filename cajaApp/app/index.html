@@ -10,17 +10,6 @@
     <!-- bower:css -->
 
     <script src="js/keycloak.js"></script>
-    <script>
-        var keycloak = Keycloak('keycloak.json');
-        keycloak.init({ onLoad: 'login-required' }).success(function(authenticated) {
-            if(authenticated)
-                console.log("authenticated");
-            else
-                console.log("unauthenticate");
-        }).error(function() {
-            alert('failed to initialize');
-        });
-    </script>
 
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="bower_components/todc-bootstrap/dist/css/bootstrap.css">

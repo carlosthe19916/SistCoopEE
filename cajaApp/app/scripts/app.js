@@ -3,6 +3,7 @@ define([
         'angular',
         './controllers/main',
         './directives/main',
+        './factories/main',
         './filters/main',
         './services/main'
     ]/*deps*/,
@@ -12,6 +13,7 @@ define([
         return angular.module('cajaApp', [
             'cajaApp.controllers',
             'cajaApp.directives',
+            'cajaApp.factories',
             'cajaApp.filters',
             'cajaApp.services',
 

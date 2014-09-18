@@ -88,6 +88,18 @@ require.config({
 //http://code.angularjs.org/1.2.1/docs/guide/bootstrap#overview_deferred-bootstrap
 window.name = 'NG_DEFER_BOOTSTRAP!';
 
+var consoleBaseUrl = window.location.href;
+consoleBaseUrl = consoleBaseUrl.substring(0, consoleBaseUrl.indexOf("/console"));
+consoleBaseUrl = consoleBaseUrl + "/console";
+var configUrl = consoleBaseUrl + "/config";
+
+var auth = {};
+var authUrl = window.location.href.substring(0, window.location.href.indexOf('/admin/'));
+
+//var module = angular.module('keycloak', [ 'keycloak.services', 'keycloak.loaders' ]);
+var resourceRequests = 0;
+var loadingTimer = -1;
+
 require([
     'angular',
     'app',
@@ -111,8 +123,28 @@ require([
 ], function(angular, app) {
     'use strict';
     /* jshint ignore:start */
+
+    angular.element(document).ready(function ($http) {
+        var keycloakAuth = new Keycloak('keycloak.json');
+
+        keycloakAuth.onAuthLogout = function() {
+            location.reload();
+        };
+
+        keycloakAuth.init({ onLoad: 'login-required' }).success(function () {
+            auth.authz = keycloakAuth;
+            module.factory('Auth', function() {
+                return auth;
+            });
+            angular.bootstrap(document, [app.name]);
+        }).error(function () {
+            window.location.reload();
+        });
+    });
+
     var $html = angular.element(document.getElementsByTagName('html')[0]);
     /* jshint ignore:end */
+
     angular.element().ready(function() {
         angular.resumeBootstrap([app.name]);
     });

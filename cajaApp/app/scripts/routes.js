@@ -1,6 +1,8 @@
 define(['./app'], function(app) {
     'use strict';
-    return app.config(function ($stateProvider, $urlRouterProvider) {
+    return app.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
+
+        $httpProvider.responseInterceptors.push('errorInterceptor');
 
         $urlRouterProvider.otherwise('/home');
 
