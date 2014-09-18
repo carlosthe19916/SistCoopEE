@@ -16,7 +16,7 @@ angular.element(document).ready(function ($http) {
     var keycloakAuth = new Keycloak(configUrl);
 
     keycloakAuth.onAuthLogout = function() {
-        location.reload();
+        //location.reload();
     };
 
     keycloakAuth.init({ onLoad: 'login-required' }).success(function () {
