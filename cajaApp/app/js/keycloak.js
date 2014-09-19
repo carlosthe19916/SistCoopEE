@@ -351,7 +351,7 @@
             var configUrl;
 
             if (!config) {
-                configUrl = 'keycloak.json';
+                configUrl = 'config';
             } else if (typeof config === 'string') {
                 configUrl = config;
             }
