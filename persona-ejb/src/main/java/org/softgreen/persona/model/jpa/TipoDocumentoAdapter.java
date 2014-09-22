@@ -1,5 +1,7 @@
 package org.softgreen.persona.model.jpa;
 
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 
 import org.softgreen.persona.model.TipoDocumentoModel;
@@ -12,7 +14,7 @@ public class TipoDocumentoAdapter implements TipoDocumentoModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	protected TipoDocumentoEntity tipoDocumentoEntity;
 	protected EntityManager em;
 
@@ -32,8 +34,7 @@ public class TipoDocumentoAdapter implements TipoDocumentoModel {
 
 	@Override
 	public void setAbreviatura(String abreviatura) {
-		// TODO Auto-generated method stub
-
+		tipoDocumentoEntity.setAbreviatura(abreviatura);
 	}
 
 	@Override
@@ -74,6 +75,12 @@ public class TipoDocumentoAdapter implements TipoDocumentoModel {
 	}
 
 	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void commit() {
+		em.merge(tipoDocumentoEntity);
+	}
+
+	@Override
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;
@@ -88,10 +95,4 @@ public class TipoDocumentoAdapter implements TipoDocumentoModel {
 	public int hashCode() {
 		return getAbreviatura().hashCode();
 	}
-
-	@Override
-	public void commit() {
-		em.merge(tipoDocumentoEntity);
-	}
-
 }

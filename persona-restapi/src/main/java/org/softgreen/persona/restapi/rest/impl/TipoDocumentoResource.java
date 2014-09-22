@@ -4,21 +4,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
-import org.softgreen.persona.manager.TipoDocumentoManager;
 import org.softgreen.persona.model.TipoDocumentoModel;
 import org.softgreen.persona.model.type.TipoPersona;
 import org.softgreen.persona.model.util.ModelToRepresentation;
 import org.softgreen.persona.model.util.RepresentationToModel;
 import org.softgreen.persona.provider.TipoDocumentoProvider;
 import org.softgreen.persona.representation.idm.TipoDocumentoRepresentation;
-import org.softgreen.persona.restapi.rest.TipoDocumentoREST;
 
-public class TipoDocumentoRESTService implements TipoDocumentoREST {
+@Path("/tiposDocumento")
+public class TipoDocumentoResource {
 
 	@EJB
 	protected TipoDocumentoProvider tipoDocumentoProvider;
@@ -26,8 +32,18 @@ public class TipoDocumentoRESTService implements TipoDocumentoREST {
 	@Context
 	protected UriInfo uriInfo;
 
-	@Override
-	public Response findAll(String tipoPersona) {
+	@GET
+	@Path("/{id}")
+	@Produces({ "application/xml", "application/json" })
+	public Response findById(@PathParam("id") String id) {
+		TipoDocumentoModel tipoDocumentoModel = tipoDocumentoProvider.getTipoDocumentoByAbreviatura(id);
+		TipoDocumentoRepresentation tipoDocumentoRepresentation = ModelToRepresentation.toRepresentation(tipoDocumentoModel);
+		return Response.ok().entity(tipoDocumentoRepresentation).build();
+	}
+
+	@GET
+	@Produces({ "application/xml", "application/json" })
+	public Response findAll(@QueryParam("tipoPersona") String tipoPersona) {
 		List<TipoDocumentoModel> list = null;
 		if (tipoPersona != null) {
 			TipoPersona personType = TipoPersona.valueOf(tipoPersona);
@@ -44,24 +60,20 @@ public class TipoDocumentoRESTService implements TipoDocumentoREST {
 		for (TipoDocumentoModel model : list) {
 			result.add(ModelToRepresentation.toRepresentation(model));
 		}
-		return Response.ok(result).build();
+		return Response.ok().entity(result).build();
 	}
 
-	@Override
-	public Response findById(String id) {
-		TipoDocumentoModel tipoDocumentoModel = tipoDocumentoProvider.getTipoDocumentoByAbreviatura(id);
-		TipoDocumentoRepresentation tipoDocumentoRepresentation = ModelToRepresentation.toRepresentation(tipoDocumentoModel);
-		return Response.ok().entity(tipoDocumentoRepresentation).build();
-	}
-
-	@Override
+	@POST
+	@Produces({ "application/xml", "application/json" })
 	public Response create(TipoDocumentoRepresentation tipoDocumentoRepresentation) {
-		TipoDocumentoModel tipoDocumentoModel = RepresentationToModel.createTipoDocumento(tipoDocumentoRepresentation);
+		TipoDocumentoModel tipoDocumentoModel = RepresentationToModel.createTipoDocumento(tipoDocumentoRepresentation, tipoDocumentoProvider);
 		return Response.created(uriInfo.getAbsolutePathBuilder().path(tipoDocumentoModel.getAbreviatura()).build()).build();
 	}
 
-	@Override
-	public Response update(String id, TipoDocumentoRepresentation tipoDocumentoRepresentation) {
+	@GET
+	@Path("/{id}")
+	@Produces({ "application/xml", "application/json" })
+	public Response update(@PathParam("id") String id, TipoDocumentoRepresentation tipoDocumentoRepresentation) {
 		TipoDocumentoModel tipoDocumentoModel = tipoDocumentoProvider.getTipoDocumentoByAbreviatura(id);
 		tipoDocumentoModel.setDenominacion(tipoDocumentoRepresentation.getDenominacion());
 		tipoDocumentoModel.setTipoPersona(TipoPersona.valueOf(tipoDocumentoRepresentation.getTipoPersona().toUpperCase()));
@@ -70,8 +82,10 @@ public class TipoDocumentoRESTService implements TipoDocumentoREST {
 		return Response.noContent().build();
 	}
 
-	@Override
-	public Response delete(String id) {
+	@DELETE
+	@Path("/{id}")
+	@Produces({ "application/xml", "application/json" })
+	public Response delete(@PathParam("id") String id) {
 		TipoDocumentoModel tipoDocumentoModel = tipoDocumentoProvider.getTipoDocumentoByAbreviatura(id);
 		if (tipoDocumentoModel != null) {
 			boolean removed = tipoDocumentoProvider.removeTipoDocumento(tipoDocumentoModel);
@@ -83,5 +97,4 @@ public class TipoDocumentoRESTService implements TipoDocumentoREST {
 			return Response.status(Status.NOT_FOUND).build();
 		}
 	}
-
 }

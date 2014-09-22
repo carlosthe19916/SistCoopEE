@@ -16,6 +16,8 @@ import org.softgreen.persona.representation.idm.TipoDocumentoRepresentation;
 public class ModelToRepresentation {
 
 	public static TipoDocumentoRepresentation toRepresentation(TipoDocumentoModel model) {
+		if(model == null)
+			return null;
 		TipoDocumentoRepresentation rep = new TipoDocumentoRepresentation();
 		rep.setAbreviatura(model.getAbreviatura());
 		rep.setDenominacion(model.getDenominacion());
