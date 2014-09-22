@@ -5,6 +5,8 @@ import org.softgreen.persona.model.type.TipoPersona;
 public interface TipoDocumentoModel extends Model {
 
 	String getAbreviatura();
+	
+	void setAbreviatura(String abreviatura);
 
 	String getDenominacion();
 

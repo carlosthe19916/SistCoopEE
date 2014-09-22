@@ -16,4 +16,8 @@ public interface TipoDocumentoProvider extends Provider {
 
 	List<TipoDocumentoModel> getTiposDocumento(TipoPersona tipoPersona);
 
+	TipoDocumentoModel addTipoDocumento(String abreviatura, String denominacion, int maxLength, TipoPersona tipoPersona);
+
+	boolean removeTipoDocumento(TipoDocumentoModel tipoDocumentoModel);
+
 }

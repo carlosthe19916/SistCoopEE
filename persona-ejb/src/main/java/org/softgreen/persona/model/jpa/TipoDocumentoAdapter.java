@@ -8,6 +8,11 @@ import org.softgreen.persona.model.type.TipoPersona;
 
 public class TipoDocumentoAdapter implements TipoDocumentoModel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	protected TipoDocumentoEntity tipoDocumentoEntity;
 	protected EntityManager em;
 
@@ -16,9 +21,19 @@ public class TipoDocumentoAdapter implements TipoDocumentoModel {
 		this.tipoDocumentoEntity = tipoDocumentoEntity;
 	}
 
+	public TipoDocumentoEntity getTipoDocumentEntity() {
+		return tipoDocumentoEntity;
+	}
+
 	@Override
 	public String getAbreviatura() {
 		return tipoDocumentoEntity.getAbreviatura();
+	}
+
+	@Override
+	public void setAbreviatura(String abreviatura) {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
@@ -49,6 +64,13 @@ public class TipoDocumentoAdapter implements TipoDocumentoModel {
 	@Override
 	public void setTipoPersona(TipoPersona tipoPersona) {
 		tipoDocumentoEntity.setTipoPersona(tipoPersona);
+	}
+
+	public static TipoDocumentoEntity toTipoDocumentoEntity(TipoDocumentoModel model, EntityManager em) {
+		if (model instanceof TipoDocumentoAdapter) {
+			return ((TipoDocumentoAdapter) model).getTipoDocumentEntity();
+		}
+		return em.getReference(TipoDocumentoEntity.class, model.getAbreviatura());
 	}
 
 	@Override

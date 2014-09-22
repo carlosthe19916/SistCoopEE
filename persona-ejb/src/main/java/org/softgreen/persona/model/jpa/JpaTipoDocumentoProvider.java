@@ -7,7 +7,6 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,14 +25,6 @@ public class JpaTipoDocumentoProvider implements TipoDocumentoProvider {
 
 	@PersistenceContext
 	protected EntityManager em;
-
-	public JpaTipoDocumentoProvider() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public JpaTipoDocumentoProvider(EntityManager em) {
-		this.em = em;
-	}
 
 	@Override
 	public TipoDocumentoModel getTipoDocumentoByAbreviatura(String abreviatura) {
@@ -66,6 +57,24 @@ public class JpaTipoDocumentoProvider implements TipoDocumentoProvider {
 			results.add(new TipoDocumentoAdapter(em, entity));
 		}
 		return results;
+	}
+
+	@Override
+	public TipoDocumentoModel addTipoDocumento(String abreviatura, String denominacion, int maxLength, TipoPersona tipoPersona) {
+		TipoDocumentoEntity tipoDocumentoEntity = new TipoDocumentoEntity();
+		tipoDocumentoEntity.setAbreviatura(abreviatura);
+		tipoDocumentoEntity.setDenominacion(denominacion);
+		tipoDocumentoEntity.setCantidadCaracteres(maxLength);
+		tipoDocumentoEntity.setTipoPersona(tipoPersona);
+		em.persist(tipoDocumentoEntity);
+		return new TipoDocumentoAdapter(em, tipoDocumentoEntity);
+	}
+
+	@Override
+	public boolean removeTipoDocumento(TipoDocumentoModel tipoDocumentoModel) {
+		TipoDocumentoEntity tipoDocumentoEntity = TipoDocumentoAdapter.toTipoDocumentoEntity(tipoDocumentoModel, em);
+		em.remove(tipoDocumentoEntity);
+		return true;
 	}
 
 }
