@@ -1,164 +1,85 @@
 package org.softgreen.persona.restapi.rest.impl;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.ejb.EJB;
-import javax.inject.Inject;
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
-import javax.validation.Validator;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.UriInfo;
 
-import org.softgreen.persona.entity.PersonaNatural;
-import org.softgreen.persona.entity.TipoDocumento;
-import org.softgreen.persona.entity.type.TipoPersona;
-import org.softgreen.persona.exception.NonexistentEntityException;
-import org.softgreen.persona.exception.PreexistingEntityException;
-import org.softgreen.persona.exception.RollbackFailureException;
-import org.softgreen.persona.restapi.rest.Jsend;
+import org.jboss.logging.Logger;
+import org.softgreen.persona.model.PersonaNaturalModel;
+import org.softgreen.persona.model.TipoDocumentoModel;
+import org.softgreen.persona.model.util.ModelToRepresentation;
+import org.softgreen.persona.model.util.RepresentationToModel;
+import org.softgreen.persona.provider.PersonaNaturalProvider;
+import org.softgreen.persona.representation.idm.PersonaNaturalRepresentation;
 import org.softgreen.persona.restapi.rest.PersonaNaturalREST;
-import org.softgreen.persona.service.MaestroService;
-import org.softgreen.persona.service.PersonaNaturalService;
 
-public class PersonaNaturalRESTService implements PersonaNaturalREST {	
-
-	@Inject
-	private Validator validator;
+public class PersonaNaturalRESTService implements PersonaNaturalREST {
 
 	@EJB
-	private PersonaNaturalService personaNaturalService;
+	protected PersonaNaturalProvider personaNaturalProvider;
+	protected static final Logger logger = Logger.getLogger(PersonaNaturalRESTService.class);
 
-	@EJB
-	private MaestroService maestroService;
+	protected PersonaNaturalModel personaNaturalModel;
 
-	@Override
-	public Response getTipoDocumentoPersonaNatural() {
-		Response response;
-		List<TipoDocumento> list = maestroService.getTipoDocumento(TipoPersona.NATURAL);
-		response = Response.status(Response.Status.OK).entity(list).build();
-		return response;
-	}
-
+	@Context
+    protected UriInfo uriInfo;
+	
 	@Override
 	public Response findById(Long id) {
-		PersonaNatural personaNatural = personaNaturalService.findById(id);
-		Response response = Response.status(Response.Status.OK).entity(personaNatural).build();
-		return response;
+		PersonaNaturalModel personaNaturalModel = personaNaturalProvider.getPersonaNaturalById(id);
+		PersonaNaturalRepresentation rep = ModelToRepresentation.toRepresentation(personaNaturalModel);		
+		return Response.ok(rep).build();				
 	}
 
 	@Override
-	public Response findByTipoNumeroDocumento(String tipoDocumento, String numeroDocumento) {
-		PersonaNatural personaNatural = personaNaturalService.find(tipoDocumento, numeroDocumento);
-		Response response = Response.status(Response.Status.OK).entity(personaNatural).build();
-		return response;
+	public Response findByTipoNumeroDocumento(String tipoDocumento,
+			String numeroDocumento) {
+		
+		//PersonaNaturalModel personaNaturalModel = personaNaturalProvider.getPersonaNaturalByTipoNumeroDoc(tipoDocumento, numeroDocumento);
+		PersonaNaturalRepresentation rep = ModelToRepresentation.toRepresentation(personaNaturalModel);		
+		return Response.ok(rep).build();
 	}
 
 	@Override
 	public Response listAll(String filterText, Integer offset, Integer limit) {
-		List<PersonaNatural> list = personaNaturalService.findAll(filterText, offset, limit);
-		Response response = Response.status(Response.Status.OK).entity(list).build();
-		return response;
+		List<PersonaNaturalRepresentation> results = new ArrayList<PersonaNaturalRepresentation>();
+        List<PersonaNaturalModel> userModels;
+        userModels = personaNaturalProvider.getPersonasNaturales();
+        for (PersonaNaturalModel personaNaturalModel : userModels) {
+        	results.add(ModelToRepresentation.toRepresentation(personaNaturalModel));
+		}
+        return Response.ok(results).build();
 	}
 
 	@Override
 	public Response countAll() {
-		int count = personaNaturalService.count();
-		Response response = Response.status(Response.Status.OK).entity(count).build();
-		return response;
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public Response update(Long id, PersonaNatural personaNatural) {
-		Response response;
-		try {
-			Set<ConstraintViolation<PersonaNatural>> violations = validator.validate(personaNatural);
-			if (!violations.isEmpty()) {
-				throw new ConstraintViolationException(new HashSet<ConstraintViolation<?>>(violations));
-			}
-			personaNatural.setId(null);
-			personaNaturalService.update(id, personaNatural);
-			response = Response.status(Response.Status.NO_CONTENT).build();
-		} catch (ConstraintViolationException e) {
-			Jsend jsend = Jsend.getErrorJSend("datos invalidos");
-			for (ConstraintViolation<?> violation : e.getConstraintViolations()) {
-				jsend.addMessage(violation.getPropertyPath().toString() + " " + violation.getMessage());
-			}
-			response = Response.status(Response.Status.BAD_REQUEST).entity(jsend).build();
-		} catch (NonexistentEntityException e) {
-			Jsend jsend = Jsend.getErrorJSend(e.getMessage());
-			response = Response.status(Response.Status.NOT_FOUND).entity(jsend).build();
-		} catch (PreexistingEntityException e) {
-			Jsend jsend = Jsend.getErrorJSend(e.getMessage());
-			response = Response.status(Response.Status.CONFLICT).entity(jsend).build();
-		} catch (RollbackFailureException e) {
-			Jsend jsend = Jsend.getErrorJSend(e.getMessage());
-			response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsend).build();
-		}
-		return response;
+	public Response update(Long id,
+			PersonaNaturalRepresentation personaNaturalRepresentation) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override
-	public Response create(PersonaNatural personaNatural) {
-		Response response;
-		try {
-			Set<ConstraintViolation<PersonaNatural>> violations = validator.validate(personaNatural);
-			if (!violations.isEmpty()) {
-				throw new ConstraintViolationException(new HashSet<ConstraintViolation<?>>(violations));
-			}
-			PersonaNatural persona = new PersonaNatural();
-			persona.setId(null);
-			persona.setCodigoPais(personaNatural.getCodigoPais());
-			persona.setTipoDocumento(personaNatural.getTipoDocumento());
-			persona.setNumeroDocumento(personaNatural.getNumeroDocumento());
-			persona.setApellidoPaterno(personaNatural.getApellidoPaterno());
-			persona.setApellidoMaterno(personaNatural.getApellidoMaterno());
-			persona.setNombres(personaNatural.getNombres());
-			persona.setFechaNacimiento(personaNatural.getFechaNacimiento());
-			persona.setSexo(personaNatural.getSexo());
-			persona.setEstadoCivil(personaNatural.getEstadoCivil());
-			persona.setOcupacion(personaNatural.getOcupacion());
-			persona.setDireccion(personaNatural.getDireccion());
-			persona.setReferencia(persona.getOcupacion());
-			persona.setUbigeo(personaNatural.getUbigeo());
-			persona.setTelefono(personaNatural.getTelefono());
-			persona.setCelular(personaNatural.getCelular());
-			persona.setEmail(personaNatural.getEmail());
-			
-			Long idPersona = personaNaturalService.create(persona);	
-			response = Response.status(Status.CREATED).entity(Jsend.getSuccessJSend(idPersona)).build();
-		} catch (ConstraintViolationException e) {
-			Jsend jsend = Jsend.getErrorJSend("datos invalidos");
-			for (ConstraintViolation<?> violation : e.getConstraintViolations()) {
-				jsend.addMessage(violation.getPropertyPath().toString() + " " + violation.getMessage());
-			}
-			response = Response.status(Response.Status.BAD_REQUEST).entity(jsend).build();
-		} catch (PreexistingEntityException e) {
-			Jsend jsend = Jsend.getErrorJSend(e.getMessage());
-			response = Response.status(Response.Status.CONFLICT).entity(jsend).build();
-		} catch (RollbackFailureException e) {
-			Jsend jsend = Jsend.getErrorJSend(e.getMessage());
-			response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsend).build();
-		}
-		return response;
+	public Response create(
+			PersonaNaturalRepresentation personaNaturalRepresentation) {
+		PersonaNaturalModel personaNaturalModel = RepresentationToModel.createPersonaNatural(personaNaturalRepresentation);		
+		return Response.created(uriInfo.getAbsolutePathBuilder().path(personaNaturalModel.getId().toString()).build()).build();
 	}
 
 	@Override
-	public Response delete(Long id) {
-		Response response;
-		try {
-			personaNaturalService.delete(id);
-			response = Response.status(Response.Status.NO_CONTENT).build();
-		} catch (NonexistentEntityException e) {
-			Jsend jsend = Jsend.getErrorJSend(e.getMessage());
-			response = Response.status(Response.Status.NOT_FOUND).entity(jsend).build();
-		} catch (RollbackFailureException e) {
-			Jsend jsend = Jsend.getErrorJSend(e.getMessage());
-			response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsend).build();
-		}
-		return response;
+	public Response remove(Long id) {
+		//PersonaNaturalModel personaNaturalModel = personaNaturalProvider.removePersonaNatural(id);
+		
+		return Response.noContent().build();
 	}
 
 }

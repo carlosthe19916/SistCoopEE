@@ -6,11 +6,11 @@
         http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	<persistence-unit name="personaPU">
 		<jta-data-source>java:jboss/datasources/personaDS</jta-data-source>
-		<class>org.softgreen.persona.entity.Accionista</class>
-		<class>org.softgreen.persona.entity.Persona</class>
-		<class>org.softgreen.persona.entity.PersonaNatural</class>
-		<class>org.softgreen.persona.entity.PersonaJuridica</class>
-		<class>org.softgreen.persona.entity.TipoDocumento</class>
+		<class>org.softgreen.persona.model.jpa.entity.TipoDocumentoEntity</class>
+		<class>org.softgreen.persona.model.jpa.entity.PersonaEntity</class>
+		<class>org.softgreen.persona.model.jpa.entity.PersonaNaturalEntity</class>
+		<class>org.softgreen.persona.model.jpa.entity.PersonaJuridicaEntity</class>
+		<class>org.softgreen.persona.model.jpa.entity.AccionistaEntity</class>
 		<properties>
 			<!-- Properties for Hibernate -->
 			<property name="hibernate.hbm2ddl.auto" value="update" />

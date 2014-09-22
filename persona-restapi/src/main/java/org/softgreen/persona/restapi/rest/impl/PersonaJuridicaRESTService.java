@@ -1,103 +1,160 @@
 package org.softgreen.persona.restapi.rest.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
-import javax.ejb.EJBException;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.UriInfo;
 
-import org.softgreen.persona.entity.PersonaJuridica;
-import org.softgreen.persona.entity.TipoDocumento;
-import org.softgreen.persona.entity.type.TipoPersona;
-import org.softgreen.persona.exception.NonexistentEntityException;
-import org.softgreen.persona.exception.PreexistingEntityException;
-import org.softgreen.persona.exception.RollbackFailureException;
-import org.softgreen.persona.restapi.rest.Jsend;
+import org.jboss.logging.Logger;
+import org.softgreen.persona.manager.PersonaJuridicaManager;
+import org.softgreen.persona.model.AccionistaModel;
+import org.softgreen.persona.model.PersonaJuridicaModel;
+import org.softgreen.persona.model.TipoDocumentoModel;
+import org.softgreen.persona.model.util.ModelToRepresentation;
+import org.softgreen.persona.model.util.RepresentationToModel;
+import org.softgreen.persona.provider.PersonaJuridicaProvider;
+import org.softgreen.persona.provider.TipoDocumentoProvider;
+import org.softgreen.persona.representation.idm.AccionistaRepresentation;
+import org.softgreen.persona.representation.idm.PersonaJuridicaRepresentation;
 import org.softgreen.persona.restapi.rest.PersonaJuridicaREST;
-import org.softgreen.persona.service.MaestroService;
-import org.softgreen.persona.service.PersonaJuridicaService;
 
 public class PersonaJuridicaRESTService implements PersonaJuridicaREST {
 
 	@EJB
-	private PersonaJuridicaService personaJuridicaService;
-
+	protected PersonaJuridicaProvider personaJuridicaProvider;	
+	
 	@EJB
-	private MaestroService maestroService;
+	protected TipoDocumentoProvider tipoDocumentoProvider;	
+	
+	@Context
+    protected UriInfo uriInfo;
+
+	protected static final Logger logger = Logger.getLogger(PersonaJuridicaRESTService.class);
 
 	@Override
-	public Response getTipoDocumentoPersonaJuridica() {
-		Response response;
-		List<TipoDocumento> list = maestroService.getTipoDocumento(TipoPersona.JURIDICA);
-		response = Response.status(Response.Status.OK).entity(list).build();
-		return response;
+	public Response findById(Long id) {
+		PersonaJuridicaModel personaJuridicaModel = personaJuridicaProvider.getPersonaJuridicaById(id);
+		PersonaJuridicaRepresentation personaJuridicaRepresentation = ModelToRepresentation.toRepresentation(personaJuridicaModel);
+		return Response.ok(personaJuridicaRepresentation).build();
+	}
+
+	@Override
+	public Response findByTipoNumeroDocumento(String tipoDocumento, String numeroDocumento) {
+		TipoDocumentoModel tipoDocumentoModel = tipoDocumentoProvider.getTipoDocumentoByAbreviatura(tipoDocumento);
+		PersonaJuridicaModel personaJuridicaModel = personaJuridicaProvider.getPersonaJuridicaByTipoNumeroDoc(tipoDocumentoModel, numeroDocumento);
+		PersonaJuridicaRepresentation personaJuridicaRepresentation = ModelToRepresentation.toRepresentation(personaJuridicaModel);
+		return Response.ok(personaJuridicaRepresentation).build();
 	}
 
 	@Override
 	public Response findAll(String filterText, Integer offset, Integer limit) {
-		List<PersonaJuridica> list = personaJuridicaService.findAll(filterText, offset, limit);
-		Response response = Response.status(Response.Status.OK).entity(list).build();
-		return response;
-	}
-
-	@Override
-	public Response findByTipoNumeroDocumento(String idTipoDocumento, String numeroDocumento) {
-		PersonaJuridica personaJuridica = personaJuridicaService.find(idTipoDocumento, numeroDocumento);
-		Response response = Response.status(Response.Status.OK).entity(personaJuridica).build();
-		return response;
-	}
-
-	@Override
-	public Response count() {
-		int count = personaJuridicaService.count();
-		Response response = Response.status(Response.Status.OK).entity(count).build();
-		return response;
-	}
-
-	@Override
-	public Response findById(Long id) {
-		PersonaJuridica personaJuridica = personaJuridicaService.findById(id);
-		Response response = Response.status(Response.Status.OK).entity(personaJuridica).build();
-		return response;
-	}
-
-	@Override
-	public Response create(PersonaJuridica persona) {
-		Response response;
-		try {			
-			Long idPersona = personaJuridicaService.create(persona);					
-			response = Response.status(Status.CREATED).entity(Jsend.getSuccessJSend(idPersona)).build();		
-		} catch (PreexistingEntityException e) {
-			Jsend jsend = Jsend.getErrorJSend(e.getMessage());
-			response = Response.status(Response.Status.CONFLICT).entity(jsend).build();
-		} catch (RollbackFailureException e) {
-			Jsend jsend = Jsend.getErrorJSend(e.getMessage());
-			response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsend).build();
-		} catch (EJBException e) {
-			Jsend jsend = Jsend.getErrorJSend(e.getMessage());
-			response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsend).build();
+		List<PersonaJuridicaModel> list = personaJuridicaProvider.searchForFilterText(filterText, offset, limit);
+		List<PersonaJuridicaRepresentation> result = new ArrayList<PersonaJuridicaRepresentation>();
+		for (PersonaJuridicaModel model : list) {
+			result.add(ModelToRepresentation.toRepresentation(model));
 		}
-		return response;
+		return Response.ok(result).build();
 	}
 
 	@Override
-	public Response update(Long id, PersonaJuridica persona) {
-		Response response;
-		try {			
-			personaJuridicaService.update(id, persona);
-			response = Response.status(Response.Status.NO_CONTENT).build();
-		} catch (NonexistentEntityException e) {
-			Jsend jsend = Jsend.getErrorJSend(e.getMessage());
-			response = Response.status(Response.Status.NOT_FOUND).entity(jsend).build();
-		} catch (PreexistingEntityException e) {
-			Jsend jsend = Jsend.getErrorJSend(e.getMessage());
-			response = Response.status(Response.Status.CONFLICT).entity(jsend).build();
-		} catch (RollbackFailureException e) {
-			Jsend jsend = Jsend.getErrorJSend(e.getMessage());
-			response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(jsend).build();
-		}
-		return response;
+	public Response countAll() {
+		Integer count = personaJuridicaProvider.getPersonasJuridicasCount();
+		return Response.ok(count).build();
 	}
+
+	@Override
+	public Response create(
+			PersonaJuridicaRepresentation personaJuridicaRepresentation) {
+		PersonaJuridicaModel personaJuridicaModel = RepresentationToModel.createPersonaJuridica(personaJuridicaRepresentation);
+		PersonaJuridicaRepresentation result = ModelToRepresentation.toRepresentation(personaJuridicaModel);
+		return Response.created(uriInfo.getAbsolutePathBuilder().path(result.getId().toString()).build()).build();		
+	}
+
+	@Override
+	public Response update(Long id,
+			PersonaJuridicaRepresentation personaJuridicaRepresentation) {
+		PersonaJuridicaModel personaJuridicaModel = personaJuridicaProvider.getPersonaJuridicaById(id);
+		if (personaJuridicaModel == null) {
+            return null;
+        }
+		updatePersonaJuridicaFromRep(personaJuridicaModel, personaJuridicaRepresentation);
+		
+		return Response.noContent().build();
+	}
+
+	@Override
+	public Response remove(Long id) {
+		PersonaJuridicaModel personaJuridicaModel = personaJuridicaProvider.getPersonaJuridicaById(id);
+		if (personaJuridicaModel == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+        }
+		boolean removed = new PersonaJuridicaManager().removePersonaJuridica(personaJuridicaModel);
+		if (removed) {
+            return Response.noContent().build();
+        } else {
+        	return Response.serverError().build();
+        }
+	}
+
+	/**
+	 * ACCIONISTA*/
+	@Override
+	public Response findAccionistaById(Long id, Long idAccionista) {
+		/*PersonaJuridicaModel personaJuridicaModel = personaJuridicaProvider.getPersonaJuridicaById(id);
+		if (personaJuridicaModel == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+        }
+		AccionistaModel accionistaModel = personaJuridicaModel.getAccionista(idAccionista);
+		return Response.ok().entity(accionistaModel).build();*/
+		return null;
+	}
+
+	@Override
+	public Response findAllAccionistas(Long id) {
+		PersonaJuridicaModel personaJuridicaModel = personaJuridicaProvider.getPersonaJuridicaById(id);
+		if (personaJuridicaModel == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+        }
+		List<AccionistaModel> list = personaJuridicaModel.getAccionistas();
+		return Response.ok().entity(list).build();
+	}
+
+	@Override
+	public Response addAccionista(Long id, AccionistaRepresentation accionistaRepresentation) {
+		PersonaJuridicaModel personaJuridicaModel = personaJuridicaProvider.getPersonaJuridicaById(id);
+		if (personaJuridicaModel == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+        }
+		//personaJuridicaModel.addAccionista(accionistaModel)
+		//AccionistaModel accionistaModel = RepresentationToModel.
+		//AccionistaModel accionistaModel = personaJuridicaModel.addAccionista(accionistaModel);
+		return null;
+	}
+
+	@Override
+	public Response updateAccionista(Long id, Long idAccionista, AccionistaRepresentation accionistaRepresentation) {
+		PersonaJuridicaModel personaJuridicaModel = personaJuridicaProvider.getPersonaJuridicaById(id);
+		if (personaJuridicaModel == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+        }
+		
+		return null;
+	}
+
+	@Override
+	public Response removeAccionista(Long id, Long idAccionista) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	private void updatePersonaJuridicaFromRep(PersonaJuridicaModel personaJuridica, PersonaJuridicaRepresentation rep) {
+		//personaJuridica.setActividadPrincipal();
+		//personaJuridica.
+    }
+	
 
 }

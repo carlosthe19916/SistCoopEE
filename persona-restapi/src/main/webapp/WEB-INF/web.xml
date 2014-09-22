@@ -3,10 +3,5 @@
 	version="3.0">
 	<module-name>persona-restapi</module-name>
 
-	<login-config>
-		<auth-method>KEYCLOAK</auth-method>
-		<realm-name>SistemaFinanciero</realm-name>
-	</login-config>
-
 </web-app>
  
