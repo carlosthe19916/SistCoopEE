@@ -3,59 +3,52 @@ package org.softgreen.persona.model.jpa;
 import javax.persistence.EntityManager;
 
 import org.softgreen.persona.model.TipoDocumentoModel;
+import org.softgreen.persona.model.jpa.entity.TipoDocumentoEntity;
 import org.softgreen.persona.model.type.TipoPersona;
 
 public class TipoDocumentoAdapter implements TipoDocumentoModel {
 
-	protected TipoDocumentoModel tipoDocumentoModel;
+	protected TipoDocumentoEntity tipoDocumentoEntity;
 	protected EntityManager em;
 
-	public TipoDocumentoAdapter(EntityManager em,
-			TipoDocumentoModel tipoDocumentoModel) {
+	public TipoDocumentoAdapter(EntityManager em, TipoDocumentoEntity tipoDocumentoEntity) {
 		this.em = em;
-		this.tipoDocumentoModel = tipoDocumentoModel;
+		this.tipoDocumentoEntity = tipoDocumentoEntity;
 	}
 
 	@Override
 	public String getAbreviatura() {
-		// TODO Auto-generated method stub
-		return null;
+		return tipoDocumentoEntity.getAbreviatura();
 	}
 
 	@Override
 	public String getDenominacion() {
-		// TODO Auto-generated method stub
-		return null;
+		return tipoDocumentoEntity.getDenominacion();
 	}
 
 	@Override
 	public void setDenominacion(String denominacion) {
-		// TODO Auto-generated method stub
-
+		tipoDocumentoEntity.setDenominacion(denominacion);
 	}
 
 	@Override
 	public int getCantidadCaracteres() {
-		// TODO Auto-generated method stub
-		return 0;
+		return tipoDocumentoEntity.getCantidadCaracteres();
 	}
 
 	@Override
 	public void setCantidadCaracteres(int cantidadCaracteres) {
-		// TODO Auto-generated method stub
-
+		tipoDocumentoEntity.setCantidadCaracteres(cantidadCaracteres);
 	}
 
 	@Override
 	public TipoPersona getTipoPersona() {
-		// TODO Auto-generated method stub
-		return null;
+		return tipoDocumentoEntity.getTipoPersona();
 	}
 
 	@Override
 	public void setTipoPersona(TipoPersona tipoPersona) {
-		// TODO Auto-generated method stub
-
+		tipoDocumentoEntity.setTipoPersona(tipoPersona);
 	}
 
 	@Override
@@ -76,7 +69,7 @@ public class TipoDocumentoAdapter implements TipoDocumentoModel {
 
 	@Override
 	public void commit() {
-		// TODO Auto-generated method stub
-		
+		em.merge(tipoDocumentoEntity);
 	}
+
 }

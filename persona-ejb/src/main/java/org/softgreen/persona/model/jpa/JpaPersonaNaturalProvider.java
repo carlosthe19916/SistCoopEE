@@ -32,10 +32,8 @@ public class JpaPersonaNaturalProvider implements PersonaNaturalProvider {
 	}
 
 	@Override
-	public PersonaNaturalModel addPersonaNatural(
-			PersonaNaturalModel personaNaturalModel) {
-		PersonaNaturalEntity personaNaturalEntity = PersonaNaturalAdapter
-				.toPersonaNaturalEntity(personaNaturalModel, em);
+	public PersonaNaturalModel addPersonaNatural(PersonaNaturalModel personaNaturalModel) {
+		PersonaNaturalEntity personaNaturalEntity = PersonaNaturalAdapter.toPersonaNaturalEntity(personaNaturalModel, em);
 
 		em.persist(personaNaturalEntity);
 		return personaNaturalModel;
@@ -43,8 +41,7 @@ public class JpaPersonaNaturalProvider implements PersonaNaturalProvider {
 
 	@Override
 	public boolean removePersonaNatural(PersonaNaturalModel personaNatural) {
-		PersonaNaturalEntity personaNaturalEntity = em.find(
-				PersonaNaturalEntity.class, personaNatural.getId());
+		PersonaNaturalEntity personaNaturalEntity = em.find(PersonaNaturalEntity.class, personaNatural.getId());
 		if (personaNaturalEntity == null)
 			return false;
 		removePersonaNatural(personaNaturalEntity);
@@ -57,17 +54,13 @@ public class JpaPersonaNaturalProvider implements PersonaNaturalProvider {
 
 	@Override
 	public PersonaNaturalModel getPersonaNaturalById(Long id) {
-		PersonaNaturalEntity personaNaturalEntity = this.em.find(
-				PersonaNaturalEntity.class, id);
+		PersonaNaturalEntity personaNaturalEntity = this.em.find(PersonaNaturalEntity.class, id);
 		return new PersonaNaturalAdapter(em, personaNaturalEntity);
 	}
 
 	@Override
-	public PersonaNaturalModel getPersonaNaturalByTipoNumeroDoc(
-			TipoDocumentoModel tipoDocumento, String numeroDocumento) {
-		TypedQuery<PersonaNaturalEntity> query = em.createNamedQuery(
-				PersonaNaturalEntity.findByTipoAndNumeroDocumento,
-				PersonaNaturalEntity.class);
+	public PersonaNaturalModel getPersonaNaturalByTipoNumeroDoc(TipoDocumentoModel tipoDocumento, String numeroDocumento) {
+		TypedQuery<PersonaNaturalEntity> query = em.createNamedQuery(PersonaNaturalEntity.findByTipoAndNumeroDocumento, PersonaNaturalEntity.class);
 		query.setParameter("tipoDocumento", tipoDocumento);
 		query.setParameter("numeroDocumento", numeroDocumento);
 		List<PersonaNaturalEntity> results = query.getResultList();
@@ -83,16 +76,13 @@ public class JpaPersonaNaturalProvider implements PersonaNaturalProvider {
 
 	@Override
 	public int getPersonasNaturalesCount() {
-		Object count = em.createNamedQuery(PersonaNaturalEntity.count)
-				.getSingleResult();
+		Object count = em.createNamedQuery(PersonaNaturalEntity.count).getSingleResult();
 		return ((Number) count).intValue();
 	}
 
 	@Override
-	public List<PersonaNaturalModel> getPersonasNaturales(int firstResult,
-			int maxResults) {
-		TypedQuery<PersonaNaturalEntity> query = em.createNamedQuery(
-				PersonaNaturalEntity.findAll, PersonaNaturalEntity.class);
+	public List<PersonaNaturalModel> getPersonasNaturales(int firstResult, int maxResults) {
+		TypedQuery<PersonaNaturalEntity> query = em.createNamedQuery(PersonaNaturalEntity.findAll, PersonaNaturalEntity.class);
 		if (firstResult != -1) {
 			query.setFirstResult(firstResult);
 		}
@@ -107,15 +97,13 @@ public class JpaPersonaNaturalProvider implements PersonaNaturalProvider {
 	}
 
 	@Override
-	public List<PersonaNaturalModel> searchForNumeroDocumento(
-			String numeroDocumento) {
+	public List<PersonaNaturalModel> searchForNumeroDocumento(String numeroDocumento) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<PersonaNaturalModel> searchForNumeroDocumento(
-			String numeroDocumento, int firstResult, int maxResults) {
+	public List<PersonaNaturalModel> searchForNumeroDocumento(String numeroDocumento, int firstResult, int maxResults) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -127,8 +115,7 @@ public class JpaPersonaNaturalProvider implements PersonaNaturalProvider {
 	}
 
 	@Override
-	public List<PersonaNaturalModel> searchForFilterText(String filterText,
-			int firstResult, int maxResults) {
+	public List<PersonaNaturalModel> searchForFilterText(String filterText, int firstResult, int maxResults) {
 		// TODO Auto-generated method stub
 		return null;
 	}

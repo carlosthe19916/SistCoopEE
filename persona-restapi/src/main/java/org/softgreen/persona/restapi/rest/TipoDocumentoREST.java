@@ -11,12 +11,12 @@ import javax.ws.rs.core.Response;
 public interface TipoDocumentoREST {
 
 	@GET
-	@Produces({ "application/xml", "application/json" })
-	public Response findAll(@QueryParam("tipoPersona") String tipoPersona);
-
-	@GET
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
 	public Response findById(@PathParam("id") String id);
+
+	@GET
+	@Produces({ "application/xml", "application/json" })
+	public Response findAll(@QueryParam("tipoPersona") String tipoPersona);
 
 }

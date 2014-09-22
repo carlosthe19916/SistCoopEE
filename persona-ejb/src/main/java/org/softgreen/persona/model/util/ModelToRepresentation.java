@@ -15,24 +15,25 @@ import org.softgreen.persona.representation.idm.TipoDocumentoRepresentation;
  */
 public class ModelToRepresentation {
 
-	public static TipoDocumentoModel toRepresentation(
-			TipoDocumentoRepresentation persona) {
-		return null;
+	public static TipoDocumentoRepresentation toRepresentation(TipoDocumentoModel model) {
+		TipoDocumentoRepresentation rep = new TipoDocumentoRepresentation();
+		rep.setAbreviatura(model.getAbreviatura());
+		rep.setDenominacion(model.getDenominacion());
+		rep.setCantidadCaracteres(model.getCantidadCaracteres());
+		rep.setTipoPersona(model.getTipoPersona().toString().toLowerCase());
+		return rep;
 	}
-	
-	public static PersonaNaturalRepresentation toRepresentation(
-			PersonaNaturalModel persona) {
+
+	public static PersonaNaturalRepresentation toRepresentation(PersonaNaturalModel persona) {
 		PersonaNaturalRepresentation rep = new PersonaNaturalRepresentation();
 		return rep;
 	}
-	
-	public static PersonaJuridicaRepresentation toRepresentation(
-			PersonaJuridicaModel persona) {
+
+	public static PersonaJuridicaRepresentation toRepresentation(PersonaJuridicaModel persona) {
 		return null;
 	}
-	
-	public static AccionistaRepresentation toRepresentation(
-			AccionistaModel persona) {
+
+	public static AccionistaRepresentation toRepresentation(AccionistaModel persona) {
 		return null;
 	}
 

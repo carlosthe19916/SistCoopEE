@@ -24,7 +24,9 @@ import org.softgreen.persona.model.type.TipoPersona;
 @Entity
 @Table(indexes = { @Index(columnList = "abreviatura") })
 @NamedQuery(name = TipoDocumentoEntity.findAll, query = "Select t from TipoDocumentoEntity t")
-@NamedQueries({ @NamedQuery(name = TipoDocumentoEntity.findByTipopersona, query = "SELECT t FROM TipoDocumentoEntity t WHERE t.tipoPersona = :tipoPersona") })
+@NamedQueries({ 
+	@NamedQuery(name = TipoDocumentoEntity.findByAbreviatura, query = "SELECT t FROM TipoDocumentoEntity t WHERE t.abreviatura = :abreviatura "),
+	@NamedQuery(name = TipoDocumentoEntity.findByTipopersona, query = "SELECT t FROM TipoDocumentoEntity t WHERE t.tipoPersona = :tipoPersona") })
 public class TipoDocumentoEntity implements Serializable {
 
 	/**
@@ -34,6 +36,7 @@ public class TipoDocumentoEntity implements Serializable {
 
 	public final static String base = "org.softgreen.ubigeo.entity.TipoDocumento.";
 	public final static String findAll = base + "findAll";
+	public final static String findByAbreviatura = base + "findByAbreviatura";
 	public final static String findByTipopersona = base + "findByTipopersona";
 
 	private String abreviatura;
@@ -112,8 +115,7 @@ public class TipoDocumentoEntity implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((abreviatura == null) ? 0 : abreviatura.hashCode());
+		result = prime * result + ((abreviatura == null) ? 0 : abreviatura.hashCode());
 		return result;
 	}
 

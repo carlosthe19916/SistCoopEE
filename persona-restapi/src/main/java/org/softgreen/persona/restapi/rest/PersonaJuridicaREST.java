@@ -24,15 +24,11 @@ public interface PersonaJuridicaREST {
 	@GET
 	@Path("/buscar")
 	@Produces({ "application/xml", "application/json" })
-	public Response findByTipoNumeroDocumento(
-			@QueryParam("tipoDocumento") String tipoDocumento,
-			@QueryParam("numeroDocumento") String numeroDocumento);
+	public Response findByTipoNumeroDocumento(@QueryParam("tipoDocumento") String tipoDocumento, @QueryParam("numeroDocumento") String numeroDocumento);
 
 	@GET
 	@Produces({ "application/xml", "application/json" })
-	public Response findAll(@QueryParam("filterText") String filterText,
-			@QueryParam("offset") Integer offset,
-			@QueryParam("limit") Integer limit);
+	public Response findAll(@QueryParam("filterText") String filterText, @QueryParam("offset") Integer offset, @QueryParam("limit") Integer limit);
 
 	@GET
 	@Path("/count")
@@ -41,14 +37,12 @@ public interface PersonaJuridicaREST {
 
 	@POST
 	@Produces({ "application/xml", "application/json" })
-	public Response create(
-			PersonaJuridicaRepresentation personaJuridicaRepresentation);
+	public Response create(PersonaJuridicaRepresentation personaJuridicaRepresentation);
 
 	@PUT
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
-	public Response update(@PathParam("id") Long id,
-			PersonaJuridicaRepresentation personaJuridicaRepresentation);
+	public Response update(@PathParam("id") Long id, PersonaJuridicaRepresentation personaJuridicaRepresentation);
 
 	@DELETE
 	@Path("/{id}")
@@ -62,8 +56,7 @@ public interface PersonaJuridicaREST {
 	@GET
 	@Path("/{id}/accionistas/{idAccionista}")
 	@Produces({ "application/xml", "application/json" })
-	public Response findAccionistaById(@PathParam("id") Long id,
-			@PathParam("idAccionista") Long idAccionista);
+	public Response findAccionistaById(@PathParam("id") Long id, @PathParam("idAccionista") Long idAccionista);
 
 	@GET
 	@Path("/{id}/accionistas")
@@ -73,20 +66,16 @@ public interface PersonaJuridicaREST {
 	@POST
 	@Path("/{id}/accionistas")
 	@Produces({ "application/xml", "application/json" })
-	public Response addAccionista(@PathParam("id") Long id,
-			AccionistaRepresentation accionistaRepresentation);
+	public Response addAccionista(@PathParam("id") Long id, AccionistaRepresentation accionistaRepresentation);
 
 	@PUT
 	@Path("/{id}/accionistas/{idAccionista}")
 	@Produces({ "application/xml", "application/json" })
-	public Response updateAccionista(@PathParam("id") Long id,
-			@PathParam("idAccionista") Long idAccionista,
-			AccionistaRepresentation accionistaRepresentation);
+	public Response updateAccionista(@PathParam("id") Long id, @PathParam("idAccionista") Long idAccionista, AccionistaRepresentation accionistaRepresentation);
 
 	@DELETE
 	@Path("/{id}/accionistas/{idAccionista}")
 	@Produces({ "application/xml", "application/json" })
-	public Response removeAccionista(@PathParam("id") Long id,
-			@PathParam("idAccionista") Long idAccionista);
+	public Response removeAccionista(@PathParam("id") Long id, @PathParam("idAccionista") Long idAccionista);
 
 }

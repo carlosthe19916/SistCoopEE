@@ -2,7 +2,7 @@ package org.softgreen.persona.model;
 
 import org.softgreen.persona.model.type.TipoPersona;
 
-public interface TipoDocumentoModel extends Model{
+public interface TipoDocumentoModel extends Model {
 
 	String getAbreviatura();
 
