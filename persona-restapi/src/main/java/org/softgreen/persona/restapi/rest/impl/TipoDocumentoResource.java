@@ -17,6 +17,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
+import org.jboss.resteasy.links.AddLinks;
+import org.jboss.resteasy.links.LinkResource;
 import org.softgreen.persona.model.TipoDocumentoModel;
 import org.softgreen.persona.model.type.TipoPersona;
 import org.softgreen.persona.model.util.ModelToRepresentation;
@@ -33,13 +35,16 @@ public class TipoDocumentoResource {
 	@Context
 	protected UriInfo uriInfo;
 
+	@AddLinks
+	@LinkResource
 	@GET
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
-	public Response findById(@PathParam("id") String id) {
+	public TipoDocumentoRepresentation findById(@PathParam("id") String id) {
 		TipoDocumentoModel model = tipoDocumentoProvider.getTipoDocumentoByAbreviatura(id);
 		TipoDocumentoRepresentation rep = ModelToRepresentation.toRepresentation(model);
-		return Response.ok().entity(rep).build();
+		//return Response.ok().entity(rep).build();
+		return rep;
 	}
 
 	@GET

@@ -4,8 +4,14 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.jboss.resteasy.annotations.providers.jaxb.json.Mapped;
+import org.jboss.resteasy.annotations.providers.jaxb.json.XmlNsMap;
+import org.jboss.resteasy.links.RESTServiceDiscovery;
+
+@Mapped(namespaceMap = @XmlNsMap(jsonName = "atom", namespace = "http://www.w3.org/2005/Atom"))
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class TipoDocumentoRepresentation implements Serializable {
@@ -20,8 +26,10 @@ public class TipoDocumentoRepresentation implements Serializable {
 	private int cantidadCaracteres;
 	private String tipoPersona;
 
+	private RESTServiceDiscovery rest;
+
 	public TipoDocumentoRepresentation() {
-		// TODO Auto-generated constructor stub
+		// TODO Auto-generated constructor stub		
 	}
 
 	public String getAbreviatura() {
@@ -54,6 +62,15 @@ public class TipoDocumentoRepresentation implements Serializable {
 
 	public void setTipoPersona(String tipoPersona) {
 		this.tipoPersona = tipoPersona;
+	}
+
+	@XmlElementRef
+	public RESTServiceDiscovery getRest() {
+		return rest;
+	}
+
+	public void setRest(RESTServiceDiscovery rest) {
+		this.rest = rest;
 	}
 
 }
