@@ -2,6 +2,8 @@ package org.softgreen.persona.model.jpa;
 
 import java.util.Date;
 
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 
 import org.softgreen.persona.model.PersonaNaturalModel;
@@ -12,6 +14,11 @@ import org.softgreen.persona.model.type.Sexo;
 
 public class PersonaNaturalAdapter implements PersonaNaturalModel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	protected PersonaNaturalEntity personaNaturalEntity;
 	protected EntityManager em;
 
@@ -217,6 +224,12 @@ public class PersonaNaturalAdapter implements PersonaNaturalModel {
     }
 	
 	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public void commit() {
+		em.merge(personaNaturalEntity);
+	}
+	
+	@Override
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;
@@ -230,11 +243,5 @@ public class PersonaNaturalAdapter implements PersonaNaturalModel {
 	@Override
 	public int hashCode() {
 		return getId().hashCode();
-	}
-
-	@Override
-	public void commit() {
-		// TODO Auto-generated method stub
-		
 	}
 }

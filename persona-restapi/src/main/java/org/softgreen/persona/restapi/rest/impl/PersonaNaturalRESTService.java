@@ -71,8 +71,9 @@ public class PersonaNaturalRESTService implements PersonaNaturalREST {
 	@Override
 	public Response create(
 			PersonaNaturalRepresentation personaNaturalRepresentation) {
-		PersonaNaturalModel personaNaturalModel = RepresentationToModel.createPersonaNatural(personaNaturalRepresentation);		
-		return Response.created(uriInfo.getAbsolutePathBuilder().path(personaNaturalModel.getId().toString()).build()).build();
+		//PersonaNaturalModel personaNaturalModel = RepresentationToModel.createPersonaNatural(personaNaturalRepresentation);		
+		//return Response.created(uriInfo.getAbsolutePathBuilder().path(personaNaturalModel.getId().toString()).build()).build();
+		return null;
 	}
 
 	@Override

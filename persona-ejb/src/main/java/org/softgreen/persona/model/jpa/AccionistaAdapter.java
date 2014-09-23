@@ -13,6 +13,11 @@ import org.softgreen.persona.model.jpa.entity.PersonaNaturalEntity;
 
 public class AccionistaAdapter implements AccionistaModel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	protected AccionistaEntity accionistaEntity;
 	protected EntityManager em;
 

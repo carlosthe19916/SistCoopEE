@@ -7,6 +7,7 @@ import javax.ejb.EJB;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -36,22 +37,25 @@ public class TipoDocumentoResource {
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
 	public Response findById(@PathParam("id") String id) {
-		TipoDocumentoModel tipoDocumentoModel = tipoDocumentoProvider.getTipoDocumentoByAbreviatura(id);
-		TipoDocumentoRepresentation tipoDocumentoRepresentation = ModelToRepresentation.toRepresentation(tipoDocumentoModel);
-		return Response.ok().entity(tipoDocumentoRepresentation).build();
+		TipoDocumentoModel model = tipoDocumentoProvider.getTipoDocumentoByAbreviatura(id);
+		TipoDocumentoRepresentation rep = ModelToRepresentation.toRepresentation(model);
+		return Response.ok().entity(rep).build();
 	}
 
 	@GET
 	@Produces({ "application/xml", "application/json" })
 	public Response findAll(@QueryParam("tipoPersona") String tipoPersona) {
 		List<TipoDocumentoModel> list = null;
-		if (tipoPersona != null) {
-			TipoPersona personType = TipoPersona.valueOf(tipoPersona);
-			if (personType != null) {
-				list = tipoDocumentoProvider.getTiposDocumento(TipoPersona.valueOf(tipoPersona));
-			} else {
-				list = tipoDocumentoProvider.getTiposDocumento();
-			}
+		TipoPersona type = null;
+		if (tipoPersona != null) {			
+			try{
+				 type = TipoPersona.lookup(tipoPersona);
+			} catch (RuntimeException e){
+				return Response.status(Status.BAD_REQUEST).build();
+			}						
+		} 
+		if (type != null) {
+			list = tipoDocumentoProvider.getTiposDocumento(type);
 		} else {
 			list = tipoDocumentoProvider.getTiposDocumento();
 		}
@@ -70,7 +74,7 @@ public class TipoDocumentoResource {
 		return Response.created(uriInfo.getAbsolutePathBuilder().path(tipoDocumentoModel.getAbreviatura()).build()).build();
 	}
 
-	@GET
+	@PUT
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
 	public Response update(@PathParam("id") String id, TipoDocumentoRepresentation tipoDocumentoRepresentation) {

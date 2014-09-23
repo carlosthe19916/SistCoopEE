@@ -68,9 +68,10 @@ public class PersonaJuridicaRESTService implements PersonaJuridicaREST {
 	@Override
 	public Response create(
 			PersonaJuridicaRepresentation personaJuridicaRepresentation) {
-		PersonaJuridicaModel personaJuridicaModel = RepresentationToModel.createPersonaJuridica(personaJuridicaRepresentation);
-		PersonaJuridicaRepresentation result = ModelToRepresentation.toRepresentation(personaJuridicaModel);
-		return Response.created(uriInfo.getAbsolutePathBuilder().path(result.getId().toString()).build()).build();		
+		//PersonaJuridicaModel personaJuridicaModel = RepresentationToModel.createPersonaJuridica(personaJuridicaRepresentation);
+		//PersonaJuridicaRepresentation result = ModelToRepresentation.toRepresentation(personaJuridicaModel);
+		//return Response.created(uriInfo.getAbsolutePathBuilder().path(result.getId().toString()).build()).build();
+		return null;
 	}
 
 	@Override

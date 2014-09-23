@@ -1,7 +1,9 @@
 package org.softgreen.persona.model.jpa;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 
@@ -9,11 +11,18 @@ import org.softgreen.persona.model.AccionistaModel;
 import org.softgreen.persona.model.PersonaJuridicaModel;
 import org.softgreen.persona.model.PersonaNaturalModel;
 import org.softgreen.persona.model.TipoDocumentoModel;
+import org.softgreen.persona.model.jpa.entity.AccionistaEntity;
 import org.softgreen.persona.model.jpa.entity.PersonaJuridicaEntity;
 import org.softgreen.persona.model.jpa.entity.PersonaNaturalEntity;
+import org.softgreen.persona.model.jpa.entity.TipoDocumentoEntity;
 import org.softgreen.persona.model.type.TipoEmpresa;
 
 public class PersonaJuridicaAdapter implements PersonaJuridicaModel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	protected PersonaJuridicaEntity personaJuridicaEntity;
 	protected EntityManager em;
@@ -23,12 +32,227 @@ public class PersonaJuridicaAdapter implements PersonaJuridicaModel {
 		this.em = em;
 		this.personaJuridicaEntity = personaJuridicaEntity;
 	}
-	
-	public static PersonaJuridicaEntity toPersonaJuridicaEntity(PersonaJuridicaModel personaJuridicaModel, EntityManager em){
+
+	@Override
+	public Long getId() {
+		return personaJuridicaEntity.getId();
+	}
+
+	@Override
+	public PersonaNaturalModel getRepresentanteLegal() {
+		return new PersonaNaturalAdapter(em,
+				personaJuridicaEntity.getRepresentanteLegal());
+	}
+
+	@Override
+	public PersonaNaturalModel setRepresentanteLegal(
+			PersonaNaturalModel representanteLegal) {
+		PersonaNaturalEntity personaNaturalEntity = PersonaNaturalAdapter
+				.toPersonaNaturalEntity(representanteLegal, em);
+		personaJuridicaEntity.setRepresentanteLegal(personaNaturalEntity);
+		em.merge(personaJuridicaEntity);
+		return new PersonaNaturalAdapter(em, personaNaturalEntity);
+	}
+
+	@Override
+	public AccionistaModel addAccionista(AccionistaModel accionistaModel) {
+		AccionistaEntity accionistaEntity = AccionistaAdapter
+				.toAccionistaEntity(accionistaModel, em);
+		accionistaEntity.setPersonaJuridica(personaJuridicaEntity);
+		em.persist(accionistaEntity);
+		return new AccionistaAdapter(em, accionistaEntity);
+	}
+
+	@Override
+	public void updateAccionista(AccionistaModel accionistaModel) {
+		AccionistaEntity accionistaEntity = AccionistaAdapter
+				.toAccionistaEntity(accionistaModel, em);
+		accionistaEntity.setPersonaJuridica(personaJuridicaEntity);
+		em.merge(accionistaEntity);
+	}
+
+	@Override
+	public boolean removeAccionista(AccionistaModel accionistaModel) {
+		AccionistaEntity accionistaEntity = AccionistaAdapter
+				.toAccionistaEntity(accionistaModel, em);
+		accionistaEntity.setPersonaJuridica(personaJuridicaEntity);
+		em.remove(accionistaEntity);
+		return true;
+	}
+
+	@Override
+	public List<AccionistaModel> getAccionistas() {
+		Set<AccionistaEntity> list = personaJuridicaEntity.getAccionistas();
+		List<AccionistaModel> result = new ArrayList<AccionistaModel>();
+		for (AccionistaEntity entity : list) {
+			result.add(new AccionistaAdapter(em, entity));
+		}
+		return result;
+	}
+
+	@Override
+	public String getCodigoPais() {
+		return personaJuridicaEntity.getCodigoPais();
+	}
+
+	@Override
+	public void setCodigoPais(String codigoPais) {
+		personaJuridicaEntity.setCodigoPais(codigoPais);
+	}
+
+	@Override
+	public TipoDocumentoModel getTipoDocumento() {
+		return new TipoDocumentoAdapter(em,
+				personaJuridicaEntity.getTipoDocumento());
+	}
+
+	@Override
+	public void setTipoDocumento(TipoDocumentoModel tipoDocumento) {
+		TipoDocumentoEntity tipoDocumentoEntity = TipoDocumentoAdapter
+				.toTipoDocumentoEntity(tipoDocumento, em);
+		personaJuridicaEntity.setTipoDocumento(tipoDocumentoEntity);
+	}
+
+	@Override
+	public String getNumeroDocumento() {
+		return personaJuridicaEntity.getNumeroDocumento();
+	}
+
+	@Override
+	public void setNumeroDocumento(String numeroDocumento) {
+		personaJuridicaEntity.setNumeroDocumento(numeroDocumento);
+	}
+
+	@Override
+	public String getRazonSocial() {
+		return personaJuridicaEntity.getRazonSocial();
+	}
+
+	@Override
+	public void setRazonSocial(String razonSocial) {
+		personaJuridicaEntity.setRazonSocial(razonSocial);
+	}
+
+	@Override
+	public String getNombreComercial() {
+		return personaJuridicaEntity.getNombreComercial();
+	}
+
+	@Override
+	public void setNombreComercial(String nombreComercial) {
+		personaJuridicaEntity.setNombreComercial(nombreComercial);
+	}
+
+	@Override
+	public Date getFechaConstitucion() {
+		return personaJuridicaEntity.getFechaConstitucion();
+	}
+
+	@Override
+	public void setFechaConstitucion(Date fechaConstitucion) {
+		personaJuridicaEntity.setFechaConstitucion(fechaConstitucion);
+	}
+
+	@Override
+	public String getActividadPrincipal() {
+		return personaJuridicaEntity.getActividadPrincipal();
+	}
+
+	@Override
+	public void setActividadPrincipal(String actividadPrincipal) {
+		personaJuridicaEntity.setActividadPrincipal(actividadPrincipal);
+	}
+
+	@Override
+	public TipoEmpresa getTipoEmpresa() {
+		return personaJuridicaEntity.getTipoEmpresa();
+	}
+
+	@Override
+	public void setTipoEmpresa(TipoEmpresa tipoEmpresa) {
+		personaJuridicaEntity.setTipoEmpresa(tipoEmpresa);
+	}
+
+	@Override
+	public boolean isFinLucro() {
+		return personaJuridicaEntity.isFinLucro();
+	}
+
+	@Override
+	public void setFinLucro(boolean finLucro) {
+		personaJuridicaEntity.setFinLucro(finLucro);
+	}
+
+	@Override
+	public String getUbigeo() {
+		return personaJuridicaEntity.getUbigeo();
+	}
+
+	@Override
+	public void setUbigeo(String ubigeo) {
+		personaJuridicaEntity.setUbigeo(ubigeo);
+	}
+
+	@Override
+	public String getDireccion() {
+		return personaJuridicaEntity.getDireccion();
+	}
+
+	@Override
+	public void setDireccion(String direccion) {
+		personaJuridicaEntity.setDireccion(direccion);
+	}
+
+	@Override
+	public String getReferencia() {
+		return personaJuridicaEntity.getReferencia();
+	}
+
+	@Override
+	public void setReferencia(String referencia) {
+		personaJuridicaEntity.setReferencia(referencia);
+	}
+
+	@Override
+	public String getTelefono() {	
+		return personaJuridicaEntity.getTelefono();
+	}
+
+	@Override
+	public void setTelefono(String telefono) {
+		personaJuridicaEntity.setTelefono(telefono);
+	}
+
+	@Override
+	public String getCelular() {
+		return personaJuridicaEntity.getCelular();
+	}
+
+	@Override
+	public void setCelular(String celular) {
+		personaJuridicaEntity.setCelular(celular);
+	}
+
+	@Override
+	public String getEmail() {
+		return personaJuridicaEntity.getEmail();
+	}
+
+	@Override
+	public void setEmail(String email) {
+		personaJuridicaEntity.setEmail(email);
+	}
+
+	public static PersonaJuridicaEntity toPersonaJuridicaEntity(
+			PersonaJuridicaModel personaJuridicaModel, EntityManager em) {
 		return null;
 	}
 
-	
+	@Override
+	public void commit() {
+		em.merge(personaJuridicaEntity);
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)
@@ -43,272 +267,5 @@ public class PersonaJuridicaAdapter implements PersonaJuridicaModel {
 	@Override
 	public int hashCode() {
 		return getId().hashCode();
-	}
-
-
-	@Override
-	public void commit() {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public Long getId() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public PersonaNaturalModel getRepresentanteLegal() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public PersonaNaturalModel setRepresentanteLegal(
-			PersonaNaturalModel representanteLegal) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public AccionistaModel addAccionista(AccionistaModel accionistaModel) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public void updateAccionista(AccionistaModel accionistaModel) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public boolean removeAccionista(AccionistaModel accionistaModel) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public List<AccionistaModel> getAccionistas() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public String getCodigoPais() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public void setCodigoPais(String codigoPais) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public TipoDocumentoModel getTipoDocumento() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public void setTipoDocumento(TipoDocumentoModel tipoDocumento) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public String getNumeroDocumento() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public void setNumeroDocumento(String numeroDocumento) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public String getRazonSocial() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public void setRazonSocial(String razonSocial) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public String getNombreComercial() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public void setNombreComercial(String nombreComercial) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public Date getFechaConstitucion() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public void setFechaConstitucion(Date fechaConstitucion) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public String getActividadPrincipal() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public void setActividadPrincipal(String actividadPrincipal) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public TipoEmpresa getTipoEmpresa() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public void setTipoEmpresa(TipoEmpresa tipoEmpresa) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public boolean isFinLucro() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-
-	@Override
-	public void setFinLucro(boolean finLucro) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public String getUbigeo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public void setUbigeo(String ubigeo) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public String getDireccion() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public void setDireccion(String direccion) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public String getReferencia() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public void setReferencia(String referencia) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public String getTelefono() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public void setTelefono(String telefono) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public String getCelular() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public void setCelular(String celular) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public String getEmail() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	@Override
-	public void setEmail(String email) {
-		// TODO Auto-generated method stub
-		
 	}
 }

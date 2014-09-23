@@ -8,8 +8,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Index;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.Max;
@@ -17,16 +15,18 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.softgreen.persona.model.type.TipoPersona;
 
 @Entity
 @Table(indexes = { @Index(columnList = "abreviatura") })
-@NamedQueries({ 
-	@NamedQuery(name = TipoDocumentoEntity.findAll, query =  "Select t from TipoDocumentoEntity t"),
-	@NamedQuery(name = TipoDocumentoEntity.findByAbreviatura, query = "SELECT t FROM TipoDocumentoEntity t WHERE t.abreviatura = :abreviatura "),
-	@NamedQuery(name = TipoDocumentoEntity.findByTipopersona, query = "SELECT t FROM TipoDocumentoEntity t WHERE t.tipoPersona = :tipoPersona") })
+@NamedQueries({
+		@NamedQuery(name = TipoDocumentoEntity.findAll, query = "Select t from TipoDocumentoEntity t"),
+		@NamedQuery(name = TipoDocumentoEntity.findByAbreviatura, query = "SELECT t FROM TipoDocumentoEntity t WHERE UPPER(t.abreviatura) = UPPER(:abreviatura)"),
+		@NamedQuery(name = TipoDocumentoEntity.findByTipopersona, query = "SELECT t FROM TipoDocumentoEntity t WHERE t.tipoPersona = :tipoPersona") })
 public class TipoDocumentoEntity implements Serializable {
 
 	/**
@@ -115,7 +115,8 @@ public class TipoDocumentoEntity implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((abreviatura == null) ? 0 : abreviatura.hashCode());
+		result = prime * result
+				+ ((abreviatura == null) ? 0 : abreviatura.hashCode());
 		return result;
 	}
 
