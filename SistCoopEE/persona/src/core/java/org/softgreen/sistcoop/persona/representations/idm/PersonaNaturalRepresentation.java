@@ -3,10 +3,6 @@ package org.softgreen.sistcoop.persona.representations.idm;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-
 
 public class PersonaNaturalRepresentation implements Serializable{
 

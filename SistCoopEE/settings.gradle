@@ -1,2 +1,2 @@
 
-include "persona", "my-lib", "product"
+include "persona", "persona-restapi"

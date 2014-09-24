@@ -1,0 +1,31 @@
+apply plugin: 'java'
+apply plugin: 'war'
+ 
+def webInfPath = "webapp/WEB-INF"
+ 
+// Repositories accessed from local directory
+repositories {
+	flatDir { dirs webInfPath + "/" + "lib" }
+}
+ 
+// Source folder defined as Eclipse stores Java source code
+// in non-maven based folder structure
+sourceSets {
+	main {
+		java { srcDir 'src/main/java' }
+	}
+}
+ 
+dependencies {
+	// Compile time dependencies read from local directory
+	compile fileTree(dir: webInfPath + "/" + "lib", include: '*.jar')
+
+	compile project(':persona')
+}
+ 
+war {
+	webInf { from webInfPath} // adds a file-set to the WEB-INF dir.
+	classpath fileTree(webInfPath + "/" + "lib") // adds a file-set to the WEB-INF/lib dir.
+	webXml = file(webInfPath + "/" + "web.xml") // copies a file to WEB-INF/web.xml
+	//from('WebContent') { include ('bootstrap/css/*.css', 'bootstrap/js/*.js', 'bootstrap/img/*.*') } //Copy Bootstrap folder to WEB-INF level
+}

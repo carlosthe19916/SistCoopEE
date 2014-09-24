@@ -15,7 +15,7 @@ public class TipoDocumentoRepresentation implements Serializable {
 	private String tipoPersona;
 
 	public TipoDocumentoRepresentation() {
-		// TODO Auto-generated constructor stub		
+		// TODO Auto-generated constructor stub
 	}
 
 	public String getAbreviatura() {

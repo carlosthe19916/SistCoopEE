@@ -1,7 +1,7 @@
 apply plugin: "java"
 apply plugin: "maven"
 
-group = "myorg"
+group = "org.softgreen"
 version = 1.0
 
 repositories {
@@ -20,6 +20,7 @@ sourceSets.all { set ->
 }
 
 sourceSets {
+	core
     api
     impl
 }
@@ -53,7 +54,7 @@ uploadArchives {
             repository(url: uri("${buildDir}/repo"))
 
             addFilter("main") { artifact, file -> artifact.name == project.name }
-            ["api", "impl"].each { type ->
+            ["core", "api", "impl"].each { type ->
                 addFilter(type) { artifact, file -> artifact.name.endsWith("-$type") }
                 
                 // We now have to map our configurations to the correct maven scope for each pom
