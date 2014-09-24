@@ -63,3 +63,4 @@ organizacion/organizacion-ejb/.project
 **/.project/**
 **/.classpath/**
 */target/**
+/bin/
