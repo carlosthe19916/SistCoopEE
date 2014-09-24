@@ -58,4 +58,7 @@ $RECYCLE.BIN/
 *.msp
 
 */target/**
+.settings/**
+.project
+.classpath
 */.settings/**
