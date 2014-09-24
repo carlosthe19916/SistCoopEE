@@ -58,4 +58,4 @@ $RECYCLE.BIN/
 *.msp
 
 */target/**
-*/settings/**
+*/.settings/**
