@@ -4,7 +4,6 @@ import java.util.Date;
 
 import org.softgreen.sistcoop.persona.enums.EstadoCivil;
 import org.softgreen.sistcoop.persona.enums.Sexo;
-import org.softgreen.sistcoop.persona.models.jpa.entities.TipoDocumentoEntity;
 
 public interface PersonaNaturalModel {
 
@@ -14,9 +13,9 @@ public interface PersonaNaturalModel {
 
 	void setCodigoPais(String codigoPais);
 
-	TipoDocumentoEntity getTipoDocumento();
+	TipoDocumentoModel getTipoDocumento();
 
-	void setTipoDocumento(TipoDocumentoEntity tipoDocumento);
+	void setTipoDocumento(TipoDocumentoModel tipoDocumento);
 
 	String getNumeroDocumento();
 

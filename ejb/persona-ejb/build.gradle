@@ -1,90 +1,26 @@
-apply plugin: "java"
-apply plugin: "maven"
-apply plugin: 'war'
-apply plugin: 'eclipse'  
-apply plugin: 'eclipse-wtp'
+apply plugin: 'java'
 
-group = "org.softgreen"
-version = '1.0'
 sourceCompatibility = 1.7
+version = '1.0-FINAL'
 
-eclipse {  
-	wtp {
-		component {
-			//for examples see docs for EclipseWtpComponent
-	    }
-	    facet {
-	    	facet name: 'java', version: '1.7'
-	    	facet name: 'jst.ejb', version: '3.2'	    
-	    }
-	 }
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Maven Spec Demo', 'Implementation-Version': version
+    }
 }
 
 repositories {
     mavenCentral()
 }
 
-sourceSets.all { set ->
-    def jarTask = task("${set.name}Jar", type: Jar) {
-        baseName = baseName + "-$set.name"
-        from set.output
-    }
-
-    artifacts {
-        archives jarTask
-    }
-}
-
-sourceSets {
-	core
-    api
-    impl
-}
-
-
 dependencies {
 	compile group: 'javax', name: 'javaee-api', version: '7.0'
 	compile group: 'org.hibernate', name: 'hibernate-core', version: '4.3.6.Final'
-	compile group: 'org.hibernate', name: 'hibernate-validator', version: '5.1.2.Final'
-		
-    apiCompile 'commons-codec:commons-codec:1.5'
-
-    implCompile sourceSets.api.output
-    implCompile 'commons-lang:commons-lang:2.6'
-
-    testCompile 'junit:junit:4.9'
-    testCompile sourceSets.core.output
-    testCompile sourceSets.api.output
-    testCompile sourceSets.impl.output
-    runtime configurations.coreRuntime
-    runtime configurations.apiRuntime
-    runtime configurations.implRuntime
+	compile group: 'org.hibernate', name: 'hibernate-validator', version: '5.1.2.Final'		   
+	
+	compile group: 'javax.enterprise', name: 'cdi-api', version: '1.2'
+	
 }
 
-jar {
-	from sourceSets.core.output
-    from sourceSets.api.output
-    from sourceSets.impl.output
-}
 
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: uri("${buildDir}/repo"))
 
-            addFilter("main") { artifact, file -> artifact.name == project.name }
-            ["core", "api", "impl"].each { type ->
-                addFilter(type) { artifact, file -> artifact.name.endsWith("-$type") }
-                
-                // We now have to map our configurations to the correct maven scope for each pom
-                ["compile", "runtime"].each { scope ->
-                    configuration = configurations[type + scope.capitalize()]
-                    ["main", type].each { pomName ->
-                        pom(pomName).scopeMappings.addMapping 1, configuration, scope
-                    }
-                }
-            }
-
-        }
-    }
-}

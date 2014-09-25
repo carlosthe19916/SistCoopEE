@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import org.softgreen.sistcoop.persona.enums.EstadoCivil;
 import org.softgreen.sistcoop.persona.enums.Sexo;
 import org.softgreen.sistcoop.persona.models.PersonaNaturalModel;
+import org.softgreen.sistcoop.persona.models.TipoDocumentoModel;
 import org.softgreen.sistcoop.persona.models.jpa.entities.PersonaNaturalEntity;
 import org.softgreen.sistcoop.persona.models.jpa.entities.TipoDocumentoEntity;
 
@@ -40,13 +41,14 @@ public class PersonaNaturalAdapter implements PersonaNaturalModel {
 	}
 
 	@Override
-	public TipoDocumentoEntity getTipoDocumento() {
-		return personaNaturalEntity.getTipoDocumento();
+	public TipoDocumentoModel getTipoDocumento() {
+		return new TipoDocumentoAdapter(em, personaNaturalEntity.getTipoDocumento());
 	}
 
 	@Override
-	public void setTipoDocumento(TipoDocumentoEntity tipoDocumento) {
-		personaNaturalEntity.setTipoDocumento(tipoDocumento);
+	public void setTipoDocumento(TipoDocumentoModel tipoDocumento) {
+		TipoDocumentoEntity tipoDocumentoEntity = TipoDocumentoAdapter.toTipoDocumentoEntity(tipoDocumento, em);
+		personaNaturalEntity.setTipoDocumento(tipoDocumentoEntity);
 	}
 
 	@Override
