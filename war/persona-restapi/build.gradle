@@ -1,5 +1,13 @@
-sourceCompatibility = 1.7
+apply plugin: "java"
+apply plugin: "war"
 
 repositories {
     mavenCentral()
+}
+
+dependencies {
+	compile group: 'javax', name: 'javaee-api', version: '7.0'
+	compile group: 'javax.enterprise', name: 'cdi-api', version: '1.2'
+	
+	compile project(':persona-ejb')
 }

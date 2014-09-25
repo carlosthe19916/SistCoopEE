@@ -1,8 +1,5 @@
 apply plugin: 'java'
 
-sourceCompatibility = 1.7
-version = '1.0-FINAL'
-
 jar {
     manifest {
         attributes 'Implementation-Title': 'Maven Spec Demo', 'Implementation-Version': version
