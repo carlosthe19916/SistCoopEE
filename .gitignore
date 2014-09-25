@@ -64,3 +64,4 @@ organizacion/organizacion-ejb/.project
 .classpath
 
 */target/**
+/bin/
