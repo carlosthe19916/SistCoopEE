@@ -6,8 +6,7 @@ public class LookupUtil {
 		try {
 			result = Enum.valueOf(e, id);
 		} catch (IllegalArgumentException ex) {
-			throw new RuntimeException("Invalid value for enum "
-					+ e.getSimpleName() + ": " + id);
+			throw new RuntimeException("Invalid value for enum " + e.getSimpleName() + ": " + id);
 		}
 		return result;
 	}

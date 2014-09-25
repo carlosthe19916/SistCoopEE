@@ -8,11 +8,6 @@ import org.softgreen.sistcoop.persona.models.jpa.entities.TipoDocumentoEntity;
 
 public class TipoDocumentoAdapter implements TipoDocumentoModel {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	protected TipoDocumentoEntity tipoDocumentoEntity;
 	protected EntityManager em;
 

@@ -19,11 +19,6 @@ import org.softgreen.sistcoop.persona.models.jpa.entities.TipoDocumentoEntity;
 
 public class PersonaJuridicaAdapter implements PersonaJuridicaModel {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	protected PersonaJuridicaEntity personaJuridicaEntity;
 	protected EntityManager em;
 

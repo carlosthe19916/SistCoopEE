@@ -1,1 +1,5 @@
-//compile project(':persona')
+sourceCompatibility = 1.7
+
+repositories {
+    mavenCentral()
+}

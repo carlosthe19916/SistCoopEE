@@ -1,19 +1,10 @@
 package org.softgreen.sistcoop.persona.models.util;
 
-import java.io.IOException;
-import java.net.URI;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
-import org.apache.commons.codec.binary.Base64;
 import org.jboss.logging.Logger;
 import org.softgreen.sistcoop.persona.enums.EstadoCivil;
 import org.softgreen.sistcoop.persona.enums.Sexo;

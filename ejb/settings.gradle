@@ -1,4 +1,0 @@
-
-//include "persona", "persona-restapi"
-//include "persona:persona-ejb"
-include "organizacion-ejb", "persona-ejb", "socio-ejb", "ubigeo-ejb"

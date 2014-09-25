@@ -2,8 +2,6 @@ package org.softgreen.sistcoop.persona.models.jpa;
 
 import java.util.Date;
 
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 
 import org.softgreen.sistcoop.persona.enums.EstadoCivil;
@@ -14,11 +12,6 @@ import org.softgreen.sistcoop.persona.models.jpa.entities.TipoDocumentoEntity;
 
 public class PersonaNaturalAdapter implements PersonaNaturalModel {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
 	protected PersonaNaturalEntity personaNaturalEntity;
 	protected EntityManager em;
 
