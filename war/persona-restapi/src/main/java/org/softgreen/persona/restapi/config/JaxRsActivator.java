@@ -1,4 +1,4 @@
-package org.softgreen.persona.restapi.rest;
+package org.softgreen.persona.restapi.config;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

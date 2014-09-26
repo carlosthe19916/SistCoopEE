@@ -1,5 +1,3 @@
-
-
 include 'persona-ejb'
 project(':persona-ejb').projectDir = new File('ejb/persona-ejb')
 
