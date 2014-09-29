@@ -1,8 +1,9 @@
 {
-    "realm": "SistemaFinanciero",
-    "realm-public-key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCSrA1RfY5OTeTQiC/5sd+3C0nBRCsK9oleiAdNfqoRM4uPzZmR8ex0H3eNdyuDHJtxk+ZNDawNVeOVSFw//cvrvGHUAMIqYKMOlg7JB5txLBA7eXfT5S1/n60TqeT2dLLY5H4ZZUcZu0+zhKwHsaeoi3j7FQZ3aBf2S2stj4bygwIDAQAB",
-    "auth-server-url": "http://localhost:8080/auth",
-    "ssl-required": "none",
-    "resource": "cajaApp",
-    "public-client": true
+  "realm": "SistCoop",
+  "realm-public-key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCCkvLhPK8sMZSl5QMJ1Mv9HBj5WlIL0txY+a1tWcpvZD7pcOx5jJSAplStPMgNpsJnXDGKvG17XdAz3NuEGjFL6++nOKwX3aMqfCsi7nu/JaOaqiWUplC2MjyNEo3/pBZmSxtqtyCRiADn2KeW29BVtc4MSDOuJzQlI1yw+N9b6wIDAQAB",
+  "auth-server-url": "https://keycloak-softgreen.rhcloud.com/auth",
+  "ssl-required": "external",
+  "resource": "cajaApp",
+  "public-client": true,
+  "enable-cors": true
 }

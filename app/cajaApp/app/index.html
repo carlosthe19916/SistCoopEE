@@ -20,20 +20,18 @@
     <!-- endbuild -->
 
     <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/select2/select2.js"></script>
 
     <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-restmod/dist/angular-restmod-bundle.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 
     <script src="js/keycloak.js"></script>
     <script src="scripts/app.js"></script>
-    <script src="scripts/controllers/realm.js"></script>
-    <script src="scripts/controllers/applications.js"></script>
-    <script src="scripts/controllers/oauth-clients.js"></script>
-    <script src="scripts/controllers/users.js"></script>
-
+    <script src="scripts/controllers/controllers.js"></script>
+    <script src="scripts/services.js"></script>
+    <script src="scripts/loaders.js"></script>
     <style>
         [ng\:cloak], [ng-cloak], .ng-cloak {
             display: none !important;
@@ -41,11 +39,6 @@
     </style>
 </head>
 <body ng-controller="GlobalCtrl" ng-cloak ng-show="auth.user">
-
-<div id="idletimeout">
-    You will be logged off in <strong><span></span> seconds</strong> due to inactivity.
-    <a id="idletimeout-resume" href="#">Click here to continue using this web page</a>.
-</div>
 
 <!-- page content -->
 <div>
@@ -109,11 +102,6 @@
         <span>Loading...</span>
     </div>
 
-    <div id="loading" class="loading-backdrop">
-        <div class="loading">
-            <span>Loading...</span>
-        </div>
-    </div>
 </div>
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->

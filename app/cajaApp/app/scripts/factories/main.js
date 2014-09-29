@@ -1,6 +1,0 @@
-define([
-    'angular',
-    './spinnerInterceptor'
-], function () {
-
-});
