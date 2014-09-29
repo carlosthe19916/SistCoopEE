@@ -1,11 +1,12 @@
 package org.softgreen.sistcoop.persona.models;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 import org.softgreen.sistcoop.persona.enums.TipoEmpresa;
 
-public interface PersonaJuridicaModel{
+public interface PersonaJuridicaModel {
 
 	Long getId();
 
@@ -13,7 +14,7 @@ public interface PersonaJuridicaModel{
 
 	PersonaNaturalModel setRepresentanteLegal(PersonaNaturalModel representanteLegal);
 
-	AccionistaModel addAccionista(AccionistaModel accionistaModel);
+	AccionistaModel addAccionista(PersonaNaturalModel personaNaturalModel, BigDecimal porcentajeParticipacion);
 
 	void updateAccionista(AccionistaModel accionistaModel);
 

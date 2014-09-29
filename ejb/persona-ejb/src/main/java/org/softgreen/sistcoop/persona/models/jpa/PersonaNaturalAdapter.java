@@ -212,12 +212,12 @@ public class PersonaNaturalAdapter implements PersonaNaturalModel {
 	}
 
 	public static PersonaNaturalEntity toPersonaNaturalEntity(PersonaNaturalModel model, EntityManager em) {
-        if (model instanceof PersonaNaturalAdapter) {
-            return ((PersonaNaturalAdapter)model).getPersonaNaturalEntity();
-        }
-        return em.getReference(PersonaNaturalEntity.class, model.getId());
-    }
-	
+		if (model instanceof PersonaNaturalAdapter) {
+			return ((PersonaNaturalAdapter) model).getPersonaNaturalEntity();
+		}
+		return em.getReference(PersonaNaturalEntity.class, model.getId());
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)

@@ -9,6 +9,8 @@ import javax.ws.rs.core.Response;
 
 import org.softgreen.sistcoop.persona.models.AccionistaModel;
 import org.softgreen.sistcoop.persona.models.AccionistaProvider;
+import org.softgreen.sistcoop.persona.models.util.ModelToRepresentation;
+import org.softgreen.sistcoop.persona.representations.idm.AccionistaRepresentation;
 
 public class AccionistaResource {
 
@@ -19,8 +21,9 @@ public class AccionistaResource {
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
 	public Response findById(Long id) {
-		AccionistaModel accionistaModel = accionistaProvider.getAccionistaById(id);
-		return Response.ok(accionistaModel).build();
+		AccionistaModel model = accionistaProvider.getAccionistaById(id);
+		AccionistaRepresentation rep = ModelToRepresentation.toRepresentation(model);
+		return Response.ok(rep).build();
 	}
 
 	@DELETE

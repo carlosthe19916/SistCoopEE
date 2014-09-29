@@ -8,8 +8,10 @@ import org.softgreen.sistcoop.persona.providers.Provider;
 
 @Remote
 public interface PersonaJuridicaProvider extends Provider{
-
-	PersonaJuridicaModel addPersonaJuridica(TipoDocumentoModel tipoDocumentoModel, String numeroDocumento, String razonSocial);
+	
+	PersonaJuridicaModel getPersonaJuridica();
+	
+	void updatePersonaJuridica(PersonaJuridicaModel personaJuridicaModel);
 	
 	boolean removePersonaJuridica(PersonaJuridicaModel personaJuridicaModel);
 

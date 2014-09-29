@@ -1,5 +1,6 @@
 package org.softgreen.sistcoop.persona.models.jpa;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,10 +23,13 @@ public class PersonaJuridicaAdapter implements PersonaJuridicaModel {
 	protected PersonaJuridicaEntity personaJuridicaEntity;
 	protected EntityManager em;
 
-	public PersonaJuridicaAdapter(EntityManager em,
-			PersonaJuridicaEntity personaJuridicaEntity) {
+	public PersonaJuridicaAdapter(EntityManager em, PersonaJuridicaEntity personaJuridicaEntity) {
 		this.em = em;
 		this.personaJuridicaEntity = personaJuridicaEntity;
+	}
+
+	public PersonaJuridicaEntity getPersonaJuridicaEntity() {
+		return personaJuridicaEntity;
 	}
 
 	@Override
@@ -35,41 +39,27 @@ public class PersonaJuridicaAdapter implements PersonaJuridicaModel {
 
 	@Override
 	public PersonaNaturalModel getRepresentanteLegal() {
-		return new PersonaNaturalAdapter(em,
-				personaJuridicaEntity.getRepresentanteLegal());
+		return new PersonaNaturalAdapter(em, personaJuridicaEntity.getRepresentanteLegal());
 	}
 
 	@Override
-	public PersonaNaturalModel setRepresentanteLegal(
-			PersonaNaturalModel representanteLegal) {
-		PersonaNaturalEntity personaNaturalEntity = PersonaNaturalAdapter
-				.toPersonaNaturalEntity(representanteLegal, em);
+	public PersonaNaturalModel setRepresentanteLegal(PersonaNaturalModel representanteLegal) {
+		PersonaNaturalEntity personaNaturalEntity = PersonaNaturalAdapter.toPersonaNaturalEntity(representanteLegal, em);
 		personaJuridicaEntity.setRepresentanteLegal(personaNaturalEntity);
 		em.merge(personaJuridicaEntity);
 		return new PersonaNaturalAdapter(em, personaNaturalEntity);
 	}
 
 	@Override
-	public AccionistaModel addAccionista(AccionistaModel accionistaModel) {
-		AccionistaEntity accionistaEntity = AccionistaAdapter
-				.toAccionistaEntity(accionistaModel, em);
-		accionistaEntity.setPersonaJuridica(personaJuridicaEntity);
-		em.persist(accionistaEntity);
-		return new AccionistaAdapter(em, accionistaEntity);
-	}
-
-	@Override
 	public void updateAccionista(AccionistaModel accionistaModel) {
-		AccionistaEntity accionistaEntity = AccionistaAdapter
-				.toAccionistaEntity(accionistaModel, em);
+		AccionistaEntity accionistaEntity = AccionistaAdapter.toAccionistaEntity(accionistaModel, em);
 		accionistaEntity.setPersonaJuridica(personaJuridicaEntity);
 		em.merge(accionistaEntity);
 	}
 
 	@Override
 	public boolean removeAccionista(AccionistaModel accionistaModel) {
-		AccionistaEntity accionistaEntity = AccionistaAdapter
-				.toAccionistaEntity(accionistaModel, em);
+		AccionistaEntity accionistaEntity = AccionistaAdapter.toAccionistaEntity(accionistaModel, em);
 		accionistaEntity.setPersonaJuridica(personaJuridicaEntity);
 		em.remove(accionistaEntity);
 		return true;
@@ -97,14 +87,12 @@ public class PersonaJuridicaAdapter implements PersonaJuridicaModel {
 
 	@Override
 	public TipoDocumentoModel getTipoDocumento() {
-		return new TipoDocumentoAdapter(em,
-				personaJuridicaEntity.getTipoDocumento());
+		return new TipoDocumentoAdapter(em, personaJuridicaEntity.getTipoDocumento());
 	}
 
 	@Override
 	public void setTipoDocumento(TipoDocumentoModel tipoDocumento) {
-		TipoDocumentoEntity tipoDocumentoEntity = TipoDocumentoAdapter
-				.toTipoDocumentoEntity(tipoDocumento, em);
+		TipoDocumentoEntity tipoDocumentoEntity = TipoDocumentoAdapter.toTipoDocumentoEntity(tipoDocumento, em);
 		personaJuridicaEntity.setTipoDocumento(tipoDocumentoEntity);
 	}
 
@@ -209,7 +197,7 @@ public class PersonaJuridicaAdapter implements PersonaJuridicaModel {
 	}
 
 	@Override
-	public String getTelefono() {	
+	public String getTelefono() {
 		return personaJuridicaEntity.getTelefono();
 	}
 
@@ -238,9 +226,11 @@ public class PersonaJuridicaAdapter implements PersonaJuridicaModel {
 		personaJuridicaEntity.setEmail(email);
 	}
 
-	public static PersonaJuridicaEntity toPersonaJuridicaEntity(
-			PersonaJuridicaModel personaJuridicaModel, EntityManager em) {
-		return null;
+	public static PersonaJuridicaEntity toPersonaJuridicaEntity(PersonaJuridicaModel model, EntityManager em) {
+		if (model instanceof PersonaJuridicaAdapter) {
+			return ((PersonaJuridicaAdapter) model).getPersonaJuridicaEntity();
+		}
+		return em.getReference(PersonaJuridicaEntity.class, model.getId());
 	}
 
 	@Override
@@ -257,5 +247,11 @@ public class PersonaJuridicaAdapter implements PersonaJuridicaModel {
 	@Override
 	public int hashCode() {
 		return getId().hashCode();
+	}
+
+	@Override
+	public AccionistaModel addAccionista(PersonaNaturalModel personaNaturalModel, BigDecimal porcentajeParticipacion) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

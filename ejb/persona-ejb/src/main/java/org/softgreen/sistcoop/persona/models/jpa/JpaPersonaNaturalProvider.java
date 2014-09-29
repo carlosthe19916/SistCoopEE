@@ -1,7 +1,6 @@
 package org.softgreen.sistcoop.persona.models.jpa;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Remote;
@@ -13,7 +12,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import org.softgreen.sistcoop.persona.enums.Sexo;
 import org.softgreen.sistcoop.persona.models.PersonaNaturalModel;
 import org.softgreen.sistcoop.persona.models.PersonaNaturalProvider;
 import org.softgreen.sistcoop.persona.models.TipoDocumentoModel;
@@ -28,22 +26,9 @@ public class JpaPersonaNaturalProvider implements PersonaNaturalProvider {
 	@PersistenceContext
 	protected EntityManager em;
 
-	public JpaPersonaNaturalProvider() {
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public PersonaNaturalModel addPersonaNatural(
-			TipoDocumentoModel tipoDocumento, String numeroDoc, String paterno,
-			String materno, String nombres, Sexo sexo, Date fechaNac) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	@Override
 	public boolean removePersonaNatural(PersonaNaturalModel personaNatural) {
-		PersonaNaturalEntity personaNaturalEntity = em.find(
-				PersonaNaturalEntity.class, personaNatural.getId());
+		PersonaNaturalEntity personaNaturalEntity = em.find(PersonaNaturalEntity.class, personaNatural.getId());
 		if (personaNaturalEntity == null)
 			return false;
 		removePersonaNatural(personaNaturalEntity);
@@ -56,17 +41,13 @@ public class JpaPersonaNaturalProvider implements PersonaNaturalProvider {
 
 	@Override
 	public PersonaNaturalModel getPersonaNaturalById(Long id) {
-		PersonaNaturalEntity personaNaturalEntity = this.em.find(
-				PersonaNaturalEntity.class, id);
+		PersonaNaturalEntity personaNaturalEntity = this.em.find(PersonaNaturalEntity.class, id);
 		return new PersonaNaturalAdapter(em, personaNaturalEntity);
 	}
 
 	@Override
-	public PersonaNaturalModel getPersonaNaturalByTipoNumeroDoc(
-			TipoDocumentoModel tipoDocumento, String numeroDocumento) {
-		TypedQuery<PersonaNaturalEntity> query = em.createNamedQuery(
-				PersonaNaturalEntity.findByTipoAndNumeroDocumento,
-				PersonaNaturalEntity.class);
+	public PersonaNaturalModel getPersonaNaturalByTipoNumeroDoc(TipoDocumentoModel tipoDocumento, String numeroDocumento) {
+		TypedQuery<PersonaNaturalEntity> query = em.createNamedQuery(PersonaNaturalEntity.findByTipoAndNumeroDocumento, PersonaNaturalEntity.class);
 		query.setParameter("tipoDocumento", tipoDocumento);
 		query.setParameter("numeroDocumento", numeroDocumento);
 		List<PersonaNaturalEntity> results = query.getResultList();
@@ -82,16 +63,13 @@ public class JpaPersonaNaturalProvider implements PersonaNaturalProvider {
 
 	@Override
 	public int getPersonasNaturalesCount() {
-		Object count = em.createNamedQuery(PersonaNaturalEntity.count)
-				.getSingleResult();
+		Object count = em.createNamedQuery(PersonaNaturalEntity.count).getSingleResult();
 		return ((Number) count).intValue();
 	}
 
 	@Override
-	public List<PersonaNaturalModel> getPersonasNaturales(int firstResult,
-			int maxResults) {
-		TypedQuery<PersonaNaturalEntity> query = em.createNamedQuery(
-				PersonaNaturalEntity.findAll, PersonaNaturalEntity.class);
+	public List<PersonaNaturalModel> getPersonasNaturales(int firstResult, int maxResults) {
+		TypedQuery<PersonaNaturalEntity> query = em.createNamedQuery(PersonaNaturalEntity.findAll, PersonaNaturalEntity.class);
 		if (firstResult != -1) {
 			query.setFirstResult(firstResult);
 		}
@@ -106,15 +84,13 @@ public class JpaPersonaNaturalProvider implements PersonaNaturalProvider {
 	}
 
 	@Override
-	public List<PersonaNaturalModel> searchForNumeroDocumento(
-			String numeroDocumento) {
+	public List<PersonaNaturalModel> searchForNumeroDocumento(String numeroDocumento) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<PersonaNaturalModel> searchForNumeroDocumento(
-			String numeroDocumento, int firstResult, int maxResults) {
+	public List<PersonaNaturalModel> searchForNumeroDocumento(String numeroDocumento, int firstResult, int maxResults) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -126,8 +102,7 @@ public class JpaPersonaNaturalProvider implements PersonaNaturalProvider {
 	}
 
 	@Override
-	public List<PersonaNaturalModel> searchForFilterText(String filterText,
-			int firstResult, int maxResults) {
+	public List<PersonaNaturalModel> searchForFilterText(String filterText, int firstResult, int maxResults) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -135,7 +110,19 @@ public class JpaPersonaNaturalProvider implements PersonaNaturalProvider {
 	@Override
 	public void close() {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public PersonaNaturalModel getPersonaNatural() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void updatePersonaNatural(PersonaNaturalModel personaNaturalModel) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

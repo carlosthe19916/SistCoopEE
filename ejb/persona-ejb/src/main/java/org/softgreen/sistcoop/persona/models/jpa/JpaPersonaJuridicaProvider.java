@@ -27,35 +27,21 @@ public class JpaPersonaJuridicaProvider implements PersonaJuridicaProvider {
 	protected EntityManager em;
 
 	@Override
-	public PersonaJuridicaModel addPersonaJuridica(
-			TipoDocumentoModel tipoDocumentoModel, String numeroDocumento,
-			String razonSocial) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean removePersonaJuridica(
-			PersonaJuridicaModel personaJuridicaModel) {
-		PersonaJuridicaEntity personaJuridicaEntity = PersonaJuridicaAdapter
-				.toPersonaJuridicaEntity(personaJuridicaModel, em);
+	public boolean removePersonaJuridica(PersonaJuridicaModel personaJuridicaModel) {
+		PersonaJuridicaEntity personaJuridicaEntity = PersonaJuridicaAdapter.toPersonaJuridicaEntity(personaJuridicaModel, em);
 		em.remove(personaJuridicaEntity);
 		return true;
 	}
 
 	@Override
 	public PersonaJuridicaModel getPersonaJuridicaById(Long id) {
-		PersonaJuridicaEntity personaJuridicaEntity = em.find(
-				PersonaJuridicaEntity.class, id);
+		PersonaJuridicaEntity personaJuridicaEntity = em.find(PersonaJuridicaEntity.class, id);
 		return new PersonaJuridicaAdapter(em, personaJuridicaEntity);
 	}
 
 	@Override
-	public PersonaJuridicaModel getPersonaJuridicaByTipoNumeroDoc(
-			TipoDocumentoModel tipoDocumento, String numeroDocumento) {
-		TypedQuery<PersonaJuridicaEntity> query = em.createNamedQuery(
-				PersonaJuridicaEntity.findByTipoAndNumeroDocumento,
-				PersonaJuridicaEntity.class);
+	public PersonaJuridicaModel getPersonaJuridicaByTipoNumeroDoc(TipoDocumentoModel tipoDocumento, String numeroDocumento) {
+		TypedQuery<PersonaJuridicaEntity> query = em.createNamedQuery(PersonaJuridicaEntity.findByTipoAndNumeroDocumento, PersonaJuridicaEntity.class);
 		query.setParameter("tipoDocumento", tipoDocumento.getAbreviatura());
 		query.setParameter("numeroDocumento", numeroDocumento);
 		List<PersonaJuridicaEntity> results = query.getResultList();
@@ -71,16 +57,13 @@ public class JpaPersonaJuridicaProvider implements PersonaJuridicaProvider {
 
 	@Override
 	public int getPersonasJuridicasCount() {
-		Object count = em.createNamedQuery(PersonaJuridicaEntity.count)
-				.getSingleResult();
+		Object count = em.createNamedQuery(PersonaJuridicaEntity.count).getSingleResult();
 		return ((Number) count).intValue();
 	}
 
 	@Override
-	public List<PersonaJuridicaModel> getPersonasJuridicas(int firstResult,
-			int maxResults) {
-		TypedQuery<PersonaJuridicaEntity> query = em.createNamedQuery(
-				PersonaJuridicaEntity.findAll, PersonaJuridicaEntity.class);
+	public List<PersonaJuridicaModel> getPersonasJuridicas(int firstResult, int maxResults) {
+		TypedQuery<PersonaJuridicaEntity> query = em.createNamedQuery(PersonaJuridicaEntity.findAll, PersonaJuridicaEntity.class);
 		if (firstResult != -1) {
 			query.setFirstResult(firstResult);
 		}
@@ -95,17 +78,13 @@ public class JpaPersonaJuridicaProvider implements PersonaJuridicaProvider {
 	}
 
 	@Override
-	public List<PersonaJuridicaModel> searchForNumeroDocumento(
-			String numeroDocumento) {
+	public List<PersonaJuridicaModel> searchForNumeroDocumento(String numeroDocumento) {
 		return searchForNumeroDocumento(numeroDocumento, -1, -1);
 	}
 
 	@Override
-	public List<PersonaJuridicaModel> searchForNumeroDocumento(
-			String numeroDocumento, int firstResult, int maxResults) {
-		TypedQuery<PersonaJuridicaEntity> query = em.createNamedQuery(
-				PersonaJuridicaEntity.findByNumeroDocumento,
-				PersonaJuridicaEntity.class);
+	public List<PersonaJuridicaModel> searchForNumeroDocumento(String numeroDocumento, int firstResult, int maxResults) {
+		TypedQuery<PersonaJuridicaEntity> query = em.createNamedQuery(PersonaJuridicaEntity.findByNumeroDocumento, PersonaJuridicaEntity.class);
 		query.setParameter("numeroDocumento", numeroDocumento);
 		if (firstResult != -1) {
 			query.setFirstResult(firstResult);
@@ -126,11 +105,8 @@ public class JpaPersonaJuridicaProvider implements PersonaJuridicaProvider {
 	}
 
 	@Override
-	public List<PersonaJuridicaModel> searchForFilterText(String filterText,
-			int firstResult, int maxResults) {
-		TypedQuery<PersonaJuridicaEntity> query = em.createNamedQuery(
-				PersonaJuridicaEntity.findByFilterText,
-				PersonaJuridicaEntity.class);
+	public List<PersonaJuridicaModel> searchForFilterText(String filterText, int firstResult, int maxResults) {
+		TypedQuery<PersonaJuridicaEntity> query = em.createNamedQuery(PersonaJuridicaEntity.findByFilterText, PersonaJuridicaEntity.class);
 		query.setParameter("filtertext", filterText);
 		if (firstResult != -1) {
 			query.setFirstResult(firstResult);
@@ -146,9 +122,26 @@ public class JpaPersonaJuridicaProvider implements PersonaJuridicaProvider {
 	}
 
 	@Override
+	public void updatePersonaJuridica(PersonaJuridicaModel personaJuridicaModel) {
+		/*if(personaJuridicaModel.getId() != null){
+			PersonaJuridicaEntity personaJuridicaEntity = PersonaJuridicaAdapter.toPersonaJuridicaEntity(personaJuridicaModel, em);
+			em.remove(personaJuridicaEntity);
+			return true;
+		} else {
+			em.persist(personaJuridicaModel);
+		}*/
+	}
+
+	@Override
+	public PersonaJuridicaModel getPersonaJuridica() {
+		//return new PersonaJurica
+		return null;
+	}
+
+	@Override
 	public void close() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

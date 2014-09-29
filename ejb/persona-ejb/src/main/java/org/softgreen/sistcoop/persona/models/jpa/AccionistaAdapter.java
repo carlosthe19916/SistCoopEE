@@ -12,7 +12,7 @@ import org.softgreen.sistcoop.persona.models.jpa.entities.PersonaJuridicaEntity;
 import org.softgreen.sistcoop.persona.models.jpa.entities.PersonaNaturalEntity;
 
 public class AccionistaAdapter implements AccionistaModel {
-	
+
 	protected AccionistaEntity accionistaEntity;
 	protected EntityManager em;
 
@@ -21,17 +21,17 @@ public class AccionistaAdapter implements AccionistaModel {
 		this.accionistaEntity = accionistaEntity;
 	}
 
-	public AccionistaEntity getAccionistaEntity(){
+	public AccionistaEntity getAccionistaEntity() {
 		return accionistaEntity;
 	}
-	
+
 	@Override
 	public Long getId() {
 		return accionistaEntity.getId();
 	}
 
 	@Override
-	public PersonaNaturalModel getPersonaNatural() {		
+	public PersonaNaturalModel getPersonaNatural() {
 		return new PersonaNaturalAdapter(em, accionistaEntity.getPersonaNatural());
 	}
 
@@ -61,14 +61,14 @@ public class AccionistaAdapter implements AccionistaModel {
 	public void setPorcentajeParticipacion(BigDecimal porcentajeParticipacion) {
 		accionistaEntity.setPorcentajeParticipacion(porcentajeParticipacion);
 	}
-	
+
 	public static AccionistaEntity toAccionistaEntity(AccionistaModel model, EntityManager em) {
-        if (model instanceof AccionistaAdapter) {
-            return ((AccionistaAdapter)model).getAccionistaEntity();
-        }
-        return em.getReference(AccionistaEntity.class, model.getId());
-    }
-	
+		if (model instanceof AccionistaAdapter) {
+			return ((AccionistaAdapter) model).getAccionistaEntity();
+		}
+		return em.getReference(AccionistaEntity.class, model.getId());
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)
@@ -85,5 +85,4 @@ public class AccionistaAdapter implements AccionistaModel {
 		return getId().hashCode();
 	}
 
-	
 }

@@ -60,17 +60,6 @@ public class JpaTipoDocumentoProvider implements TipoDocumentoProvider {
 	}
 
 	@Override
-	public TipoDocumentoModel addTipoDocumento(String abreviatura, String denominacion, int maxLength, TipoPersona tipoPersona) {
-		TipoDocumentoEntity tipoDocumentoEntity = new TipoDocumentoEntity();
-		tipoDocumentoEntity.setAbreviatura(abreviatura);
-		tipoDocumentoEntity.setDenominacion(denominacion);
-		tipoDocumentoEntity.setCantidadCaracteres(maxLength);
-		tipoDocumentoEntity.setTipoPersona(tipoPersona);
-		em.persist(tipoDocumentoEntity);
-		return new TipoDocumentoAdapter(em, tipoDocumentoEntity);
-	}
-
-	@Override
 	public boolean removeTipoDocumento(TipoDocumentoModel tipoDocumentoModel) {
 		TipoDocumentoEntity tipoDocumentoEntity = TipoDocumentoAdapter.toTipoDocumentoEntity(tipoDocumentoModel, em);
 		em.remove(tipoDocumentoEntity);
@@ -80,6 +69,12 @@ public class JpaTipoDocumentoProvider implements TipoDocumentoProvider {
 	@Override
 	public void close() {
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public TipoDocumentoModel getTipoDocumento() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
