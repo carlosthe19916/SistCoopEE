@@ -1,6 +1,7 @@
 package org.softgreen.sistcoop.persona.models.jpa;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Remote;
@@ -12,10 +13,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import org.softgreen.sistcoop.persona.enums.Sexo;
 import org.softgreen.sistcoop.persona.models.PersonaNaturalModel;
 import org.softgreen.sistcoop.persona.models.PersonaNaturalProvider;
 import org.softgreen.sistcoop.persona.models.TipoDocumentoModel;
 import org.softgreen.sistcoop.persona.models.jpa.entities.PersonaNaturalEntity;
+import org.softgreen.sistcoop.persona.models.jpa.entities.TipoDocumentoEntity;
 
 @Named
 @Stateless
@@ -25,6 +28,23 @@ public class JpaPersonaNaturalProvider implements PersonaNaturalProvider {
 
 	@PersistenceContext
 	protected EntityManager em;
+
+	@Override
+	public PersonaNaturalModel addPersonaNatural(String codigoPais, TipoDocumentoModel tipoDocumentoModel, String numeroDocumento, String apellidoPaterno, String apellidoMaterno, String nombres, Date fechaNacimiento, Sexo sexo) {
+		TipoDocumentoEntity tipoDocumentoEntity = TipoDocumentoAdapter.toTipoDocumentoEntity(tipoDocumentoModel, em);
+
+		PersonaNaturalEntity personaNaturalEntity = new PersonaNaturalEntity();
+		personaNaturalEntity.setCodigoPais(codigoPais);
+		personaNaturalEntity.setTipoDocumento(tipoDocumentoEntity);
+		personaNaturalEntity.setNumeroDocumento(numeroDocumento);
+		personaNaturalEntity.setApellidoPaterno(apellidoPaterno);
+		personaNaturalEntity.setApellidoMaterno(apellidoMaterno);
+		personaNaturalEntity.setNombres(nombres);
+		personaNaturalEntity.setFechaNacimiento(fechaNacimiento);
+		personaNaturalEntity.setSexo(sexo);
+		em.persist(personaNaturalEntity);
+		return new PersonaNaturalAdapter(em, personaNaturalEntity);
+	}
 
 	@Override
 	public boolean removePersonaNatural(PersonaNaturalModel personaNatural) {
@@ -109,18 +129,6 @@ public class JpaPersonaNaturalProvider implements PersonaNaturalProvider {
 
 	@Override
 	public void close() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public PersonaNaturalModel getPersonaNatural() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void updatePersonaNatural(PersonaNaturalModel personaNaturalModel) {
 		// TODO Auto-generated method stub
 
 	}

@@ -15,6 +15,8 @@ import org.softgreen.sistcoop.persona.models.AccionistaProvider;
 import org.softgreen.sistcoop.persona.models.PersonaJuridicaModel;
 import org.softgreen.sistcoop.persona.models.PersonaNaturalModel;
 import org.softgreen.sistcoop.persona.models.jpa.entities.AccionistaEntity;
+import org.softgreen.sistcoop.persona.models.jpa.entities.PersonaJuridicaEntity;
+import org.softgreen.sistcoop.persona.models.jpa.entities.PersonaNaturalEntity;
 
 @Named
 @Stateless
@@ -26,15 +28,21 @@ public class JpaAccionistaProvider implements AccionistaProvider {
 	protected EntityManager em;
 
 	@Override
-	public AccionistaModel getAccionistaById(Long id) {
-		AccionistaEntity accionistaEntity = em.find(AccionistaEntity.class, id);
+	public AccionistaModel addAccionista(PersonaJuridicaModel pjModel, PersonaNaturalModel pnModel, BigDecimal porcentaje) {
+		PersonaJuridicaEntity personaJuridicaEntity = PersonaJuridicaAdapter.toPersonaJuridicaEntity(pjModel, em);
+		PersonaNaturalEntity personaNaturalEntity = PersonaNaturalAdapter.toPersonaNaturalEntity(pnModel, em);
+		AccionistaEntity accionistaEntity = new AccionistaEntity();
+		accionistaEntity.setPersonaNatural(personaNaturalEntity);
+		accionistaEntity.setPersonaJuridica(personaJuridicaEntity);
+		accionistaEntity.setPorcentajeParticipacion(porcentaje);
+		em.persist(accionistaEntity);
 		return new AccionistaAdapter(em, accionistaEntity);
 	}
 
 	@Override
-	public void updateAccionista(AccionistaModel accionistaModel) {
-		// TODO Auto-generated method stub
-
+	public AccionistaModel getAccionistaById(Long id) {
+		AccionistaEntity accionistaEntity = em.find(AccionistaEntity.class, id);
+		return new AccionistaAdapter(em, accionistaEntity);
 	}
 
 	@Override
@@ -42,12 +50,6 @@ public class JpaAccionistaProvider implements AccionistaProvider {
 		AccionistaEntity accionistaEntity = AccionistaAdapter.toAccionistaEntity(accionistaModel, em);
 		em.remove(accionistaEntity);
 		return true;
-	}
-
-	@Override
-	public AccionistaModel addAccionista(PersonaJuridicaModel pjModel, PersonaNaturalModel pnModel, BigDecimal porcentaje) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override

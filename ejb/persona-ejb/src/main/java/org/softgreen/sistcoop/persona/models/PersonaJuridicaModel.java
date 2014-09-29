@@ -6,17 +6,15 @@ import java.util.List;
 
 import org.softgreen.sistcoop.persona.enums.TipoEmpresa;
 
-public interface PersonaJuridicaModel {
+public interface PersonaJuridicaModel extends Model {
 
 	Long getId();
 
 	PersonaNaturalModel getRepresentanteLegal();
 
-	PersonaNaturalModel setRepresentanteLegal(PersonaNaturalModel representanteLegal);
+	void setRepresentanteLegal(PersonaNaturalModel representanteLegal);
 
 	AccionistaModel addAccionista(PersonaNaturalModel personaNaturalModel, BigDecimal porcentajeParticipacion);
-
-	void updateAccionista(AccionistaModel accionistaModel);
 
 	boolean removeAccionista(AccionistaModel accionistaModel);
 

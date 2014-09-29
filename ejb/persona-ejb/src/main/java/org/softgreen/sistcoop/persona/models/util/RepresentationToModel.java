@@ -2,21 +2,25 @@ package org.softgreen.sistcoop.persona.models.util;
 
 import java.util.Date;
 
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
+
 import org.jboss.logging.Logger;
 import org.softgreen.sistcoop.persona.enums.EstadoCivil;
 import org.softgreen.sistcoop.persona.enums.Sexo;
-import org.softgreen.sistcoop.persona.enums.TipoPersona;
+import org.softgreen.sistcoop.persona.enums.TipoEmpresa;
 import org.softgreen.sistcoop.persona.models.PersonaJuridicaModel;
 import org.softgreen.sistcoop.persona.models.PersonaJuridicaProvider;
 import org.softgreen.sistcoop.persona.models.PersonaNaturalModel;
 import org.softgreen.sistcoop.persona.models.PersonaNaturalProvider;
 import org.softgreen.sistcoop.persona.models.TipoDocumentoModel;
 import org.softgreen.sistcoop.persona.models.TipoDocumentoProvider;
-import org.softgreen.sistcoop.persona.models.jpa.entities.TipoDocumentoEntity;
 import org.softgreen.sistcoop.persona.representations.idm.PersonaJuridicaRepresentation;
 import org.softgreen.sistcoop.persona.representations.idm.PersonaNaturalRepresentation;
 import org.softgreen.sistcoop.persona.representations.idm.TipoDocumentoRepresentation;
 
+@Stateless
 public class RepresentationToModel {
 
 	private static Logger logger = Logger.getLogger(RepresentationToModel.class);
@@ -78,31 +82,30 @@ public class RepresentationToModel {
 		return model;
 	}
 
-	public static PersonaJuridicaModel createPersonaJuridica(PersonaJuridicaRepresentation rep, TipoDocumentoModel tipoDocumentoModel, PersonaJuridicaProvider personaJuridicaProvider) {
+	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	public static PersonaJuridicaModel createPersonaJuridica(
+			PersonaJuridicaRepresentation rep, 
+			PersonaNaturalModel representanteLegal, 
+			TipoDocumentoModel tipoDocumentoModel, 
+			PersonaJuridicaProvider personaJuridicaProvider) {
 
-		String numeroDocumento = rep.getNumeroDocumento();
-		String razonSocial = rep.getRazonSocial();
+		PersonaJuridicaModel model = personaJuridicaProvider.addPersonaJuridica(
+				representanteLegal, 
+				rep.getCodigoPais(), 
+				tipoDocumentoModel, 
+				rep.getNumeroDocumento(), 
+				rep.getRazonSocial(), 
+				rep.getFechaConstitucion(), 
+				TipoEmpresa.lookup(rep.getTipoEmpresa()),
+				rep.isFinLucro());
+		
+		model.setUbigeo(rep.getUbigeo());
+		model.setDireccion(rep.getDireccion());
+		model.setReferencia(rep.getReferencia());
+		model.setTelefono(rep.getTelefono());
+		model.setCelular(rep.getCelular());
+		model.setEmail(rep.getEmail());
 
-		String ubigeo = rep.getUbigeo();
-		String direccion = rep.getDireccion();
-		String referencia = rep.getReferencia();
-		String telefono = rep.getTelefono();
-		String celular = rep.getCelular();
-		String email = rep.getEmail();
-
-		PersonaJuridicaModel model = personaJuridicaProvider.getPersonaJuridica();
-		model.setNumeroDocumento(numeroDocumento);
-		model.setTipoDocumento(tipoDocumentoModel);
-		model.setRazonSocial(razonSocial);
-
-		model.setUbigeo(ubigeo);
-		model.setDireccion(direccion);
-		model.setReferencia(referencia);
-		model.setTelefono(telefono);
-		model.setCelular(celular);
-		model.setEmail(email);
-
-		personaJuridicaProvider.updatePersonaJuridica(model);
 		return model;
 	}
 

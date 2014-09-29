@@ -1,17 +1,24 @@
 package org.softgreen.sistcoop.persona.models;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Remote;
 
+import org.softgreen.sistcoop.persona.enums.TipoEmpresa;
 import org.softgreen.sistcoop.persona.providers.Provider;
 
 @Remote
 public interface PersonaJuridicaProvider extends Provider{
 	
-	PersonaJuridicaModel getPersonaJuridica();
-	
-	void updatePersonaJuridica(PersonaJuridicaModel personaJuridicaModel);
+	PersonaJuridicaModel addPersonaJuridica(
+			PersonaNaturalModel representanteLegal, 
+			String codigoPais,
+			TipoDocumentoModel tipoDocumentoModel,
+			String numeroDocumento, String razonSocial,
+			Date fechaConstitucion,
+			TipoEmpresa tipoEmpresa,
+			boolean finLucro);
 	
 	boolean removePersonaJuridica(PersonaJuridicaModel personaJuridicaModel);
 

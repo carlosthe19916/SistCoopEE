@@ -1,6 +1,7 @@
 package org.softgreen.sistcoop.persona.models.jpa;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Remote;
@@ -12,10 +13,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import org.softgreen.sistcoop.persona.enums.TipoEmpresa;
 import org.softgreen.sistcoop.persona.models.PersonaJuridicaModel;
 import org.softgreen.sistcoop.persona.models.PersonaJuridicaProvider;
+import org.softgreen.sistcoop.persona.models.PersonaNaturalModel;
 import org.softgreen.sistcoop.persona.models.TipoDocumentoModel;
 import org.softgreen.sistcoop.persona.models.jpa.entities.PersonaJuridicaEntity;
+import org.softgreen.sistcoop.persona.models.jpa.entities.PersonaNaturalEntity;
+import org.softgreen.sistcoop.persona.models.jpa.entities.TipoDocumentoEntity;
 
 @Named
 @Stateless
@@ -25,6 +30,25 @@ public class JpaPersonaJuridicaProvider implements PersonaJuridicaProvider {
 
 	@PersistenceContext
 	protected EntityManager em;
+
+	@Override
+	public PersonaJuridicaModel addPersonaJuridica(PersonaNaturalModel representanteLegal, String codigoPais, TipoDocumentoModel tipoDocumentoModel, String numeroDocumento, String razonSocial, Date fechaConstitucion, TipoEmpresa tipoEmpresa, boolean finLucro) {
+		TipoDocumentoEntity tipoDocumentoEntity = TipoDocumentoAdapter.toTipoDocumentoEntity(tipoDocumentoModel, em);
+		PersonaNaturalEntity personaNaturalEntity = PersonaNaturalAdapter.toPersonaNaturalEntity(representanteLegal, em);
+
+		PersonaJuridicaEntity personaJuridicaEntity = new PersonaJuridicaEntity();
+		personaJuridicaEntity.setRepresentanteLegal(personaNaturalEntity);
+		personaJuridicaEntity.setCodigoPais(codigoPais);
+		personaJuridicaEntity.setTipoDocumento(tipoDocumentoEntity);
+		personaJuridicaEntity.setNumeroDocumento(numeroDocumento);
+		personaJuridicaEntity.setRazonSocial(razonSocial);
+		personaJuridicaEntity.setFechaConstitucion(fechaConstitucion);
+		personaJuridicaEntity.setTipoEmpresa(tipoEmpresa);
+		personaJuridicaEntity.setFinLucro(finLucro);
+
+		em.persist(personaJuridicaEntity);
+		return new PersonaJuridicaAdapter(em, personaJuridicaEntity);
+	}
 
 	@Override
 	public boolean removePersonaJuridica(PersonaJuridicaModel personaJuridicaModel) {
@@ -119,23 +143,6 @@ public class JpaPersonaJuridicaProvider implements PersonaJuridicaProvider {
 		for (PersonaJuridicaEntity entity : results)
 			users.add(new PersonaJuridicaAdapter(em, entity));
 		return users;
-	}
-
-	@Override
-	public void updatePersonaJuridica(PersonaJuridicaModel personaJuridicaModel) {
-		/*if(personaJuridicaModel.getId() != null){
-			PersonaJuridicaEntity personaJuridicaEntity = PersonaJuridicaAdapter.toPersonaJuridicaEntity(personaJuridicaModel, em);
-			em.remove(personaJuridicaEntity);
-			return true;
-		} else {
-			em.persist(personaJuridicaModel);
-		}*/
-	}
-
-	@Override
-	public PersonaJuridicaModel getPersonaJuridica() {
-		//return new PersonaJurica
-		return null;
 	}
 
 	@Override

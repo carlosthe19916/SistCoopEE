@@ -5,7 +5,7 @@ import java.util.Date;
 import org.softgreen.sistcoop.persona.enums.EstadoCivil;
 import org.softgreen.sistcoop.persona.enums.Sexo;
 
-public interface PersonaNaturalModel {
+public interface PersonaNaturalModel extends Model {
 
 	Long getId();
 

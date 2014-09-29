@@ -43,18 +43,22 @@ public class PersonaJuridicaAdapter implements PersonaJuridicaModel {
 	}
 
 	@Override
-	public PersonaNaturalModel setRepresentanteLegal(PersonaNaturalModel representanteLegal) {
+	public void setRepresentanteLegal(PersonaNaturalModel representanteLegal) {
 		PersonaNaturalEntity personaNaturalEntity = PersonaNaturalAdapter.toPersonaNaturalEntity(representanteLegal, em);
 		personaJuridicaEntity.setRepresentanteLegal(personaNaturalEntity);
-		em.merge(personaJuridicaEntity);
-		return new PersonaNaturalAdapter(em, personaNaturalEntity);
 	}
 
 	@Override
-	public void updateAccionista(AccionistaModel accionistaModel) {
-		AccionistaEntity accionistaEntity = AccionistaAdapter.toAccionistaEntity(accionistaModel, em);
+	public AccionistaModel addAccionista(PersonaNaturalModel personaNaturalModel, BigDecimal porcentajeParticipacion) {
+		PersonaNaturalEntity personaNaturalEntity = PersonaNaturalAdapter.toPersonaNaturalEntity(personaNaturalModel, em);
+
+		AccionistaEntity accionistaEntity = new AccionistaEntity();
+		accionistaEntity.setPersonaNatural(personaNaturalEntity);
 		accionistaEntity.setPersonaJuridica(personaJuridicaEntity);
-		em.merge(accionistaEntity);
+		accionistaEntity.setPorcentajeParticipacion(porcentajeParticipacion);
+
+		em.persist(accionistaEntity);
+		return new AccionistaAdapter(em, accionistaEntity);
 	}
 
 	@Override
@@ -234,6 +238,11 @@ public class PersonaJuridicaAdapter implements PersonaJuridicaModel {
 	}
 
 	@Override
+	public void commit() {
+		em.merge(personaJuridicaEntity);
+	}
+
+	@Override
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;
@@ -247,11 +256,5 @@ public class PersonaJuridicaAdapter implements PersonaJuridicaModel {
 	@Override
 	public int hashCode() {
 		return getId().hashCode();
-	}
-
-	@Override
-	public AccionistaModel addAccionista(PersonaNaturalModel personaNaturalModel, BigDecimal porcentajeParticipacion) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

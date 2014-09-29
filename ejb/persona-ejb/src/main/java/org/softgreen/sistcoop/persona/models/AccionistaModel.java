@@ -2,7 +2,7 @@ package org.softgreen.sistcoop.persona.models;
 
 import java.math.BigDecimal;
 
-public interface AccionistaModel {
+public interface AccionistaModel extends Model {
 
 	public Long getId();
 

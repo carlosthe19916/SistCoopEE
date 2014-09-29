@@ -9,12 +9,10 @@ import org.softgreen.sistcoop.persona.providers.Provider;
 @Remote
 public interface AccionistaProvider extends Provider {
 
-	void updateAccionista(AccionistaModel accionistaModel);
+	AccionistaModel addAccionista(PersonaJuridicaModel pjModel, PersonaNaturalModel pnModel, BigDecimal porcentaje);
 
 	boolean removeAccionista(AccionistaModel accionistaModel);
 
 	AccionistaModel getAccionistaById(Long id);
-
-	AccionistaModel addAccionista(PersonaJuridicaModel pjModel, PersonaNaturalModel pnModel, BigDecimal porcentaje);
 
 }

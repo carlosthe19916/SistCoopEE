@@ -27,6 +27,17 @@ public class JpaTipoDocumentoProvider implements TipoDocumentoProvider {
 	protected EntityManager em;
 
 	@Override
+	public TipoDocumentoModel addTipoDocumento(String abreviatura, String denominacion, int cantidadCaracteres, TipoPersona tipoPersona) {
+		TipoDocumentoEntity tipoDocumentoEntity = new TipoDocumentoEntity();
+		tipoDocumentoEntity.setAbreviatura(abreviatura);
+		tipoDocumentoEntity.setDenominacion(denominacion);
+		tipoDocumentoEntity.setCantidadCaracteres(cantidadCaracteres);
+		tipoDocumentoEntity.setTipoPersona(tipoPersona);
+		em.persist(tipoDocumentoEntity);
+		return new TipoDocumentoAdapter(em, tipoDocumentoEntity);
+	}
+
+	@Override
 	public TipoDocumentoModel getTipoDocumentoByAbreviatura(String abreviatura) {
 		TypedQuery<TipoDocumentoEntity> query = em.createNamedQuery(TipoDocumentoEntity.findByAbreviatura, TipoDocumentoEntity.class);
 		query.setParameter("abreviatura", abreviatura);
@@ -69,12 +80,6 @@ public class JpaTipoDocumentoProvider implements TipoDocumentoProvider {
 	@Override
 	public void close() {
 		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public TipoDocumentoModel getTipoDocumento() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

@@ -2,10 +2,10 @@ package org.softgreen.sistcoop.persona.models;
 
 import org.softgreen.sistcoop.persona.enums.TipoPersona;
 
-public interface TipoDocumentoModel {
+public interface TipoDocumentoModel extends Model {
 
 	String getAbreviatura();
-	
+
 	void setAbreviatura(String abreviatura);
 
 	String getDenominacion();

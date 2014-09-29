@@ -10,7 +10,7 @@ import org.softgreen.sistcoop.persona.providers.Provider;
 @Remote
 public interface TipoDocumentoProvider extends Provider {
 
-	TipoDocumentoModel getTipoDocumento();
+	TipoDocumentoModel addTipoDocumento(String abreviatura, String denominacion, int cantidadCaracteres, TipoPersona tipoPersona);
 
 	boolean removeTipoDocumento(TipoDocumentoModel tipoDocumentoModel);
 

@@ -133,7 +133,6 @@ public class PersonaJuridicaEntity extends PersonaEntity implements
 	}
 
 	@NotNull
-	@Size(min = 1, max = 50)
 	@Enumerated(EnumType.STRING)
 	public TipoEmpresa getTipoEmpresa() {
 		return tipoEmpresa;

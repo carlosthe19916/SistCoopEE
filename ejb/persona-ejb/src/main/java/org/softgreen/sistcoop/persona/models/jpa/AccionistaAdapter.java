@@ -70,6 +70,11 @@ public class AccionistaAdapter implements AccionistaModel {
 	}
 
 	@Override
+	public void commit() {
+		em.merge(accionistaEntity);
+	}
+
+	@Override
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;
