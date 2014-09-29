@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>SistCoop</title>
 
-    <link rel="icon" href="img/favicon.ico">
+    <link rel="icon" href="favicon.ico">
 
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
@@ -53,7 +53,7 @@
                 <a class="brand" href="#">SistCoop</a>
                 <div class="nav-collapse collapse" style="display: inherit;">
                     <p class="navbar-text pull-right" style="margin-top: 0;">
-                        Logged in as <a href="#" class="navbar-link">Username</a>
+                        Logged in as <a href="#" ng-bind="auth.user.username" class="navbar-link"></a>
                     </p>
                     <ul class="nav">
                         <li ui-sref-active="active">
