@@ -13,27 +13,20 @@ eclipse {
     }
 }
 
+eclipse {
+  wtp {
+    component {
+      resource deployPath: '/', sourcePath: 'src/main/java'
+      resource deployPath: '/', sourcePath: 'src/main/resources'
+    }
+  }
+}
+
 jar {
     manifest {
         attributes 'Implementation-Title': 'Maven Spec Demo', 'Implementation-Version': version
     }
 }
-
-configurations {
-	provided
-}
-
-sourceSets {
-	main.compileClasspath += configurations.provided
-    test.compileClasspath += configurations.provided
-    test.runtimeClasspath += configurations.provided
-}
-
-eclipse {
-	classpath {
-		plusConfigurations += configurations.provided
-	}
-} 
 
 repositories {
     mavenCentral()
@@ -44,11 +37,11 @@ dependencies {
 	compile group: 'org.hibernate', name: 'hibernate-core', version: '4.3.6.Final'
 	compile group: 'org.hibernate', name: 'hibernate-validator', version: '5.1.2.Final'		   
 	
-	provided group: 'org.jboss.resteasy', name: 'resteasy-jaxrs', version: '3.0.8.Final'
-	provided group: 'org.jboss.resteasy', name: 'resteasy-jaxb-provider', version: '3.0.8.Final'
-	provided group: 'org.jboss.resteasy', name: 'resteasy-multipart-provider', version: '3.0.8.Final'
-	provided group: 'org.jboss.resteasy', name: 'resteasy-links', version: '3.0.8.Final'
-	provided group: 'org.jboss.resteasy', name: 'resteasy-jettison-provider', version: '3.0.8.Final'
+	providedCompile group: 'org.jboss.resteasy', name: 'resteasy-jaxrs', version: '3.0.8.Final'
+	providedCompile group: 'org.jboss.resteasy', name: 'resteasy-jaxb-provider', version: '3.0.8.Final'
+	providedCompile group: 'org.jboss.resteasy', name: 'resteasy-multipart-provider', version: '3.0.8.Final'
+	providedCompile group: 'org.jboss.resteasy', name: 'resteasy-links', version: '3.0.8.Final'
+	providedCompile group: 'org.jboss.resteasy', name: 'resteasy-jettison-provider', version: '3.0.8.Final'
 	
 	compile group: 'javax.enterprise', name: 'cdi-api', version: '1.2'
 	
