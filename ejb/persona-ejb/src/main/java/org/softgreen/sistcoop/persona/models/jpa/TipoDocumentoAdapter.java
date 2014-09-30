@@ -68,6 +68,11 @@ public class TipoDocumentoAdapter implements TipoDocumentoModel {
 	}
 
 	@Override
+	public void commit() {
+		em.merge(tipoDocumentoEntity);
+	}
+
+	@Override
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;
@@ -82,4 +87,5 @@ public class TipoDocumentoAdapter implements TipoDocumentoModel {
 	public int hashCode() {
 		return getAbreviatura().hashCode();
 	}
+
 }

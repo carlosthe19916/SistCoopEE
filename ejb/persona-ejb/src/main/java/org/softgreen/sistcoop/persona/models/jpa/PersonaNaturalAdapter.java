@@ -219,6 +219,11 @@ public class PersonaNaturalAdapter implements PersonaNaturalModel {
 	}
 
 	@Override
+	public void commit() {
+		em.merge(personaNaturalEntity);
+	}
+
+	@Override
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;
@@ -233,4 +238,5 @@ public class PersonaNaturalAdapter implements PersonaNaturalModel {
 	public int hashCode() {
 		return getId().hashCode();
 	}
+
 }

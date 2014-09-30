@@ -35,10 +35,9 @@ public class TipoDocumentoResource {
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
 	public Response findById(@PathParam("id") String id) {
-		/*TipoDocumentoModel tipoDocumentoModel = tipoDocumentoProvider.getTipoDocumentoByAbreviatura(id);
+		TipoDocumentoModel tipoDocumentoModel = tipoDocumentoProvider.getTipoDocumentoByAbreviatura(id);
 		TipoDocumentoRepresentation tipoDocumentoRepresentation = ModelToRepresentation.toRepresentation(tipoDocumentoModel);
-		return Response.ok().entity(tipoDocumentoRepresentation).build();*/
-		return Response.ok().build();
+		return Response.ok().entity(tipoDocumentoRepresentation).build();	
 	}
 	
 	@GET

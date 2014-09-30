@@ -18,7 +18,10 @@ import javax.ws.rs.core.UriInfo;
 
 import org.softgreen.sistcoop.persona.models.PersonaNaturalModel;
 import org.softgreen.sistcoop.persona.models.PersonaNaturalProvider;
+import org.softgreen.sistcoop.persona.models.TipoDocumentoModel;
+import org.softgreen.sistcoop.persona.models.TipoDocumentoProvider;
 import org.softgreen.sistcoop.persona.models.util.ModelToRepresentation;
+import org.softgreen.sistcoop.persona.models.util.RepresentationToModel;
 import org.softgreen.sistcoop.persona.representations.idm.PersonaNaturalRepresentation;
 
 @Path("/personas/naturales")
@@ -27,7 +30,8 @@ public class PersonaNaturalResource {
 	@EJB
 	protected PersonaNaturalProvider personaNaturalProvider;
 
-	protected PersonaNaturalModel personaNaturalModel;
+	@EJB
+	protected TipoDocumentoProvider tipoDocumentoProvider;
 
 	@Context
 	protected UriInfo uriInfo;
@@ -45,10 +49,8 @@ public class PersonaNaturalResource {
 	@Path("/buscar")
 	@Produces({ "application/xml", "application/json" })
 	public Response findByTipoNumeroDocumento(@QueryParam("tipoDocumento") String tipoDocumento, @QueryParam("numeroDocumento") String numeroDocumento) {
-
-		// PersonaNaturalModel personaNaturalModel =
-		// personaNaturalProvider.getPersonaNaturalByTipoNumeroDoc(tipoDocumento,
-		// numeroDocumento);
+		TipoDocumentoModel tipoDocumentoModel = tipoDocumentoProvider.getTipoDocumentoByAbreviatura(tipoDocumento);
+		PersonaNaturalModel personaNaturalModel = personaNaturalProvider.getPersonaNaturalByTipoNumeroDoc(tipoDocumentoModel, numeroDocumento);
 		PersonaNaturalRepresentation rep = ModelToRepresentation.toRepresentation(personaNaturalModel);
 		return Response.ok(rep).build();
 	}
@@ -69,18 +71,15 @@ public class PersonaNaturalResource {
 	@Path("/count")
 	@Produces({ "application/xml", "application/json" })
 	public Response countAll() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@POST
 	@Produces({ "application/xml", "application/json" })
 	public Response create(PersonaNaturalRepresentation personaNaturalRepresentation) {
-		// PersonaNaturalModel personaNaturalModel =
-		// RepresentationToModel.createPersonaNatural(personaNaturalRepresentation);
-		// return
-		// Response.created(uriInfo.getAbsolutePathBuilder().path(personaNaturalModel.getId().toString()).build()).build();
-		return null;
+		TipoDocumentoModel tipoDocumentoModel = tipoDocumentoProvider.getTipoDocumentoByAbreviatura(personaNaturalRepresentation.getTipoDocumento());
+		PersonaNaturalModel personaNaturalModel = RepresentationToModel.createPersonaNatural(personaNaturalRepresentation, tipoDocumentoModel, personaNaturalProvider);
+		return Response.created(uriInfo.getAbsolutePathBuilder().path(personaNaturalModel.getId().toString()).build()).build();
 	}
 
 	@PUT
@@ -94,9 +93,8 @@ public class PersonaNaturalResource {
 	@DELETE
 	@Path("/{id}")
 	public Response remove(@PathParam("id") Long id) {
-		// PersonaNaturalModel personaNaturalModel =
-		// personaNaturalProvider.removePersonaNatural(id);
-
+		PersonaNaturalModel personaNaturalModel = personaNaturalProvider.getPersonaNaturalById(id);
+		personaNaturalProvider.removePersonaNatural(personaNaturalModel);
 		return Response.noContent().build();
 	}
 
