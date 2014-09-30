@@ -60,6 +60,7 @@ $RECYCLE.BIN/
 organizacion/organizacion-ejb/.project
 
 **/.settings/**
+.settings/
 *.project
 .classpath
 
