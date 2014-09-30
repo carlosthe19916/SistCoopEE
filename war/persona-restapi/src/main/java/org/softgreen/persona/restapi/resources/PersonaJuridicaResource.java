@@ -17,7 +17,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import org.softgreen.persona.restapi.managers.PersonaJuridicaManager;
-import org.softgreen.sistcoop.persona.enums.TipoEmpresa;
 import org.softgreen.sistcoop.persona.models.AccionistaModel;
 import org.softgreen.sistcoop.persona.models.AccionistaProvider;
 import org.softgreen.sistcoop.persona.models.PersonaJuridicaModel;
@@ -36,7 +35,7 @@ public class PersonaJuridicaResource {
 
 	@EJB
 	protected PersonaJuridicaManager personaJuridicaManager;
-	
+
 	@EJB
 	protected PersonaJuridicaProvider personaJuridicaProvider;
 
@@ -95,7 +94,7 @@ public class PersonaJuridicaResource {
 	public Response create(PersonaJuridicaRepresentation personaJuridicaRepresentation) {
 		TipoDocumentoModel representanteTipoDocumentoModel = tipoDocumentoProvider.getTipoDocumentoByAbreviatura(personaJuridicaRepresentation.getTipoDocumentoRepresentanteLegal());
 		PersonaNaturalModel representanteModel = personaNaturalProvider.getPersonaNaturalByTipoNumeroDoc(representanteTipoDocumentoModel, personaJuridicaRepresentation.getNumeroDocumentoRepresentanteLegal());
-		
+
 		TipoDocumentoModel tipoDocumentoModel = tipoDocumentoProvider.getTipoDocumentoByAbreviatura(personaJuridicaRepresentation.getTipoDocumento());
 		PersonaJuridicaModel personaJuridicaModel = RepresentationToModel.createPersonaJuridica(personaJuridicaRepresentation, tipoDocumentoModel, representanteModel, personaJuridicaProvider);
 		PersonaJuridicaRepresentation result = ModelToRepresentation.toRepresentation(personaJuridicaModel);
@@ -110,7 +109,7 @@ public class PersonaJuridicaResource {
 		if (personaJuridicaModel == null) {
 			return null;
 		}
-		personaJuridicaManager.updatePersonaJuridicaFromRep(personaJuridicaModel, personaJuridicaRepresentation);		
+		personaJuridicaManager.updatePersonaJuridicaFromRep(personaJuridicaModel, personaJuridicaRepresentation);
 		return Response.noContent().build();
 	}
 
@@ -204,7 +203,5 @@ public class PersonaJuridicaResource {
 			return Response.serverError().build();
 		}
 	}
-
-	
 
 }

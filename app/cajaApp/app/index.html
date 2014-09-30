@@ -22,16 +22,14 @@
     <script src="bower_components/jquery/dist/jquery.js"></script>
 
     <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-restmod/dist/angular-restmod-bundle.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 
     <script src="js/keycloak.js"></script>
     <script src="scripts/app.js"></script>
-    <script src="scripts/controllers/controllers.js"></script>
+    <script src="scripts/controllers.js"></script>
     <script src="scripts/services.js"></script>
-    <script src="scripts/loaders.js"></script>
     <style>
         [ng\:cloak], [ng-cloak], .ng-cloak {
             display: none !important;
@@ -105,6 +103,7 @@
 </div>
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+<script src="js/require.js" data-main="scripts/main.js"></script>
 
 </body>
 </html>

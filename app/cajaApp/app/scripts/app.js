@@ -8,7 +8,7 @@ var configUrl = consoleBaseUrl + "/config";
 var auth = {};
 var authUrl = window.location.href.substring(0, window.location.href.indexOf('/admin/'));
 
-var module = angular.module('keycloak', [ 'keycloak.services', 'keycloak.loaders', 'ui.bootstrap', 'ui.router']);
+var module = angular.module('cajaApp', [ 'cajaApp.services', 'ui.bootstrap', 'ui.router']);
 var resourceRequests = 0;
 var loadingTimer = -1;
 
@@ -29,7 +29,7 @@ angular.element(document).ready(function ($http) {
                 return auth;
             });
 
-            angular.bootstrap(document, ["keycloak"]);
+            angular.bootstrap(document, ["cajaApp"]);
 
         }).error(function() {
             alert('No se pudo cargar el usuario en session');

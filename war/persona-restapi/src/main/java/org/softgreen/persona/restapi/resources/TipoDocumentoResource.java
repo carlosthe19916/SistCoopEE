@@ -16,6 +16,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
+import org.jboss.resteasy.links.AddLinks;
+import org.jboss.resteasy.links.LinkResource;
 import org.softgreen.sistcoop.persona.enums.TipoPersona;
 import org.softgreen.sistcoop.persona.models.TipoDocumentoModel;
 import org.softgreen.sistcoop.persona.models.TipoDocumentoProvider;
@@ -32,6 +34,8 @@ public class TipoDocumentoResource {
 	@Context
 	protected UriInfo uriInfo;
 
+	@AddLinks
+    @LinkResource
 	@GET
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
