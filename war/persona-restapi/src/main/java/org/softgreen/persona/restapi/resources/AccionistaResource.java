@@ -12,6 +12,7 @@ import org.softgreen.sistcoop.persona.models.AccionistaProvider;
 import org.softgreen.sistcoop.persona.models.util.ModelToRepresentation;
 import org.softgreen.sistcoop.persona.representations.idm.AccionistaRepresentation;
 
+@Path("/accionistas")
 public class AccionistaResource {
 
 	@EJB

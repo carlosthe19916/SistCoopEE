@@ -23,6 +23,7 @@ import org.softgreen.sistcoop.persona.models.util.ModelToRepresentation;
 import org.softgreen.sistcoop.persona.models.util.RepresentationToModel;
 import org.softgreen.sistcoop.persona.representations.idm.TipoDocumentoRepresentation;
 
+@Path("/tiposDocumento")
 public class TipoDocumentoResource {
 
 	@EJB

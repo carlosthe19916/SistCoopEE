@@ -29,6 +29,7 @@ import org.softgreen.sistcoop.persona.enums.Sexo;
 import org.softgreen.sistcoop.persona.enums.TipoEmpresa;
 import org.softgreen.sistcoop.persona.enums.TipoPersona;
 
+@Path("/")
 public class MaestroResource {
 
 	@GET
