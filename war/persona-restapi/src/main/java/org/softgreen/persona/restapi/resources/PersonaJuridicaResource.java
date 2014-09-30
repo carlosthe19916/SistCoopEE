@@ -16,6 +16,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import org.softgreen.persona.restapi.managers.PersonaJuridicaManager;
 import org.softgreen.sistcoop.persona.enums.TipoEmpresa;
 import org.softgreen.sistcoop.persona.models.AccionistaModel;
 import org.softgreen.sistcoop.persona.models.AccionistaProvider;
@@ -33,6 +34,9 @@ import org.softgreen.sistcoop.persona.representations.idm.PersonaJuridicaReprese
 @Path("/personas/juridicas")
 public class PersonaJuridicaResource {
 
+	@EJB
+	protected PersonaJuridicaManager personaJuridicaManager;
+	
 	@EJB
 	protected PersonaJuridicaProvider personaJuridicaProvider;
 
@@ -106,7 +110,7 @@ public class PersonaJuridicaResource {
 		if (personaJuridicaModel == null) {
 			return null;
 		}
-		updatePersonaJuridicaFromRep(personaJuridicaModel, personaJuridicaRepresentation);
+		personaJuridicaManager.updatePersonaJuridicaFromRep(personaJuridicaModel, personaJuridicaRepresentation);		
 		return Response.noContent().build();
 	}
 
@@ -184,7 +188,7 @@ public class PersonaJuridicaResource {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		}
 		AccionistaModel accionistaModel = accionistaProvider.getAccionistaById(idAccionista);
-		updateAccionistaFromRep(accionistaModel, accionistaRepresentation);
+		personaJuridicaManager.updateAccionistaFromRep(accionistaModel, accionistaRepresentation);
 		return Response.noContent().build();
 	}
 
@@ -201,39 +205,6 @@ public class PersonaJuridicaResource {
 		}
 	}
 
-	private void updatePersonaJuridicaFromRep(PersonaJuridicaModel model, PersonaJuridicaRepresentation rep) {
-		TipoDocumentoModel tipoDocumentoModel = tipoDocumentoProvider.getTipoDocumentoByAbreviatura(rep.getTipoDocumento());
-
-		model.setCodigoPais(rep.getCodigoPais());
-		model.setTipoDocumento(tipoDocumentoModel);
-		model.setNumeroDocumento(rep.getNumeroDocumento());
-
-		model.setRazonSocial(rep.getRazonSocial());
-		model.setNombreComercial(rep.getNombreComercial());
-		model.setActividadPrincipal(rep.getActividadPrincipal());
-		model.setFechaConstitucion(rep.getFechaConstitucion());
-		model.setFinLucro(rep.isFinLucro());
-
-		model.setUbigeo(rep.getUbigeo());
-		model.setDireccion(rep.getDireccion());
-		model.setReferencia(rep.getReferencia());
-		model.setTelefono(rep.getTelefono());
-		model.setCelular(rep.getCelular());
-		model.setEmail(rep.getEmail());
-
-		model.setTipoEmpresa(TipoEmpresa.lookup(rep.getTipoEmpresa()));
-
-		personaJuridicaProvider.updatePersonaJuridica(model);
-	}
-
-	private void updateAccionistaFromRep(AccionistaModel model, AccionistaRepresentation rep) {
-		TipoDocumentoModel tipoDocumentoModel = tipoDocumentoProvider.getTipoDocumentoByAbreviatura(rep.getTipoDocumento());
-
-		PersonaNaturalModel personaNaturalModel = personaNaturalProvider.getPersonaNaturalByTipoNumeroDoc(tipoDocumentoModel, rep.getNumeroDocumento());
-		model.setPersonaNatural(personaNaturalModel);
-		model.setPorcentajeParticipacion(rep.getPorcentajeParticipacion());
-
-		accionistaProvider.updateAccionista(model);
-	}
+	
 
 }
