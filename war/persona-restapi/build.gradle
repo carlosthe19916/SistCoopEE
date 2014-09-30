@@ -1,6 +1,25 @@
 apply plugin: "java"
 apply plugin: "war"
+apply plugin: 'eclipse'
+apply plugin: 'eclipse-wtp'
 
+configurations {
+	provided
+}
+    
+sourceSets {
+	main.compileClasspath += configurations.provided
+    test.compileClasspath += configurations.provided
+    test.runtimeClasspath += configurations.provided
+}
+   
+eclipse {
+	classpath {
+		plusConfigurations += configurations.provided
+	}
+} 
+
+    
 repositories {
     mavenCentral()
 }
@@ -9,6 +28,11 @@ dependencies {
 	compile group: 'javax', name: 'javaee-api', version: '7.0'
 	compile group: 'javax.enterprise', name: 'cdi-api', version: '1.2'
 	
-	compile project(':persona-ejb')
-	//compile files('../../ejb/persona-ejb/build/libs/persona-ejb-1.0-FINAL.jar')
+	provided group: 'org.jboss.resteasy', name: 'resteasy-jaxrs', version: '3.0.8.Final'
+	provided group: 'org.jboss.resteasy', name: 'resteasy-jaxb-provider', version: '3.0.8.Final'
+	provided group: 'org.jboss.resteasy', name: 'resteasy-multipart-provider', version: '3.0.8.Final'
+	provided group: 'org.jboss.resteasy', name: 'resteasy-links', version: '3.0.8.Final'
+	provided group: 'org.jboss.resteasy', name: 'resteasy-jettison-provider', version: '3.0.8.Final'
+	
+	provided project(':persona-ejb')
 }
