@@ -28,7 +28,7 @@ import org.softgreen.sistcoop.persona.representations.idm.TipoDocumentoRepresent
 @Path("/tiposDocumento")
 public class TipoDocumentoResource {
 
-	@EJB
+	@EJB(lookup = "java:global/persona-ejb/JpaTipoDocumentoProvider!org.softgreen.sistcoop.persona.models.jpa.TipoDocumentoProvider")
 	protected TipoDocumentoProvider tipoDocumentoProvider;
 
 	@Context

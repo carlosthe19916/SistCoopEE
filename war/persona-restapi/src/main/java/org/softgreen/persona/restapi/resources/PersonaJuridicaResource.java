@@ -36,13 +36,13 @@ public class PersonaJuridicaResource {
 	@EJB
 	protected PersonaJuridicaManager personaJuridicaManager;
 
-	@EJB
+	@EJB(lookup = "java:global/persona-ejb/JpaPersonaJuridicaProvider!org.softgreen.sistcoop.persona.models.jpa.PersonaJuridicaProvider")
 	protected PersonaJuridicaProvider personaJuridicaProvider;
 
-	@EJB
+	@EJB(lookup = "java:global/persona-ejb/JpaPersonaNaturalProvider!org.softgreen.sistcoop.persona.models.jpa.PersonaNaturalProvider")
 	protected PersonaNaturalProvider personaNaturalProvider;
 
-	@EJB
+	@EJB(lookup = "java:global/persona-ejb/JpaTipoDocumentoProvider!org.softgreen.sistcoop.persona.models.jpa.TipoDocumentoProvider")
 	protected TipoDocumentoProvider tipoDocumentoProvider;
 
 	@EJB

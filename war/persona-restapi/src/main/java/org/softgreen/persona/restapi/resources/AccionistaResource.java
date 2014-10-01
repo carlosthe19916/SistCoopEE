@@ -15,7 +15,7 @@ import org.softgreen.sistcoop.persona.representations.idm.AccionistaRepresentati
 @Path("/accionistas")
 public class AccionistaResource {
 
-	@EJB
+	@EJB(lookup = "java:global/persona-ejb/JpaAccionistaProvider!org.softgreen.sistcoop.persona.models.jpa.AccionistaProvider")
 	protected AccionistaProvider accionistaProvider;
 
 	@GET

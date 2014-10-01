@@ -27,10 +27,10 @@ import org.softgreen.sistcoop.persona.representations.idm.PersonaNaturalRepresen
 @Path("/personas/naturales")
 public class PersonaNaturalResource {
 
-	@EJB
+	@EJB(lookup = "java:global/persona-ejb/JpaPersonaNaturalProvider!org.softgreen.sistcoop.persona.models.jpa.PersonaNaturalProvider")
 	protected PersonaNaturalProvider personaNaturalProvider;
 
-	@EJB
+	@EJB(lookup = "java:global/persona-ejb/JpaTipoDocumentoProvider!org.softgreen.sistcoop.persona.models.jpa.TipoDocumentoProvider")
 	protected TipoDocumentoProvider tipoDocumentoProvider;
 
 	@Context

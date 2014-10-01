@@ -16,10 +16,10 @@ import org.softgreen.sistcoop.persona.representations.idm.PersonaJuridicaReprese
 @Stateless
 public class PersonaJuridicaManager {
 
-	@EJB
+	@EJB(lookup = "java:global/persona-ejb/JpaTipoDocumentoProvider!org.softgreen.sistcoop.persona.models.jpa.TipoDocumentoProvider")
 	protected TipoDocumentoProvider tipoDocumentoProvider;
 
-	@EJB
+	@EJB(lookup = "java:global/persona-ejb/JpaPersonaNaturalProvider!org.softgreen.sistcoop.persona.models.jpa.PersonaNaturalProvider")
 	protected PersonaNaturalProvider personaNaturalProvider;
 
 	public void updatePersonaJuridicaFromRep(PersonaJuridicaModel model, PersonaJuridicaRepresentation rep) {
