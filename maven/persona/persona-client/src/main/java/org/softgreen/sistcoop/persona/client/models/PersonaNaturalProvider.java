@@ -3,9 +3,12 @@ package org.softgreen.sistcoop.persona.client.models;
 import java.util.Date;
 import java.util.List;
 
+import javax.ejb.Local;
+
 import org.softgreen.sistcoop.persona.clien.enums.Sexo;
 import org.softgreen.sistcoop.persona.client.providers.Provider;
 
+@Local
 public interface PersonaNaturalProvider extends Provider {
 
 	PersonaNaturalModel addPersonaNatural(

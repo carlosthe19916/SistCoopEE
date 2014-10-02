@@ -2,9 +2,12 @@ package org.softgreen.sistcoop.persona.client.models;
 
 import java.math.BigDecimal;
 
+import javax.ejb.Local;
+
 import org.softgreen.sistcoop.persona.client.providers.Provider;
 
-public interface AccionistaProvider extends Provider{
+@Local
+public interface AccionistaProvider extends Provider {
 
 	AccionistaModel addAccionista(PersonaJuridicaModel pjModel, PersonaNaturalModel pnModel, BigDecimal porcentaje);
 
