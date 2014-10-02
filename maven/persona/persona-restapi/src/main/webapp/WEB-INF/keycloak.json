@@ -1,0 +1,8 @@
+{
+  "realm": "SistCoop",
+  "realm-public-key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCCkvLhPK8sMZSl5QMJ1Mv9HBj5WlIL0txY+a1tWcpvZD7pcOx5jJSAplStPMgNpsJnXDGKvG17XdAz3NuEGjFL6++nOKwX3aMqfCsi7nu/JaOaqiWUplC2MjyNEo3/pBZmSxtqtyCRiADn2KeW29BVtc4MSDOuJzQlI1yw+N9b6wIDAQAB",
+  "bearer-only": true,
+  "ssl-required": "external",
+  "resource": "ubigeo-restapi",
+  "enable-cors": true
+}
