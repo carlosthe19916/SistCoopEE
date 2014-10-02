@@ -3,12 +3,12 @@ package org.softgreen.sistcoop.persona.client.models;
 import java.util.Date;
 import java.util.List;
 
-import javax.ejb.Local;
+import javax.ejb.Remote;
 
 import org.softgreen.sistcoop.persona.clien.enums.TipoEmpresa;
 import org.softgreen.sistcoop.persona.client.providers.Provider;
 
-@Local
+@Remote
 public interface PersonaJuridicaProvider extends Provider{
 	
 	PersonaJuridicaModel addPersonaJuridica(
