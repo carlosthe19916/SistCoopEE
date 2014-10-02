@@ -9,8 +9,8 @@ import javax.ws.rs.core.Response;
 
 import org.softgreen.sistcoop.persona.client.models.AccionistaModel;
 import org.softgreen.sistcoop.persona.client.models.AccionistaProvider;
-import org.softgreen.sistcoop.persona.ejb.models.util.ModelToRepresentation;
-import org.softgreen.sistcoop.persona.ejb.representations.idm.AccionistaRepresentation;
+import org.softgreen.sistcoop.persona.client.models.util.ModelToRepresentation;
+import org.softgreen.sistcoop.persona.client.representations.idm.AccionistaRepresentation;
 
 @Path("/accionistas")
 public class AccionistaResource {

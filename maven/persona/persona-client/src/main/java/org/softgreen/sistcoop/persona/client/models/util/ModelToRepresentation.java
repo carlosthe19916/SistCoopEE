@@ -1,4 +1,4 @@
-package org.softgreen.sistcoop.persona.ejb.models.util;
+package org.softgreen.sistcoop.persona.client.models.util;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -7,10 +7,10 @@ import org.softgreen.sistcoop.persona.client.models.AccionistaModel;
 import org.softgreen.sistcoop.persona.client.models.PersonaJuridicaModel;
 import org.softgreen.sistcoop.persona.client.models.PersonaNaturalModel;
 import org.softgreen.sistcoop.persona.client.models.TipoDocumentoModel;
-import org.softgreen.sistcoop.persona.ejb.representations.idm.AccionistaRepresentation;
-import org.softgreen.sistcoop.persona.ejb.representations.idm.PersonaJuridicaRepresentation;
-import org.softgreen.sistcoop.persona.ejb.representations.idm.PersonaNaturalRepresentation;
-import org.softgreen.sistcoop.persona.ejb.representations.idm.TipoDocumentoRepresentation;
+import org.softgreen.sistcoop.persona.client.representations.idm.AccionistaRepresentation;
+import org.softgreen.sistcoop.persona.client.representations.idm.PersonaJuridicaRepresentation;
+import org.softgreen.sistcoop.persona.client.representations.idm.PersonaNaturalRepresentation;
+import org.softgreen.sistcoop.persona.client.representations.idm.TipoDocumentoRepresentation;
 
 /**
  * @author <a href="mailto:bill@burkecentral.com">Bill Burke</a>

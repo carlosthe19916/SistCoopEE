@@ -1,4 +1,4 @@
-package org.softgreen.sistcoop.persona.ejb.models.util;
+package org.softgreen.sistcoop.persona.client.models.util;
 
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -14,9 +14,9 @@ import org.softgreen.sistcoop.persona.client.models.PersonaNaturalModel;
 import org.softgreen.sistcoop.persona.client.models.PersonaNaturalProvider;
 import org.softgreen.sistcoop.persona.client.models.TipoDocumentoModel;
 import org.softgreen.sistcoop.persona.client.models.TipoDocumentoProvider;
-import org.softgreen.sistcoop.persona.ejb.representations.idm.PersonaJuridicaRepresentation;
-import org.softgreen.sistcoop.persona.ejb.representations.idm.PersonaNaturalRepresentation;
-import org.softgreen.sistcoop.persona.ejb.representations.idm.TipoDocumentoRepresentation;
+import org.softgreen.sistcoop.persona.client.representations.idm.PersonaJuridicaRepresentation;
+import org.softgreen.sistcoop.persona.client.representations.idm.PersonaNaturalRepresentation;
+import org.softgreen.sistcoop.persona.client.representations.idm.TipoDocumentoRepresentation;
 
 @Stateless
 public class RepresentationToModel {

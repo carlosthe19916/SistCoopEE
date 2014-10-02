@@ -10,8 +10,8 @@ import org.softgreen.sistcoop.persona.client.models.PersonaNaturalModel;
 import org.softgreen.sistcoop.persona.client.models.PersonaNaturalProvider;
 import org.softgreen.sistcoop.persona.client.models.TipoDocumentoModel;
 import org.softgreen.sistcoop.persona.client.models.TipoDocumentoProvider;
-import org.softgreen.sistcoop.persona.ejb.representations.idm.AccionistaRepresentation;
-import org.softgreen.sistcoop.persona.ejb.representations.idm.PersonaJuridicaRepresentation;
+import org.softgreen.sistcoop.persona.client.representations.idm.AccionistaRepresentation;
+import org.softgreen.sistcoop.persona.client.representations.idm.PersonaJuridicaRepresentation;
 
 @Stateless
 public class PersonaJuridicaManager {

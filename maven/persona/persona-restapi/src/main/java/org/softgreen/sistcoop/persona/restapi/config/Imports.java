@@ -12,22 +12,22 @@ public class Imports {
 
 	@SuppressWarnings("unused")
 	@Produces
-	@EJB(lookup = "java:global/persona-ejb/org.softgreen.sistcoop.persona.ejb.models.jpa.JpaTipoDocumentoProvider!org.softgreen.sistcoop.persona.ejb.models.jpa.TipoDocumentoProvider")
+	@EJB(lookup = "java:global/persona-ejb/JpaTipoDocumentoProvider!org.softgreen.sistcoop.persona.client.models.TipoDocumentoProvider")
 	private TipoDocumentoProvider tipoDocumentoProvider;
 
 	@SuppressWarnings("unused")
 	@Produces
-	@EJB(lookup = "java:global/persona-ejb/org.softgreen.sistcoop.persona.ejb.models.jpa.JpaPersonaNaturalProvider!org.softgreen.sistcoop.persona.ejb.models.jpa.PersonaNaturalProvider")
+	@EJB(lookup = "java:global/persona-ejb/JpaPersonaNaturalProvider!org.softgreen.sistcoop.persona.client.models.PersonaNaturalProvider")
 	private PersonaNaturalProvider personaNaturalProvider;
 
 	@SuppressWarnings("unused")
 	@Produces
-	@EJB(lookup = "java:global/persona-ejb/org.softgreen.sistcoop.persona.ejb.models.jpa.JpaPersonaJuridicaProvider!org.softgreen.sistcoop.persona.ejb.models.jpa.PersonaJuridicaProvider")
+	@EJB(lookup = "java:global/persona-ejb/JpaPersonaJuridicaProvider!org.softgreen.sistcoop.persona.client.models.PersonaJuridicaProvider")
 	private PersonaJuridicaProvider personaJuridicaProvider;
 
 	@SuppressWarnings("unused")
 	@Produces
-	@EJB(lookup = "java:global/persona-ejb/org.softgreen.sistcoop.persona.ejb.models.jpa.JpaAccionistaProvider!org.softgreen.sistcoop.persona.ejb.models.jpa.AccionistaProvider")
+	@EJB(lookup = "java:global/persona-ejb/JpaAccionistaProvider!org.softgreen.sistcoop.persona.client.models.AccionistaProvider")
 	private AccionistaProvider accionistaProvider;
 
 	private Imports() {

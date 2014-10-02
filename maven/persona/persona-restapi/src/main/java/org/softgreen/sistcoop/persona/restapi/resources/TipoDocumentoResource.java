@@ -19,9 +19,9 @@ import javax.ws.rs.core.UriInfo;
 import org.softgreen.sistcoop.persona.clien.enums.TipoPersona;
 import org.softgreen.sistcoop.persona.client.models.TipoDocumentoModel;
 import org.softgreen.sistcoop.persona.client.models.TipoDocumentoProvider;
-import org.softgreen.sistcoop.persona.ejb.models.util.ModelToRepresentation;
-import org.softgreen.sistcoop.persona.ejb.models.util.RepresentationToModel;
-import org.softgreen.sistcoop.persona.ejb.representations.idm.TipoDocumentoRepresentation;
+import org.softgreen.sistcoop.persona.client.models.util.ModelToRepresentation;
+import org.softgreen.sistcoop.persona.client.models.util.RepresentationToModel;
+import org.softgreen.sistcoop.persona.client.representations.idm.TipoDocumentoRepresentation;
 
 @Path("/tiposDocumento")
 public class TipoDocumentoResource {

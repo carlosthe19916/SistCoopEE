@@ -1,4 +1,4 @@
-package org.softgreen.sistcoop.persona.ejb.representations.idm;
+package org.softgreen.sistcoop.persona.client.representations.idm;
 
 import java.io.Serializable;
 
