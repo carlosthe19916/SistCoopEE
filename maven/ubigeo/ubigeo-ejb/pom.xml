@@ -89,7 +89,7 @@
 						the POM, which defines the dependency at compile time. -->
 					<archive>
 						<manifestEntries>
-							<Dependencies>deployment.persona-client.jar</Dependencies>
+							<Dependencies>deployment.ubigeo-client.jar</Dependencies>
 						</manifestEntries>
 					</archive>
 				</configuration>

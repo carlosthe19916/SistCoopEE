@@ -1,6 +1,8 @@
 package org.softgreen.sistcoop.ubigeo.client.models;
 
-public interface Model {
+import java.io.Serializable;
+
+public interface Model extends Serializable{
 
 	void commit();
 

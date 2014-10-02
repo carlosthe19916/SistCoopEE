@@ -9,7 +9,7 @@ public class Imports {
 
 	@SuppressWarnings("unused")
 	@Produces
-	@EJB(lookup = "java:global/persona-ejb/JpaCountryProvider!org.softgreen.sistcoop.ubigeo.client.models.CountryProvider")
+	@EJB(lookup = "java:global/ubigeo-ejb/JpaCountryProvider!org.softgreen.sistcoop.ubigeo.client.models.CountryProvider")
 	private CountryProvider countryProvider;
 	
 
