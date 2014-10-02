@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 
 import org.softgreen.sistcoop.persona.client.models.CurrencyModel;
 import org.softgreen.sistcoop.persona.client.models.DenominationModel;
+import org.softgreen.sistcoop.persona.ejb.models.jpa.entities.CurrencyEntity;
 import org.softgreen.sistcoop.persona.ejb.models.jpa.entities.DenominationEntity;
 
 public class DenominationAdapter implements DenominationModel {
@@ -16,6 +17,10 @@ public class DenominationAdapter implements DenominationModel {
 	public DenominationAdapter(EntityManager em, DenominationEntity denominationEntity) {
 		this.em = em;
 		this.denominationEntity = denominationEntity;
+	}
+
+	public DenominationEntity getDenominationEntity() {
+		return denominationEntity;
 	}
 
 	@Override
@@ -30,7 +35,8 @@ public class DenominationAdapter implements DenominationModel {
 
 	@Override
 	public void setCurrency(CurrencyModel currency) {
-		denominationEntity.setCurrency(currency);
+		CurrencyEntity currencyEntity = CurrencyAdapter.toCurrencyEntity(currency, em);
+		denominationEntity.setCurrency(currencyEntity);
 	}
 
 	@Override
@@ -47,6 +53,13 @@ public class DenominationAdapter implements DenominationModel {
 	public void commit() {
 		// TODO Auto-generated method stub
 
+	}
+
+	public static DenominationEntity toDenominationEntity(DenominationModel model, EntityManager em) {
+		if (model instanceof DenominationAdapter) {
+			return ((DenominationAdapter) model).getDenominationEntity();
+		}
+		return em.getReference(DenominationEntity.class, model.getId());
 	}
 
 	@Override

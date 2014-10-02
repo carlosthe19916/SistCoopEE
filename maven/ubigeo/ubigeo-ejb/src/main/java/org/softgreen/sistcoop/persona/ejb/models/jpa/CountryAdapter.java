@@ -5,120 +5,125 @@ import javax.persistence.EntityManager;
 import org.softgreen.sistcoop.persona.client.models.CountryModel;
 import org.softgreen.sistcoop.persona.client.models.CurrencyModel;
 import org.softgreen.sistcoop.persona.ejb.models.jpa.entities.CountryEntity;
+import org.softgreen.sistcoop.persona.ejb.models.jpa.entities.CurrencyEntity;
 
 public class CountryAdapter implements CountryModel {
 
-	protected CountryEntity tipoDocumentoEntity;
+	protected CountryEntity countryEntity;
 	protected EntityManager em;
 
 	public CountryAdapter(EntityManager em, CountryEntity tipoDocumentoEntity) {
 		this.em = em;
-		this.tipoDocumentoEntity = tipoDocumentoEntity;
+		this.countryEntity = tipoDocumentoEntity;
+	}
+
+	public CountryEntity getCountryEntity() {
+		return countryEntity;
 	}
 
 	@Override
 	public Integer getId() {
-		return tipoDocumentoEntity.getId();
+		return countryEntity.getId();
 	}
 
 	@Override
 	public String getAlpha2Code() {
-		return tipoDocumentoEntity.getAlpha2Code();
+		return countryEntity.getAlpha2Code();
 	}
 
 	@Override
 	public void setAlpha2Code(String alpha2Code) {
-		tipoDocumentoEntity.setAlpha2Code(alpha2Code);
+		countryEntity.setAlpha2Code(alpha2Code);
 	}
 
 	@Override
 	public String getShortName() {
-		return tipoDocumentoEntity.getShortName();
+		return countryEntity.getShortName();
 	}
 
 	@Override
 	public void setShortName(String shortName) {
-		tipoDocumentoEntity.setShortName(shortName);
+		countryEntity.setShortName(shortName);
 	}
 
 	@Override
 	public String getShortNameLowerCase() {
-		return tipoDocumentoEntity.getShortNameLowerCase();
+		return countryEntity.getShortNameLowerCase();
 	}
 
 	@Override
 	public void setShortNameLowerCase(String shortNameLowerCase) {
-		tipoDocumentoEntity.setShortNameLowerCase(shortNameLowerCase);
+		countryEntity.setShortNameLowerCase(shortNameLowerCase);
 	}
 
 	@Override
 	public String getFullName() {
-		return tipoDocumentoEntity.getFullName();
+		return countryEntity.getFullName();
 	}
 
 	@Override
 	public void setFullName(String fullName) {
-		tipoDocumentoEntity.setFullName(fullName);
+		countryEntity.setFullName(fullName);
 	}
 
 	@Override
 	public String getAlpha3Code() {
-		return tipoDocumentoEntity.getAlpha3Code();
+		return countryEntity.getAlpha3Code();
 	}
 
 	@Override
 	public void setAlpha3Code(String alpha3Code) {
-		tipoDocumentoEntity.setAlpha3Code(alpha3Code);
+		countryEntity.setAlpha3Code(alpha3Code);
 	}
 
 	@Override
 	public String getNumericCode() {
-		return tipoDocumentoEntity.getNumericCode();
+		return countryEntity.getNumericCode();
 	}
 
 	@Override
 	public void setNumericCode(String numericCode) {
-		tipoDocumentoEntity.setNumericCode(numericCode);
+		countryEntity.setNumericCode(numericCode);
 	}
 
 	@Override
 	public String getRemarks() {
-return tipoDocumentoEntity.getRemarks();
+		return countryEntity.getRemarks();
 	}
 
 	@Override
 	public void setRemarks(String remarks) {
-		tipoDocumentoEntity.setRemarks(remarks);
+		countryEntity.setRemarks(remarks);
 	}
 
 	@Override
 	public boolean isIndependent() {
-		return tipoDocumentoEntity.isIndependent();
+		return countryEntity.isIndependent();
 	}
 
 	@Override
 	public void setIndependent(boolean independent) {
-		tipoDocumentoEntity.setIndependent(independent);
+		countryEntity.setIndependent(independent);
 	}
 
 	@Override
 	public String getTerritoryName() {
-		return tipoDocumentoEntity.getTerritoryName();
+		return countryEntity.getTerritoryName();
 	}
 
 	@Override
 	public void setTerritoryName(String territoryName) {
-		tipoDocumentoEntity.setTerritoryName(territoryName);
+		countryEntity.setTerritoryName(territoryName);
 	}
 
 	@Override
 	public String getStatus() {
-		return tipoDocumentoEntity.getStatus();
+		return countryEntity.getStatus();
 	}
 
 	@Override
 	public void setStatus(String status) {
-		tipoDocumentoEntity.setStatus(status);
+		countryEntity.setStatus(status);
 	}
 
 	@Override
@@ -128,14 +133,21 @@ return tipoDocumentoEntity.getRemarks();
 
 	@Override
 	public void setCurrency(CurrencyModel currency) {
-		// TODO Auto-generated method stub
-
+		CurrencyEntity currencyEntity = CurrencyAdapter.toCurrencyEntity(currency, em);
+		countryEntity.setCurrency(currencyEntity);
 	}
 
 	@Override
 	public void commit() {
 		// TODO Auto-generated method stub
 
+	}
+
+	public static CountryEntity toCountryEntity(CountryModel model, EntityManager em) {
+		if (model instanceof CountryAdapter) {
+			return ((CountryAdapter) model).getCountryEntity();
+		}
+		return em.getReference(CountryEntity.class, model.getId());
 	}
 
 	@Override
