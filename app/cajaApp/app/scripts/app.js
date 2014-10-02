@@ -8,7 +8,22 @@ var configUrl = consoleBaseUrl + "/config";
 var auth = {};
 var authUrl = window.location.href.substring(0, window.location.href.indexOf('/admin/'));
 
-var module = angular.module('cajaApp', [ 'cajaApp.services', 'ui.bootstrap', 'ui.router']);
+var module = angular.module('cajaApp', [
+    'cajaApp.services',
+    'ui.bootstrap',
+    'ui.router',
+
+    /*Rest SDK*/,
+    'ubigeoSDK',
+    'personaSDK',
+
+    /*Persona module*/
+    'persona.controllers',
+
+    /*Common module*/
+    'common.controllers'
+
+]);
 var resourceRequests = 0;
 var loadingTimer = -1;
 

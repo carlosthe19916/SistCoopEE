@@ -1,9 +1,9 @@
 /**
  * Created by Huertas on 12/09/2014.
  */
-var module = angular.module('ubigeoSDK', ['restmod']);
+var moduleUbigeoSDK = angular.module('ubigeoSDK', ['restmod']);
 
-module.config(function(restmodProvider) {
+moduleUbigeoSDK.config(function(restmodProvider) {
     restmodProvider.rebase('AMSApi');
    /* restmodProvider.rebase({
         // or use setProperty('urlPrefix', '/api/v1') in a definition function
@@ -16,11 +16,11 @@ module.config(function(restmodProvider) {
     });
 });
 
-module.service('ubigeoConfig', function(){
+moduleUbigeoSDK.service('ubigeoConfig', function(){
     this.urlPrefix = 'http://localhost:8080/ubigeo-restapi/rest/v1';
 });
 
-module.factory('Country', function(restmod, ubigeoConfig) {
+moduleUbigeoSDK.factory('Country', function(restmod, ubigeoConfig) {
     return restmod.model(ubigeoConfig.urlPrefix + '/countries').$mix({
         alpha2Code: {init: undefined},
         shortName: {init: undefined},
@@ -37,7 +37,7 @@ module.factory('Country', function(restmod, ubigeoConfig) {
 
 });
 
-module.factory('Currency', function(restmod, ubigeoConfig) {
+moduleUbigeoSDK.factory('Currency', function(restmod, ubigeoConfig) {
     return restmod.model(ubigeoConfig.urlPrefix +'/currencies').$mix({
         code: undefined,
         denomination: undefined,
@@ -47,14 +47,14 @@ module.factory('Currency', function(restmod, ubigeoConfig) {
     });
 });
 
-module.factory('Denomination', function(restmod, ubigeoConfig) {
+moduleUbigeoSDK.factory('Denomination', function(restmod, ubigeoConfig) {
     return restmod.model(ubigeoConfig.urlPrefix +'/currencies').$mix({
         value: undefined
     });
 });
 
 
-module.factory('Departamento', function(restmod, ubigeoConfig) {
+moduleUbigeoSDK.factory('Departamento', function(restmod, ubigeoConfig) {
     return restmod.model(ubigeoConfig.urlPrefix +'/departamentos').$mix({
         PRIMARY_KEY: 'codigo',
         codigo: {init: undefined},
@@ -63,7 +63,7 @@ module.factory('Departamento', function(restmod, ubigeoConfig) {
     })
 });
 
-module.factory('Provincia', function(restmod, ubigeoConfig) {
+moduleUbigeoSDK.factory('Provincia', function(restmod, ubigeoConfig) {
     return restmod.model(ubigeoConfig.urlPrefix +'/provincias').$mix({
         PRIMARY_KEY: 'codigo',
         codigo: {init: undefined},
@@ -73,7 +73,7 @@ module.factory('Provincia', function(restmod, ubigeoConfig) {
     });
 });
 
-module.factory('Distrito', function(restmod, ubigeoConfig) {
+moduleUbigeoSDK.factory('Distrito', function(restmod, ubigeoConfig) {
     return restmod.model(ubigeoConfig.urlPrefix +'/distritos').$mix({
         PRIMARY_KEY: 'codigo',
         codigo: {init: undefined},

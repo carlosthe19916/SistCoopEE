@@ -21,7 +21,7 @@
 
     <artifactId>ubigeo-client</artifactId>
     <packaging>jar</packaging>
-    <name>WildFly Quickstarts: Inter-application (ubigeo-client API jar)</name>
+    <name>WildFly Quickstarts: Inter-application (persona-client API jar)</name>
     <description>Inter-application: Shows how to communicate between two applications using EJB and CDI</description>
 
     <parent>
