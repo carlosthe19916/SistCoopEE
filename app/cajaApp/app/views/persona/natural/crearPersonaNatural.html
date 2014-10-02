@@ -6,10 +6,14 @@
         <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.pais.$invalid && (formCrearPersonanatural.pais.$touched || formCrearPersonanatural.$submitted)}">
             <label>Nacionalidad </label>
             <div class="input-group">
-                <span ng-bind="view.personaNatural.codigoPais" class="input-group-addon"></span>
-                <select focus-on="focusPais" name="pais" ng-options="pais.alpha3Code as pais.fullName for pais in combo.pais" ng-model="view.personaNatural.codigoPais" class="form-control" required autofocus>
-                    <option value="">--Seleccione--</option>
-                </select>
+                <span ng-bind="combo.selected.pais ? combo.selected.pais.alpha3Code : 'NA'" class="input-group-addon"></span>
+                <ui-select focus-on="focusPais" ng-model="combo.selected.pais" theme="bootstrap" required autofocus>
+                    <ui-select-match placeholder="Seleccione">{{$select.selected.fullName}}</ui-select-match>
+                    <ui-select-choices repeat="item in combo.pais | filter: $select.search">
+                        <div ng-bind-html="item.fullName | highlight: $select.search"></div>
+                        <small ng-bind-html="item.alpha3Code | highlight: $select.search"></small>
+                    </ui-select-choices>
+                </ui-select>
             </div>
             <div ng-messages="formCrearPersonanatural.pais.$error" ng-if="formCrearPersonanatural.pais.$touched || formCrearPersonanatural.$submitted">
                 <div class="help-block" ng-message="required">Ingrese nacionalidad.</div>

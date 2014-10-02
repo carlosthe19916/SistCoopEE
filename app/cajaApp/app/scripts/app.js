@@ -9,9 +9,12 @@ var auth = {};
 var authUrl = window.location.href.substring(0, window.location.href.indexOf('/admin/'));
 
 var module = angular.module('cajaApp', [
+    'ngSanitize',
+
     'cajaApp.services',
     'ui.bootstrap',
     'ui.router',
+    'ui.select',
 
     /*Rest SDK*/,
     'ubigeoSDK',
@@ -78,7 +81,9 @@ module.factory('authInterceptor', function($q, Auth) {
     };
 });
 
-
+module.config(function(uiSelectConfig) {
+    uiSelectConfig.theme = 'bootstrap';
+});
 
 
 module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
