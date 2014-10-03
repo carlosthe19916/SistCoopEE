@@ -24,8 +24,10 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
+import org.jboss.resteasy.annotations.providers.jaxb.Wrapped;
+import org.jboss.resteasy.annotations.providers.jaxb.WrappedMap;
+import org.jboss.resteasy.annotations.providers.jaxb.json.BadgerFish;
 import org.softgreen.sistcoop.ubigeo.client.models.CountryModel;
 import org.softgreen.sistcoop.ubigeo.client.models.CountryProvider;
 import org.softgreen.sistcoop.ubigeo.client.models.util.ModelToRepresentation;
@@ -43,15 +45,16 @@ public class CountryREST {
 	@Inject
 	private CountryProvider countryProvider;
 
+	@Wrapped
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response listAllMembers() {
+	public List<CountryRepresentation> listAllMembers() {
 		List<CountryModel> list = countryProvider.findAll();
 		List<CountryRepresentation> result = new ArrayList<>();
 		for (CountryModel countryModel : list) {
 			result.add(ModelToRepresentation.toRepresentation(countryModel));
-		}
-		return Response.ok().entity(result).build();
+		}	
+		return result;
 	}
 
 }
