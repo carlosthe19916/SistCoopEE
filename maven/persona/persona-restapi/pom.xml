@@ -13,14 +13,14 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>ubigeo-restapi</artifactId>
+	<artifactId>persona-restapi</artifactId>
 	<packaging>war</packaging>
 	<name>WildFly Quickstarts: Kitchensink</name>
 	<description>A starter Java EE 7 webapp project for use on JBoss WildFly / WildFly, generated from the jboss-javaee6-webapp archetype</description>
 
 	<parent>
 		<groupId>org.softgreen.sistcoop</groupId>
-		<artifactId>ubigeo</artifactId>
+		<artifactId>persona</artifactId>
 		<version>8.0.0-SNAPSHOT</version>
 	</parent>
 
@@ -81,7 +81,7 @@
 		<!-- We depend on the EJB remote business interfaces of this application -->
 		<dependency>
 			<groupId>org.softgreen.sistcoop</groupId>
-			<artifactId>ubigeo-client</artifactId>
+			<artifactId>persona-client</artifactId>
 			<scope>provided</scope>
 		</dependency>
 
@@ -103,7 +103,7 @@
 						which defines the dependency at compile time. -->
 					<archive>
 						<manifestEntries>
-							<Dependencies>deployment.ubigeo-client.jar</Dependencies>
+							<Dependencies>deployment.persona-client.jar</Dependencies>
 						</manifestEntries>
 					</archive>
 				</configuration>

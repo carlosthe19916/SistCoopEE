@@ -81,7 +81,7 @@
 		<!-- We depend on the EJB remote business interfaces of this application -->
 		<dependency>
 			<groupId>org.softgreen.sistcoop</groupId>
-			<artifactId>persona-client</artifactId>
+			<artifactId>ubigeo-client</artifactId>
 			<scope>provided</scope>
 		</dependency>
 

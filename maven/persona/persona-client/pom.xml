@@ -19,14 +19,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ubigeo-client</artifactId>
+    <artifactId>persona-client</artifactId>
     <packaging>jar</packaging>
-    <name>WildFly Quickstarts: Inter-application (ubigeo-client API jar)</name>
+    <name>WildFly Quickstarts: Inter-application (persona-client API jar)</name>
     <description>Inter-application: Shows how to communicate between two applications using EJB and CDI</description>
 
     <parent>
         <groupId>org.softgreen.sistcoop</groupId>
-        <artifactId>ubigeo</artifactId>
+        <artifactId>persona</artifactId>
         <version>8.0.0-SNAPSHOT</version>
     </parent>
 

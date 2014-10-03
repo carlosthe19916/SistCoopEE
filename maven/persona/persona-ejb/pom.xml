@@ -13,14 +13,14 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>ubigeo-ejb</artifactId>
+	<artifactId>persona-ejb</artifactId>
 	<packaging>war</packaging>
 	<name>WildFly Quickstarts: Inter-application (Application A)</name>
 	<description>Inter-application: Shows how to communicate between two applications using EJB and CDI</description>
 
 	<parent>
 		<groupId>org.softgreen.sistcoop</groupId>
-		<artifactId>ubigeo</artifactId>
+		<artifactId>persona</artifactId>
 		<version>8.0.0-SNAPSHOT</version>
 	</parent>
 
@@ -67,7 +67,7 @@
 			the dependency at runtime. -->
 		<dependency>
 			<groupId>org.softgreen.sistcoop</groupId>
-			<artifactId>ubigeo-client</artifactId>
+			<artifactId>persona-client</artifactId>
 			<scope>provided</scope>
 		</dependency>
 
@@ -89,7 +89,7 @@
 						the POM, which defines the dependency at compile time. -->
 					<archive>
 						<manifestEntries>
-							<Dependencies>deployment.ubigeo-client.jar</Dependencies>
+							<Dependencies>deployment.persona-client.jar</Dependencies>
 						</manifestEntries>
 					</archive>
 				</configuration>
