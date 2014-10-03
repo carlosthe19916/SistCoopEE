@@ -62,6 +62,26 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxrs</artifactId>
+			<version>3.0.8.Final</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxb-provider</artifactId>
+			<version>3.0.8.Final</version>	
+			<scope>provided</scope>		
+		</dependency>
+
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jettison-provider</artifactId>
+			<version>3.0.8.Final</version>
+		</dependency>
+
 		<!-- Import the transaction spec API, we use runtime scope because we aren't 
 			using any direct reference to the spec API in our client code -->
 		<dependency>
