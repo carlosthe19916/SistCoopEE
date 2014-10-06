@@ -12,18 +12,18 @@ public class TipoDocumentoList implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private List<TipoDocumentoRepresentation> tiposDocumento;
+	private List<TipoDocumentoRepresentation> countries;
 
 	public TipoDocumentoList(List<TipoDocumentoRepresentation> tiposDocumento) {
-		this.tiposDocumento = tiposDocumento;
+		this.countries = tiposDocumento;
 	}
 
-	public List<TipoDocumentoRepresentation> getTiposDocumento() {
-		return tiposDocumento;
+	public List<TipoDocumentoRepresentation> getCountries() {
+		return countries;
 	}
 
-	public void setTiposDocumento(List<TipoDocumentoRepresentation> tiposDocumento) {
-		this.tiposDocumento = tiposDocumento;
+	public void setCountries(List<TipoDocumentoRepresentation> countries) {
+		this.countries = countries;
 	}
 
 }

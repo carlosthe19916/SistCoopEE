@@ -1,7 +1,9 @@
 package org.softgreen.sistcoop.ubigeo.client.models.util;
 
 import org.softgreen.sistcoop.ubigeo.client.models.CountryModel;
+import org.softgreen.sistcoop.ubigeo.client.models.DepartamentoModel;
 import org.softgreen.sistcoop.ubigeo.client.representations.idm.CountryRepresentation;
+import org.softgreen.sistcoop.ubigeo.client.representations.idm.DepartamentoRepresentation;
 
 /**
  * @author <a href="mailto:bill@burkecentral.com">Bill Burke</a>
@@ -24,6 +26,18 @@ public class ModelToRepresentation {
 		rep.setShortNameLowerCase(model.getShortNameLowerCase());
 		rep.setStatus(model.getStatus());
 		rep.setTerritoryName(model.getTerritoryName());
+
+		return rep;
+	}
+	
+	public static DepartamentoRepresentation toRepresentation(DepartamentoModel model) {
+		if (model == null)
+			return null;
+		DepartamentoRepresentation rep = new DepartamentoRepresentation();
+
+		rep.setId(model.getId());
+		rep.setCodigo(model.getCodigo());
+		rep.setDenominacion(model.getDenominacion());
 
 		return rep;
 	}

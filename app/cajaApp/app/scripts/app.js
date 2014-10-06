@@ -19,7 +19,7 @@ var module = angular.module('cajaApp', [
 
     /*Rest SDK*/,
     'ubigeoSDK',
-    'personaSDK',
+    //'personaSDK',
 
     /*Persona module*/
     'persona.controllers',

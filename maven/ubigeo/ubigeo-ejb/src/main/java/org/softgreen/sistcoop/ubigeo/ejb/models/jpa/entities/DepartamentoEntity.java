@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.NamedQuery;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -26,6 +27,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
+@NamedQuery(name = DepartamentoEntity.findAll, query = "Select d from DepartamentoEntity d")
 public class DepartamentoEntity implements Serializable {
 
 	/**
@@ -33,6 +35,9 @@ public class DepartamentoEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public final static String base = "org.softgreen.sistcoop.ubigeo.ejb.models.jpa.entities";
+	public final static String findAll = base + "findAll";
+	
 	private Integer id;
 	private String codigo;
 	private String denominacion;

@@ -7,8 +7,6 @@ moduleUbigeoSDK.config(function(restmodProvider) {
     restmodProvider.rebase('AMSApi');
 });
 
-
-
 moduleUbigeoSDK.service('ubigeoConfig', function(){
     this.urlPrefix = 'http://localhost:8080/ubigeo-restapi/rest/v1';
 });
@@ -30,8 +28,15 @@ moduleUbigeoSDK.factory('Country', function(restmod, ubigeoConfig) {
         territoryName: {init: undefined},
         status: {init: undefined}
     });
+});
 
-
+moduleUbigeoSDK.factory('TipoDocumento', function(restmod, ubigeoConfig) {
+    return restmod.model('http://localhost:8080/persona-restapi/rest/v1' + '/tiposDocumento').$mix({
+        $config: {
+            name: 'country',
+            plural: 'countries'
+        }
+    });
 });
 
 moduleUbigeoSDK.factory('Currency', function(restmod, ubigeoConfig) {

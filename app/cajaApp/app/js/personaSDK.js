@@ -5,15 +5,6 @@ var modulePersonaSDK = angular.module('personaSDK', ['restmod']);
 
 modulePersonaSDK.config(function(restmodProvider) {
     restmodProvider.rebase('AMSApi');
-   /* restmodProvider.rebase({
-        // or use setProperty('urlPrefix', '/api/v1') in a definition function
-        URL_PREFIX: 'http://localhost:8080/persona-restapi/rest/v1'
-    });*/
-   /* restmodProvider.rebase({
-        PACKER: 'default',
-        NAME: 'data',
-        PLURAL: 'data'
-    });*/
 });
 
 modulePersonaSDK.service('personaConfig', function(){
@@ -72,7 +63,7 @@ modulePersonaSDK.factory('PersonaNatural', function(restmod, personaConfig) {
         email: {init: undefined}
     });
 });
-
+/*
 modulePersonaSDK.factory('TipoDocumento', function(restmod, personaConfig) {
     return restmod.model(personaConfig.urlPrefix + '/tiposDocumento').$mix({
         $config: {
@@ -91,4 +82,4 @@ modulePersonaSDK.factory('TipoDocumento', function(restmod, personaConfig) {
             return this.cantidadCaracteres;
         }
     });
-});
+});*/
