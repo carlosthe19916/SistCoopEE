@@ -1,6 +1,8 @@
 package org.softgreen.sistcoop.persona.client.models;
 
-public interface Model {
+import java.io.Serializable;
+
+public interface Model extends Serializable {
 
 	void commit();
 

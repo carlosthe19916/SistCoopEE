@@ -3,7 +3,7 @@ package org.softgreen.sistcoop.persona.restapi.resources;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -22,31 +22,32 @@ import org.softgreen.sistcoop.persona.client.models.TipoDocumentoProvider;
 import org.softgreen.sistcoop.persona.client.models.util.ModelToRepresentation;
 import org.softgreen.sistcoop.persona.client.models.util.RepresentationToModel;
 import org.softgreen.sistcoop.persona.client.representations.idm.TipoDocumentoRepresentation;
+import org.softgreen.sistcoop.persona.restapi.representation.TipoDocumentoList;
 
 @Path("/tiposDocumento")
 public class TipoDocumentoResource {
 
-	@EJB(lookup = "java:global/persona-ejb/JpaTipoDocumentoProvider!org.softgreen.sistcoop.persona.models.jpa.TipoDocumentoProvider")
+	@Inject
 	protected TipoDocumentoProvider tipoDocumentoProvider;
 
 	@Context
 	protected UriInfo uriInfo;
-	
+
 	@GET
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
 	public Response findById(@PathParam("id") String id) {
 		TipoDocumentoModel tipoDocumentoModel = tipoDocumentoProvider.getTipoDocumentoByAbreviatura(id);
 		TipoDocumentoRepresentation tipoDocumentoRepresentation = ModelToRepresentation.toRepresentation(tipoDocumentoModel);
-		return Response.ok().entity(tipoDocumentoRepresentation).build();	
+		return Response.ok().entity(tipoDocumentoRepresentation).build();
 	}
-	
+
 	@GET
 	@Produces({ "application/xml", "application/json" })
-	public Response findAll(@QueryParam("tipoPersona") String tipoPersona) {
+	public TipoDocumentoList findAll(@QueryParam("tipoPersona") String tipoPersona) {
 		List<TipoDocumentoModel> list = null;
 		if (tipoPersona != null) {
-			TipoPersona personType = TipoPersona.valueOf(tipoPersona);
+			TipoPersona personType = TipoPersona.lookup(tipoPersona);
 			if (personType != null) {
 				list = tipoDocumentoProvider.getTiposDocumento(TipoPersona.valueOf(tipoPersona));
 			} else {
@@ -60,10 +61,10 @@ public class TipoDocumentoResource {
 		for (TipoDocumentoModel model : list) {
 			result.add(ModelToRepresentation.toRepresentation(model));
 		}
-		return Response.ok(result).build();
+
+		return new TipoDocumentoList(result);
 	}
 
-	
 	@POST
 	@Produces({ "application/xml", "application/json" })
 	public Response create(TipoDocumentoRepresentation tipoDocumentoRepresentation) {
@@ -75,12 +76,18 @@ public class TipoDocumentoResource {
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
 	public Response update(@PathParam("id") String id, TipoDocumentoRepresentation tipoDocumentoRepresentation) {
-		/*TipoDocumentoModel tipoDocumentoModel = tipoDocumentoProvider.getTipoDocumentoByAbreviatura(id);
-		tipoDocumentoModel.setDenominacion(tipoDocumentoRepresentation.getDenominacion());
-		tipoDocumentoModel.setTipoPersona(TipoPersona.valueOf(tipoDocumentoRepresentation.getTipoPersona().toUpperCase()));
-		tipoDocumentoRepresentation.setCantidadCaracteres(tipoDocumentoRepresentation.getCantidadCaracteres());
-		tipoDocumentoModel.commit();
-		return Response.noContent().build();*/
+		/*
+		 * TipoDocumentoModel tipoDocumentoModel =
+		 * tipoDocumentoProvider.getTipoDocumentoByAbreviatura(id);
+		 * tipoDocumentoModel
+		 * .setDenominacion(tipoDocumentoRepresentation.getDenominacion());
+		 * tipoDocumentoModel
+		 * .setTipoPersona(TipoPersona.valueOf(tipoDocumentoRepresentation
+		 * .getTipoPersona().toUpperCase()));
+		 * tipoDocumentoRepresentation.setCantidadCaracteres
+		 * (tipoDocumentoRepresentation.getCantidadCaracteres());
+		 * tipoDocumentoModel.commit(); return Response.noContent().build();
+		 */
 		return null;
 	}
 

@@ -7,7 +7,7 @@ import org.softgreen.sistcoop.persona.client.models.TipoDocumentoModel;
 import org.softgreen.sistcoop.persona.ejb.models.jpa.entities.TipoDocumentoEntity;
 
 public class TipoDocumentoAdapter implements TipoDocumentoModel {
-
+	
 	protected TipoDocumentoEntity tipoDocumentoEntity;
 	protected EntityManager em;
 
