@@ -63,14 +63,9 @@ modulePersonaSDK.factory('PersonaNatural', function(restmod, personaConfig) {
         email: {init: undefined}
     });
 });
-/*
+
 modulePersonaSDK.factory('TipoDocumento', function(restmod, personaConfig) {
     return restmod.model(personaConfig.urlPrefix + '/tiposDocumento').$mix({
-        $config: {
-            name: 'tipoDocumento',
-            plural: 'tiposDocumento'
-        },
-
         abreviatura: {init: undefined},
         denominacion: {init: undefined},
         cantidadCaracteres: {init: undefined},
@@ -82,4 +77,4 @@ modulePersonaSDK.factory('TipoDocumento', function(restmod, personaConfig) {
             return this.cantidadCaracteres;
         }
     });
-});*/
+});

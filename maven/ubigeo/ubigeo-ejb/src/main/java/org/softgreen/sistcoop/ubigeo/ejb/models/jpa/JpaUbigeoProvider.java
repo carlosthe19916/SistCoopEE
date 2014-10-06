@@ -12,18 +12,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import org.softgreen.sistcoop.ubigeo.client.models.CountryModel;
-import org.softgreen.sistcoop.ubigeo.client.models.CountryProvider;
 import org.softgreen.sistcoop.ubigeo.client.models.DepartamentoModel;
 import org.softgreen.sistcoop.ubigeo.client.models.DistritoModel;
 import org.softgreen.sistcoop.ubigeo.client.models.ProvinciaModel;
 import org.softgreen.sistcoop.ubigeo.client.models.UbigeoProvider;
-import org.softgreen.sistcoop.ubigeo.ejb.models.jpa.entities.CountryEntity;
 import org.softgreen.sistcoop.ubigeo.ejb.models.jpa.entities.DepartamentoEntity;
 
 @Named
 @Stateless
-@Remote(CountryProvider.class)
+@Remote(UbigeoProvider.class)
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class JpaUbigeoProvider implements UbigeoProvider {
 

@@ -1,10 +1,5 @@
 angular.module('persona.controllers', [])
-    .controller('CrearPersonaNaturalController', function($scope, focus, Country, Departamento){
-
-        $scope.focusPais = function() {
-            focus('focusPais');
-        };
-        $scope.focusPais();
+    .controller('CrearPersonaNaturalController', function($scope, focus, Country, Departamento, Sexo, EstadoCivil){
 
         $scope.view = {
             personaNatural: undefined
@@ -12,25 +7,21 @@ angular.module('persona.controllers', [])
 
         $scope.combo = {
             pais: Country.$search(),
-            tipoDocumento: Departamento.$search()
+            sexo: Sexo.$search(),
+            estadoCivil: EstadoCivil.$search()
         };
 
         $scope.combo.selected = {
-            pais: undefined
+            pais: undefined,
+            sexo: undefined
         };
 
+        $scope.prueba = function(sexo){
+            console.log(sexo);
+        };
 
-
-        $scope.person = {};
-        $scope.people = [
-            { name: 'Adam',      email: 'adam@email.com',      age: 10 },
-            { name: 'Amalie',    email: 'amalie@email.com',    age: 12 },
-            { name: 'Wladimir',  email: 'wladimir@email.com',  age: 30 },
-            { name: 'Samantha',  email: 'samantha@email.com',  age: 31 },
-            { name: 'Estefanía', email: 'estefanía@email.com', age: 16 },
-            { name: 'Natasha',   email: 'natasha@email.com',   age: 54 },
-            { name: 'Nicole',    email: 'nicole@email.com',    age: 43 },
-            { name: 'Adrian',    email: 'adrian@email.com',    age: 21 }
-        ];
+        $scope.crearTransaccion = function(){
+            console.log($scope.formCrearPersonanatural.apellidoPaterno);
+        };
 
     });

@@ -15,7 +15,7 @@ public class Imports {
 
 	@SuppressWarnings("unused")
 	@Produces
-	@EJB(lookup = "java:global/ubigeo-ejb/JpaUbigeoProvider!org.softgreen.sistcoop.ubigeo.client.models.ubigeoProvider")
+	@EJB(lookup = "java:global/ubigeo-ejb/JpaUbigeoProvider!org.softgreen.sistcoop.ubigeo.client.models.UbigeoProvider")
 	private UbigeoProvider ubigeoProvider;
 
 	private Imports() {

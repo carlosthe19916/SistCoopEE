@@ -28,6 +28,10 @@ import org.softgreen.sistcoop.persona.clien.enums.EstadoCivil;
 import org.softgreen.sistcoop.persona.clien.enums.Sexo;
 import org.softgreen.sistcoop.persona.clien.enums.TipoEmpresa;
 import org.softgreen.sistcoop.persona.clien.enums.TipoPersona;
+import org.softgreen.sistcoop.persona.restapi.representation.EstadoCivilList;
+import org.softgreen.sistcoop.persona.restapi.representation.EstadoCivilRepresentation;
+import org.softgreen.sistcoop.persona.restapi.representation.SexoList;
+import org.softgreen.sistcoop.persona.restapi.representation.SexoRepresentation;
 
 @Path("/")
 public class MaestroResource {
@@ -49,29 +53,25 @@ public class MaestroResource {
 	@GET
 	@Path("/estadosCiviles")
 	@Produces({ "application/xml", "application/json" })
-	public Response getEstadosCiviles() {
-		Response response;
+	public EstadoCivilList getEstadosCiviles() {
 		EstadoCivil[] e = EstadoCivil.values();
-		List<EstadoCivil> list = new ArrayList<EstadoCivil>();
+		List<EstadoCivilRepresentation> list = new ArrayList<EstadoCivilRepresentation>();
 		for (int i = 0; i < e.length; i++) {
-			list.add(e[i]);
+			list.add(new EstadoCivilRepresentation(e[i].toString()));
 		}
-		response = Response.status(Response.Status.OK).entity(list).build();
-		return response;
+		return new EstadoCivilList(list);
 	}
 
 	@GET
 	@Path("/sexos")
 	@Produces({ "application/xml", "application/json" })
-	public Response getSexos() {
-		Response response;
+	public SexoList getSexos() {
 		Sexo[] s = Sexo.values();
-		List<Sexo> list = new ArrayList<Sexo>();
+		List<SexoRepresentation> list = new ArrayList<SexoRepresentation>();
 		for (int i = 0; i < s.length; i++) {
-			list.add(s[i]);
+			list.add(new SexoRepresentation(s[i].toString()));
 		}
-		response = Response.status(Response.Status.OK).entity(list).build();
-		return response;
+		return new SexoList(list);
 	}
 
 	@GET

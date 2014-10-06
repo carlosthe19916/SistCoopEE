@@ -30,15 +30,6 @@ moduleUbigeoSDK.factory('Country', function(restmod, ubigeoConfig) {
     });
 });
 
-moduleUbigeoSDK.factory('TipoDocumento', function(restmod, ubigeoConfig) {
-    return restmod.model('http://localhost:8080/persona-restapi/rest/v1' + '/tiposDocumento').$mix({
-        $config: {
-            name: 'country',
-            plural: 'countries'
-        }
-    });
-});
-
 moduleUbigeoSDK.factory('Currency', function(restmod, ubigeoConfig) {
     return restmod.model(ubigeoConfig.urlPrefix +'/currencies').$mix({
         code: undefined,

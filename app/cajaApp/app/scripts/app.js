@@ -10,6 +10,7 @@ var authUrl = window.location.href.substring(0, window.location.href.indexOf('/a
 
 var module = angular.module('cajaApp', [
     'ngSanitize',
+    'ngMessages',
 
     'cajaApp.services',
     'ui.bootstrap',
@@ -19,14 +20,15 @@ var module = angular.module('cajaApp', [
 
     /*Rest SDK*/,
     'ubigeoSDK',
-    //'personaSDK',
+    'personaSDK',
 
     /*Persona module*/
     'persona.controllers',
     'persona.directives',
 
     /*Common module*/
-    'common.controllers'
+    'common.controllers',
+    'common.directives'
 
 ]);
 var resourceRequests = 0;
