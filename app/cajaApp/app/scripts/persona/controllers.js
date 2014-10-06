@@ -1,8 +1,13 @@
 angular.module('persona.controllers', [])
-    .controller('CrearPersonaNaturalController', function($scope, Country){
+    .controller('CrearPersonaNaturalController', function($scope, focus, Country, PersonaNatural){
+
+        $scope.focusPais = function() {
+            focus('focusPais');
+        };
+        $scope.focusPais();
 
         $scope.view = {
-            personaNatural: undefined
+            personaNatural: PersonaNatural.$build()
         };
 
         $scope.combo = {

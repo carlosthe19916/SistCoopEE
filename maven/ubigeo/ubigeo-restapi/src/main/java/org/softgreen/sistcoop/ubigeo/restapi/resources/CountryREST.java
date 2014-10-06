@@ -25,13 +25,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.jboss.resteasy.annotations.providers.jaxb.Wrapped;
-import org.jboss.resteasy.annotations.providers.jaxb.WrappedMap;
-import org.jboss.resteasy.annotations.providers.jaxb.json.BadgerFish;
 import org.softgreen.sistcoop.ubigeo.client.models.CountryModel;
 import org.softgreen.sistcoop.ubigeo.client.models.CountryProvider;
 import org.softgreen.sistcoop.ubigeo.client.models.util.ModelToRepresentation;
 import org.softgreen.sistcoop.ubigeo.client.representations.idm.CountryRepresentation;
+import org.softgreen.sistcoop.ubigeo.restapi.representation.CountryList;
 
 /**
  * JAX-RS Example
@@ -45,16 +43,15 @@ public class CountryREST {
 	@Inject
 	private CountryProvider countryProvider;
 
-	@Wrapped
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<CountryRepresentation> listAllMembers() {
+	public CountryList listAllMembers() {
 		List<CountryModel> list = countryProvider.findAll();
 		List<CountryRepresentation> result = new ArrayList<>();
 		for (CountryModel countryModel : list) {
 			result.add(ModelToRepresentation.toRepresentation(countryModel));
-		}	
-		return result;
+		}
+		return new CountryList(result);
 	}
 
 }

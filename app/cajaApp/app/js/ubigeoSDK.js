@@ -5,16 +5,9 @@ var moduleUbigeoSDK = angular.module('ubigeoSDK', ['restmod']);
 
 moduleUbigeoSDK.config(function(restmodProvider) {
     restmodProvider.rebase('AMSApi');
-   /* restmodProvider.rebase({
-        // or use setProperty('urlPrefix', '/api/v1') in a definition function
-        URL_PREFIX: 'http://localhost:8080/ubigeo-restapi/rest/v1'
-    });*/
-    restmodProvider.rebase({
-        PACKER: 'default',
-        NAME: 'data',
-        PLURAL: 'data'
-    });
 });
+
+
 
 moduleUbigeoSDK.service('ubigeoConfig', function(){
     this.urlPrefix = 'http://localhost:8080/ubigeo-restapi/rest/v1';
@@ -22,6 +15,10 @@ moduleUbigeoSDK.service('ubigeoConfig', function(){
 
 moduleUbigeoSDK.factory('Country', function(restmod, ubigeoConfig) {
     return restmod.model(ubigeoConfig.urlPrefix + '/countries').$mix({
+        $config: {
+            name: 'country',
+            plural: 'countries'
+        },
         alpha2Code: {init: undefined},
         shortName: {init: undefined},
         shortNameLowerCase: {init: undefined},

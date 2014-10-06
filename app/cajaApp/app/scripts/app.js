@@ -15,6 +15,7 @@ var module = angular.module('cajaApp', [
     'ui.bootstrap',
     'ui.router',
     'ui.select',
+    'focusOn',
 
     /*Rest SDK*/,
     'ubigeoSDK',
@@ -22,6 +23,7 @@ var module = angular.module('cajaApp', [
 
     /*Persona module*/
     'persona.controllers',
+    'persona.directives',
 
     /*Common module*/
     'common.controllers'
@@ -39,6 +41,7 @@ angular.element(document).ready(function ($http) {
 
     keycloakAuth.init({ onLoad: 'login-required' }).success(function () {
         auth.authz = keycloakAuth;
+
         keycloakAuth.loadUserProfile().success(function(profile) {
 
             auth.user = profile;

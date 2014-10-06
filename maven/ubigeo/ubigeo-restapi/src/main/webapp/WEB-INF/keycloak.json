@@ -1,6 +1,6 @@
 {
   "realm": "SistCoop",
-  "realm-public-key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCCkvLhPK8sMZSl5QMJ1Mv9HBj5WlIL0txY+a1tWcpvZD7pcOx5jJSAplStPMgNpsJnXDGKvG17XdAz3NuEGjFL6++nOKwX3aMqfCsi7nu/JaOaqiWUplC2MjyNEo3/pBZmSxtqtyCRiADn2KeW29BVtc4MSDOuJzQlI1yw+N9b6wIDAQAB",
+  "realm-public-key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCYmMMRaq9I8qlG9XaG3y5V3y6p87238VXyISP+xDYDcwtWn8Q+OFjxtreM3/MOOo/WTZYYW4UXJVZcc7uqKmD8aMPs3PxhOA35grdfgBhH58JfzdCb+Jwo6dH/fUezea+7V/ggc9x1iU6gAHe51rVBegxIdVvSP7Q8PGdx7wIdnwIDAQAB",
   "bearer-only": true,
   "ssl-required": "external",
   "resource": "ubigeo-restapi",
