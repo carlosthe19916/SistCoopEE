@@ -8,12 +8,19 @@ angular.module('persona.directives', [])
                 $scope.tiposDocumento = TipoDocumento.$search({tipoPersona: $scope.tipoPersona.toUpperCase()});
                 $scope.sgForm = ngModel;
 
-                $scope.$watch('sgTipoDocumento', function (value) {
+                $scope.view = {
+                    sgTipoDocumento: undefined,
+                    sgNumeroDocumento: undefined
+                };
+
+                $scope.$watch('view.sgTipoDocumento', function (value) {
                     $scope.numeroDocumento = '';
-                    if(!angular.isUndefined($scope.sgTipoDocumento))
-                        $scope.tipoDocumento = $scope.sgTipoDocumento.abreviatura;
-                    else
+                    if(!angular.isUndefined($scope.view.sgTipoDocumento)){
+                        $scope.tipoDocumento = $scope.view.sgTipoDocumento.abreviatura;
+                    }
+                    else {
                         $scope.tipoDocumento = undefined;
+                    }
                 });
 
             },
@@ -26,31 +33,31 @@ angular.module('persona.directives', [])
             },
             template: ''
                 +'<div class="col-sm-4">'
-                +'<div class="form-group" ng-class="{ \'has-error\' : sgForm.sgTipoDocumento.$invalid && (sgForm.sgTipoDocumento.$touched || sgForm.$submitted)}">'
-                +'<label>Tipo documento</label>'
-                +'<ui-select name="sgTipoDocumento" ng-model="sgTipoDocumento" theme="bootstrap">'
-                +'<ui-select-match placeholder="Seleccione">{{$select.selected.abreviatura}}</ui-select-match>'
-                +'<ui-select-choices repeat="item in tiposDocumento | filter: $select.search">'
-                +'<div ng-bind-html="item.abreviatura | highlight: $select.search"></div>'
-                +'</ui-select-choices>'
-                +'</ui-select>'
+                    +'<div class="form-group" ng-class="{ \'has-error\' : sgForm.sgTipoDocumento.$invalid && (sgForm.sgTipoDocumento.$touched || sgForm.$submitted)}">'
+                        +'<label>Tipo documento</label>'
+                        +'<ui-select name="sgTipoDocumento" ng-model="view.sgTipoDocumento" theme="bootstrap">'
+                            +'<ui-select-match placeholder="Seleccione">{{$select.selected.abreviatura}}</ui-select-match>'
+                            +'<ui-select-choices repeat="item in tiposDocumento | filter: $select.search">'
+                            +'<div ng-bind-html="item.abreviatura | highlight: $select.search"></div>'
+                            +'</ui-select-choices>'
+                        +'</ui-select>'
+                        +'<div ng-messages="sgForm.sgTipoDocumento.$error" ng-if="sgForm.sgTipoDocumento.$touched || sgForm.$submitted">'
+                            +'<div class="help-block" ng-message="required">Ingrese documento.</div>'
+                        +'</div>'
+                    +'</div>'
+                +'</div>'
 
-                +'<div ng-messages="sgForm.sgTipoDocumento.$error" ng-if="sgForm.sgTipoDocumento.$touched || sgForm.$submitted">'
-                +'<div class="help-block" ng-message="required">Ingrese documento.</div>'
-                +'</div>'
-                +'</div>'
-                +'</div>'
                 +'<div class="col-sm-4" ng-class="{ \'has-error\' : sgForm.sgNumeroDocumento.$invalid && (sgForm.sgNumeroDocumento.$touched || sgForm.$submitted)}">'
-                +'<div class="form-group">'
-                +'<label>N&uacute;mero documento</label>'
-                +'<input type="text" name="sgNumeroDocumento" ng-model="numeroDocumento" ng-pattern="/^[0-9]+$/" ng-minlength="sgTipoDocumento.cantidadCaracteres" ng-maxlength="sgTipoDocumento.cantidadCaracteres" class="form-control" ng-required="{{requerido}}"/>'
-                +'<div ng-messages="sgForm.sgNumeroDocumento.$error" ng-if="sgForm.sgNumeroDocumento.$touched || sgForm.$submitted">'
-                +'<div class="help-block" ng-message="required">Ingrese numero documento.</div>'
-                +'<div class="help-block" ng-message="minlength">Debe tener <span ng-bind="sgTipoDocumento.cantidadCaracteres"></span> digitos.</div>'
-                +'<div class="help-block" ng-message="maxlength">Debe tener <span ng-bind="sgTipoDocumento.cantidadCaracteres"></span> digitos.</div>'
-                +'<div class="help-block" ng-message="pattern">Numero invalido.</div>'
-                +'</div>'
-                +'</div>'
+                    +'<div class="form-group">'
+                        +'<label>N&uacute;mero documento</label>'
+                        +'<input type="text" name="sgNumeroDocumento" ng-model="numeroDocumento" ng-pattern="/^[0-9]+$/" ng-minlength="view.sgTipoDocumento.cantidadCaracteres" ng-maxlength="view.sgTipoDocumento.cantidadCaracteres" class="form-control" ng-required="{{requerido}}"/>'
+                        +'<div ng-messages="sgForm.sgNumeroDocumento.$error" ng-if="sgForm.sgNumeroDocumento.$touched || sgForm.$submitted">'
+                            +'<div class="help-block" ng-message="required">Ingrese numero documento.</div>'
+                            +'<div class="help-block" ng-message="minlength">Debe tener <span ng-bind="view.sgTipoDocumento.cantidadCaracteres"></span> digitos.</div>'
+                            +'<div class="help-block" ng-message="maxlength">Debe tener <span ng-bind="view.sgTipoDocumento.cantidadCaracteres"></span> digitos.</div>'
+                            +'<div class="help-block" ng-message="pattern">Numero invalido.</div>'
+                        +'</div>'
+                    +'</div>'
                 +'</div>'
         }
     }).directive('sgUbigeo',function(Departamento, Provincia, Distrito){
