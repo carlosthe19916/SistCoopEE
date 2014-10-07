@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -20,6 +21,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
@@ -32,7 +34,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.softgreen.sistcoop.persona.clien.enums.TipoEmpresa;
 
 @Entity
-@Table(indexes = { @Index(columnList = "id") })
+@Table(name="PERSONA_JURIDICA", indexes = { @Index(columnList = "id") }, uniqueConstraints = {@UniqueConstraint(columnNames={"TIPO_DOCUMENTO", "NUMERO_DOCUMENTO"})})
 @NamedQueries({
 		@NamedQuery(name = PersonaJuridicaEntity.findAll, query = "SELECT p FROM PersonaJuridicaEntity p"),
 		@NamedQuery(name = PersonaJuridicaEntity.findByNumeroDocumento, query = "SELECT p FROM PersonaJuridicaEntity p WHERE p.numeroDocumento = :numeroDocumento "),
@@ -81,6 +83,7 @@ public class PersonaJuridicaEntity extends PersonaEntity implements
 
 	@Id
 	@GeneratedValue(generator = "SgGenericGenerator")
+	@Column(name="ID")
 	public Long getId() {
 		return id;
 	}
@@ -93,6 +96,7 @@ public class PersonaJuridicaEntity extends PersonaEntity implements
 	@Size(min = 1, max = 70)
 	@NotEmpty
 	@NotBlank
+	@Column(name="RAZON_SOCIAL")
 	public String getRazonSocial() {
 		return razonSocial;
 	}
@@ -103,6 +107,7 @@ public class PersonaJuridicaEntity extends PersonaEntity implements
 
 	@NotNull
 	@Size(min = 0, max = 50)
+	@Column(name="NOMBRE_COMERCIAL")
 	public String getNombreComercial() {
 		return nombreComercial;
 	}
@@ -114,6 +119,7 @@ public class PersonaJuridicaEntity extends PersonaEntity implements
 	@NotNull
 	@Past
 	@Temporal(TemporalType.DATE)
+	@Column(name="FECHA_CONSTITUCION")
 	public Date getFechaConstitucion() {
 		return fechaConstitucion;
 	}
@@ -124,6 +130,7 @@ public class PersonaJuridicaEntity extends PersonaEntity implements
 
 	@NotNull
 	@Size(min = 0, max = 70)
+	@Column(name="ACTIVIDAD_PRINCIPAL")
 	public String getActividadPrincipal() {
 		return actividadPrincipal;
 	}
@@ -134,6 +141,7 @@ public class PersonaJuridicaEntity extends PersonaEntity implements
 
 	@NotNull
 	@Enumerated(EnumType.STRING)
+	@Column(name="TIPO_EMPRESA")
 	public TipoEmpresa getTipoEmpresa() {
 		return tipoEmpresa;
 	}
@@ -144,6 +152,7 @@ public class PersonaJuridicaEntity extends PersonaEntity implements
 
 	@NotNull
 	@Type(type = "org.hibernate.type.TrueFalseType")
+	@Column(name="FIN_LUCRO")
 	public boolean isFinLucro() {
 		return finLucro;
 	}
@@ -154,7 +163,7 @@ public class PersonaJuridicaEntity extends PersonaEntity implements
 
 	@NotNull
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(foreignKey = @ForeignKey)
+	@JoinColumn(name="REPRESENTANTE_LEGAL", foreignKey = @ForeignKey)	
 	public PersonaNaturalEntity getRepresentanteLegal() {
 		return representanteLegal;
 	}

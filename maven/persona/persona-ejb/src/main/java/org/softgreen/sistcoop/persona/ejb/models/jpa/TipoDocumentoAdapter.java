@@ -61,9 +61,9 @@ public class TipoDocumentoAdapter implements TipoDocumentoModel {
 	}
 
 	public static TipoDocumentoEntity toTipoDocumentoEntity(TipoDocumentoModel model, EntityManager em) {
-		if (model instanceof TipoDocumentoAdapter) {
+		/*if (model instanceof TipoDocumentoAdapter) {
 			return ((TipoDocumentoAdapter) model).getTipoDocumentEntity();
-		}
+		}*/
 		return em.getReference(TipoDocumentoEntity.class, model.getAbreviatura());
 	}
 

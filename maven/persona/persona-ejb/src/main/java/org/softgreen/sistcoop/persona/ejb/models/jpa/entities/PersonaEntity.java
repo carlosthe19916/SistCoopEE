@@ -3,6 +3,7 @@ package org.softgreen.sistcoop.persona.ejb.models.jpa.entities;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
@@ -43,15 +44,14 @@ public abstract class PersonaEntity implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public PersonaEntity(TipoDocumentoEntity tipoDocumento,
-			String numeroDocumento) {
+	public PersonaEntity(TipoDocumentoEntity tipoDocumento, String numeroDocumento) {
 		this.tipoDocumento = tipoDocumento;
 		this.numeroDocumento = numeroDocumento;
 	}
 
 	@NotNull
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(foreignKey = @ForeignKey)
+	@JoinColumn(name = "TIPO_DOCUMENTO", foreignKey = @ForeignKey)
 	public TipoDocumentoEntity getTipoDocumento() {
 		return tipoDocumento;
 	}
@@ -64,6 +64,7 @@ public abstract class PersonaEntity implements Serializable {
 	@Size(min = 1, max = 20)
 	@NotEmpty
 	@NotBlank
+	@Column(name = "NUMERO_DOCUMENTO")
 	public String getNumeroDocumento() {
 		return numeroDocumento;
 	}
@@ -76,6 +77,7 @@ public abstract class PersonaEntity implements Serializable {
 	@Size(min = 1, max = 3)
 	@NotEmpty
 	@NotBlank
+	@Column(name = "CODIGO_PAIS")
 	public String getCodigoPais() {
 		return codigoPais;
 	}
@@ -85,6 +87,7 @@ public abstract class PersonaEntity implements Serializable {
 	}
 
 	@Size(min = 0, max = 6)
+	@Column(name = "UBIGEO")
 	public String getUbigeo() {
 		return ubigeo;
 	}
@@ -94,6 +97,7 @@ public abstract class PersonaEntity implements Serializable {
 	}
 
 	@Size(min = 0, max = 100)
+	@Column(name = "DIRECCION")
 	public String getDireccion() {
 		return direccion;
 	}
@@ -103,6 +107,7 @@ public abstract class PersonaEntity implements Serializable {
 	}
 
 	@Size(min = 0, max = 70)
+	@Column(name = "REFERENCIA")
 	public String getReferencia() {
 		return referencia;
 	}
@@ -112,6 +117,7 @@ public abstract class PersonaEntity implements Serializable {
 	}
 
 	@Size(min = 0, max = 20)
+	@Column(name = "TELEFONO")
 	public String getTelefono() {
 		return telefono;
 	}
@@ -121,6 +127,7 @@ public abstract class PersonaEntity implements Serializable {
 	}
 
 	@Size(min = 0, max = 20)
+	@Column(name = "CELULAR")
 	public String getCelular() {
 		return celular;
 	}
@@ -130,6 +137,7 @@ public abstract class PersonaEntity implements Serializable {
 	}
 
 	@Email
+	@Column(name = "EMAIL")
 	public String getEmail() {
 		return email;
 	}
@@ -151,10 +159,8 @@ public abstract class PersonaEntity implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((numeroDocumento == null) ? 0 : numeroDocumento.hashCode());
-		result = prime * result
-				+ ((tipoDocumento == null) ? 0 : tipoDocumento.hashCode());
+		result = prime * result + ((numeroDocumento == null) ? 0 : numeroDocumento.hashCode());
+		result = prime * result + ((tipoDocumento == null) ? 0 : tipoDocumento.hashCode());
 		return result;
 	}
 

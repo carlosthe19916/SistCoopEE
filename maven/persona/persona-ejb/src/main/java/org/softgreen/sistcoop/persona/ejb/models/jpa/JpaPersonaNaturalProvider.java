@@ -31,8 +31,8 @@ public class JpaPersonaNaturalProvider implements PersonaNaturalProvider {
 
 	@Override
 	public PersonaNaturalModel addPersonaNatural(String codigoPais, TipoDocumentoModel tipoDocumentoModel, String numeroDocumento, String apellidoPaterno, String apellidoMaterno, String nombres, Date fechaNacimiento, Sexo sexo) {
-		TipoDocumentoEntity tipoDocumentoEntity = TipoDocumentoAdapter.toTipoDocumentoEntity(tipoDocumentoModel, em);
-
+		TipoDocumentoEntity tipoDocumentoEntity = TipoDocumentoAdapter.toTipoDocumentoEntity(tipoDocumentoModel, em);	
+		
 		PersonaNaturalEntity personaNaturalEntity = new PersonaNaturalEntity();
 		personaNaturalEntity.setCodigoPais(codigoPais);
 		personaNaturalEntity.setTipoDocumento(tipoDocumentoEntity);
@@ -43,7 +43,7 @@ public class JpaPersonaNaturalProvider implements PersonaNaturalProvider {
 		personaNaturalEntity.setFechaNacimiento(fechaNacimiento);
 		personaNaturalEntity.setSexo(sexo);
 		em.persist(personaNaturalEntity);
-		return new PersonaNaturalAdapter(em, personaNaturalEntity);
+		return new PersonaNaturalAdapter(em, personaNaturalEntity);	
 	}
 
 	@Override

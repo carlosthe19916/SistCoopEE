@@ -3,6 +3,7 @@ package org.softgreen.sistcoop.persona.ejb.models.jpa.entities;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -22,11 +23,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.softgreen.sistcoop.persona.clien.enums.TipoPersona;
 
 @Entity
-@Table(indexes = { @Index(columnList = "abreviatura") })
-@NamedQueries({
-		@NamedQuery(name = TipoDocumentoEntity.findAll, query = "Select t from TipoDocumentoEntity t"),
-		@NamedQuery(name = TipoDocumentoEntity.findByAbreviatura, query = "SELECT t FROM TipoDocumentoEntity t WHERE UPPER(t.abreviatura) = UPPER(:abreviatura)"),
-		@NamedQuery(name = TipoDocumentoEntity.findByTipopersona, query = "SELECT t FROM TipoDocumentoEntity t WHERE t.tipoPersona = :tipoPersona") })
+@Table(name = "TIPO_DOCUMENTO", indexes = { @Index(columnList = "abreviatura") })
+@NamedQueries({ @NamedQuery(name = TipoDocumentoEntity.findAll, query = "Select t from TipoDocumentoEntity t"), @NamedQuery(name = TipoDocumentoEntity.findByAbreviatura, query = "SELECT t FROM TipoDocumentoEntity t WHERE UPPER(t.abreviatura) = UPPER(:abreviatura)"), @NamedQuery(name = TipoDocumentoEntity.findByTipopersona, query = "SELECT t FROM TipoDocumentoEntity t WHERE t.tipoPersona = :tipoPersona") })
 public class TipoDocumentoEntity implements Serializable {
 
 	/**
@@ -60,6 +58,7 @@ public class TipoDocumentoEntity implements Serializable {
 	@NotBlank
 	@NotEmpty
 	@Id
+	@Column(name = "ABREVIATURA")
 	public String getAbreviatura() {
 		return abreviatura;
 	}
@@ -72,6 +71,7 @@ public class TipoDocumentoEntity implements Serializable {
 	@Size(min = 1, max = 40)
 	@NotBlank
 	@NotEmpty
+	@Column(name = "DENOMINACION")
 	public String getDenominacion() {
 		return denominacion;
 	}
@@ -83,6 +83,7 @@ public class TipoDocumentoEntity implements Serializable {
 	@NotNull
 	@Min(value = 1)
 	@Max(value = 40)
+	@Column(name = "CANTIDAD_CARACTERES")
 	public int getCantidadCaracteres() {
 		return cantidadCaracteres;
 	}
@@ -94,6 +95,7 @@ public class TipoDocumentoEntity implements Serializable {
 	@NotNull
 	@Size(min = 1, max = 40)
 	@Enumerated(EnumType.STRING)
+	@Column(name = "TIPO_PERSONA")
 	public TipoPersona getTipoPersona() {
 		return tipoPersona;
 	}
@@ -115,8 +117,7 @@ public class TipoDocumentoEntity implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((abreviatura == null) ? 0 : abreviatura.hashCode());
+		result = prime * result + ((abreviatura == null) ? 0 : abreviatura.hashCode());
 		return result;
 	}
 

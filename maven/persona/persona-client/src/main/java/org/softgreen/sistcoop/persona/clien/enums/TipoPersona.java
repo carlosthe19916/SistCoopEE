@@ -16,7 +16,7 @@ public enum TipoPersona {
 	/**
 	 * Devuelve un Sexo segun la cadena enviada.
 	 */
-	static public TipoPersona lookup(String id) {
-		return LookupUtil.lookup(TipoPersona.class, id.toUpperCase());
+	static public TipoPersona lookup(String tipoPersona) {
+		return LookupUtil.lookup(TipoPersona.class, tipoPersona.toUpperCase());
 	}
 }

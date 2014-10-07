@@ -5,31 +5,38 @@ angular.module('persona.directives', [])
             replace: false,
             require: '^form',
             link: function($scope, elem, attrs, ngModel){
-                $scope.tiposDocumento = TipoDocumento.$search({tipoPersona: $scope.tipoPersona.toUpperCase()});
+                /*formulario*/
                 $scope.sgForm = ngModel;
 
+                /*valores*/
                 $scope.view = {
-                    sgTipoDocumento: undefined,
-                    sgNumeroDocumento: undefined
+                    tipoDocumento: undefined,
+                    numeroDocumento: undefined
+                };
+                $scope.combo = {
+                    tipoDocumento: TipoDocumento.$search({tipoPersona: $scope.tipoPersona.toUpperCase()})
                 };
 
-                $scope.$watch('view.sgTipoDocumento', function (value) {
-                    //$scope.numeroDocumento = '';
+                /*cargar tipo documento si es un parametro*/
+                $scope.combo.tipoDocumento.$then(function() {
                     if(!angular.isUndefined($scope.tipoDocumento) && $scope.tipoDocumento){
-                        for(var i = 0; i<$scope.tiposDocumento ; i++){
-                            if($scope.tiposDocumento[i].abreviatura.toLowerCase() == $scope.tipoDocumento.toLowerCase()){
-                                $scope.view.sgTipoDocumento = $scope.tiposDocumento[i];
+                        for(var i = 0; i<$scope.combo.tipoDocumento.length ; i++){
+                            if($scope.combo.tipoDocumento[i].abreviatura.toLowerCase() == $scope.tipoDocumento.toLowerCase()){
+                                $scope.view.tipoDocumento = $scope.combo.tipoDocumento[i];
                             }
                         }
                     }
-
-                    if(!angular.isUndefined($scope.view.sgTipoDocumento)){
-                        $scope.tipoDocumento = $scope.view.sgTipoDocumento.abreviatura;
-                    }
-                    else {
-                        $scope.tipoDocumento = undefined;
-                    }
                 });
+
+                /**/
+                $scope.$watch('view.tipoDocumento', function(newValue, oldValue){
+                    if(!angular.isUndefined(newValue) && !angular.isUndefined(oldValue)){
+                        $scope.numeroDocumento = ''
+                    }
+                    if(!angular.isUndefined(newValue)){
+                        $scope.tipoDocumento = $scope.view.tipoDocumento.abreviatura;
+                    }
+                }, true);
 
             },
             scope: {
@@ -43,9 +50,9 @@ angular.module('persona.directives', [])
                 +'<div class="col-sm-4">'
                     +'<div class="form-group" ng-class="{ \'has-error\' : sgForm.sgTipoDocumento.$invalid && (sgForm.sgTipoDocumento.$touched || sgForm.$submitted)}">'
                         +'<label>Tipo documento</label>'
-                        +'<ui-select name="sgTipoDocumento" ng-model="view.sgTipoDocumento" theme="bootstrap">'
+                        +'<ui-select name="sgTipoDocumento" ng-model="view.tipoDocumento" theme="bootstrap">'
                             +'<ui-select-match placeholder="Seleccione">{{$select.selected.abreviatura}}</ui-select-match>'
-                            +'<ui-select-choices repeat="item in tiposDocumento | filter: $select.search">'
+                            +'<ui-select-choices repeat="item in combo.tipoDocumento | filter: $select.search">'
                                 +'<div ng-bind-html="item.abreviatura | highlight: $select.search"></div>'
                             +'</ui-select-choices>'
                         +'</ui-select>'
@@ -58,11 +65,11 @@ angular.module('persona.directives', [])
                 +'<div class="col-sm-4" ng-class="{ \'has-error\' : sgForm.sgNumeroDocumento.$invalid && (sgForm.sgNumeroDocumento.$touched || sgForm.$submitted)}">'
                     +'<div class="form-group">'
                         +'<label>N&uacute;mero documento</label>'
-                        +'<input type="text" name="sgNumeroDocumento" ng-model="numeroDocumento" ng-pattern="/^[0-9]+$/" ng-minlength="view.sgTipoDocumento.cantidadCaracteres" ng-maxlength="view.sgTipoDocumento.cantidadCaracteres" class="form-control" ng-required="{{requerido}}"/>'
+                        +'<input type="text" name="sgNumeroDocumento" ng-model="numeroDocumento" ng-pattern="/^[0-9]+$/" ng-minlength="view.tipoDocumento.cantidadCaracteres" ng-maxlength="view.tipoDocumento.cantidadCaracteres" class="form-control" ng-required="{{requerido}}"/>'
                         +'<div ng-messages="sgForm.sgNumeroDocumento.$error" ng-if="sgForm.sgNumeroDocumento.$touched || sgForm.$submitted">'
                             +'<div class="help-block" ng-message="required">Ingrese numero documento.</div>'
-                            +'<div class="help-block" ng-message="minlength">Debe tener <span ng-bind="view.sgTipoDocumento.cantidadCaracteres"></span> digitos.</div>'
-                            +'<div class="help-block" ng-message="maxlength">Debe tener <span ng-bind="view.sgTipoDocumento.cantidadCaracteres"></span> digitos.</div>'
+                            +'<div class="help-block" ng-message="minlength">Debe tener <span ng-bind="view.tipoDocumento.cantidadCaracteres"></span> digitos.</div>'
+                            +'<div class="help-block" ng-message="maxlength">Debe tener <span ng-bind="view.tipoDocumento.cantidadCaracteres"></span> digitos.</div>'
                             +'<div class="help-block" ng-message="pattern">Numero invalido.</div>'
                         +'</div>'
                     +'</div>'
@@ -77,7 +84,9 @@ angular.module('persona.directives', [])
 
                 ngModel[1].$validators.sgubigeo = function(modelValue,viewValue){
                     var value = modelValue || viewValue;
-                    return !angular.isUndefined(value) && value.length == 6;
+                    value = value ? value : '';
+                    //false representa error y true represeta exito
+                    return value.length == 6  || value.length == 0;
                 };
 
                 $scope.departamentos = Departamento.$search();
@@ -112,10 +121,12 @@ angular.module('persona.directives', [])
                         $scope.ubigeo.distrito = null;
                     }
                 });
-
-                $scope.changeDistrito = function(){
-                    console.log("ubigeo:"+$scope.ubigeo.departamento.codigo+$scope.ubigeo.provincia.codigo+$scope.ubigeo.distrito.codigo);
-                };
+                $scope.$watch('ubigeo.distrito', function(){
+                    if(!angular.isUndefined($scope.ubigeo.distrito) && $scope.ubigeo.distrito){
+                        var ubigeo = $scope.ubigeo.departamento.codigo + $scope.ubigeo.provincia.codigo + $scope.ubigeo.distrito.codigo;
+                        ngModel[1].$setViewValue(ubigeo);
+                    }
+                });
             },
             scope: {
                 requerido: '@'
