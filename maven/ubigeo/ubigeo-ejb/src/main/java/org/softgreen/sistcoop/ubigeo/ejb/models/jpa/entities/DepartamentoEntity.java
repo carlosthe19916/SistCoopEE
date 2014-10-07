@@ -82,7 +82,7 @@ public class DepartamentoEntity implements Serializable {
 		this.denominacion = denominacion;
 	}
 
-	@XmlTransient
+	@XmlTransient	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "departamento")
 	public Set<ProvinciaEntity> getProvincias() {
 		return provincias;

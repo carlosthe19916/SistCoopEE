@@ -71,6 +71,7 @@ public class ModelToRepresentation {
 		rep.setCodigo(model.getCodigo());
 		rep.setDenominacion(model.getDenominacion());
 
+		rep.setProvincia(model.getProvincia().getCodigo());
 		return rep;
 	}
 

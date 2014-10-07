@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -80,7 +79,7 @@ public class DistritoEntity implements Serializable {
 	}
 
 	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(foreignKey = @ForeignKey)
 	public ProvinciaEntity getProvincia() {
 		return provincia;

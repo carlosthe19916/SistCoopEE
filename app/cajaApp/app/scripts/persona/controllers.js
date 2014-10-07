@@ -1,8 +1,10 @@
 angular.module('persona.controllers', [])
-    .controller('CrearPersonaNaturalController', function($scope, focus, Country, Departamento, Sexo, EstadoCivil){
+    .controller('CrearPersonaNaturalController', function($scope, focus, Country, Departamento, Sexo, EstadoCivil, PersonaNatural){
+
+
 
         $scope.view = {
-            personaNatural: undefined
+            personaNatural: PersonaNatural.$build()
         };
 
         $scope.combo = {
@@ -16,9 +18,13 @@ angular.module('persona.controllers', [])
             sexo: undefined
         };
 
-        $scope.prueba = function(sexo){
-            console.log(sexo);
+
+        /*Cargar parametros de URL*/
+        $scope.loadParams = function(){
+            $scope.view.personaNatural.tipoDocumento = $scope.params.tipoDocumento;
+            $scope.view.personaNatural.numeroDocumento = $scope.params.numeroDocumento;
         };
+        $scope.loadParams();
 
         $scope.crearTransaccion = function(){
             console.log($scope.formCrearPersonanatural.apellidoPaterno);

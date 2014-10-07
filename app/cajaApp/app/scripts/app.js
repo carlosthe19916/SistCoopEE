@@ -218,14 +218,14 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
             }
         })
         .state('app.administracion.crearPersonaNatural', {
-            url: "/persona/natural?tipoDocumento&numeroDocumento",
+            url: "/persona/natural?documento&numero",
             templateUrl: "views/persona/natural/crearPersonaNatural.html",
             controller: function($scope, $stateParams) {
                 $scope.themplate.header = 'Crear persona natural';
 
                 $scope.params = {};
-                $scope.params.idTipoDocumento = $stateParams.tipoDocumento;
-                $scope.params.numeroDocumento = $stateParams.numeroDocumento;
+                $scope.params.tipoDocumento = $stateParams.documento;
+                $scope.params.numeroDocumento = $stateParams.numero;
             }
         })
         .state('app.administracion.editarPersonaNatural', {

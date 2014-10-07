@@ -69,4 +69,5 @@ public class JpaUbigeoProvider implements UbigeoProvider {
 	public void close() {
 		// TODO Auto-generated method stub
 	}
+	
 }

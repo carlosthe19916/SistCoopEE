@@ -11,7 +11,9 @@ public class DistritoRepresentation implements Serializable {
 
 	private Integer id;
 	private String codigo;
-	private String denominacion;		
+	private String denominacion;
+
+	private String provincia;
 
 	public Integer getId() {
 		return id;
@@ -35,6 +37,14 @@ public class DistritoRepresentation implements Serializable {
 
 	public void setDenominacion(String denominacion) {
 		this.denominacion = denominacion;
+	}
+
+	public String getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
 	}
 
 }

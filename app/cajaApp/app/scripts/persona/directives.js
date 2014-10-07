@@ -14,7 +14,15 @@ angular.module('persona.directives', [])
                 };
 
                 $scope.$watch('view.sgTipoDocumento', function (value) {
-                    $scope.numeroDocumento = '';
+                    //$scope.numeroDocumento = '';
+                    if(!angular.isUndefined($scope.tipoDocumento) && $scope.tipoDocumento){
+                        for(var i = 0; i<$scope.tiposDocumento ; i++){
+                            if($scope.tiposDocumento[i].abreviatura.toLowerCase() == $scope.tipoDocumento.toLowerCase()){
+                                $scope.view.sgTipoDocumento = $scope.tiposDocumento[i];
+                            }
+                        }
+                    }
+
                     if(!angular.isUndefined($scope.view.sgTipoDocumento)){
                         $scope.tipoDocumento = $scope.view.sgTipoDocumento.abreviatura;
                     }
@@ -92,10 +100,14 @@ angular.module('persona.directives', [])
                 });
                 $scope.$watch('ubigeo.provincia', function(){
                     if(!angular.isUndefined($scope.ubigeo.provincia) && $scope.ubigeo.provincia){
-                        $scope.distritos = Departamento.$single(
+                        Departamento.$single(
                                     ubigeoConfig.urlPrefix + '/departamentos/'
                                     +$scope.ubigeo.departamento.codigo + '/provincias/'
-                                    +$scope.ubigeo.provincia.codigo + '/distritos').$fetch().$promise();
+                                    +$scope.ubigeo.provincia.codigo + '/distritos')
+                            .$fetch()
+                            .$then(function(data) {
+                                $scope.distritos = data.$response.data.distritos;
+                            });
                     } else {
                         $scope.ubigeo.distrito = null;
                     }
