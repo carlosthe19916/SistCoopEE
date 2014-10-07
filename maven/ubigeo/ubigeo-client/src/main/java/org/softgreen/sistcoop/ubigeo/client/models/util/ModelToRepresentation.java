@@ -2,8 +2,12 @@ package org.softgreen.sistcoop.ubigeo.client.models.util;
 
 import org.softgreen.sistcoop.ubigeo.client.models.CountryModel;
 import org.softgreen.sistcoop.ubigeo.client.models.DepartamentoModel;
+import org.softgreen.sistcoop.ubigeo.client.models.DistritoModel;
+import org.softgreen.sistcoop.ubigeo.client.models.ProvinciaModel;
 import org.softgreen.sistcoop.ubigeo.client.representations.idm.CountryRepresentation;
 import org.softgreen.sistcoop.ubigeo.client.representations.idm.DepartamentoRepresentation;
+import org.softgreen.sistcoop.ubigeo.client.representations.idm.DistritoRepresentation;
+import org.softgreen.sistcoop.ubigeo.client.representations.idm.ProvinciaRepresentation;
 
 /**
  * @author <a href="mailto:bill@burkecentral.com">Bill Burke</a>
@@ -34,6 +38,30 @@ public class ModelToRepresentation {
 		if (model == null)
 			return null;
 		DepartamentoRepresentation rep = new DepartamentoRepresentation();
+
+		rep.setId(model.getId());
+		rep.setCodigo(model.getCodigo());
+		rep.setDenominacion(model.getDenominacion());
+
+		return rep;
+	}
+	
+	public static ProvinciaRepresentation toRepresentation(ProvinciaModel model) {
+		if (model == null)
+			return null;
+		ProvinciaRepresentation rep = new ProvinciaRepresentation();
+
+		rep.setId(model.getId());
+		rep.setCodigo(model.getCodigo());
+		rep.setDenominacion(model.getDenominacion());
+
+		return rep;
+	}
+	
+	public static DistritoRepresentation toRepresentation(DistritoModel model) {
+		if (model == null)
+			return null;
+		DistritoRepresentation rep = new DistritoRepresentation();
 
 		rep.setId(model.getId());
 		rep.setCodigo(model.getCodigo());

@@ -1,61 +1,49 @@
 package org.softgreen.sistcoop.ubigeo.ejb.models.jpa;
 
-import java.util.Set;
-
 import javax.persistence.EntityManager;
 
 import org.softgreen.sistcoop.ubigeo.client.models.DepartamentoModel;
+import org.softgreen.sistcoop.ubigeo.client.models.DistritoModel;
 import org.softgreen.sistcoop.ubigeo.client.models.ProvinciaModel;
-import org.softgreen.sistcoop.ubigeo.ejb.models.jpa.entities.DepartamentoEntity;
+import org.softgreen.sistcoop.ubigeo.ejb.models.jpa.entities.DistritoEntity;
 
-public class DepartamentoAdapter implements DepartamentoModel {
+public class DistritoAdapter implements DistritoModel {
 
-	protected DepartamentoEntity departamentoEntity;
+	protected DistritoEntity distritoEntity;
 	protected EntityManager em;
 
-	public DepartamentoAdapter(EntityManager em, DepartamentoEntity departamentoEntity) {
+	public DistritoAdapter(EntityManager em, DistritoEntity distritoEntity) {
 		this.em = em;
-		this.departamentoEntity = departamentoEntity;
+		this.distritoEntity = distritoEntity;
 	}
 
-	public DepartamentoEntity getDepartamentoEntity() {
-		return departamentoEntity;
+	public DistritoEntity getDepartamentoEntity() {
+		return distritoEntity;
 	}
 
 	@Override
 	public Integer getId() {
-		return departamentoEntity.getId();
+		return distritoEntity.getId();
 	}
 
 	@Override
 	public String getCodigo() {
-		return departamentoEntity.getCodigo();
+		return distritoEntity.getCodigo();
 	}
 
 	@Override
 	public void setCodigo(String codigo) {
-		departamentoEntity.setCodigo(codigo);
+		distritoEntity.setCodigo(codigo);
 	}
 
 	@Override
 	public String getDenominacion() {
-		return departamentoEntity.getDenominacion();
+		return distritoEntity.getDenominacion();
 	}
 
 	@Override
 	public void setDenominacion(String denominacion) {
-		departamentoEntity.setDenominacion(denominacion);
-	}
-
-	@Override
-	public Set<ProvinciaModel> getProvincias() {
-		return null;
-	}
-
-	@Override
-	public void setProvincias(Set<ProvinciaModel> provincias) {
-		// TODO Auto-generated method stub
-
+		distritoEntity.setDenominacion(denominacion);
 	}
 
 	@Override
@@ -76,6 +64,18 @@ public class DepartamentoAdapter implements DepartamentoModel {
 
 	@Override
 	public void commit() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public ProvinciaModel getProvincia() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setProvincia(ProvinciaModel provinciaModel) {
 		// TODO Auto-generated method stub
 
 	}
