@@ -17,6 +17,7 @@ import org.softgreen.sistcoop.ubigeo.client.models.DistritoModel;
 import org.softgreen.sistcoop.ubigeo.client.models.ProvinciaModel;
 import org.softgreen.sistcoop.ubigeo.client.models.UbigeoProvider;
 import org.softgreen.sistcoop.ubigeo.ejb.models.jpa.entities.DepartamentoEntity;
+import org.softgreen.sistcoop.ubigeo.ejb.models.jpa.entities.DistritoEntity;
 import org.softgreen.sistcoop.ubigeo.ejb.models.jpa.entities.ProvinciaEntity;
 
 @Named
@@ -53,9 +54,15 @@ public class JpaUbigeoProvider implements UbigeoProvider {
 
 	@Override
 	public List<DistritoModel> getDistritos(String codigoDepartamento, String codigoProvincia) {
-		// TODO Auto-generated method stub
-		return null;
-
+		TypedQuery<DistritoEntity> query = em.createNamedQuery(DistritoEntity.findByCodDepartamentoProvincia, DistritoEntity.class);
+		query.setParameter("codigoDepartamento", codigoDepartamento);
+		query.setParameter("codigoProvincia", codigoProvincia);
+		List<DistritoEntity> list = query.getResultList();
+		List<DistritoModel> results = new ArrayList<DistritoModel>();
+		for (DistritoEntity entity : list) {
+			results.add(new DistritoAdapter(em, entity));
+		}
+		return results;
 	}
 
 	@Override

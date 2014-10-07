@@ -27,12 +27,15 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.softgreen.sistcoop.ubigeo.client.models.DepartamentoModel;
+import org.softgreen.sistcoop.ubigeo.client.models.DistritoModel;
 import org.softgreen.sistcoop.ubigeo.client.models.ProvinciaModel;
 import org.softgreen.sistcoop.ubigeo.client.models.UbigeoProvider;
 import org.softgreen.sistcoop.ubigeo.client.models.util.ModelToRepresentation;
 import org.softgreen.sistcoop.ubigeo.client.representations.idm.DepartamentoRepresentation;
+import org.softgreen.sistcoop.ubigeo.client.representations.idm.DistritoRepresentation;
 import org.softgreen.sistcoop.ubigeo.client.representations.idm.ProvinciaRepresentation;
 import org.softgreen.sistcoop.ubigeo.restapi.representation.DepartamentoList;
+import org.softgreen.sistcoop.ubigeo.restapi.representation.DistritoList;
 import org.softgreen.sistcoop.ubigeo.restapi.representation.ProvinciaList;
 
 /**
@@ -69,5 +72,17 @@ public class UbigeoREST {
 			result.add(ModelToRepresentation.toRepresentation(model));
 		}
 		return new ProvinciaList(result);
+	}
+
+	@GET
+	@Path("/departamentos/{codigoDepartamento}/provincias/{codigoProvincia}/distritos")
+	@Produces(MediaType.APPLICATION_JSON)
+	public DistritoList getDistritos(@PathParam("codigoDepartamento") String codigoDepartamento, @PathParam("codigoProvincia") String codigoProvincia) {
+		List<DistritoModel> list = ubigeoProvider.getDistritos(codigoDepartamento, codigoProvincia);
+		List<DistritoRepresentation> result = new ArrayList<>();
+		for (DistritoModel model : list) {
+			result.add(ModelToRepresentation.toRepresentation(model));
+		}
+		return new DistritoList(result);
 	}
 }

@@ -6,6 +6,7 @@ import org.softgreen.sistcoop.ubigeo.client.models.DepartamentoModel;
 import org.softgreen.sistcoop.ubigeo.client.models.DistritoModel;
 import org.softgreen.sistcoop.ubigeo.client.models.ProvinciaModel;
 import org.softgreen.sistcoop.ubigeo.ejb.models.jpa.entities.DistritoEntity;
+import org.softgreen.sistcoop.ubigeo.ejb.models.jpa.entities.ProvinciaEntity;
 
 public class DistritoAdapter implements DistritoModel {
 
@@ -17,7 +18,7 @@ public class DistritoAdapter implements DistritoModel {
 		this.distritoEntity = distritoEntity;
 	}
 
-	public DistritoEntity getDepartamentoEntity() {
+	public DistritoEntity getDistritoEntity() {
 		return distritoEntity;
 	}
 
@@ -47,6 +48,24 @@ public class DistritoAdapter implements DistritoModel {
 	}
 
 	@Override
+	public ProvinciaModel getProvincia() {
+		return new ProvinciaAdapter(em, distritoEntity.getProvincia());
+	}
+
+	@Override
+	public void setProvincia(ProvinciaModel provinciaModel) {
+		ProvinciaEntity provinciaEntity = ProvinciaAdapter.toProvinciaEntity(provinciaModel, em);
+		distritoEntity.setProvincia(provinciaEntity);
+	}
+
+	public static DistritoEntity toDistritoEntity(DistritoModel model, EntityManager em) {
+		if (model instanceof DistritoAdapter) {
+			return ((DistritoAdapter) model).getDistritoEntity();
+		}
+		return em.getReference(DistritoEntity.class, model.getId());
+	}
+
+	@Override
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;
@@ -64,18 +83,6 @@ public class DistritoAdapter implements DistritoModel {
 
 	@Override
 	public void commit() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public ProvinciaModel getProvincia() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setProvincia(ProvinciaModel provinciaModel) {
 		// TODO Auto-generated method stub
 
 	}

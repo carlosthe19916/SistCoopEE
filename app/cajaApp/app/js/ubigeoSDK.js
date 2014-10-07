@@ -46,7 +46,6 @@ moduleUbigeoSDK.factory('Denomination', function(restmod, ubigeoConfig) {
     });
 });
 
-
 moduleUbigeoSDK.factory('Departamento', function(restmod, ubigeoConfig) {
     return restmod.model(ubigeoConfig.urlPrefix +'/departamentos').$mix({
         PRIMARY_KEY: 'codigo',

@@ -60,7 +60,7 @@ angular.module('persona.directives', [])
                     +'</div>'
                 +'</div>'
         }
-    }).directive('sgUbigeo',function(Departamento, Provincia, Distrito){
+    }).directive('sgUbigeo',function(Departamento, Provincia, Distrito, ubigeoConfig){
         return {
             restrict:'E',
             replace: false,
@@ -77,13 +77,13 @@ angular.module('persona.directives', [])
                 $scope.distritos = undefined;
 
                 $scope.ubigeo = {
-                    departamento: undefined,
-                    provincia: undefined,
-                    distrito: undefined
+                    departamento: null,
+                    provincia: null,
+                    distrito: null
                 };
 
                 $scope.$watch('ubigeo.departamento', function(){
-                    if(!angular.isUndefined($scope.ubigeo.departamento)){
+                    if(!angular.isUndefined($scope.ubigeo.departamento) && $scope.ubigeo.departamento){
                         $scope.provincias = $scope.ubigeo.departamento.provincias.$fetch();
                     } else {
                         $scope.ubigeo.provincia = null;
@@ -91,8 +91,11 @@ angular.module('persona.directives', [])
                     }
                 });
                 $scope.$watch('ubigeo.provincia', function(){
-                    if(!angular.isUndefined($scope.ubigeo.provincia)){
-                        $scope.distritos = $scope.ubigeo.provincia.distritos.$fetch();
+                    if(!angular.isUndefined($scope.ubigeo.provincia) && $scope.ubigeo.provincia){
+                        $scope.distritos = Departamento.$single(
+                                    ubigeoConfig.urlPrefix + '/departamentos/'
+                                    +$scope.ubigeo.departamento.codigo + '/provincias/'
+                                    +$scope.ubigeo.provincia.codigo + '/distritos').$fetch().$promise();
                     } else {
                         $scope.ubigeo.distrito = null;
                     }

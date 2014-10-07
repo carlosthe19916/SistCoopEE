@@ -1,5 +1,6 @@
 package org.softgreen.sistcoop.ubigeo.ejb.models.jpa;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -7,6 +8,8 @@ import javax.persistence.EntityManager;
 import org.softgreen.sistcoop.ubigeo.client.models.DepartamentoModel;
 import org.softgreen.sistcoop.ubigeo.client.models.DistritoModel;
 import org.softgreen.sistcoop.ubigeo.client.models.ProvinciaModel;
+import org.softgreen.sistcoop.ubigeo.ejb.models.jpa.entities.DepartamentoEntity;
+import org.softgreen.sistcoop.ubigeo.ejb.models.jpa.entities.DistritoEntity;
 import org.softgreen.sistcoop.ubigeo.ejb.models.jpa.entities.ProvinciaEntity;
 
 public class ProvinciaAdapter implements ProvinciaModel {
@@ -49,6 +52,43 @@ public class ProvinciaAdapter implements ProvinciaModel {
 	}
 
 	@Override
+	public DepartamentoModel getDepartamento() {
+		return new DepartamentoAdapter(em, provinciaEntity.getDepartamento());
+	}
+
+	@Override
+	public void setDepartamento(DepartamentoModel departamentoModel) {
+		DepartamentoEntity entity = DepartamentoAdapter.toDepartamentoEntity(departamentoModel, em);
+		provinciaEntity.setDepartamento(entity);
+	}
+
+	@Override
+	public Set<DistritoModel> getDistritos() {
+		Set<DistritoEntity> distritos = provinciaEntity.getDistritos();
+		Set<DistritoModel> result = new HashSet<DistritoModel>();
+		for (DistritoEntity distritoEntity : distritos) {
+			result.add(new DistritoAdapter(em, distritoEntity));
+		}
+		return result;
+	}
+
+	@Override
+	public void setDistritos(Set<DistritoModel> distritos) {
+		Set<DistritoEntity> result = new HashSet<DistritoEntity>();
+		for (DistritoModel model : distritos) {
+			result.add(DistritoAdapter.toDistritoEntity(model, em));
+		}
+		provinciaEntity.setDistritos(result);
+	}
+
+	public static ProvinciaEntity toProvinciaEntity(ProvinciaModel model, EntityManager em) {
+		if (model instanceof ProvinciaAdapter) {
+			return ((ProvinciaAdapter) model).getProvinciaEntity();
+		}
+		return em.getReference(ProvinciaEntity.class, model.getId());
+	}
+
+	@Override
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;
@@ -69,29 +109,4 @@ public class ProvinciaAdapter implements ProvinciaModel {
 		// TODO Auto-generated method stub
 
 	}
-
-	@Override
-	public DepartamentoModel getDepartamento() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setDepartamento(DepartamentoModel departamentoModel) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Set<DistritoModel> getDistritos() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setDistritos(Set<DistritoModel> provincias) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

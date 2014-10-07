@@ -1,5 +1,6 @@
 package org.softgreen.sistcoop.ubigeo.ejb.models.jpa;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -7,6 +8,7 @@ import javax.persistence.EntityManager;
 import org.softgreen.sistcoop.ubigeo.client.models.DepartamentoModel;
 import org.softgreen.sistcoop.ubigeo.client.models.ProvinciaModel;
 import org.softgreen.sistcoop.ubigeo.ejb.models.jpa.entities.DepartamentoEntity;
+import org.softgreen.sistcoop.ubigeo.ejb.models.jpa.entities.ProvinciaEntity;
 
 public class DepartamentoAdapter implements DepartamentoModel {
 
@@ -49,13 +51,28 @@ public class DepartamentoAdapter implements DepartamentoModel {
 
 	@Override
 	public Set<ProvinciaModel> getProvincias() {
-		return null;
+		Set<ProvinciaEntity> provincias = departamentoEntity.getProvincias();
+		Set<ProvinciaModel> result = new HashSet<ProvinciaModel>();
+		for (ProvinciaEntity provinciaEntity : provincias) {
+			result.add(new ProvinciaAdapter(em, provinciaEntity));
+		}
+		return result;
 	}
 
 	@Override
 	public void setProvincias(Set<ProvinciaModel> provincias) {
-		// TODO Auto-generated method stub
+		Set<ProvinciaEntity> result = new HashSet<ProvinciaEntity>();
+		for (ProvinciaModel model : provincias) {
+			result.add(ProvinciaAdapter.toProvinciaEntity(model, em));
+		}
+		departamentoEntity.setProvincias(result);
+	}
 
+	public static DepartamentoEntity toDepartamentoEntity(DepartamentoModel model, EntityManager em) {
+		if (model instanceof DepartamentoAdapter) {
+			return ((DepartamentoAdapter) model).getDepartamentoEntity();
+		}
+		return em.getReference(DepartamentoEntity.class, model.getId());
 	}
 
 	@Override
