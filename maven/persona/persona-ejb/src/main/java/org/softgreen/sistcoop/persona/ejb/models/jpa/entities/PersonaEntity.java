@@ -50,7 +50,7 @@ public abstract class PersonaEntity implements Serializable {
 	}
 
 	@NotNull
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne
 	@JoinColumn(name = "TIPO_DOCUMENTO", foreignKey = @ForeignKey)
 	public TipoDocumentoEntity getTipoDocumento() {
 		return tipoDocumento;

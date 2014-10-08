@@ -10,10 +10,14 @@
                 </ul>
             </div><!--/.well -->
         </div><!--/span-->
-
-        <div class="span9" ui-view="viewContent">
-            <span>Loading...</span>
-        </div><!--/span-->
+        <div class="span9">
+            <div block-ui="appBlockUI">
+                <div ui-view="viewContent">
+                    <span>Loading...</span>
+                    <!--/span-->
+                </div>
+            </div>
+        </div>
     </div><!--/row-->
 
     <hr>

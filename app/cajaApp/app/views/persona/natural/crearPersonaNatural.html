@@ -7,7 +7,7 @@
             <label>Nacionalidad </label>
             <div class="input-group">
                 <span ng-bind="combo.selected.pais ? combo.selected.pais.alpha3Code : 'NA'" class="input-group-addon"></span>
-                <ui-select focus-on="focusPais" ng-model="combo.selected.pais" theme="bootstrap" required autofocus>
+                <ui-select name="pais" focus-on="focusPais" ng-model="combo.selected.pais" theme="bootstrap" required autofocus>
                     <ui-select-match placeholder="Seleccione">{{$select.selected.fullName}}</ui-select-match>
                     <ui-select-choices repeat="item in combo.pais | filter: $select.search">
                         <div ng-bind-html="item.fullName | highlight: $select.search"></div>
@@ -21,6 +21,7 @@
         </div>
     </div>
     <sg-documento-identidad
+            ng-model="sg"
             nombre="sgDocumentoIdentidad"
             tipo-persona="natural"
             tipo-documento="view.personaNatural.tipoDocumento"
@@ -69,22 +70,19 @@
         <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.fechanacimiento.$invalid && (formCrearPersonanatural.fechanacimiento.$touched || formCrearPersonanatural.$submitted)}">
             <label>Fecha Nacimiento</label>
             <div class="input-group">
-                <input type="text" name="fechanacimiento" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="view.personaNatural.fechaNacimiento" is-open="opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" placeholder="dd/mm/yyyy" required>
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button" ng-click="open($event)">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </button>
-                    </span>
+                <input type="text" name="fechanacimiento" class="form-control" sg-max-date="maxDate" ng-model="view.personaNatural.fechaNacimiento" datepicker-popup="dd/MM/yyyy" is-open="opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" ng-required="true" close-text="Close" placeholder="dd/mm/yyyy" required>
+                <span class="input-group-btn"><button class="btn btn-default" type="button" ng-click="open($event)"><span class="glyphicon glyphicon-calendar"></span></button></span>
             </div>
             <div ng-messages="formCrearPersonanatural.fechanacimiento.$error" ng-if="formCrearPersonanatural.fechanacimiento.$touched || formCrearPersonanatural.$submitted">
                 <div class="help-block" ng-message="required">Ingrese fecha nacimiento.</div>
+                <div class="help-block" ng-message="sgmaxdate">Fecha no valida.</div>
             </div>
         </div>
     </div>
     <div class="col-sm-4">
         <div class="form-group" ng-class="{ 'has-error' : formCrearPersonanatural.sexo.$invalid && (formCrearPersonanatural.sexo.$touched || formCrearPersonanatural.$submitted)}">
             <label>Sexo</label>
-            <ui-select ng-model="combo.selected.sexo" theme="bootstrap">
+            <ui-select name="sexo" ng-model="combo.selected.sexo" theme="bootstrap" required>
                 <ui-select-match placeholder="Seleccione">{{$select.selected.denominacion}}</ui-select-match>
                 <ui-select-choices repeat="item in combo.sexo | filter: $select.search">
                     <div ng-bind-html="item.denominacion | highlight: $select.search"></div>

@@ -16,6 +16,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import org.jboss.resteasy.annotations.providers.jaxb.json.BadgerFish;
 import org.softgreen.sistcoop.persona.client.models.PersonaNaturalModel;
 import org.softgreen.sistcoop.persona.client.models.PersonaNaturalProvider;
 import org.softgreen.sistcoop.persona.client.models.TipoDocumentoModel;
@@ -36,23 +37,37 @@ public class PersonaNaturalResource {
 	@Context
 	protected UriInfo uriInfo;
 
+	@BadgerFish
 	@GET
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
-	public Response findById(@PathParam("id") Long id) {
+	public PersonaNaturalRepresentation findById(@PathParam("id") Long id) {
 		PersonaNaturalModel personaNaturalModel = personaNaturalProvider.getPersonaNaturalById(id);
 		PersonaNaturalRepresentation rep = ModelToRepresentation.toRepresentation(personaNaturalModel);
-		return Response.ok(rep).build();
+		return rep; 
+		/*Movie movie = new Movie();
+		movie.setName("Transformers: Dark of the Moon");
+		movie.setDirector("Michael Bay");
+		movie.setYear(2011);*/
+ 
+		//return movie; 
+ 
 	}
 
+	@BadgerFish
 	@GET
 	@Path("/buscar")
 	@Produces({ "application/xml", "application/json" })
-	public Response findByTipoNumeroDocumento(@QueryParam("tipoDocumento") String tipoDocumento, @QueryParam("numeroDocumento") String numeroDocumento) {
+	public PersonaNaturalRepresentation findByTipoNumeroDocumento(@QueryParam("tipoDocumento") String tipoDocumento, @QueryParam("numeroDocumento") String numeroDocumento) {
+		if(tipoDocumento == null)
+			return null;
+		if(numeroDocumento == null)
+			return null;
+		
 		TipoDocumentoModel tipoDocumentoModel = tipoDocumentoProvider.getTipoDocumentoByAbreviatura(tipoDocumento);
 		PersonaNaturalModel personaNaturalModel = personaNaturalProvider.getPersonaNaturalByTipoNumeroDoc(tipoDocumentoModel, numeroDocumento);
 		PersonaNaturalRepresentation rep = ModelToRepresentation.toRepresentation(personaNaturalModel);
-		return Response.ok(rep).build();
+		return rep;
 	}
 
 	@GET

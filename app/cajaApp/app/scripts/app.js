@@ -17,6 +17,8 @@ var module = angular.module('cajaApp', [
     'ui.router',
     'ui.select',
     'focusOn',
+    'ui.utils',
+    'blockUI'
 
     /*Rest SDK*/,
     'ubigeoSDK',
@@ -86,8 +88,12 @@ module.factory('authInterceptor', function($q, Auth) {
     };
 });
 
-module.config(function(uiSelectConfig) {
+module.config(function(uiSelectConfig, blockUIConfig) {
     uiSelectConfig.theme = 'bootstrap';
+
+    // Change the default delay to 100ms before the blocking is visible
+    blockUIConfig.delay = 100;
+
 });
 
 

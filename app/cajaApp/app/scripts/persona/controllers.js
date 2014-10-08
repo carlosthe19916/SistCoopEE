@@ -1,10 +1,17 @@
 angular.module('persona.controllers', [])
-    .controller('CrearPersonaNaturalController', function($scope, focus, Country, Departamento, Sexo, EstadoCivil, PersonaNatural){
+    .controller('CrearPersonaNaturalController', function($scope, focus, blockUI, Country, Departamento, Sexo, EstadoCivil, PersonaNatural){
+
+        /*Poner foco inicial*/
+        $scope.focusPais = function() {
+            focus('focusPais');
+        };
+        $scope.focusPais();
 
         /*Datos de la vista*/
         $scope.view = {
-            personaNatural: PersonaNatural.$build()
+            personaNatural: PersonaNatural.$find(2)
         };
+
 
         /*combos*/
         $scope.combo = {
@@ -27,14 +34,26 @@ angular.module('persona.controllers', [])
 
         /*Operacion principal*/
         $scope.crearTransaccion = function(){
+            console.log($scope.view.personaNatural.$response.data);
             if ($scope.formCrearPersonanatural.$valid) {
+
+                var aa = PersonaNatural.$find(1);
+
+                var personaServer = PersonaNatural.findByTipoNumeroDocumento($scope.view.personaNatural.tipoDocumento, $scope.view.personaNatural.numeroDocumento);
+                personaServer.$then(function(_persona) {
+                    console.log(_persona);
+                });
+
+               /* aa.$then(function(_persona) {
+                    console.log(aa);
+                });*/
+
+
                 $scope.view.personaNatural.codigoPais = $scope.combo.selected.pais ? $scope.combo.selected.pais.alpha3Code: null;
                 $scope.view.personaNatural.sexo = $scope.combo.selected.sexo ? $scope.combo.selected.sexo.denominacion : null;
                 $scope.view.personaNatural.estadoCivil = $scope.combo.selected.estadoCivil ? $scope.combo.selected.estadoCivil.denominacion : null;
 
                 $scope.view.personaNatural.$save();
-            } else {
-                console.log($scope.formCrearPersonanatural);
             }
         };
 

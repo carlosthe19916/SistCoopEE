@@ -150,7 +150,7 @@ public class PersonaNaturalEntity extends PersonaEntity implements Serializable 
 	}
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "ESTADO_CIVIL", nullable = false)
+	@Column(name = "ESTADO_CIVIL", nullable = true)
 	public EstadoCivil getEstadoCivil() {
 		return estadoCivil;
 	}

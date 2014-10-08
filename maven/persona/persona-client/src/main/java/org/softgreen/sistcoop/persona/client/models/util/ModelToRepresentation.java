@@ -48,9 +48,9 @@ public class ModelToRepresentation {
 		rep.setApellidoMaterno(model.getApellidoMaterno());
 		rep.setNombres(model.getNombres());
 		rep.setFechaNacimiento(model.getFechaNacimiento());
-		rep.setSexo(model.getSexo().toString());
+		rep.setSexo(model.getSexo() != null ?  model.getSexo().toString() : null);
 
-		rep.setEstadoCivil(model.getEstadoCivil().toString());
+		rep.setEstadoCivil(model.getEstadoCivil() != null ?  model.getEstadoCivil().toString() : null);
 		rep.setOcupacion(model.getOcupacion());
 
 		// direccion de residencia

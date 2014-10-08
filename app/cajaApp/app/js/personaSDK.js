@@ -5,6 +5,7 @@ var modulePersonaSDK = angular.module('personaSDK', ['restmod']);
 
 modulePersonaSDK.config(function(restmodProvider) {
     restmodProvider.rebase('AMSApi');
+    //restmodProvider.rebase('DefaultPacker');
 });
 
 modulePersonaSDK.service('personaConfig', function(){
@@ -37,6 +38,7 @@ modulePersonaSDK.factory('PersonaJuridica', function(restmod, personaConfig) {
 
 modulePersonaSDK.factory('PersonaNatural', function(restmod, personaConfig) {
     return restmod.model(personaConfig.urlPrefix + '/personas/naturales').$mix({
+
         PRIMARY_KEY: 'id',
 
         id: {init: undefined},
@@ -48,20 +50,31 @@ modulePersonaSDK.factory('PersonaNatural', function(restmod, personaConfig) {
         apellidoMaterno: {init: undefined, map: 'apellidoMaterno'},
         nombres: {init: undefined, map: 'nombres'},
         fechaNacimiento: {init: undefined, map: 'fechaNacimiento'},
-        sexo: {init: undefined},
+        sexo: {init: undefined, map: 'sexo'},
         estadoCivil: {init: undefined, map: 'estadoCivil'},
-        ocupacion: {init: undefined},
+        ocupacion: {init: undefined, map: 'ocupacion'},
         urlFoto: {init: undefined, map: 'urlFoto'},
         urlFirma: {init: undefined, map: 'urlFirma'},
 
         codigoPais: {init: undefined, map: 'codigoPais'},
-        ubigeo: {init: undefined},
-        direccion: {init: undefined},
-        referencia: {init: undefined},
-        telefono: {init: undefined},
-        celular: {init: undefined},
-        email: {init: undefined}
-    });
+        ubigeo: {init: undefined, map: 'ubigeo'},
+        direccion: {init: undefined, map: 'direccion'},
+        referencia: {init: undefined, map: 'referencia'},
+        telefono: {init: undefined, map: 'telefono'},
+        celular: {init: undefined, map: 'celular'},
+        email: {init: undefined, map: 'email'},
+
+        getNombreCompleto: function() {
+            var result = this.apellidoPaterno ? this.apellidoPaterno : '';
+            result += this.apellidoMaterno ? ' ' + this.apellidoMaterno : '';
+            result += result.length && this.nombres ? ', ' : '';
+            result += this.nombres ? this.nombres : '';
+            return result;
+        },
+        '@findByTipoNumeroDocumento': function(documento, numero) {
+            return this.$single(this.$url() + "/buscar").$fetch({tipoDocumento: documento, numeroDocumento: numero});
+        }
+});
 });
 
 modulePersonaSDK.factory('TipoDocumento', function(restmod, personaConfig) {

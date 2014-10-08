@@ -12,7 +12,6 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="bower_components/todc-bootstrap/dist/css/todc-bootstrap.css">
-    <link rel="stylesheet" href="bower_components/ladda/dist/ladda-themeless.min.css">
     <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css">
 
     <link rel="stylesheet" href="styles/bootplus/css/bootplus.css">
@@ -31,7 +30,12 @@
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script src="bower_components/angular-ui-select/dist/select.js"></script>
-    <script src="bower_components/ng-focus-on/ng-focus-on.js"></script>
+    <script src="bower_components/angular-ui-utils/ui-utils.js"></script>
+
+    <!-- UI BLOCK -->
+    <link rel="stylesheet" href="bower_components/angular-block-ui/dist/angular-block-ui.css">
+    <script src="bower_components/angular-block-ui/dist/angular-block-ui.js"></script>
+    <!-- endbuild -->
 
     <script src="js/keycloak.js"></script>
     <script src="scripts/app.js"></script>
@@ -47,6 +51,7 @@
     <script src="scripts/persona/directives.js"></script>
     <script src="scripts/common/controllers.js"></script>
     <script src="scripts/common/directive.js"></script>
+    <script src="scripts/common/ng-focus-on.js"></script>
     <style>
         [ng\:cloak], [ng-cloak], .ng-cloak {
             display: none !important;
@@ -93,23 +98,15 @@
     </div>
 
     <div class="row">
-        <div class="col-md-4 col-md-offset-6" style="top: 3.7em; position: fixed; z-index: 1100; text-align: center;">
-            <alert ng-repeat="alert in successAlerts" type="{{alert.type}}" close="closeSuccessAlert($index)">
-                <span class="glyphicon glyphicon-ok-sign"></span>
-                <span ng-bind="alert.msg"></span>
-            </alert>
-            <alert ng-repeat="alert in infoAlerts" type="{{alert.type}}" close="closeInfoAlert($index)">
-                <span class="glyphicon glyphicon-info-sign"></span>
-                <span ng-bind="alert.msg"></span>
-            </alert>
-            <alert ng-repeat="alert in warningAlerts" type="{{alert.type}}" close="closeWarningAlert($index)">
-                <span class="glyphicon glyphicon-warning-sign"></span>
-                <span ng-bind="alert.msg"></span>
-            </alert>
-            <alert ng-repeat="alert in dangerAlerts" type="{{alert.type}}" close="closeDangerAlert($index)">
-                <span class="glyphicon glyphicon-asterisk"></span>
-                <span ng-bind="alert.msg"></span>
-            </alert>
+        <div ng-show="notification" class="col-md-4 col-md-offset-6" style="top: 3.7em; position: fixed; z-index: 1100; text-align: center;">
+            <div class="alert" ng-class="'alert-' + notification.type">
+                <span class="glyphicon glyphicon-ok-circle ng-hide" ng-show="notification.type == 'success'"></span>
+                <span class="glyphicon glyphicon-info-sign ng-hide" ng-show="notification.type == 'info'"></span>
+                <span class="glyphicon glyphicon-wrench ng-hide" ng-show="notification.type == 'danger'"></span>
+                <span class="glyphicon glyphicon-warning-sign ng-hide" ng-show="notification.type == 'warning'"></span>
+                <strong ng-bind="notification.header"></strong>
+                <span ng-bind="notification.message"></span>
+            </div>
         </div>
     </div>
 

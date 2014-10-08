@@ -62,13 +62,13 @@ public class JpaPersonaNaturalProvider implements PersonaNaturalProvider {
 	@Override
 	public PersonaNaturalModel getPersonaNaturalById(Long id) {
 		PersonaNaturalEntity personaNaturalEntity = this.em.find(PersonaNaturalEntity.class, id);
-		return new PersonaNaturalAdapter(em, personaNaturalEntity);
+		return personaNaturalEntity != null ? new PersonaNaturalAdapter(em, personaNaturalEntity) : null;
 	}
 
 	@Override
 	public PersonaNaturalModel getPersonaNaturalByTipoNumeroDoc(TipoDocumentoModel tipoDocumento, String numeroDocumento) {
 		TypedQuery<PersonaNaturalEntity> query = em.createNamedQuery(PersonaNaturalEntity.findByTipoAndNumeroDocumento, PersonaNaturalEntity.class);
-		query.setParameter("tipoDocumento", tipoDocumento);
+		query.setParameter("tipoDocumento", tipoDocumento.getAbreviatura());
 		query.setParameter("numeroDocumento", numeroDocumento);
 		List<PersonaNaturalEntity> results = query.getResultList();
 		if (results.size() == 0)

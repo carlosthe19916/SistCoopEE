@@ -1,12 +1,12 @@
 angular.module('persona.directives', [])
-    .directive('sgDocumentoIdentidad',function(TipoDocumento){
+    .directive('sgDocumentoIdentidad',function(TipoDocumento, PersonaNatural, personaConfig, Notifications){
         return {
             restrict:'E',
             replace: false,
-            require: '^form',
+            require: ['^form','ngModel'],
             link: function($scope, elem, attrs, ngModel){
                 /*formulario*/
-                $scope.sgForm = ngModel;
+                $scope.sgForm = ngModel[0];
 
                 /*valores*/
                 $scope.view = {
@@ -38,6 +38,23 @@ angular.module('persona.directives', [])
                     }
                 }, true);
 
+
+                /*Verificar persona*/
+                $scope.check = function($event){
+                    if(!angular.isUndefined($event))
+                        $event.preventDefault();
+                    if(!angular.isUndefined($scope.tipoDocumento) && !angular.isUndefined($scope.numeroDocumento)){
+                        var result = PersonaNatural.$single(personaConfig.urlPrefix + '/personas/naturales/buscar').$fetch({tipoDocumento:$scope.tipoDocumento, numeroDocumento: $scope.numeroDocumento});
+                        result.$then(function(data) {
+                            if(!data.$response.data){
+                                Notifications.info("Documento de identidad disponible.");
+                            } else {
+                                Notifications.warn("Documento de identidad no disponible.");
+                            }
+                        });
+                    }
+                };
+
             },
             scope: {
                 nombre: '@',
@@ -50,7 +67,7 @@ angular.module('persona.directives', [])
                 +'<div class="col-sm-4">'
                     +'<div class="form-group" ng-class="{ \'has-error\' : sgForm.sgTipoDocumento.$invalid && (sgForm.sgTipoDocumento.$touched || sgForm.$submitted)}">'
                         +'<label>Tipo documento</label>'
-                        +'<ui-select name="sgTipoDocumento" ng-model="view.tipoDocumento" theme="bootstrap">'
+                        +'<ui-select name="sgTipoDocumento" ng-model="view.tipoDocumento" theme="bootstrap" required>'
                             +'<ui-select-match placeholder="Seleccione">{{$select.selected.abreviatura}}</ui-select-match>'
                             +'<ui-select-choices repeat="item in combo.tipoDocumento | filter: $select.search">'
                                 +'<div ng-bind-html="item.abreviatura | highlight: $select.search"></div>'
@@ -65,7 +82,10 @@ angular.module('persona.directives', [])
                 +'<div class="col-sm-4" ng-class="{ \'has-error\' : sgForm.sgNumeroDocumento.$invalid && (sgForm.sgNumeroDocumento.$touched || sgForm.$submitted)}">'
                     +'<div class="form-group">'
                         +'<label>N&uacute;mero documento</label>'
-                        +'<input type="text" name="sgNumeroDocumento" ng-model="numeroDocumento" ng-pattern="/^[0-9]+$/" ng-minlength="view.tipoDocumento.cantidadCaracteres" ng-maxlength="view.tipoDocumento.cantidadCaracteres" class="form-control" ng-required="{{requerido}}"/>'
+                        +'<div class="input-group">'
+                            +'<input type="text" name="sgNumeroDocumento" ng-model="numeroDocumento" ui-keypress="{13:\'check($event)\'}" ng-pattern="/^[0-9]+$/" ng-minlength="view.tipoDocumento.cantidadCaracteres" ng-maxlength="view.tipoDocumento.cantidadCaracteres" class="form-control" ng-required="{{requerido}}"/>'
+                            +'<span class="input-group-btn"><button type="button" ng-click="check()" tooltip="Check" tooltip-trigger="mouseenter" tooltip-placement="bottom" class="btn btn-default"><span class="glyphicon glyphicon-check"></span></button></span>'
+                        +'</div>'
                         +'<div ng-messages="sgForm.sgNumeroDocumento.$error" ng-if="sgForm.sgNumeroDocumento.$touched || sgForm.$submitted">'
                             +'<div class="help-block" ng-message="required">Ingrese numero documento.</div>'
                             +'<div class="help-block" ng-message="minlength">Debe tener <span ng-bind="view.tipoDocumento.cantidadCaracteres"></span> digitos.</div>'
@@ -86,7 +106,7 @@ angular.module('persona.directives', [])
                     var value = modelValue || viewValue;
                     value = value ? value : '';
                     //false representa error y true represeta exito
-                    return value.length == 6  || value.length == 0;
+                    return (value.length == 6  || value.length == 0);
                 };
 
                 $scope.departamentos = Departamento.$search();
