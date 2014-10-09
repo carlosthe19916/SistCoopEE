@@ -19,6 +19,11 @@ body {
     }
 }
 
+.grid {
+    width: 100%;
+    height: 350px;
+}
+
 /*spin*/
 .loader {
     margin: 6em auto;

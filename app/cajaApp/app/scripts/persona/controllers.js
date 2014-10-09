@@ -1,5 +1,5 @@
 angular.module('persona.controllers', [])
-    .controller('CrearPersonaNaturalController', function($scope, focus, blockUI, Country, Departamento, Sexo, EstadoCivil, PersonaNatural){
+    .controller('CrearPersonaNaturalController', function($scope, focus, Country, Departamento, Sexo, EstadoCivil, PersonaNatural){
 
         /*Poner foco inicial*/
         $scope.focusPais = function() {
@@ -44,9 +44,9 @@ angular.module('persona.controllers', [])
                     console.log(_persona);
                 });
 
-               /* aa.$then(function(_persona) {
-                    console.log(aa);
-                });*/
+                /* aa.$then(function(_persona) {
+                 console.log(aa);
+                 });*/
 
 
                 $scope.view.personaNatural.codigoPais = $scope.combo.selected.pais ? $scope.combo.selected.pais.alpha3Code: null;
@@ -57,4 +57,33 @@ angular.module('persona.controllers', [])
             }
         };
 
+    })
+    .controller('BuscarPersonaNaturalController', function($scope, $timeout){
+        $scope.gridOptions = {
+            data: [
+            ]
+        };
+
+        $timeout(function() {
+            $scope.gridOptions.data = [
+                {
+                    "firstName": "Cox",
+                    "lastName": "Carney",
+                    "company": "Enormo",
+                    "employed": true
+                },
+                {
+                    "firstName": "Lorraine",
+                    "lastName": "Wise",
+                    "company": "Comveyer",
+                    "employed": false
+                },
+                {
+                    "firstName": "Nancy",
+                    "lastName": "Waters",
+                    "company": "Fuelton",
+                    "employed": false
+                }
+            ];
+        }, 500);
     });

@@ -18,7 +18,9 @@ var module = angular.module('cajaApp', [
     'ui.select',
     'focusOn',
     'ui.utils',
-    'blockUI'
+    'blockUI',
+    'ui.grid',
+    'ui.grid.edit',
 
     /*Rest SDK*/,
     'ubigeoSDK',
@@ -216,11 +218,9 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
 
         .state('app.administracion.buscarPersonaNatural', {
             url: '/persona/natural/buscar',
-            views: {
-                "viewContent":{
-                    templateUrl: 'views/cajero/persona/natural/buscarPersonaNatural.html',
-                    controller: 'BuscarPersonaNaturalController'
-                }
+            templateUrl: "views/persona/natural/buscarPersonaNatural.html",
+            controller: function($scope, $stateParams) {
+                $scope.themplate.header = 'Buscar persona natural';
             }
         })
         .state('app.administracion.crearPersonaNatural', {
@@ -236,9 +236,38 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
         })
         .state('app.administracion.editarPersonaNatural', {
             url: "/persona/natural/:id",
+            templateUrl: "views/persona/natural/editarPersonaNatural.html",
+            controller: function($scope, $stateParams) {
+                $scope.themplate.header = 'Editar persona natural';
+
+                $scope.params = {};
+                $scope.params.id = $stateParams.id;
+            }
+        })
+
+        .state('app.administracion.buscarPersonaJuridica', {
+            url: '/persona/juridica/buscar',
+            templateUrl: "views/persona/juridica/buscarPersonaJuridica.html",
+            controller: function($scope, $stateParams) {
+                $scope.themplate.header = 'Buscar persona juridica';
+            }
+        })
+        .state('app.administracion.crearPersonaJuridica', {
+            url: "/persona/juridica?documento&numero",
+            templateUrl: "views/persona/juridica/crearPersonaJuridica.html",
+            controller: function($scope, $stateParams) {
+                $scope.themplate.header = 'Crear persona juridica';
+
+                $scope.params = {};
+                $scope.params.tipoDocumento = $stateParams.documento;
+                $scope.params.numeroDocumento = $stateParams.numero;
+            }
+        })
+        .state('app.administracion.editarPersonaJuridica', {
+            url: "/persona/juridica/:id",
             views: {
                 "viewContent":{
-                    templateUrl: "views/cajero/persona/natural/editarPersonaNatural.html",
+                    templateUrl: "views/persona/juridica/editarPersonaJuridica.html",
                     controller: function($scope, $stateParams) {
                         $scope.id = $stateParams.id;
                     }
