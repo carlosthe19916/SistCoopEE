@@ -3712,19 +3712,6 @@ input.search-query {
   padding-left: 2px;
 }
 
-.alert {
-  text-shadow: none;
-  -webkit-border-radius: 0;
-     -moz-border-radius: 0;
-          border-radius: 0;
-}
-
-.alert > a,
-.alert.alert-block > a {
-  color: #FFFFFF;
-  text-decoration: underline;
-}
-
 .well {
   border: 1px solid #d8d8d8;
   border-top-width: 0;

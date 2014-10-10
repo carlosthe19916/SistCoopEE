@@ -35,6 +35,7 @@ var module = angular.module('cajaApp', [
     'common.directives'
 
 ]);
+
 var resourceRequests = 0;
 var loadingTimer = -1;
 
@@ -45,26 +46,22 @@ angular.element(document).ready(function ($http) {
         location.reload();
     };
 
-    keycloakAuth.init({ onLoad: 'login-required' }).success(function () {
-        auth.authz = keycloakAuth;
-
-        keycloakAuth.loadUserProfile().success(function(profile) {
-
-            auth.user = profile;
-
-            module.factory('Auth', function() {
-                return auth;
-            });
-
-            angular.bootstrap(document, ["cajaApp"]);
-
-        }).error(function() {
-            alert('No se pudo cargar el usuario en session');
+    keycloakAuth.init({ onLoad: 'login-required' })
+        .success(function () {
+            auth.authz = keycloakAuth;
+            keycloakAuth.loadUserProfile()
+                .success(function(profile) {
+                    auth.user = profile;
+                    module.factory('Auth', function() {
+                        return auth;
+                    });
+                    angular.bootstrap(document, ["cajaApp"]);
+                }).error(function() {
+                    alert('No se pudo cargar el usuario en session');
+                });
+        }).error(function () {
+            window.location.reload();
         });
-
-    }).error(function () {
-        window.location.reload();
-    });
 });
 
 module.factory('authInterceptor', function($q, Auth) {
@@ -303,7 +300,7 @@ module.factory('errorInterceptor', function($q, $window, $rootScope, $location, 
         }, function(response) {
             if (response.status == 401) {
                 Auth.authz.logout();
-             } else if (response.status == 403) {
+            } else if (response.status == 403) {
                 Notifications.error("Forbidden");
             } else if (response.status == 404) {
                 Notifications.error("Not found");

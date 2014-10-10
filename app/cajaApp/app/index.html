@@ -76,8 +76,24 @@
                 </button>
                 <a class="brand" href="#">SistCoop</a>
                 <div class="nav-collapse collapse" style="display: inherit;">
+
+                    <div class="nav navbar-text pull-right">
+                        <div class="btn-group" dropdown style="padding-top: 0px; margin-top: 0px;">
+                            <button type="button" class="btn btn-link dropdown-toggle" style="color:#29465F">
+                                <span class="glyphicon glyphicon-user">&nbsp;</span>
+                                <span ng-bind="auth.user.username"></span>&nbsp;&nbsp;&nbsp;
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="/SistCoopApp/account">Mi Perfil</a></li>
+                                <li><a href="#" ui-sref="app.configuracion.impresora({redirect:true})">Impresora</a></li>
+                                <li class="divider"></li>
+                                <li><a href="/SistCoopApp/logout">Salir</a></li>
+                            </ul>
+                        </div>
+                    </div>
                     <p class="navbar-text pull-right" style="margin-top: 0;">
-                        Logged in as <a href="#" ng-bind="auth.user.username" class="navbar-link"></a>
+                        Logged in as
                     </p>
                     <ul class="nav">
                         <li ui-sref-active="active">
@@ -99,6 +115,11 @@
                 </div><!--/.nav-collapse -->
             </div>
         </div>
+    </div>
+
+    <div ng-show="idletimeout" class="alert alert-danger" style="text-align: center;">
+        Tu session esta a punto de terminar en <strong><span ng-bind="clock"></span> segundos</strong> por inactividad.
+        <a id="idletimeout-resume" ng-click="updateToken()">Haga click aca para continuar usando el sistema</a>.
     </div>
 
     <div class="row">

@@ -7,7 +7,8 @@ body {
 }
 
 .btn {
-    font-weight: normal !important;
+    font-weight: normal;
+    cursor: pointer;
 }
 
 @media (max-width: 980px) {
