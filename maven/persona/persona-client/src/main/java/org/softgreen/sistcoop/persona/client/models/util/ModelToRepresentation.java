@@ -1,8 +1,5 @@
 package org.softgreen.sistcoop.persona.client.models.util;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.softgreen.sistcoop.persona.client.models.AccionistaModel;
 import org.softgreen.sistcoop.persona.client.models.PersonaJuridicaModel;
 import org.softgreen.sistcoop.persona.client.models.PersonaNaturalModel;
@@ -85,7 +82,7 @@ public class ModelToRepresentation {
 		rep.setFechaConstitucion(model.getFechaConstitucion());
 		rep.setFinLucro(model.isFinLucro());
 		rep.setNombreComercial(model.getNombreComercial());
-		rep.setTipoEmpresa(model.getTipoEmpresa().toString());
+		rep.setTipoEmpresa(model.getTipoEmpresa() != null ? model.getTipoEmpresa().toString() : null);
 
 		// representante legal
 		rep.setIdRepresentanteLegal(model.getRepresentanteLegal().getId());
@@ -98,14 +95,7 @@ public class ModelToRepresentation {
 		rep.setReferencia(model.getReferencia());
 		rep.setTelefono(model.getTelefono());
 		rep.setCelular(model.getCelular());
-		rep.setEmail(model.getEmail());
-
-		// accionistas
-		Set<Long> accionistas = new HashSet<Long>();
-		for (AccionistaModel accionistaModel : model.getAccionistas()) {
-			accionistas.add(accionistaModel.getId());
-		}
-		rep.setAccionistas(accionistas);
+		rep.setEmail(model.getEmail());		
 
 		return rep;
 	}

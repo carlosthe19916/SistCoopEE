@@ -2,9 +2,13 @@ package org.softgreen.sistcoop.persona.client.representations.idm;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "personaJuridica")
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public class PersonaJuridicaRepresentation implements Serializable {
 
 	/**
@@ -34,9 +38,7 @@ public class PersonaJuridicaRepresentation implements Serializable {
 	private Long idRepresentanteLegal;
 	private String tipoDocumentoRepresentanteLegal;
 	private String numeroDocumentoRepresentanteLegal;
-
-	private Set<Long> accionistas = new HashSet<Long>();
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -191,11 +193,4 @@ public class PersonaJuridicaRepresentation implements Serializable {
 		this.numeroDocumentoRepresentanteLegal = numeroDocumentoRepresentanteLegal;
 	}
 
-	public Set<Long> getAccionistas() {
-		return accionistas;
-	}
-
-	public void setAccionistas(Set<Long> accionistas) {
-		this.accionistas = accionistas;
-	}
 }

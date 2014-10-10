@@ -162,7 +162,7 @@ public class PersonaJuridicaEntity extends PersonaEntity implements
 	}
 
 	@NotNull
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne
 	@JoinColumn(name="REPRESENTANTE_LEGAL", foreignKey = @ForeignKey)	
 	public PersonaNaturalEntity getRepresentanteLegal() {
 		return representanteLegal;

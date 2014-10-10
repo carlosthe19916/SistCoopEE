@@ -44,11 +44,6 @@ angular.module('persona.controllers', [])
                     console.log(_persona);
                 });
 
-                /* aa.$then(function(_persona) {
-                 console.log(aa);
-                 });*/
-
-
                 $scope.view.personaNatural.codigoPais = $scope.combo.selected.pais ? $scope.combo.selected.pais.alpha3Code: null;
                 $scope.view.personaNatural.sexo = $scope.combo.selected.sexo ? $scope.combo.selected.sexo.denominacion : null;
                 $scope.view.personaNatural.estadoCivil = $scope.combo.selected.estadoCivil ? $scope.combo.selected.estadoCivil.denominacion : null;
@@ -59,31 +54,35 @@ angular.module('persona.controllers', [])
 
     })
     .controller('BuscarPersonaNaturalController', function($scope, $timeout){
+
+    })
+    .controller('BuscarPersonaJuridicaController', function($scope, focus, PersonaJuridica){
+
+        $scope.focusPais = function() {
+            focus('focusFilterText');
+        };
+        $scope.focusPais();
+
+        $scope.filterOptions = {
+            filterText: undefined,
+            result: []
+        };
+
         $scope.gridOptions = {
-            data: [
+            data: $scope.filterOptions.result,
+            columnDefs: [
+                {field: 'tipoDocumento', displayName: 'Documento'},
+                {field: 'numeroDocumento', displayName: 'Numero'},
+                {field: 'razonSocial', displayName: 'Razon social'},
+                {field: 'nombreComercial', displayName: 'Nombre comercial'},
+                {field: 'tipoEmpresa', displayName: 'Tipo Empresa'},
+                {field: 'numeroDocumento', displayName: 'Numero'},
+                {name: 'edit', displayName: 'Edit', cellTemplate: '<button id="editBtn" type="button" class="btn-small" ng-click="edit(row.entity)" >Edit</button> '}
             ]
         };
 
-        $timeout(function() {
-            $scope.gridOptions.data = [
-                {
-                    "firstName": "Cox",
-                    "lastName": "Carney",
-                    "company": "Enormo",
-                    "employed": true
-                },
-                {
-                    "firstName": "Lorraine",
-                    "lastName": "Wise",
-                    "company": "Comveyer",
-                    "employed": false
-                },
-                {
-                    "firstName": "Nancy",
-                    "lastName": "Waters",
-                    "company": "Fuelton",
-                    "employed": false
-                }
-            ];
-        }, 500);
+
+        $scope.search = function(){
+            PersonaJuridica.$search({filterText: $scope.filterOptions.filterText});
+        };
     });

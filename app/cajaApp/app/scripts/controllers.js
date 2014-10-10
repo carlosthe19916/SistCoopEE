@@ -16,7 +16,7 @@ module.controller('GlobalCtrl', function($scope, $timeout, $http, Auth, $locatio
 
 
     $scope.idletimeout = false;
-    $scope.clock = 60;
+   /* $scope.clock = 60;
 
     $scope.checkToken = function(){
         $timeout(function() {
@@ -49,7 +49,7 @@ module.controller('GlobalCtrl', function($scope, $timeout, $http, Auth, $locatio
             $scope.clock = 60;
             $scope.auth.authz.logout();
         }
-    };
+    };*/
 
 
 

@@ -30,12 +30,13 @@ import org.softgreen.sistcoop.persona.client.models.util.RepresentationToModel;
 import org.softgreen.sistcoop.persona.client.representations.idm.AccionistaRepresentation;
 import org.softgreen.sistcoop.persona.client.representations.idm.PersonaJuridicaRepresentation;
 import org.softgreen.sistcoop.persona.restapi.managers.PersonaJuridicaManager;
+import org.softgreen.sistcoop.persona.restapi.representation.PersonaJuridicaList;
 
 @Path("/personas/juridicas")
 public class PersonaJuridicaResource {
 
-	@EJB
-	protected PersonaJuridicaManager personaJuridicaManager;
+	//@EJB
+	//protected PersonaJuridicaManager personaJuridicaManager;
 
 	@Inject
 	protected PersonaJuridicaProvider personaJuridicaProvider;
@@ -73,13 +74,17 @@ public class PersonaJuridicaResource {
 
 	@GET
 	@Produces({ "application/xml", "application/json" })
-	public Response findAll(@QueryParam("filterText") String filterText, @QueryParam("offset") Integer offset, @QueryParam("limit") Integer limit) {
-		List<PersonaJuridicaModel> list = personaJuridicaProvider.searchForFilterText(filterText, offset, limit);
+	public PersonaJuridicaList findAll(@QueryParam("filterText") String filterText, @QueryParam("offset") Integer offset, @QueryParam("limit") Integer limit) {		
+		filterText = (filterText == null ? "" : filterText);
+		offset = (offset == null ? -1 : offset);
+		limit = (limit == null ? -1 : limit);
+		
+		List<PersonaJuridicaModel> list = personaJuridicaProvider.searchForFilterText(filterText, offset, limit);		
 		List<PersonaJuridicaRepresentation> result = new ArrayList<PersonaJuridicaRepresentation>();
 		for (PersonaJuridicaModel model : list) {
 			result.add(ModelToRepresentation.toRepresentation(model));
 		}
-		return Response.ok(result).build();
+		return new PersonaJuridicaList(result);
 	}
 
 	@GET
@@ -110,7 +115,7 @@ public class PersonaJuridicaResource {
 		if (personaJuridicaModel == null) {
 			return null;
 		}
-		personaJuridicaManager.updatePersonaJuridicaFromRep(personaJuridicaModel, personaJuridicaRepresentation);
+		//personaJuridicaManager.updatePersonaJuridicaFromRep(personaJuridicaModel, personaJuridicaRepresentation);
 		return Response.noContent().build();
 	}
 
@@ -188,7 +193,7 @@ public class PersonaJuridicaResource {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		}
 		AccionistaModel accionistaModel = accionistaProvider.getAccionistaById(idAccionista);
-		personaJuridicaManager.updateAccionistaFromRep(accionistaModel, accionistaRepresentation);
+		//personaJuridicaManager.updateAccionistaFromRep(accionistaModel, accionistaRepresentation);
 		return Response.noContent().build();
 	}
 

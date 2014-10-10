@@ -4,7 +4,7 @@
 var modulePersonaSDK = angular.module('personaSDK', ['restmod']);
 
 modulePersonaSDK.config(function(restmodProvider) {
-    restmodProvider.rebase('AMSApi');
+    //restmodProvider.rebase('AMSApi');
     //restmodProvider.rebase('DefaultPacker');
 });
 
@@ -33,7 +33,12 @@ modulePersonaSDK.factory('TipoEmpresa', function(restmod, personaConfig) {
 });
 
 modulePersonaSDK.factory('PersonaJuridica', function(restmod, personaConfig) {
-    return restmod.model(personaConfig.urlPrefix + '/personas/juridicas');
+    return restmod.model(personaConfig.urlPrefix + '/personas/juridicas').$mix({
+        $config: {
+            name: 'mouse', // if you only set NAME, then plural is infered from it using the inflector.
+                plural: 'personasJuridicas'
+        }
+    });
 });
 
 modulePersonaSDK.factory('PersonaNatural', function(restmod, personaConfig) {

@@ -129,9 +129,9 @@ public class JpaPersonaJuridicaProvider implements PersonaJuridicaProvider {
 	}
 
 	@Override
-	public List<PersonaJuridicaModel> searchForFilterText(String filterText, int firstResult, int maxResults) {
+	public List<PersonaJuridicaModel> searchForFilterText(String filterText, int firstResult, int maxResults) {		
 		TypedQuery<PersonaJuridicaEntity> query = em.createNamedQuery(PersonaJuridicaEntity.findByFilterText, PersonaJuridicaEntity.class);
-		query.setParameter("filtertext", filterText);
+		query.setParameter("filtertext", "%" + filterText);
 		if (firstResult != -1) {
 			query.setFirstResult(firstResult);
 		}

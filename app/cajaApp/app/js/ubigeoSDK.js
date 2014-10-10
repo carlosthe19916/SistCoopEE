@@ -4,7 +4,7 @@
 var moduleUbigeoSDK = angular.module('ubigeoSDK', ['restmod']);
 
 moduleUbigeoSDK.config(function(restmodProvider) {
-    restmodProvider.rebase('AMSApi');
+    //restmodProvider.rebase('AMSApi');
 });
 
 moduleUbigeoSDK.service('ubigeoConfig', function(){

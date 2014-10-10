@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
-@XmlRootElement
+@XmlRootElement(name = "tipoDocumento")
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class TipoDocumentoRepresentation implements Serializable {
 
