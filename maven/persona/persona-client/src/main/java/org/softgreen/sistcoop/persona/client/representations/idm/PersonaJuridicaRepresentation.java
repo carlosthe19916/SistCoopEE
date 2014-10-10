@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "personaJuridica")
@@ -38,7 +39,8 @@ public class PersonaJuridicaRepresentation implements Serializable {
 	private Long idRepresentanteLegal;
 	private String tipoDocumentoRepresentanteLegal;
 	private String numeroDocumentoRepresentanteLegal;
-	
+
+	@XmlAttribute
 	public Long getId() {
 		return id;
 	}
@@ -47,6 +49,7 @@ public class PersonaJuridicaRepresentation implements Serializable {
 		this.id = id;
 	}
 
+	@XmlAttribute
 	public String getCodigoPais() {
 		return codigoPais;
 	}
@@ -55,6 +58,7 @@ public class PersonaJuridicaRepresentation implements Serializable {
 		this.codigoPais = codigoPais;
 	}
 
+	@XmlAttribute
 	public String getTipoDocumento() {
 		return tipoDocumento;
 	}
@@ -63,6 +67,7 @@ public class PersonaJuridicaRepresentation implements Serializable {
 		this.tipoDocumento = tipoDocumento;
 	}
 
+	@XmlAttribute
 	public String getNumeroDocumento() {
 		return numeroDocumento;
 	}
@@ -71,6 +76,7 @@ public class PersonaJuridicaRepresentation implements Serializable {
 		this.numeroDocumento = numeroDocumento;
 	}
 
+	@XmlAttribute
 	public String getRazonSocial() {
 		return razonSocial;
 	}
@@ -79,6 +85,7 @@ public class PersonaJuridicaRepresentation implements Serializable {
 		this.razonSocial = razonSocial;
 	}
 
+	@XmlAttribute
 	public String getNombreComercial() {
 		return nombreComercial;
 	}
@@ -87,6 +94,7 @@ public class PersonaJuridicaRepresentation implements Serializable {
 		this.nombreComercial = nombreComercial;
 	}
 
+	@XmlAttribute
 	public Date getFechaConstitucion() {
 		return fechaConstitucion;
 	}
@@ -95,6 +103,7 @@ public class PersonaJuridicaRepresentation implements Serializable {
 		this.fechaConstitucion = fechaConstitucion;
 	}
 
+	@XmlAttribute
 	public String getActividadPrincipal() {
 		return actividadPrincipal;
 	}
@@ -103,6 +112,7 @@ public class PersonaJuridicaRepresentation implements Serializable {
 		this.actividadPrincipal = actividadPrincipal;
 	}
 
+	@XmlAttribute
 	public String getTipoEmpresa() {
 		return tipoEmpresa;
 	}
@@ -111,6 +121,7 @@ public class PersonaJuridicaRepresentation implements Serializable {
 		this.tipoEmpresa = tipoEmpresa;
 	}
 
+	@XmlAttribute
 	public boolean isFinLucro() {
 		return finLucro;
 	}
@@ -119,6 +130,7 @@ public class PersonaJuridicaRepresentation implements Serializable {
 		this.finLucro = finLucro;
 	}
 
+	@XmlAttribute
 	public String getUbigeo() {
 		return ubigeo;
 	}
@@ -127,6 +139,7 @@ public class PersonaJuridicaRepresentation implements Serializable {
 		this.ubigeo = ubigeo;
 	}
 
+	@XmlAttribute
 	public String getDireccion() {
 		return direccion;
 	}
@@ -135,6 +148,7 @@ public class PersonaJuridicaRepresentation implements Serializable {
 		this.direccion = direccion;
 	}
 
+	@XmlAttribute
 	public String getReferencia() {
 		return referencia;
 	}
@@ -143,6 +157,7 @@ public class PersonaJuridicaRepresentation implements Serializable {
 		this.referencia = referencia;
 	}
 
+	@XmlAttribute
 	public String getTelefono() {
 		return telefono;
 	}
@@ -151,6 +166,7 @@ public class PersonaJuridicaRepresentation implements Serializable {
 		this.telefono = telefono;
 	}
 
+	@XmlAttribute
 	public String getCelular() {
 		return celular;
 	}
@@ -159,6 +175,7 @@ public class PersonaJuridicaRepresentation implements Serializable {
 		this.celular = celular;
 	}
 
+	@XmlAttribute
 	public String getEmail() {
 		return email;
 	}
@@ -167,6 +184,7 @@ public class PersonaJuridicaRepresentation implements Serializable {
 		this.email = email;
 	}
 
+	@XmlAttribute
 	public Long getIdRepresentanteLegal() {
 		return idRepresentanteLegal;
 	}
@@ -175,21 +193,21 @@ public class PersonaJuridicaRepresentation implements Serializable {
 		this.idRepresentanteLegal = idRepresentanteLegal;
 	}
 
+	@XmlAttribute
 	public String getTipoDocumentoRepresentanteLegal() {
 		return tipoDocumentoRepresentanteLegal;
 	}
 
-	public void setTipoDocumentoRepresentanteLegal(
-			String tipoDocumentoRepresentanteLegal) {
+	public void setTipoDocumentoRepresentanteLegal(String tipoDocumentoRepresentanteLegal) {
 		this.tipoDocumentoRepresentanteLegal = tipoDocumentoRepresentanteLegal;
 	}
 
+	@XmlAttribute
 	public String getNumeroDocumentoRepresentanteLegal() {
 		return numeroDocumentoRepresentanteLegal;
 	}
 
-	public void setNumeroDocumentoRepresentanteLegal(
-			String numeroDocumentoRepresentanteLegal) {
+	public void setNumeroDocumentoRepresentanteLegal(String numeroDocumentoRepresentanteLegal) {
 		this.numeroDocumentoRepresentanteLegal = numeroDocumentoRepresentanteLegal;
 	}
 

@@ -3,7 +3,6 @@ package org.softgreen.sistcoop.persona.restapi.resources;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -17,6 +16,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import org.jboss.resteasy.annotations.providers.jaxb.json.BadgerFish;
 import org.softgreen.sistcoop.persona.client.models.AccionistaModel;
 import org.softgreen.sistcoop.persona.client.models.AccionistaProvider;
 import org.softgreen.sistcoop.persona.client.models.PersonaJuridicaModel;
@@ -29,7 +29,6 @@ import org.softgreen.sistcoop.persona.client.models.util.ModelToRepresentation;
 import org.softgreen.sistcoop.persona.client.models.util.RepresentationToModel;
 import org.softgreen.sistcoop.persona.client.representations.idm.AccionistaRepresentation;
 import org.softgreen.sistcoop.persona.client.representations.idm.PersonaJuridicaRepresentation;
-import org.softgreen.sistcoop.persona.restapi.managers.PersonaJuridicaManager;
 import org.softgreen.sistcoop.persona.restapi.representation.PersonaJuridicaList;
 
 @Path("/personas/juridicas")
@@ -53,13 +52,14 @@ public class PersonaJuridicaResource {
 	@Context
 	protected UriInfo uriInfo;
 
+	@BadgerFish
 	@GET
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
-	public Response findById(@PathParam("id") Long id) {
-		PersonaJuridicaModel model = personaJuridicaProvider.getPersonaJuridicaById(id);
+	public PersonaJuridicaRepresentation findById(@PathParam("id") Long id) {
+		PersonaJuridicaModel model = personaJuridicaProvider.getPersonaJuridicaById(id);		
 		PersonaJuridicaRepresentation rep = ModelToRepresentation.toRepresentation(model);
-		return Response.ok(rep).build();
+		return rep;
 	}
 
 	@GET
