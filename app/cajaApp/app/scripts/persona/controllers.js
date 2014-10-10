@@ -53,15 +53,11 @@ angular.module('persona.controllers', [])
         };
 
     })
-    .controller('BuscarPersonaNaturalController', function($scope, $timeout){
-
-    })
-    .controller('BuscarPersonaJuridicaController', function($scope, focus, PersonaJuridica){
-
-        $scope.focusPais = function() {
+    .controller('BuscarPersonaNaturalController', function($scope, focus, PersonaNatural){
+        $scope.focusForm = function() {
             focus('focusFilterText');
         };
-        $scope.focusPais();
+        $scope.focusForm();
 
         $scope.filterOptions = {
             filterText: undefined,
@@ -69,18 +65,45 @@ angular.module('persona.controllers', [])
         };
 
         $scope.gridOptions = {
-            data: $scope.filterOptions.result,
+            data: [{tipoDocumento: 'RUC', numeroDocumento: '12345678910', razonSocial: 'Softgreen', nombreComercial: 'Softgreen soluciones', tipoEmpresa: 'PRIVADA'}],
             columnDefs: [
                 {field: 'tipoDocumento', displayName: 'Documento'},
                 {field: 'numeroDocumento', displayName: 'Numero'},
                 {field: 'razonSocial', displayName: 'Razon social'},
                 {field: 'nombreComercial', displayName: 'Nombre comercial'},
                 {field: 'tipoEmpresa', displayName: 'Tipo Empresa'},
-                {field: 'numeroDocumento', displayName: 'Numero'},
-                {name: 'edit', displayName: 'Edit', cellTemplate: '<button id="editBtn" type="button" class="btn-small" ng-click="edit(row.entity)" >Edit</button> '}
+                {name: 'edit', displayName: 'Edit', cellTemplate: '<div style="text-align: center;"><button id="editBtn" type="button" class="btn btn-info btn-small" ng-click="edit(row.entity)">Edit</button></div>'}
             ]
         };
 
+        $scope.search = function(){
+            PersonaNatural.$search({filterText: $scope.filterOptions.filterText});
+        };
+    })
+    .controller('BuscarPersonaJuridicaController', function($scope, focus, PersonaJuridica){
+        this.form = $scope.form;
+
+        $scope.focusForm = function() {
+            focus('focusFilterText');
+        };
+        $scope.focusForm();
+
+        $scope.filterOptions = {
+            filterText: undefined,
+            result: []
+        };
+
+        $scope.gridOptions = {
+            data: [{tipoDocumento: 'RUC', numeroDocumento: '12345678910', razonSocial: 'Softgreen', nombreComercial: 'Softgreen soluciones', tipoEmpresa: 'PRIVADA'}],
+            columnDefs: [
+                {field: 'tipoDocumento', displayName: 'Documento'},
+                {field: 'numeroDocumento', displayName: 'Numero'},
+                {field: 'razonSocial', displayName: 'Razon social'},
+                {field: 'nombreComercial', displayName: 'Nombre comercial'},
+                {field: 'tipoEmpresa', displayName: 'Tipo Empresa'},
+                {name: 'edit', displayName: 'Edit', cellTemplate: '<div style="text-align: center;"><button id="editBtn" type="button" class="btn btn-info btn-small" ng-click="edit(row.entity)">Edit</button></div>'}
+            ]
+        };
 
         $scope.search = function(){
             PersonaJuridica.$search({filterText: $scope.filterOptions.filterText});

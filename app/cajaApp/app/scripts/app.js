@@ -132,7 +132,11 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
                     }
                 },
                 "viewContent":{
-                    template: '<div ui-view style="min-height: 472px;">prueba</br></br></div>'
+                    templateUrl: 'views/themplate/themplate02-content.html',
+                    controller: function($scope){
+                        $scope.themplate = {};
+                        $scope.themplate.header = 'Caja';
+                    }
                 }
             }
         })
@@ -151,8 +155,8 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
                             {'name':'Compra/Venta', 'state': 'app.transaccion.compraVenta', header: false},
 
                             {'name':'Transacciones Internas', 'state': '', header: true},
-                            {'name':'Transaccion con Boveda', 'state': 'app.caja.buscarTransaccionBovedaCaja', header: false},
-                            {'name':'Transaccion con Caja', 'state': 'app.caja.buscarTransaccionCajaCaja', header: false},
+                            {'name':'Transaccion con Boveda', 'state': 'app.transaccion.buscarTransaccionBovedaCaja', header: false},
+                            {'name':'Transaccion con Caja', 'state': 'app.transaccion.buscarTransaccionCajaCaja', header: false},
 
                             {'name':'Historial', 'state': '', header: true},
                             {'name':'Buscar Transacción', 'state': 'app.transaccion.buscarTransaccion', header: false}
@@ -160,7 +164,11 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
                     }
                 },
                 "viewContent":{
-                    template: '<div>sss</div>'
+                    templateUrl: 'views/themplate/themplate02-content.html',
+                    controller: function($scope){
+                        $scope.themplate = {};
+                        $scope.themplate.header = 'Transacciones';
+                    }
                 }
             }
         })
@@ -183,7 +191,11 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
                     }
                 },
                 "viewContent":{
-                    template: 'prueba'
+                    templateUrl: 'views/themplate/themplate02-content.html',
+                    controller: function($scope){
+                        $scope.themplate = {};
+                        $scope.themplate.header = 'Socio';
+                    }
                 }
             }
         })
@@ -210,6 +222,85 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
                         $scope.themplate.header = 'Administracion';
                     }
                 }
+            }
+        })
+
+        .state('app.transaccion.aporte', {
+            url: '/socio/buscar',
+            templateUrl: "views/socio/buscarSocio.html",
+            controller: function($scope, $stateParams) {
+                $scope.themplate.header = 'Buscar socio';
+            }
+        })
+        .state('app.transaccion.depositoRetiro', {
+            url: '/socio/buscar',
+            templateUrl: "views/socio/crearSocio.html",
+            controller: function($scope, $stateParams) {
+                $scope.themplate.header = 'Crear socio';
+            }
+        })
+        .state('app.transaccion.transferencia', {
+            url: '/socio/buscar',
+            templateUrl: "views/socio/crearCuentaBancaria.html",
+            controller: function($scope, $stateParams) {
+                $scope.themplate.header = 'Crear cuenta bancaria';
+            }
+        })
+        .state('app.transaccion.compraVenta', {
+            url: '/socio/buscar',
+            templateUrl: "views/socio/buscarCuentaBancaria.html",
+            controller: function($scope, $stateParams) {
+                $scope.themplate.header = 'Buscar cuenta bancaria';
+            }
+        })
+        .state('app.transaccion.buscarTransaccionBovedaCaja', {
+            url: '/socio/buscar',
+            templateUrl: "views/socio/crearSocio.html",
+            controller: function($scope, $stateParams) {
+                $scope.themplate.header = 'Crear socio';
+            }
+        })
+        .state('app.transaccion.buscarTransaccionCajaCaja', {
+            url: '/socio/buscar',
+            templateUrl: "views/socio/crearCuentaBancaria.html",
+            controller: function($scope, $stateParams) {
+                $scope.themplate.header = 'Crear cuenta bancaria';
+            }
+        })
+        .state('app.transaccion.buscarTransaccion', {
+            url: '/socio/buscar',
+            templateUrl: "views/socio/buscarCuentaBancaria.html",
+            controller: function($scope, $stateParams) {
+                $scope.themplate.header = 'Buscar cuenta bancaria';
+            }
+        })
+
+        .state('app.socio.buscarSocio', {
+            url: '/socio/buscar',
+            templateUrl: "views/socio/buscarSocio.html",
+            controller: function($scope, $stateParams) {
+                $scope.themplate.header = 'Buscar socio';
+            }
+        })
+        .state('app.socio.crearSocio', {
+            url: '/socio/buscar',
+            templateUrl: "views/socio/crearSocio.html",
+            controller: function($scope, $stateParams) {
+                $scope.themplate.header = 'Crear socio';
+            }
+        })
+        .state('app.socio.crearCuentaBancaria', {
+            url: '/socio/buscar',
+            templateUrl: "views/socio/crearCuentaBancaria.html",
+            controller: function($scope, $stateParams) {
+                $scope.themplate.header = 'Crear cuenta bancaria';
+            }
+        })
+        .state('app.socio.buscarCuentaBancaria', {
+            url: '/socio/buscar',
+            templateUrl: "views/socio/buscarCuentaBancaria.html",
+            controller: function($scope, $stateParams) {
+                $scope.themplate.header = 'Buscar cuenta bancaria';
             }
         })
 
