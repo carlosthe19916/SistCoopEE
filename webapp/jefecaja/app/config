@@ -1,0 +1,10 @@
+{
+  "realm": "SistCoop",
+  "realm-public-key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCYmMMRaq9I8qlG9XaG3y5V3y6p87238VXyISP+xDYDcwtWn8Q+OFjxtreM3/MOOo/WTZYYW4UXJVZcc7uqKmD8aMPs3PxhOA35grdfgBhH58JfzdCb+Jwo6dH/fUezea+7V/ggc9x1iU6gAHe51rVBegxIdVvSP7Q8PGdx7wIdnwIDAQAB",
+  "auth-server-url": "https://keycloak-softgreen.rhcloud.com/auth",
+  "ssl-required": "external",
+  "resource": "cajaApp",
+  "public-client": true,
+  "use-resource-role-mappings": true,
+  "enable-cors": true
+}

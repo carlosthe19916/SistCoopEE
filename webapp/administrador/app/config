@@ -1,0 +1,10 @@
+{
+  "realm": "SISTCOOP",
+  "realm-public-key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCphgaH9dAYDnJXjza5nDGxF7nLPKqklJKSVRamxL2ofefSGbDa4EYnL4weR2th4CWswNaSg05qqRQOsw6QvjaCKVvhR3+5grHGo5+9GWKnVTgJBEbXsB5871WvkyuY/z7Ybc+Y3itiYbOyxHmIHucK+LS6cuAmwosMHarCsIOQJwIDAQAB",
+  "auth-server-url": "https://keycloak-softgreen.rhcloud.com/auth",
+  "ssl-required": "external",
+  "resource": "APP-ADMINISTRADOR",
+  "public-client": true,
+  "use-resource-role-mappings": true,
+  "enable-cors": true
+}

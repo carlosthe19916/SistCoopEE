@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Sistcoop</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/todc-bootstrap/dist/css/todc-bootstrap.css">
+    <link rel="stylesheet" href="bower_components/ladda/dist/ladda-themeless.min.css">
+
+    <link rel="stylesheet" href="styles/bootplus/css/bootplus.css">
+    <link rel="stylesheet" href="styles/bootplus/css/bootplus-responsive.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+
+    <script src="js/keycloak.js"></script>
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="scripts/app.js"></script>
+
+    <style>
+        [ng\:cloak], [ng-cloak], .ng-cloak {
+            display: none !important;
+        }
+    </style>
+</head>
+<body ng-cloak>
+
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<!-- Add your site or application content here -->
+<div>
+    <div class="navbar navbar-inverse navbar-fixed-top" style="min-height: 20px;">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="brand" href="#">SistCoop</a>
+                <div class="nav-collapse collapse" style="display: inherit;">
+                    <p class="navbar-text pull-right" style="margin-top: 0;">
+                        Logged in as <a href="#" class="navbar-link">Username</a>
+                    </p>
+                    <ul class="nav">
+                        <li ui-sref-active="active">
+                            <a ui-sref="home">Home</a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="app.caja">Caja</a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="app.transaccion">Transacciones</a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="app.socio">Cuentas personales</a>
+                        </li>
+                        <li ui-sref-active="active">
+                            <a ui-sref="app.administracion">Administracion</a>
+                        </li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 col-md-offset-6" style="top: 3.7em; position: fixed; z-index: 1100; text-align: center;">
+
+            <alert ng-repeat="alert in successAlerts" type="{{alert.type}}" close="closeSuccessAlert($index)">
+                <span class="glyphicon glyphicon-ok-sign"></span>
+                <span ng-bind="alert.msg"></span>
+            </alert>
+            <alert ng-repeat="alert in infoAlerts" type="{{alert.type}}" close="closeInfoAlert($index)">
+                <span class="glyphicon glyphicon-info-sign"></span>
+                <span ng-bind="alert.msg"></span>
+            </alert>
+            <alert ng-repeat="alert in warningAlerts" type="{{alert.type}}" close="closeWarningAlert($index)">
+                <span class="glyphicon glyphicon-warning-sign"></span>
+                <span ng-bind="alert.msg"></span>
+            </alert>
+            <alert ng-repeat="alert in dangerAlerts" type="{{alert.type}}" close="closeDangerAlert($index)">
+                <span class="glyphicon glyphicon-asterisk"></span>
+                <span ng-bind="alert.msg"></span>
+            </alert>
+        </div>
+    </div>
+
+    <div ui-view>
+        <span>Loading...</span>
+    </div>
+</div>
+
+</body>
+</html>

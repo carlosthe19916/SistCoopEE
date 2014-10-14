@@ -1,7 +1,0 @@
-include 'persona-ejb'
-project(':persona-ejb').projectDir = new File('ejb/persona-ejb')
-
-include 'persona-restapi'
-project(':persona-restapi').projectDir = new File('war/persona-restapi')
-
-include ":persona-ejb", ":persona-restapi"
