@@ -35,7 +35,8 @@ import org.softgreen.sistcoop.persona.clien.enums.Sexo;
 @NamedQueries({ 
 		@NamedQuery(name = PersonaNaturalEntity.findAll, query = "SELECT p FROM PersonaNaturalEntity p ORDER BY p.apellidoPaterno, p.apellidoMaterno, p.nombres, p.id"), 
 		@NamedQuery(name = PersonaNaturalEntity.findByTipoAndNumeroDocumento, query = "SELECT p FROM PersonaNaturalEntity p WHERE p.tipoDocumento.abreviatura = :tipoDocumento AND p.numeroDocumento = :numeroDocumento "),
-		@NamedQuery(name = PersonaNaturalEntity.findByFilterText, query = "SELECT p FROM PersonaNaturalEntity p WHERE p.numeroDocumento LIKE :filterText OR UPPER(CONCAT(p.apellidoPaterno,' ', p.apellidoMaterno,' ',p.nombres)) LIKE :filterText ORDER BY p.apellidoPaterno, p.apellidoMaterno, p.nombres, p.id"), 
+		@NamedQuery(name = PersonaNaturalEntity.findByFilterText, query = "SELECT p FROM PersonaNaturalEntity p WHERE p.numeroDocumento LIKE :filterText OR UPPER(CONCAT(p.apellidoPaterno,' ', p.apellidoMaterno,' ',p.nombres)) LIKE :filterText ORDER BY p.apellidoPaterno, p.apellidoMaterno, p.nombres, p.id"),
+		@NamedQuery(name = PersonaNaturalEntity.findByNumeroDocumento, query = "SELECT p FROM PersonaNaturalEntity p WHERE p.numeroDocumento LIKE :filterText ORDER BY p.apellidoPaterno, p.apellidoMaterno, p.nombres, p.id"),
 		@NamedQuery(name = PersonaNaturalEntity.count, query = "select count(u) from PersonaNaturalEntity u") })
 public class PersonaNaturalEntity extends PersonaEntity implements Serializable {
 
@@ -48,6 +49,7 @@ public class PersonaNaturalEntity extends PersonaEntity implements Serializable 
 	public final static String findAll = base + "findAll";
 	public final static String findByTipoAndNumeroDocumento = base + "findByTipoAndNumeroDocumento";
 	public final static String findByFilterText = base + "findByFilterText";
+	public final static String findByNumeroDocumento = base + "findByNumeroDocumento";
 	public final static String count = base + "count";
 
 	private Long id;

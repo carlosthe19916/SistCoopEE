@@ -1,8 +1,8 @@
 {
-  "realm": "SistCoop",
-  "realm-public-key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCYmMMRaq9I8qlG9XaG3y5V3y6p87238VXyISP+xDYDcwtWn8Q+OFjxtreM3/MOOo/WTZYYW4UXJVZcc7uqKmD8aMPs3PxhOA35grdfgBhH58JfzdCb+Jwo6dH/fUezea+7V/ggc9x1iU6gAHe51rVBegxIdVvSP7Q8PGdx7wIdnwIDAQAB",
+  "realm": "SISTCOOP",
+  "realm-public-key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCBOxje7EJON61Q97N4il55wxWpWlfaDEx6yr5m+QcBdoi25vCaHB14WTRpqz/BjuDADpla1aWxXs8rfMN5isQrvIX1TIvr7+7mAKjo5PiYiQeUTgVnXG1zbCD2jykjxn/EfVhW+cYpYuCrQNlkrf+vwWHUV23yMdYRRUpF0ej+0QIDAQAB",
   "bearer-only": true,
   "ssl-required": "external",
-  "resource": "persona-restapi",
+  "resource": "PERSONA-RESTAPI",
   "enable-cors": true
 }

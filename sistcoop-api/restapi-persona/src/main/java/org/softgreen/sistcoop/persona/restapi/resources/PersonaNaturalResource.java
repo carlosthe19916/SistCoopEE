@@ -44,14 +44,15 @@ public class PersonaNaturalResource {
 	public PersonaNaturalRepresentation findById(@PathParam("id") Long id) {
 		PersonaNaturalModel personaNaturalModel = personaNaturalProvider.getPersonaNaturalById(id);
 		PersonaNaturalRepresentation rep = ModelToRepresentation.toRepresentation(personaNaturalModel);
-		return rep; 
-		/*Movie movie = new Movie();
-		movie.setName("Transformers: Dark of the Moon");
-		movie.setDirector("Michael Bay");
-		movie.setYear(2011);*/
- 
-		//return movie; 
- 
+		return rep;
+		/*
+		 * Movie movie = new Movie();
+		 * movie.setName("Transformers: Dark of the Moon");
+		 * movie.setDirector("Michael Bay"); movie.setYear(2011);
+		 */
+
+		// return movie;
+
 	}
 
 	@BadgerFish
@@ -59,11 +60,11 @@ public class PersonaNaturalResource {
 	@Path("/buscar")
 	@Produces({ "application/xml", "application/json" })
 	public PersonaNaturalRepresentation findByTipoNumeroDocumento(@QueryParam("tipoDocumento") String tipoDocumento, @QueryParam("numeroDocumento") String numeroDocumento) {
-		if(tipoDocumento == null)
+		if (tipoDocumento == null)
 			return null;
-		if(numeroDocumento == null)
+		if (numeroDocumento == null)
 			return null;
-		
+
 		TipoDocumentoModel tipoDocumentoModel = tipoDocumentoProvider.getTipoDocumentoByAbreviatura(tipoDocumento);
 		PersonaNaturalModel personaNaturalModel = personaNaturalProvider.getPersonaNaturalByTipoNumeroDoc(tipoDocumentoModel, numeroDocumento);
 		PersonaNaturalRepresentation rep = ModelToRepresentation.toRepresentation(personaNaturalModel);
@@ -75,7 +76,19 @@ public class PersonaNaturalResource {
 	public Response listAll(@QueryParam("filterText") String filterText, @QueryParam("offset") Integer offset, @QueryParam("limit") Integer limit) {
 		List<PersonaNaturalRepresentation> results = new ArrayList<PersonaNaturalRepresentation>();
 		List<PersonaNaturalModel> userModels;
-		userModels = personaNaturalProvider.getPersonasNaturales();
+		if (filterText == null) {
+			if (offset == null || limit == null) {
+				userModels = personaNaturalProvider.getPersonasNaturales();
+			} else {
+				userModels = personaNaturalProvider.getPersonasNaturales(offset, limit);
+			}
+		} else {
+			if (offset == null || limit == null) {
+				userModels = personaNaturalProvider.searchForFilterText(filterText);
+			} else {
+				userModels = personaNaturalProvider.searchForFilterText(filterText, offset, limit);
+			}
+		}
 		for (PersonaNaturalModel personaNaturalModel : userModels) {
 			results.add(ModelToRepresentation.toRepresentation(personaNaturalModel));
 		}

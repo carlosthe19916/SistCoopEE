@@ -2,12 +2,7 @@
 
     angular.module('persona.models', ['restmod'])
         .config(function(restmodProvider) {
-            console.log(restmodProvider);
-            restmodProvider.rebase({
-                $config: {
-                    urlPrefix: 'http://localhost:63342/cajaApp/app'
-                }
-            });
+
         }).factory('EstadoCivil', function(restmod) {
             return restmod.model('/estadosCiviles');
         }).factory('Sexo', function(restmod) {
@@ -32,7 +27,7 @@
         }).factory('PersonaJuridica', function(restmod) {
             return restmod.model('/personas/juridicas');
         }).factory('PersonaNatural', function(restmod) {
-            return restmod.model('/personas/naturales').$mix({
+            return restmod.model('http://localhost:8080/restapi-persona/rest/v1/personas/naturales').$mix({
 
                 PRIMARY_KEY: 'id',
 

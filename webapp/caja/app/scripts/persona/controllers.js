@@ -34,7 +34,6 @@
 
             /*Operacion principal*/
             $scope.crearTransaccion = function(){
-                console.log($scope.view.personaNatural.$response.data);
                 if ($scope.formCrearPersonanatural.$valid) {
 
                     var aa = PersonaNatural.$find(1);
@@ -61,19 +60,23 @@
             };
 
             $scope.gridOptions = {
-                data: [{tipoDocumento: 'RUC', numeroDocumento: '12345678910', razonSocial: 'Softgreen', nombreComercial: 'Softgreen soluciones', tipoEmpresa: 'PRIVADA'}],
+                data: [],
                 columnDefs: [
                     {field: 'tipoDocumento', displayName: 'Documento'},
                     {field: 'numeroDocumento', displayName: 'Numero'},
-                    {field: 'razonSocial', displayName: 'Razon social'},
-                    {field: 'nombreComercial', displayName: 'Nombre comercial'},
-                    {field: 'tipoEmpresa', displayName: 'Tipo Empresa'},
-                    {name: 'edit', displayName: 'Edit', cellTemplate: '<div style="text-align: center;"><button id="editBtn" type="button" class="btn btn-info btn-small" ng-click="edit(row.entity)">Edit</button></div>'}
+                    {field: 'apellidoPaterno', displayName: 'Ap.paterno'},
+                    {field: 'apellidoMaterno', displayName: 'Ap.materno'},
+                    {field: 'nombres', displayName: 'Nombres'},
+                    {field: 'sexo', displayName: 'Sexo'},
+                    {name: 'edit', displayName: 'Edit', cellTemplate: '<div style="text-align: center; padding-top: 5px;"> <button type="button" ng-click="edit(row.entity)" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-edit"></span>Editar</button></div>'}
                 ]
             };
 
             $scope.search = function(){
-                PersonaNatural.$search({filterText: $scope.filterOptions.filterText});
+                if($scope.filterOptions.filterText)
+                    $scope.gridOptions.data = PersonaNatural.$search({filterText: $scope.filterOptions.filterText, offset: 0, limit: 10});
+                else
+                    $scope.gridOptions.data = PersonaNatural.$search({offset: 0, limit: 10});
             };
         })
         .controller('BuscarPersonaJuridicaController', function($scope, PersonaJuridica){

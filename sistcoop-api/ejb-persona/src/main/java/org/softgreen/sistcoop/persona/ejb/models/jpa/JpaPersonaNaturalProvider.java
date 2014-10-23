@@ -31,8 +31,8 @@ public class JpaPersonaNaturalProvider implements PersonaNaturalProvider {
 
 	@Override
 	public PersonaNaturalModel addPersonaNatural(String codigoPais, TipoDocumentoModel tipoDocumentoModel, String numeroDocumento, String apellidoPaterno, String apellidoMaterno, String nombres, Date fechaNacimiento, Sexo sexo) {
-		TipoDocumentoEntity tipoDocumentoEntity = TipoDocumentoAdapter.toTipoDocumentoEntity(tipoDocumentoModel, em);	
-		
+		TipoDocumentoEntity tipoDocumentoEntity = TipoDocumentoAdapter.toTipoDocumentoEntity(tipoDocumentoModel, em);
+
 		PersonaNaturalEntity personaNaturalEntity = new PersonaNaturalEntity();
 		personaNaturalEntity.setCodigoPais(codigoPais);
 		personaNaturalEntity.setTipoDocumento(tipoDocumentoEntity);
@@ -43,7 +43,7 @@ public class JpaPersonaNaturalProvider implements PersonaNaturalProvider {
 		personaNaturalEntity.setFechaNacimiento(fechaNacimiento);
 		personaNaturalEntity.setSexo(sexo);
 		em.persist(personaNaturalEntity);
-		return new PersonaNaturalAdapter(em, personaNaturalEntity);	
+		return new PersonaNaturalAdapter(em, personaNaturalEntity);
 	}
 
 	@Override
@@ -105,26 +105,52 @@ public class JpaPersonaNaturalProvider implements PersonaNaturalProvider {
 
 	@Override
 	public List<PersonaNaturalModel> searchForNumeroDocumento(String numeroDocumento) {
-		// TODO Auto-generated method stub
-		return null;
+		return searchForNumeroDocumento(numeroDocumento, -1, -1);
 	}
 
 	@Override
 	public List<PersonaNaturalModel> searchForNumeroDocumento(String numeroDocumento, int firstResult, int maxResults) {
-		// TODO Auto-generated method stub
-		return null;
+		if (numeroDocumento == null)
+			numeroDocumento = "";
+
+		TypedQuery<PersonaNaturalEntity> query = em.createNamedQuery(PersonaNaturalEntity.findByNumeroDocumento, PersonaNaturalEntity.class);
+		query.setParameter("filterText", "%" + numeroDocumento + "%");
+		if (firstResult != -1) {
+			query.setFirstResult(firstResult);
+		}
+		if (maxResults != -1) {
+			query.setMaxResults(maxResults);
+		}
+		List<PersonaNaturalEntity> results = query.getResultList();
+		List<PersonaNaturalModel> users = new ArrayList<PersonaNaturalModel>();
+		for (PersonaNaturalEntity entity : results)
+			users.add(new PersonaNaturalAdapter(em, entity));
+		return users;
 	}
 
 	@Override
 	public List<PersonaNaturalModel> searchForFilterText(String filterText) {
-		// TODO Auto-generated method stub
-		return null;
+		return searchForFilterText(filterText, -1, -1);
 	}
 
 	@Override
 	public List<PersonaNaturalModel> searchForFilterText(String filterText, int firstResult, int maxResults) {
-		// TODO Auto-generated method stub
-		return null;
+		if (filterText == null)
+			filterText = "";
+
+		TypedQuery<PersonaNaturalEntity> query = em.createNamedQuery(PersonaNaturalEntity.findByFilterText, PersonaNaturalEntity.class);
+		query.setParameter("filterText", "%" + filterText.toUpperCase() + "%");
+		if (firstResult != -1) {
+			query.setFirstResult(firstResult);
+		}
+		if (maxResults != -1) {
+			query.setMaxResults(maxResults);
+		}
+		List<PersonaNaturalEntity> results = query.getResultList();
+		List<PersonaNaturalModel> users = new ArrayList<PersonaNaturalModel>();
+		for (PersonaNaturalEntity entity : results)
+			users.add(new PersonaNaturalAdapter(em, entity));
+		return users;
 	}
 
 	@Override
