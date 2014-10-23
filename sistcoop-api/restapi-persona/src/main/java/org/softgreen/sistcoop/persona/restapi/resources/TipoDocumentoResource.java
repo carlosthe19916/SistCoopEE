@@ -47,7 +47,7 @@ public class TipoDocumentoResource {
 	public TipoDocumentoList findAll(@QueryParam("tipoPersona") String tipoPersona) {
 		List<TipoDocumentoModel> list = null;
 		if (tipoPersona != null) {
-			TipoPersona personType = TipoPersona.lookup(tipoPersona);
+			TipoPersona personType = TipoPersona.valueOf(tipoPersona);
 			if (personType != null) {
 				list = tipoDocumentoProvider.getTiposDocumento(TipoPersona.valueOf(tipoPersona));
 			} else {

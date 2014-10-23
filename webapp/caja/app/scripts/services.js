@@ -1,7 +1,5 @@
 'use strict';
 
-var module = angular.module('cajaApp.services', [ ]);
-
 module.service('Dialog', function($modal) {
 	var dialog = {};
 

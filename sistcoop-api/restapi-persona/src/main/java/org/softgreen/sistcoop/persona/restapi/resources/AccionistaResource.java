@@ -11,7 +11,6 @@ import org.softgreen.sistcoop.persona.client.models.AccionistaModel;
 import org.softgreen.sistcoop.persona.client.models.AccionistaProvider;
 import org.softgreen.sistcoop.persona.client.models.util.ModelToRepresentation;
 import org.softgreen.sistcoop.persona.client.representations.idm.AccionistaRepresentation;
-import javax.inject.Named;
 
 @Path("/accionistas")
 public class AccionistaResource {

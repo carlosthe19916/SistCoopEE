@@ -29,8 +29,7 @@ public class RepresentationToModel {
 				rep.getAbreviatura(), 
 				rep.getDenominacion(), 
 				rep.getCantidadCaracteres(), 
-				TipoPersona.lookup(rep.getTipoPersona()));
-				
+				TipoPersona.valueOf(rep.getTipoPersona()));				
 		return model;
 	}
 
@@ -48,9 +47,9 @@ public class RepresentationToModel {
 				rep.getApellidoMaterno(), 
 				rep.getNombres(), 
 				rep.getFechaNacimiento(), 
-				Sexo.lookup(rep.getSexo()));		
+				Sexo.valueOf(rep.getSexo()));		
 
-		model.setEstadoCivil(EstadoCivil.lookup(rep.getEstadoCivil()));
+		model.setEstadoCivil(EstadoCivil.valueOf(rep.getEstadoCivil()));
 		model.setOcupacion(rep.getOcupacion());
 		model.setUrlFoto(rep.getUrlFoto());
 		model.setUrlFirma(rep.getUrlFirma());
@@ -79,7 +78,7 @@ public class RepresentationToModel {
 				rep.getNumeroDocumento(), 
 				rep.getRazonSocial(), 
 				rep.getFechaConstitucion(), 
-				TipoEmpresa.lookup(rep.getTipoEmpresa()),
+				TipoEmpresa.valueOf(rep.getTipoEmpresa()),
 				rep.isFinLucro());
 		
 		model.setUbigeo(rep.getUbigeo());
