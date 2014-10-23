@@ -56,7 +56,10 @@
 
             $scope.filterOptions = {
                 filterText: undefined,
-                result: []
+                collapse: true
+            };
+            $scope.filterOptionsChangeCollapse = function(){
+                $scope.filterOptions.collapse = (!$scope.filterOptions.collapse);
             };
 
             $scope.gridOptions = {
@@ -73,10 +76,10 @@
             };
 
             $scope.search = function(){
+                var queryParams = {offset: 0, limit: 10};
                 if($scope.filterOptions.filterText)
-                    $scope.gridOptions.data = PersonaNatural.$search({filterText: $scope.filterOptions.filterText, offset: 0, limit: 10});
-                else
-                    $scope.gridOptions.data = PersonaNatural.$search({offset: 0, limit: 10});
+                    queryParams.filterText = $scope.filterOptions.filterText;
+                $scope.gridOptions.data = PersonaNatural.$search(queryParams);
             };
         })
         .controller('BuscarPersonaJuridicaController', function($scope, PersonaJuridica){

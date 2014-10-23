@@ -15,12 +15,28 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="form-group" style="margin-bottom: 0px;">
-                                    <button type="button" class="btn btn-link">Avanzado</button>
+                                    <button type="button" ng-click="filterOptionsChangeCollapse()" class="btn btn-link">Avanzado</button>
                                 </div>
                             </div>
                             <div class="col-sm-3" style="text-align: right;">
                                 <div class="form-group" style="margin-bottom: 0px;">
                                     <button type="button" ng-click="nuevo()" class="btn btn-primary">Nuevo</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" collapse="filterOptions.collapse">
+                            <div class="col-sm-6">
+                                <div class="form-inline">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"> Numero documento
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox"> Apellidos y nombres
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
