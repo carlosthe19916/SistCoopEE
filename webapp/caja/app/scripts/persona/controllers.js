@@ -52,14 +52,27 @@
             };
 
         })
-        .controller('BuscarPersonaNaturalController', function($scope, PersonaNatural){
+        .controller('BuscarPersonaNaturalController', function($scope, PersonaNatural, TipoDocumento){
 
             $scope.filterOptions = {
                 filterText: undefined,
-                collapse: true
+                page: undefined,
+                offset: undefined,
+                limit: undefined,
+                tipoDocumento: TipoDocumento.$search(),
+                variablesBusqueda: ['Todos', 'Numero documento', 'Apellidos y nombres']
             };
-            $scope.filterOptionsChangeCollapse = function(){
-                $scope.filterOptions.collapse = (!$scope.filterOptions.collapse);
+
+            $scope.viewOptions = {
+                busquedaAvanzada: true
+            };
+            $scope.viewActions = {
+                busquedaAvanzada: function(){
+                    $scope.viewOptions.busquedaAvanzada = (!$scope.viewOptions.busquedaAvanzada);
+                },
+                nuevo: function(){
+
+                }
             };
 
             $scope.gridOptions = {
@@ -74,7 +87,6 @@
                     {name: 'edit', displayName: 'Edit', cellTemplate: '<div style="text-align: center; padding-top: 5px;"> <button type="button" ng-click="edit(row.entity)" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-edit"></span>Editar</button></div>'}
                 ]
             };
-
             $scope.search = function(){
                 var queryParams = {offset: 0, limit: 10};
                 if($scope.filterOptions.filterText)
