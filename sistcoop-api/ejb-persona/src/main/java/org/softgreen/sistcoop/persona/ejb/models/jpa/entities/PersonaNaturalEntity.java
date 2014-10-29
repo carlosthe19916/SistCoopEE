@@ -2,18 +2,14 @@ package org.softgreen.sistcoop.persona.ejb.models.jpa.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Index;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -62,8 +58,6 @@ public class PersonaNaturalEntity extends PersonaEntity implements Serializable 
 	private String ocupacion;
 	private String urlFoto;
 	private String urlFirma;
-
-	private Set<AccionistaEntity> accionistas = new HashSet<AccionistaEntity>();
 
 	public PersonaNaturalEntity() {
 		super();
@@ -189,15 +183,6 @@ public class PersonaNaturalEntity extends PersonaEntity implements Serializable 
 
 	public void setUrlFirma(String urlFirma) {
 		this.urlFirma = urlFirma;
-	}
-
-	@OneToMany(mappedBy = "personaNatural", fetch = FetchType.LAZY)
-	public Set<AccionistaEntity> getAccionistas() {
-		return accionistas;
-	}
-
-	public void setAccionistas(Set<AccionistaEntity> accionistas) {
-		this.accionistas = accionistas;
 	}
 
 }
