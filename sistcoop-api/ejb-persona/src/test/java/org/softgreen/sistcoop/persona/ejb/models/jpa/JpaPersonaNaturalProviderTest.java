@@ -1,9 +1,5 @@
 package org.softgreen.sistcoop.persona.ejb.models.jpa;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
 import javax.ejb.EJB;
 
 import org.jboss.arquillian.container.test.api.Deployment;
