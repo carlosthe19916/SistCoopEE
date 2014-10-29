@@ -24,7 +24,10 @@ import org.softgreen.sistcoop.persona.clien.enums.TipoPersona;
 
 @Entity
 @Table(name = "TIPO_DOCUMENTO", indexes = { @Index(columnList = "abreviatura") })
-@NamedQueries({ @NamedQuery(name = TipoDocumentoEntity.findAll, query = "Select t from TipoDocumentoEntity t"), @NamedQuery(name = TipoDocumentoEntity.findByAbreviatura, query = "SELECT t FROM TipoDocumentoEntity t WHERE UPPER(t.abreviatura) = UPPER(:abreviatura)"), @NamedQuery(name = TipoDocumentoEntity.findByTipopersona, query = "SELECT t FROM TipoDocumentoEntity t WHERE t.tipoPersona = :tipoPersona") })
+@NamedQueries({ 
+	@NamedQuery(name = TipoDocumentoEntity.findAll, query = "Select t from TipoDocumentoEntity t"), 
+	@NamedQuery(name = TipoDocumentoEntity.findByAbreviatura, query = "SELECT t FROM TipoDocumentoEntity t WHERE UPPER(t.abreviatura) = UPPER(:abreviatura)"), 
+	@NamedQuery(name = TipoDocumentoEntity.findByTipopersona, query = "SELECT t FROM TipoDocumentoEntity t WHERE t.tipoPersona = :tipoPersona") })
 public class TipoDocumentoEntity implements Serializable {
 
 	/**
@@ -92,8 +95,7 @@ public class TipoDocumentoEntity implements Serializable {
 		this.cantidadCaracteres = cantidadCaracteres;
 	}
 
-	@NotNull
-	@Size(min = 1, max = 40)
+	@NotNull	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "TIPO_PERSONA")
 	public TipoPersona getTipoPersona() {

@@ -16,6 +16,7 @@ import org.softgreen.sistcoop.persona.clien.enums.TipoEmpresa;
 import org.softgreen.sistcoop.persona.clien.enums.TipoPersona;
 import org.softgreen.sistcoop.persona.client.models.AccionistaModel;
 import org.softgreen.sistcoop.persona.client.models.AccionistaProvider;
+import org.softgreen.sistcoop.persona.client.models.Model;
 import org.softgreen.sistcoop.persona.client.models.PersonaJuridicaModel;
 import org.softgreen.sistcoop.persona.client.models.PersonaJuridicaProvider;
 import org.softgreen.sistcoop.persona.client.models.PersonaNaturalModel;
@@ -60,6 +61,7 @@ public class JpaPersonaNaturalProviderTest {
 						TipoPersona.class,
 						
 						/**Models**/
+						Model.class,
 						TipoDocumentoModel.class,
 						PersonaNaturalModel.class,
 						PersonaJuridicaModel.class,
@@ -89,7 +91,7 @@ public class JpaPersonaNaturalProviderTest {
 						JpaPersonaJuridicaProvider.class,
 						JpaAccionistaProvider.class,
 						
-						/**entities**/
+						/**entities**/						
 						TipoDocumentoEntity.class,
 						PersonaEntity.class,
 						PersonaNaturalEntity.class,
