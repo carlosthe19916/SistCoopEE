@@ -7,12 +7,9 @@ import org.softgreen.sistcoop.persona.client.models.TipoDocumentoModel;
 import org.softgreen.sistcoop.persona.ejb.models.jpa.entities.TipoDocumentoEntity;
 
 public class TipoDocumentoAdapter implements TipoDocumentoModel {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
-	
+
 	protected TipoDocumentoEntity tipoDocumentoEntity;
 	protected EntityManager em;
 
@@ -66,9 +63,9 @@ public class TipoDocumentoAdapter implements TipoDocumentoModel {
 	}
 
 	public static TipoDocumentoEntity toTipoDocumentoEntity(TipoDocumentoModel model, EntityManager em) {
-		/*if (model instanceof TipoDocumentoAdapter) {
+		if (model instanceof TipoDocumentoAdapter) {
 			return ((TipoDocumentoAdapter) model).getTipoDocumentEntity();
-		}*/
+		}
 		return em.getReference(TipoDocumentoEntity.class, model.getAbreviatura());
 	}
 

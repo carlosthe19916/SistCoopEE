@@ -17,9 +17,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.softgreen.sistcoop.persona.clien.enums.TipoPersona;
 import org.softgreen.sistcoop.persona.client.models.Model;
+import org.softgreen.sistcoop.persona.client.models.PersonaJuridicaModel;
+import org.softgreen.sistcoop.persona.client.models.PersonaJuridicaProvider;
+import org.softgreen.sistcoop.persona.client.models.PersonaNaturalModel;
+import org.softgreen.sistcoop.persona.client.models.PersonaNaturalProvider;
 import org.softgreen.sistcoop.persona.client.models.TipoDocumentoModel;
 import org.softgreen.sistcoop.persona.client.models.TipoDocumentoProvider;
+import org.softgreen.sistcoop.persona.client.models.util.ModelToRepresentation;
+import org.softgreen.sistcoop.persona.client.models.util.RepresentationToModel;
 import org.softgreen.sistcoop.persona.client.providers.Provider;
+import org.softgreen.sistcoop.persona.client.representations.idm.PersonaJuridicaRepresentation;
+import org.softgreen.sistcoop.persona.client.representations.idm.PersonaNaturalRepresentation;
 import org.softgreen.sistcoop.persona.client.representations.idm.TipoDocumentoRepresentation;
 import org.softgreen.sistcoop.persona.client.util.Resources;
 import org.softgreen.sistcoop.persona.ejb.models.jpa.entities.TipoDocumentoEntity;
@@ -35,6 +43,13 @@ public class JpaTipoDocumentoProviderTest {
 	@Deployment
 	public static Archive<?> createTestArchive() {
 		return ShrinkWrap.create(WebArchive.class, "test.war").addClasses(Resources.class,
+		/** ModelToRepresentation **/
+		ModelToRepresentation.class, RepresentationToModel.class,
+		
+		/**Extras**/
+		PersonaNaturalModel.class, PersonaNaturalProvider.class, PersonaNaturalRepresentation.class,
+		PersonaJuridicaModel.class, PersonaJuridicaProvider.class, PersonaJuridicaRepresentation.class,
+		
 		/** Enums **/
 		TipoPersona.class,
 		/** Models **/
@@ -124,6 +139,31 @@ public class JpaTipoDocumentoProviderTest {
 		TipoDocumentoModel model2 = tipoDocumentoProvider.getTipoDocumentoByAbreviatura("DNI");
 		if (model2 != null)
 			throw new Exception("Tipo documento no fue eliminado");
+	}
+
+	@Test
+	@InSequence(7)
+	public void modelToRepresentation() {
+		List<TipoDocumentoModel> list = tipoDocumentoProvider.getTiposDocumento();
+		if (list.size() < 1)
+			log.log(Level.WARNING, "ModelToRepresentation() size = 0");
+		for (TipoDocumentoModel model : list) {
+			TipoDocumentoRepresentation representation = ModelToRepresentation.toRepresentation(model);
+			log.info("Representation:" + representation.getAbreviatura());
+		}
+	}
+
+	@Test
+	@InSequence(8)
+	public void representationToModel() {
+		TipoDocumentoRepresentation representation = new TipoDocumentoRepresentation();
+		representation.setAbreviatura("PASS");
+		representation.setDenominacion("Pasaporte");
+		representation.setCantidadCaracteres(11);
+		representation.setTipoPersona(TipoPersona.NATURAL.toString());
+		
+		TipoDocumentoModel model = RepresentationToModel.createTipoDocumento(representation, tipoDocumentoProvider);
+		log.info("representationToModel:" + model.getAbreviatura());
 	}
 
 }

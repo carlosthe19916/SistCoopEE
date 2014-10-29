@@ -73,7 +73,10 @@ public class JpaTipoDocumentoProvider implements TipoDocumentoProvider {
 	@Override
 	public boolean removeTipoDocumento(TipoDocumentoModel tipoDocumentoModel) {
 		TipoDocumentoEntity tipoDocumentoEntity = TipoDocumentoAdapter.toTipoDocumentoEntity(tipoDocumentoModel, em);
-		em.remove(tipoDocumentoEntity);
+		if (em.contains(tipoDocumentoEntity))
+			em.remove(tipoDocumentoEntity);
+		else
+			em.remove(em.getReference(TipoDocumentoEntity.class, tipoDocumentoEntity.getAbreviatura()));
 		return true;
 	}
 

@@ -1,6 +1,5 @@
 package org.softgreen.sistcoop.persona.client.models.util;
 
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -19,7 +18,6 @@ import org.softgreen.sistcoop.persona.client.representations.idm.PersonaJuridica
 import org.softgreen.sistcoop.persona.client.representations.idm.PersonaNaturalRepresentation;
 import org.softgreen.sistcoop.persona.client.representations.idm.TipoDocumentoRepresentation;
 
-@LocalBean
 @Stateless
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class RepresentationToModel {
@@ -29,11 +27,10 @@ public class RepresentationToModel {
 				rep.getAbreviatura(), 
 				rep.getDenominacion(), 
 				rep.getCantidadCaracteres(), 
-				TipoPersona.valueOf(rep.getTipoPersona()));				
+				TipoPersona.valueOf(rep.getTipoPersona()));	
 		return model;
 	}
-
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	
 	public static PersonaNaturalModel createPersonaNatural(
 			PersonaNaturalRepresentation rep, 
 			TipoDocumentoModel tipoDocumentoModel, 
@@ -63,8 +60,7 @@ public class RepresentationToModel {
 		model.commit();
 		return model;
 	}
-
-	@TransactionAttribute(TransactionAttributeType.REQUIRED)
+	
 	public static PersonaJuridicaModel createPersonaJuridica(
 			PersonaJuridicaRepresentation rep, 			
 			TipoDocumentoModel tipoDocumentoModel, 

@@ -45,9 +45,9 @@ public class ModelToRepresentation {
 		rep.setApellidoMaterno(model.getApellidoMaterno());
 		rep.setNombres(model.getNombres());
 		rep.setFechaNacimiento(model.getFechaNacimiento());
-		rep.setSexo(model.getSexo() != null ?  model.getSexo().toString() : null);
+		rep.setSexo(model.getSexo() != null ? model.getSexo().toString() : null);
 
-		rep.setEstadoCivil(model.getEstadoCivil() != null ?  model.getEstadoCivil().toString() : null);
+		rep.setEstadoCivil(model.getEstadoCivil() != null ? model.getEstadoCivil().toString() : null);
 		rep.setOcupacion(model.getOcupacion());
 
 		// direccion de residencia
@@ -85,9 +85,9 @@ public class ModelToRepresentation {
 		rep.setTipoEmpresa(model.getTipoEmpresa() != null ? model.getTipoEmpresa().toString() : null);
 
 		// representante legal
-		//rep.setIdRepresentanteLegal(model.getRepresentanteLegal().getId());
-		//rep.setTipoDocumentoRepresentanteLegal(model.getRepresentanteLegal().getTipoDocumento().getAbreviatura());
-		//rep.setNumeroDocumentoRepresentanteLegal(model.getRepresentanteLegal().getNumeroDocumento());
+		// rep.setIdRepresentanteLegal(model.getRepresentanteLegal().getId());
+		// rep.setTipoDocumentoRepresentanteLegal(model.getRepresentanteLegal().getTipoDocumento().getAbreviatura());
+		// rep.setNumeroDocumentoRepresentanteLegal(model.getRepresentanteLegal().getNumeroDocumento());
 
 		// direccion de residencia
 		rep.setUbigeo(model.getUbigeo());
@@ -95,7 +95,7 @@ public class ModelToRepresentation {
 		rep.setReferencia(model.getReferencia());
 		rep.setTelefono(model.getTelefono());
 		rep.setCelular(model.getCelular());
-		rep.setEmail(model.getEmail());		
+		rep.setEmail(model.getEmail());
 
 		return rep;
 	}
