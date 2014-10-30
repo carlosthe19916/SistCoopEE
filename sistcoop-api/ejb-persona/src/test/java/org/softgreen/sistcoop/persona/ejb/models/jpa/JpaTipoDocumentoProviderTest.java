@@ -40,6 +40,9 @@ public class JpaTipoDocumentoProviderTest {
 	@Inject
 	TipoDocumentoProvider tipoDocumentoProvider;
 
+	@Inject
+	RepresentationToModel representationToModel;
+	
 	@Deployment
 	public static Archive<?> createTestArchive() {
 		return ShrinkWrap.create(WebArchive.class, "test.war").addClasses(Resources.class,
@@ -162,7 +165,7 @@ public class JpaTipoDocumentoProviderTest {
 		representation.setCantidadCaracteres(11);
 		representation.setTipoPersona(TipoPersona.NATURAL.toString());
 		
-		TipoDocumentoModel model = RepresentationToModel.createTipoDocumento(representation, tipoDocumentoProvider);
+		TipoDocumentoModel model = representationToModel.createTipoDocumento(representation, tipoDocumentoProvider);
 		log.info("representationToModel:" + model.getAbreviatura());
 	}
 

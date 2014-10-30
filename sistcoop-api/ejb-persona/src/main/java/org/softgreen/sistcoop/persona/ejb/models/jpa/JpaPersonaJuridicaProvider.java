@@ -53,7 +53,10 @@ public class JpaPersonaJuridicaProvider implements PersonaJuridicaProvider {
 	@Override
 	public boolean removePersonaJuridica(PersonaJuridicaModel personaJuridicaModel) {
 		PersonaJuridicaEntity personaJuridicaEntity = PersonaJuridicaAdapter.toPersonaJuridicaEntity(personaJuridicaModel, em);
-		em.remove(personaJuridicaEntity);
+		if (em.contains(personaJuridicaEntity))
+			em.remove(personaJuridicaEntity);
+		else
+			em.remove(em.getReference(PersonaJuridicaEntity.class, personaJuridicaEntity.getId()));
 		return true;
 	}
 

@@ -48,7 +48,10 @@ public class JpaAccionistaProvider implements AccionistaProvider {
 	@Override
 	public boolean removeAccionista(AccionistaModel accionistaModel) {
 		AccionistaEntity accionistaEntity = AccionistaAdapter.toAccionistaEntity(accionistaModel, em);
-		em.remove(accionistaEntity);
+		if (em.contains(accionistaEntity))
+			em.remove(accionistaEntity);
+		else
+			em.remove(em.getReference(AccionistaEntity.class, accionistaEntity.getId()));
 		return true;
 	}
 

@@ -22,7 +22,7 @@ import org.softgreen.sistcoop.persona.client.representations.idm.TipoDocumentoRe
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class RepresentationToModel {
 		
-	public static TipoDocumentoModel createTipoDocumento(TipoDocumentoRepresentation rep, TipoDocumentoProvider provider) {
+	public TipoDocumentoModel createTipoDocumento(TipoDocumentoRepresentation rep, TipoDocumentoProvider provider) {
 		TipoDocumentoModel model = provider.addTipoDocumento(
 				rep.getAbreviatura(), 
 				rep.getDenominacion(), 
@@ -30,8 +30,8 @@ public class RepresentationToModel {
 				TipoPersona.valueOf(rep.getTipoPersona()));	
 		return model;
 	}
-	
-	public static PersonaNaturalModel createPersonaNatural(
+		
+	public PersonaNaturalModel createPersonaNatural(
 			PersonaNaturalRepresentation rep, 
 			TipoDocumentoModel tipoDocumentoModel, 
 			PersonaNaturalProvider personaNaturalProvider) {		
@@ -44,9 +44,9 @@ public class RepresentationToModel {
 				rep.getApellidoMaterno(), 
 				rep.getNombres(), 
 				rep.getFechaNacimiento(), 
-				Sexo.valueOf(rep.getSexo()));		
+				Sexo.valueOf(rep.getSexo().toUpperCase()));		
 
-		model.setEstadoCivil(EstadoCivil.valueOf(rep.getEstadoCivil()));
+		model.setEstadoCivil(EstadoCivil.valueOf(rep.getEstadoCivil().toUpperCase()));
 		model.setOcupacion(rep.getOcupacion());
 		model.setUrlFoto(rep.getUrlFoto());
 		model.setUrlFirma(rep.getUrlFirma());
