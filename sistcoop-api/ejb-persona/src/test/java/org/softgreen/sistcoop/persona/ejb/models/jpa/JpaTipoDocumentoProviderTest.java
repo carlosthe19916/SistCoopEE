@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RunAs;
 import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -30,9 +33,13 @@ import org.softgreen.sistcoop.persona.client.representations.idm.PersonaJuridica
 import org.softgreen.sistcoop.persona.client.representations.idm.PersonaNaturalRepresentation;
 import org.softgreen.sistcoop.persona.client.representations.idm.TipoDocumentoRepresentation;
 import org.softgreen.sistcoop.persona.client.util.Resources;
+import org.softgreen.sistcoop.persona.client.util.Roles;
 import org.softgreen.sistcoop.persona.ejb.models.jpa.entities.TipoDocumentoEntity;
 
 @RunWith(Arquillian.class)
+@DeclareRoles({ Roles.ADMIN, Roles.USER })
+@RunAs(Roles.ADMIN)
+@PermitAll
 public class JpaTipoDocumentoProviderTest {
 
 	private final static Logger log = Logger.getLogger(JpaTipoDocumentoProviderTest.class.getName());
@@ -42,17 +49,16 @@ public class JpaTipoDocumentoProviderTest {
 
 	@Inject
 	RepresentationToModel representationToModel;
-	
+
 	@Deployment
 	public static Archive<?> createTestArchive() {
 		return ShrinkWrap.create(WebArchive.class, "test.war").addClasses(Resources.class,
 		/** ModelToRepresentation **/
 		ModelToRepresentation.class, RepresentationToModel.class,
-		
-		/**Extras**/
-		PersonaNaturalModel.class, PersonaNaturalProvider.class, PersonaNaturalRepresentation.class,
-		PersonaJuridicaModel.class, PersonaJuridicaProvider.class, PersonaJuridicaRepresentation.class,
-		
+
+		/** Extras **/
+		PersonaNaturalModel.class, PersonaNaturalProvider.class, PersonaNaturalRepresentation.class, PersonaJuridicaModel.class, PersonaJuridicaProvider.class, PersonaJuridicaRepresentation.class,
+
 		/** Enums **/
 		TipoPersona.class,
 		/** Models **/
@@ -77,7 +83,7 @@ public class JpaTipoDocumentoProviderTest {
 
 	@Test
 	@InSequence(1)
-	public void addTipoDocumentoPN() throws Exception {
+	public void addTipoDocumentoPN() throws Exception {		
 		String abreviatura = "DNI";
 		String denominacion = "Documento nacional de identidad";
 		int cantidadCaracteres = 8;
@@ -164,7 +170,7 @@ public class JpaTipoDocumentoProviderTest {
 		representation.setDenominacion("Pasaporte");
 		representation.setCantidadCaracteres(11);
 		representation.setTipoPersona(TipoPersona.NATURAL.toString());
-		
+
 		TipoDocumentoModel model = representationToModel.createTipoDocumento(representation, tipoDocumentoProvider);
 		log.info("representationToModel:" + model.getAbreviatura());
 	}

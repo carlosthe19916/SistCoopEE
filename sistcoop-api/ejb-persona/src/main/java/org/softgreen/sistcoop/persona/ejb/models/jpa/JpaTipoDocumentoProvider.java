@@ -3,6 +3,9 @@ package org.softgreen.sistcoop.persona.ejb.models.jpa;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -15,10 +18,12 @@ import javax.persistence.TypedQuery;
 import org.softgreen.sistcoop.persona.clien.enums.TipoPersona;
 import org.softgreen.sistcoop.persona.client.models.TipoDocumentoModel;
 import org.softgreen.sistcoop.persona.client.models.TipoDocumentoProvider;
+import org.softgreen.sistcoop.persona.client.util.Roles;
 import org.softgreen.sistcoop.persona.ejb.models.jpa.entities.TipoDocumentoEntity;
 
 @Named
 @Stateless
+@DeclareRoles({ Roles.ADMIN, Roles.USER })
 @Local(TipoDocumentoProvider.class)
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class JpaTipoDocumentoProvider implements TipoDocumentoProvider {
@@ -27,6 +32,7 @@ public class JpaTipoDocumentoProvider implements TipoDocumentoProvider {
 	protected EntityManager em;
 
 	@Override
+	@RolesAllowed({ Roles.ADMIN })
 	public TipoDocumentoModel addTipoDocumento(String abreviatura, String denominacion, int cantidadCaracteres, TipoPersona tipoPersona) {
 		TipoDocumentoEntity tipoDocumentoEntity = new TipoDocumentoEntity();
 		tipoDocumentoEntity.setAbreviatura(abreviatura);
@@ -38,6 +44,7 @@ public class JpaTipoDocumentoProvider implements TipoDocumentoProvider {
 	}
 
 	@Override
+	@PermitAll
 	public TipoDocumentoModel getTipoDocumentoByAbreviatura(String abreviatura) {
 		TypedQuery<TipoDocumentoEntity> query = em.createNamedQuery(TipoDocumentoEntity.findByAbreviatura, TipoDocumentoEntity.class);
 		query.setParameter("abreviatura", abreviatura);
@@ -48,6 +55,7 @@ public class JpaTipoDocumentoProvider implements TipoDocumentoProvider {
 	}
 
 	@Override
+	@PermitAll
 	public List<TipoDocumentoModel> getTiposDocumento() {
 		TypedQuery<TipoDocumentoEntity> query = em.createNamedQuery(TipoDocumentoEntity.findAll, TipoDocumentoEntity.class);
 		List<TipoDocumentoEntity> list = query.getResultList();
@@ -59,6 +67,7 @@ public class JpaTipoDocumentoProvider implements TipoDocumentoProvider {
 	}
 
 	@Override
+	@PermitAll
 	public List<TipoDocumentoModel> getTiposDocumento(TipoPersona tipoPersona) {
 		TypedQuery<TipoDocumentoEntity> query = em.createNamedQuery(TipoDocumentoEntity.findByTipopersona, TipoDocumentoEntity.class);
 		query.setParameter("tipoPersona", tipoPersona);
@@ -71,6 +80,7 @@ public class JpaTipoDocumentoProvider implements TipoDocumentoProvider {
 	}
 
 	@Override
+	@RolesAllowed({ Roles.ADMIN })
 	public boolean removeTipoDocumento(TipoDocumentoModel tipoDocumentoModel) {
 		TipoDocumentoEntity tipoDocumentoEntity = TipoDocumentoAdapter.toTipoDocumentoEntity(tipoDocumentoModel, em);
 		if (em.contains(tipoDocumentoEntity))
