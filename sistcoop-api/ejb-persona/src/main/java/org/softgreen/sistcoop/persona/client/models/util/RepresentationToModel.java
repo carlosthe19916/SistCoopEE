@@ -61,7 +61,7 @@ public class RepresentationToModel {
 		return model;
 	}
 	
-	public static PersonaJuridicaModel createPersonaJuridica(
+	public PersonaJuridicaModel createPersonaJuridica(
 			PersonaJuridicaRepresentation rep, 			
 			TipoDocumentoModel tipoDocumentoModel, 
 			PersonaNaturalModel representanteLegal, 
