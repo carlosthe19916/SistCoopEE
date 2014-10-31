@@ -20,7 +20,7 @@
                             </div>
                             <div class="col-sm-3" style="text-align: right;">
                                 <div class="form-group" style="margin-bottom: 0px;">
-                                    <button type="button" ng-click="viewActions.nuevo()" class="btn btn-primary">Nuevo</button>
+                                    <button type="button" ng-if="activeProfile.canCreateMP()" ng-click="viewActions.nuevo()" class="btn btn-primary">Nuevo</button>
                                 </div>
                             </div>
                         </div>
@@ -33,8 +33,8 @@
                                                 Tipo documento <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li ng-repeat="item in filterOptions.tipoDocumento">
-                                                    <a href="#" ng-bind="item.abreviatura"></a>
+                                                <li ng-repeat="item in viewOptions.tipoDocumento">
+                                                    <a ng-click="" ng-bind="item.abreviatura"></a>
                                                 </li>
                                             </ul>
                                         </div>

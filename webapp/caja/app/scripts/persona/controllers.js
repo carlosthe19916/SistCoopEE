@@ -58,9 +58,7 @@
                 filterText: undefined,
                 page: undefined,
                 offset: undefined,
-                limit: undefined,
-                tipoDocumento: TipoDocumento.$search(),
-                variablesBusqueda: ['Todos', 'Numero documento', 'Apellidos y nombres']
+                limit: undefined
             };
 
             $scope.viewOptions = {
@@ -84,15 +82,23 @@
                     {field: 'apellidoMaterno', displayName: 'Ap.materno'},
                     {field: 'nombres', displayName: 'Nombres'},
                     {field: 'sexo', displayName: 'Sexo'},
-                    {name: 'edit', displayName: 'Edit', cellTemplate: '<div style="text-align: center; padding-top: 5px;"> <button type="button" ng-click="edit(row.entity)" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-edit"></span>Editar</button></div>'}
+                    {name: 'edit', displayName: 'Edit', cellTemplate: '<div style="text-align: center; padding-top: 5px;"><button type="button" ng-click="edit(row.entity)" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-edit"></span>Editar</button></div>'}
                 ]
             };
+            $scope.removeColumn = function(){
+                if(!$scope.activeProfile.canUpdateMP()){
+                    $scope.gridOptions.columnDefs.splice($scope.gridOptions.columnDefs.length - 1, 1);
+                }
+            };
+            $scope.removeColumn();
+
             $scope.search = function(){
                 var queryParams = {offset: 0, limit: 10};
                 if($scope.filterOptions.filterText)
                     queryParams.filterText = $scope.filterOptions.filterText;
                 $scope.gridOptions.data = PersonaNatural.$search(queryParams);
             };
+
         })
         .controller('BuscarPersonaJuridicaController', function($scope, PersonaJuridica){
             this.form = $scope.form;

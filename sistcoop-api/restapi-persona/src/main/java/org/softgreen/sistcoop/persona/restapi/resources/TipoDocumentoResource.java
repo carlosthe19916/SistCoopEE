@@ -52,9 +52,9 @@ public class TipoDocumentoResource {
 	public TipoDocumentoList findAll(@QueryParam("tipoPersona") String tipoPersona) {
 		List<TipoDocumentoModel> list = null;
 		if (tipoPersona != null) {
-			TipoPersona personType = TipoPersona.valueOf(tipoPersona);
+			TipoPersona personType = TipoPersona.valueOf(tipoPersona.toUpperCase());
 			if (personType != null) {
-				list = tipoDocumentoProvider.getTiposDocumento(TipoPersona.valueOf(tipoPersona));
+				list = tipoDocumentoProvider.getTiposDocumento(personType);
 			} else {
 				list = tipoDocumentoProvider.getTiposDocumento();
 			}

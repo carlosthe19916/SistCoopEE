@@ -1,70 +1,58 @@
 (function(window, angular, undefined) {'use strict';
 
     angular.module('persona.models', ['restangular'])
-        .config(function() {
+        .config(function(RestangularProvider) {
+            RestangularProvider.setBaseUrl('http://localhost:8080/restapi-persona/rest/v1');
+
+            RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
+                var extractedData;
+                if (operation === "getList") {
+                    extractedData = data[Object.keys(data)[0]];
+                    extractedData.meta = data.meta;
+                } else {
+                    extractedData = data.data;
+                }
+                return extractedData;
+            });
 
         }).factory('EstadoCivil', function() {
-            //return restmod.model('/estadosCiviles');
+
         }).factory('Sexo', function() {
-            //return restmod.model('/sexos');
+
         }).factory('TipoPersona', function() {
-            //// return restmod.model('/tiposPersona');
+
         }).factory('TipoEmpresa', function() {
-            //return restmod.model('/tiposEmpresa');
-        }).factory('TipoDocumento', function() {
-            /*return restmod.model('/tiposDocumento').$mix({
-             abreviatura: {init: undefined},
-             denominacion: {init: undefined},
-             cantidadCaracteres: {init: undefined},
 
-             getId: function(){
-             return this.abreviatura;
-             },
-             getMaxLength: function(){
-             return this.cantidadCaracteres;
-             }
-             });*/
+        }).factory('TipoDocumento', function(Restangular) {
+            var url = "tiposDocumento";
+            return {
+                $search: function(queryParams){
+                    return Restangular.all(url).getList(queryParams).$object;
+                },
+                $searchByPersonaNatural: function(){
+                    return Restangular.all(url).getList({tipoPersona: 'natural'}).$object;
+                },
+                $searchByPersonaJuridica: function(){
+                    return Restangular.all(url).getList({tipoPersona: 'juridica'}).$object;
+                }
+            };
         }).factory('PersonaJuridica', function() {
-            //return restmod.model('/personas/juridicas');
-        }).factory('PersonaNatural', function() {
-            /*return restmod.model('http://localhost:8080/restapi-persona/rest/v1/personas/naturales').$mix({
 
-             PRIMARY_KEY: 'id',
+        }).factory('PersonaNatural', function(Restangular) {
 
-             id: {init: undefined},
+            var url = "personas/naturales";
+            var _PersonaNatural = Restangular.extendModel(url, function(model) {
+                model.getFullName = function() {
+                    return this.apellidoPaterno + this.apellidoMaterno + this.nombres;
+                };
+                return model;
+            });
 
-             tipoDocumento: {init: undefined, map: 'tipoDocumento'},
-             numeroDocumento: {init: undefined, map: 'numeroDocumento'},
-
-             apellidoPaterno: {init: undefined, map: 'apellidoPaterno'},
-             apellidoMaterno: {init: undefined, map: 'apellidoMaterno'},
-             nombres: {init: undefined, map: 'nombres'},
-             fechaNacimiento: {init: undefined, map: 'fechaNacimiento'},
-             sexo: {init: undefined, map: 'sexo'},
-             estadoCivil: {init: undefined, map: 'estadoCivil'},
-             ocupacion: {init: undefined, map: 'ocupacion'},
-             urlFoto: {init: undefined, map: 'urlFoto'},
-             urlFirma: {init: undefined, map: 'urlFirma'},
-
-             codigoPais: {init: undefined, map: 'codigoPais'},
-             ubigeo: {init: undefined, map: 'ubigeo'},
-             direccion: {init: undefined, map: 'direccion'},
-             referencia: {init: undefined, map: 'referencia'},
-             telefono: {init: undefined, map: 'telefono'},
-             celular: {init: undefined, map: 'celular'},
-             email: {init: undefined, map: 'email'},
-
-             getNombreCompleto: function () {
-             var result = this.apellidoPaterno ? this.apellidoPaterno : '';
-             result += this.apellidoMaterno ? ' ' + this.apellidoMaterno : '';
-             result += result.length && this.nombres ? ', ' : '';
-             result += this.nombres ? this.nombres : '';
-             return result;
-             },
-             '@findByTipoNumeroDocumento': function (documento, numero) {
-             return this.$single(this.$url() + "/buscar").$fetch({tipoDocumento: documento, numeroDocumento: numero});
-             }
-             });*/
+            return {
+                $search: function(queryParams){
+                    return Restangular.all(url).getList(queryParams).$object;
+                }
+            };
         });
 
 })(window, window.angular);

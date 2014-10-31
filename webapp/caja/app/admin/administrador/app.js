@@ -88,6 +88,28 @@ module.factory('authInterceptor', function($q, Auth) {
     };
 });
 
+module.config(['$provide', function($provide){
+    var profile = angular.copy(window.auth.authz);
+
+    var personaRestapiRoles = ['ADMIN', 'USER', 'PUBLIC'];
+    profile.canSelectMP = function(){
+        return profile.resourceAccess.PERSONA_RESTAPI.roles.indexOf(personaRestapiRoles[0]) >= 0 ||
+            profile.resourceAccess.PERSONA_RESTAPI.roles.indexOf(personaRestapiRoles[1]) >= 0 ||
+            profile.resourceAccess.PERSONA_RESTAPI.roles.indexOf(personaRestapiRoles[2]) >= 0;
+    };
+    profile.canCreateMP = function(){
+        return profile.resourceAccess.PERSONA_RESTAPI.roles.indexOf(personaRestapiRoles[0]) >= 0 ||
+            profile.resourceAccess.PERSONA_RESTAPI.roles.indexOf(personaRestapiRoles[1]) >= 0;
+    };
+    profile.canUpdateMP = function(){
+        return profile.resourceAccess.PERSONA_RESTAPI.roles.indexOf(personaRestapiRoles[0]) >= 0 ;
+    };
+    profile.canDeleteMP = function(){
+        return profile.resourceAccess.PERSONA_RESTAPI.roles.indexOf(personaRestapiRoles[0]) >= 0 ;
+    };
+    $provide.constant('activeProfile', profile);
+}]);
+
 module.config(function(uiSelectConfig) {
     uiSelectConfig.theme = 'bootstrap';
 });
