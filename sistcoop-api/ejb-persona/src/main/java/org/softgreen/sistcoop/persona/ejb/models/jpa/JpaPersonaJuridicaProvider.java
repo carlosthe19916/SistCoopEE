@@ -116,7 +116,7 @@ public class JpaPersonaJuridicaProvider implements PersonaJuridicaProvider {
 	@Override
 	public List<PersonaJuridicaModel> searchForNumeroDocumento(String numeroDocumento, int firstResult, int maxResults) {
 		TypedQuery<PersonaJuridicaEntity> query = em.createNamedQuery(PersonaJuridicaEntity.findByNumeroDocumento, PersonaJuridicaEntity.class);
-		query.setParameter("numeroDocumento", numeroDocumento);
+		query.setParameter("numeroDocumento", "%" + numeroDocumento + "%");
 		if (firstResult != -1) {
 			query.setFirstResult(firstResult);
 		}
@@ -138,7 +138,7 @@ public class JpaPersonaJuridicaProvider implements PersonaJuridicaProvider {
 	@Override
 	public List<PersonaJuridicaModel> searchForFilterText(String filterText, int firstResult, int maxResults) {		
 		TypedQuery<PersonaJuridicaEntity> query = em.createNamedQuery(PersonaJuridicaEntity.findByFilterText, PersonaJuridicaEntity.class);
-		query.setParameter("filtertext", "%" + filterText);
+		query.setParameter("filtertext", "%" + filterText.toUpperCase() + "%");
 		if (firstResult != -1) {
 			query.setFirstResult(firstResult);
 		}

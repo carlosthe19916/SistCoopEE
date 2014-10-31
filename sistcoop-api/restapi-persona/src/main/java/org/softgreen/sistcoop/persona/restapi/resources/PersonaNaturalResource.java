@@ -3,6 +3,7 @@ package org.softgreen.sistcoop.persona.restapi.resources;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -24,8 +25,10 @@ import org.softgreen.sistcoop.persona.client.models.TipoDocumentoProvider;
 import org.softgreen.sistcoop.persona.client.models.util.ModelToRepresentation;
 import org.softgreen.sistcoop.persona.client.models.util.RepresentationToModel;
 import org.softgreen.sistcoop.persona.client.representations.idm.PersonaNaturalRepresentation;
+import org.softgreen.sistcoop.persona.restapi.representation.PersonaNaturalList;
 
 @Path("/personas/naturales")
+@Stateless
 public class PersonaNaturalResource {
 
 	@Inject
@@ -33,6 +36,9 @@ public class PersonaNaturalResource {
 
 	@Inject
 	protected TipoDocumentoProvider tipoDocumentoProvider;
+
+	@Inject
+	protected RepresentationToModel representationToModel;
 
 	@Context
 	protected UriInfo uriInfo;
@@ -45,14 +51,6 @@ public class PersonaNaturalResource {
 		PersonaNaturalModel personaNaturalModel = personaNaturalProvider.getPersonaNaturalById(id);
 		PersonaNaturalRepresentation rep = ModelToRepresentation.toRepresentation(personaNaturalModel);
 		return rep;
-		/*
-		 * Movie movie = new Movie();
-		 * movie.setName("Transformers: Dark of the Moon");
-		 * movie.setDirector("Michael Bay"); movie.setYear(2011);
-		 */
-
-		// return movie;
-
 	}
 
 	@BadgerFish
@@ -73,7 +71,7 @@ public class PersonaNaturalResource {
 
 	@GET
 	@Produces({ "application/xml", "application/json" })
-	public Response listAll(@QueryParam("filterText") String filterText, @QueryParam("offset") Integer offset, @QueryParam("limit") Integer limit) {
+	public PersonaNaturalList listAll(@QueryParam("filterText") String filterText, @QueryParam("offset") Integer offset, @QueryParam("limit") Integer limit) {
 		List<PersonaNaturalRepresentation> results = new ArrayList<PersonaNaturalRepresentation>();
 		List<PersonaNaturalModel> userModels;
 		if (filterText == null) {
@@ -92,21 +90,21 @@ public class PersonaNaturalResource {
 		for (PersonaNaturalModel personaNaturalModel : userModels) {
 			results.add(ModelToRepresentation.toRepresentation(personaNaturalModel));
 		}
-		return Response.ok(results).build();
+		return new PersonaNaturalList(results);
 	}
 
 	@GET
 	@Path("/count")
 	@Produces({ "application/xml", "application/json" })
-	public Response countAll() {
-		return null;
+	public int countAll() {
+		return personaNaturalProvider.getPersonasNaturalesCount();
 	}
 
 	@POST
 	@Produces({ "application/xml", "application/json" })
 	public Response create(PersonaNaturalRepresentation personaNaturalRepresentation) {
 		TipoDocumentoModel tipoDocumentoModel = tipoDocumentoProvider.getTipoDocumentoByAbreviatura(personaNaturalRepresentation.getTipoDocumento());
-		PersonaNaturalModel personaNaturalModel = RepresentationToModel.createPersonaNatural(personaNaturalRepresentation, tipoDocumentoModel, personaNaturalProvider);
+		PersonaNaturalModel personaNaturalModel = representationToModel.createPersonaNatural(personaNaturalRepresentation, tipoDocumentoModel, personaNaturalProvider);
 		return Response.created(uriInfo.getAbsolutePathBuilder().path(personaNaturalModel.getId().toString()).build()).build();
 	}
 
@@ -120,10 +118,9 @@ public class PersonaNaturalResource {
 
 	@DELETE
 	@Path("/{id}")
-	public Response remove(@PathParam("id") Long id) {
+	public void remove(@PathParam("id") Long id) {
 		PersonaNaturalModel personaNaturalModel = personaNaturalProvider.getPersonaNaturalById(id);
 		personaNaturalProvider.removePersonaNatural(personaNaturalModel);
-		return Response.noContent().build();
 	}
 
 }

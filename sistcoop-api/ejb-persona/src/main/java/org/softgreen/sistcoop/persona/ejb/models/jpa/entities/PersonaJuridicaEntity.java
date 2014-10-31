@@ -37,7 +37,7 @@ import org.softgreen.sistcoop.persona.clien.enums.TipoEmpresa;
 @Table(name="PERSONA_JURIDICA", indexes = { @Index(columnList = "id") }, uniqueConstraints = {@UniqueConstraint(columnNames={"TIPO_DOCUMENTO", "NUMERO_DOCUMENTO"})})
 @NamedQueries({
 		@NamedQuery(name = PersonaJuridicaEntity.findAll, query = "SELECT p FROM PersonaJuridicaEntity p"),
-		@NamedQuery(name = PersonaJuridicaEntity.findByNumeroDocumento, query = "SELECT p FROM PersonaJuridicaEntity p WHERE p.numeroDocumento = :numeroDocumento "),
+		@NamedQuery(name = PersonaJuridicaEntity.findByNumeroDocumento, query = "SELECT p FROM PersonaJuridicaEntity p WHERE p.numeroDocumento like :numeroDocumento "),
 		@NamedQuery(name = PersonaJuridicaEntity.findByTipoAndNumeroDocumento, query = "SELECT p FROM PersonaJuridicaEntity p WHERE p.tipoDocumento.abreviatura = :tipoDocumento AND p.numeroDocumento = :numeroDocumento"),
 		@NamedQuery(name = PersonaJuridicaEntity.findByFilterText, query = "SELECT p FROM PersonaJuridicaEntity p WHERE p.numeroDocumento like :filtertext OR UPPER(p.razonSocial) LIKE :filtertext"),
 		@NamedQuery(name = PersonaJuridicaEntity.count, query = "select count(u) from PersonaJuridicaEntity u") })
@@ -105,7 +105,6 @@ public class PersonaJuridicaEntity extends PersonaEntity implements
 		this.razonSocial = razonSocial;
 	}
 
-	@NotNull
 	@Size(min = 0, max = 50)
 	@Column(name="NOMBRE_COMERCIAL")
 	public String getNombreComercial() {
@@ -128,7 +127,6 @@ public class PersonaJuridicaEntity extends PersonaEntity implements
 		this.fechaConstitucion = fechaConstitucion;
 	}
 
-	@NotNull
 	@Size(min = 0, max = 70)
 	@Column(name="ACTIVIDAD_PRINCIPAL")
 	public String getActividadPrincipal() {

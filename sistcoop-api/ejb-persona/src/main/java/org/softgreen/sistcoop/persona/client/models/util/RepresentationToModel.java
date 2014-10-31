@@ -74,7 +74,7 @@ public class RepresentationToModel {
 				rep.getNumeroDocumento(), 
 				rep.getRazonSocial(), 
 				rep.getFechaConstitucion(), 
-				TipoEmpresa.valueOf(rep.getTipoEmpresa()),
+				TipoEmpresa.valueOf(rep.getTipoEmpresa().toUpperCase()),
 				rep.isFinLucro());
 		
 		model.setUbigeo(rep.getUbigeo());
@@ -84,6 +84,7 @@ public class RepresentationToModel {
 		model.setCelular(rep.getCelular());
 		model.setEmail(rep.getEmail());
 
+		model.commit();		
 		return model;
 	}
 

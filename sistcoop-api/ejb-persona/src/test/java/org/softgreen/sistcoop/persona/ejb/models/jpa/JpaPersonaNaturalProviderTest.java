@@ -26,7 +26,6 @@ import org.softgreen.sistcoop.persona.client.models.TipoDocumentoProvider;
 import org.softgreen.sistcoop.persona.client.models.util.ModelToRepresentation;
 import org.softgreen.sistcoop.persona.client.models.util.RepresentationToModel;
 import org.softgreen.sistcoop.persona.client.representations.idm.PersonaNaturalRepresentation;
-import org.softgreen.sistcoop.persona.client.representations.idm.TipoDocumentoRepresentation;
 
 @RunWith(Arquillian.class)
 public class JpaPersonaNaturalProviderTest {

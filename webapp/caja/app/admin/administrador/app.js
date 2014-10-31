@@ -88,22 +88,8 @@ module.factory('authInterceptor', function($q, Auth) {
     };
 });
 
-module.config(function(uiSelectConfig, restmodProvider) {
+module.config(function(uiSelectConfig) {
     uiSelectConfig.theme = 'bootstrap';
-
-    restmodProvider.rebase({
-        $config: {
-            urlPrefix: 'http://localhost:8080/cajaApp/app'
-        }
-    });
-});
-
-module.config(function(restmodProvider) {
-    restmodProvider.rebase({
-        $config: {
-            urlPrefix: 'http://localhost:8080/cajaApp/app'
-        }
-    });
 });
 
 module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
