@@ -13,6 +13,10 @@ module.controller('GlobalCtrl', function($scope, $timeout, $http, Auth, $locatio
     $scope.activeProfile = activeProfile;
     $scope.auth.user = {};
     $scope.auth.user.username = activeProfile.idToken.preferred_username;
+
+    $scope.logout = function(){
+        $scope.auth.authz.logout();
+    };
     /*$scope.auth.authz.loadUserProfile().success(function(profile) {
         $scope.auth.user = profile;
     }).error(function() {

@@ -1,9 +1,9 @@
-<div ng-controller="BuscarPersonaNaturalController as ctrl">
-    <div class="row">
-        <div class="col-sm-12">
+<div ng-controller="BuscarController">
+    <div class="row" ng-controller="BuscarPersonaController">
+        <div class="col-sm-12" ng-controller="BuscarPersonaNaturalController as ctrl">
             <div class="form-group">
                 <form name="ctrl.form" ng-submit="search()" novalidate>
-                    <div class="ui-grid-top-panel" style="overflow: inherit; padding: 5px; margin-bottom: -1px; margin-right: -2px; border: 1px solid #d4d4d4;">
+                    <div class="ui-grid-top-panel" style="padding: 5px; margin-bottom: -1px; margin-right: -2px; border: 1px solid #d4d4d4;">
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group" style="margin-bottom: 0px;">

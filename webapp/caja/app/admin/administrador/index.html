@@ -67,6 +67,9 @@
                 <a class="brand" href="#">SistCoop administrador</a>
                 <div class="nav-collapse" style="display: inherit;">
                     <p class="navbar-text pull-right" style="margin-top: 0;">
+                        <a ng-click="logout()" style="cursor: pointer;">Logout</a>
+                    </p>
+                    <p class="navbar-text pull-right" style="margin-top: 0;">
                         Logged in as
                         <strong ng-bind="auth.user.username"></strong>
                     </p>

@@ -52,40 +52,34 @@
             };
 
         })
-        .controller('BuscarPersonaNaturalController', function($scope, PersonaNatural, TipoDocumento){
 
+        .controller('BuscarController', function($scope){
             $scope.filterOptions = {
                 filterText: undefined,
-                page: undefined,
-                offset: undefined,
-                limit: undefined
-            };
-
-            $scope.viewOptions = {
-                busquedaAvanzada: true
+                offset: 0,
+                limit: 10
             };
             $scope.viewActions = {
-                busquedaAvanzada: function(){
-                    $scope.viewOptions.busquedaAvanzada = (!$scope.viewOptions.busquedaAvanzada);
-                },
                 nuevo: function(){
-
+                    console.log("Method unimplemented");
                 }
             };
-
             $scope.gridOptions = {
                 data: [],
+                columnDefs: []
+            };
+        })
+        .controller('BuscarPersonaController', function($scope){
+            $scope.gridOptions = {
                 enableRowSelection: true,
                 enableRowHeaderSelection: false,
                 multiSelect: false,
                 columnDefs: [
-                    {field: 'tipoDocumento', displayName: 'Documento'},
-                    {field: 'numeroDocumento', displayName: 'Numero'},
-                    {field: 'apellidoPaterno', displayName: 'Ap.paterno'},
-                    {field: 'apellidoMaterno', displayName: 'Ap.materno'},
-                    {field: 'nombres', displayName: 'Nombres'},
-                    {field: 'sexo', displayName: 'Sexo'},
-                    {name: 'edit', displayName: 'Edit', cellTemplate: '<div style="text-align: center; padding-top: 5px;"><button type="button" ng-click="edit(row.entity)" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-edit"></span>Editar</button></div>'}
+                    {
+                        name: 'edit',
+                        displayName: 'Edit',
+                        cellTemplate: '<div style="text-align: center; padding-top: 5px;"><button type="button" ng-click="edit(row.entity)" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-edit"></span>Editar</button></div>'
+                    }
                 ]
             };
             $scope.removeColumn = function(){
@@ -94,36 +88,52 @@
                 }
             };
             $scope.removeColumn();
+        })
+        .controller('BuscarPersonaNaturalController', function($scope, $state, PersonaNatural, TipoDocumento){
+
+            $scope.viewActions.nuevo = function(){
+                $state.go('app.administracion.crearPersonaNatural');
+            };
+
+            $scope.gridOptions.columnDefs.push({field: 'tipoDocumento', displayName: 'Documento'});
+            $scope.gridOptions.columnDefs.push({field: 'numeroDocumento', displayName: 'Numero'});
+            $scope.gridOptions.columnDefs.push({field: 'apellidoPaterno', displayName: 'Ap.paterno'});
+            $scope.gridOptions.columnDefs.push({field: 'apellidoMaterno', displayName: 'Ap.materno'});
+            $scope.gridOptions.columnDefs.push({field: 'nombres', displayName: 'Nombres'});
+            $scope.gridOptions.columnDefs.push({field: 'sexo', displayName: 'Sexo'});
+
+            $scope.moveEditColum = function(){
+                if(!angular.isUndefined($scope.gridOptions.columnDefs[0].name == 'edit')){
+                    $scope.gridOptions.columnDefs.push($scope.gridOptions.columnDefs.shift());
+                }
+            };
+            $scope.moveEditColum();
 
             $scope.search = function(){
-                var queryParams = {offset: 0, limit: 10};
-                if($scope.filterOptions.filterText)
-                    queryParams.filterText = $scope.filterOptions.filterText;
-                $scope.gridOptions.data = PersonaNatural.$search(queryParams);
+                $scope.gridOptions.data = PersonaNatural.$search($scope.filterOptions);
             };
 
         })
-        .controller('BuscarPersonaJuridicaController', function($scope, PersonaJuridica){
-            this.form = $scope.form;
-
-            $scope.filterOptions = {
-                filterText: undefined,
-                result: []
+        .controller('BuscarPersonaJuridicaController', function($scope, $state, PersonaJuridica){
+            $scope.viewActions.nuevo = function(){
+                $state.go('app.administracion.crearPersonaJuridica');
             };
 
-            $scope.gridOptions = {
-                data: [{tipoDocumento: 'RUC', numeroDocumento: '12345678910', razonSocial: 'Softgreen', nombreComercial: 'Softgreen soluciones', tipoEmpresa: 'PRIVADA'}],
-                columnDefs: [
-                    {field: 'tipoDocumento', displayName: 'Documento'},
-                    {field: 'numeroDocumento', displayName: 'Numero'},
-                    {field: 'razonSocial', displayName: 'Razon social'},
-                    {field: 'nombreComercial', displayName: 'Nombre comercial'},
-                    {field: 'tipoEmpresa', displayName: 'Tipo Empresa'},
-                    {name: 'edit', displayName: 'Edit', cellTemplate: '<div style="text-align: center;"><button id="editBtn" type="button" class="btn btn-info btn-small" ng-click="edit(row.entity)">Edit</button></div>'}
-                ]
+            $scope.gridOptions.columnDefs.push({field: 'tipoDocumento', displayName: 'Documento'});
+            $scope.gridOptions.columnDefs.push({field: 'numeroDocumento', displayName: 'Numero'});
+            $scope.gridOptions.columnDefs.push({field: 'razonSocial', displayName: 'Razon social'});
+            $scope.gridOptions.columnDefs.push({field: 'nombreComercial', displayName: 'Nombre comercial'});
+            $scope.gridOptions.columnDefs.push({field: 'tipoEmpresa', displayName: 'Tipo Empresa'});
+
+            $scope.moveEditColum = function(){
+                if(!angular.isUndefined($scope.gridOptions.columnDefs[0].name == 'edit')){
+                    $scope.gridOptions.columnDefs.push($scope.gridOptions.columnDefs.shift());
+                }
             };
+            $scope.moveEditColum();
+
             $scope.search = function(){
-                $scope.gridOptions.data = PersonaJuridica.$search({filterText: $scope.filterOptions.filterText});
+                $scope.gridOptions.data = PersonaJuridica.$search($scope.filterOptions);
             };
         });
 

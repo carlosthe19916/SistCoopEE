@@ -4,6 +4,5 @@
   "auth-server-url": "https://keycloak-softgreen.rhcloud.com/auth",
   "ssl-required": "external",
   "resource": "APP_ADMINISTRADOR",
-  "public-client": true,
-  "enable-cors": true
+  "public-client": true
 }

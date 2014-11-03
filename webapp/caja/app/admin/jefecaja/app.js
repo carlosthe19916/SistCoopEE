@@ -1,33 +1,18 @@
 'use strict';
 
-var consoleBaseUrl = window.location.href;
-consoleBaseUrl = consoleBaseUrl.substring(0, consoleBaseUrl.indexOf("/app/admin/jefecaja"));
-consoleBaseUrl = consoleBaseUrl + "/app/admin/jefecaja";
+consoleBaseUrl = consoleBaseUrl + "/jefecaja";
 var configUrl = consoleBaseUrl + "/config";
-
-var auth = {};
-var authUrl = window.location.href.substring(0, window.location.href.indexOf('/admin/jefecaja'));
-
-var module = angular.module('sistcoop', [
-    'ngSanitize',
-    'ngMessages',
-
-    'ui.bootstrap',
-    'ui.router',
-    'ui.select',
-    'ui.utils',
-    'ui.grid',
-    'ui.grid.edit'
-]);
-
-var resourceRequests = 0;
-var loadingTimer = -1;
+var logoutUrl = consoleBaseUrl + "/logout";
+var authUrl = window.location.href;
+authUrl = window.location.href.substring(0,  authUrl.indexOf('/admin/jefecaja'));
 
 angular.element(document).ready(function ($http) {
     var keycloakAuth = new Keycloak(configUrl);
+
     keycloakAuth.onAuthLogout = function() {
-        window.location.reload();
+        location.reload();
     };
+
     keycloakAuth.init({ onLoad: 'login-required' }).success(function () {
         auth.authz = keycloakAuth;
         module.factory('Auth', function() {
@@ -35,35 +20,8 @@ angular.element(document).ready(function ($http) {
         });
         angular.bootstrap(document, ["sistcoop"]);
     }).error(function () {
-        // window.location.reload();
+        window.location.reload();
     });
-});
-
-module.factory('authInterceptor', function($q, Auth) {
-    return {
-        request: function (config) {
-            if (!config.url.match(/.html$/)) {
-                var deferred = $q.defer();
-                if (Auth.authz.token) {
-                    Auth.authz.updateToken(5).success(function () {
-                        config.headers = config.headers || {};
-                        config.headers.Authorization = 'Bearer ' + Auth.authz.token;
-
-                        deferred.resolve(config);
-                    }).error(function () {
-                        location.reload();
-                    });
-                }
-                return deferred.promise;
-            } else {
-                return config;
-            }
-        }
-    };
-});
-
-module.config(function(uiSelectConfig) {
-    uiSelectConfig.theme = 'bootstrap';
 });
 
 module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
@@ -166,73 +124,3 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
             }
         });
 } ]);
-
-module.config(function($httpProvider) {
-    $httpProvider.interceptors.push('errorInterceptor');
-
-    var spinnerFunction = function(data, headersGetter) {
-        if (resourceRequests == 0) {
-            loadingTimer = window.setTimeout(function() {
-                $('#loading').show();
-                loadingTimer = -1;
-            }, 500);
-        }
-        resourceRequests++;
-        return data;
-    };
-    $httpProvider.defaults.transformRequest.push(spinnerFunction);
-
-    $httpProvider.interceptors.push('spinnerInterceptor');
-    $httpProvider.interceptors.push('authInterceptor');
-
-});
-
-module.factory('errorInterceptor', function($q, $window, $rootScope, $location, Notifications, Auth) {
-    return function(promise) {
-        return promise.then(function(response) {
-            return response;
-        }, function(response) {
-            if (response.status == 401) {
-                Auth.authz.logout();
-            } else if (response.status == 403) {
-                Notifications.error("Forbidden");
-            } else if (response.status == 404) {
-                Notifications.error("Not found");
-            } else if (response.status) {
-                if (response.data && response.data.errorMessage) {
-                    Notifications.error(response.data.errorMessage);
-                } else {
-                    Notifications.error("An unexpected server error has occurred");
-                }
-            }
-            return $q.reject(response);
-        });
-    };
-});
-
-module.factory('spinnerInterceptor', function($q, $window, $rootScope, $location) {
-    return function(promise) {
-        return promise.then(function(response) {
-            resourceRequests--;
-            if (resourceRequests == 0) {
-                if(loadingTimer != -1) {
-                    window.clearTimeout(loadingTimer);
-                    loadingTimer = -1;
-                }
-                $('#loading').hide();
-            }
-            return response;
-        }, function(response) {
-            resourceRequests--;
-            if (resourceRequests == 0) {
-                if(loadingTimer != -1) {
-                    window.clearTimeout(loadingTimer);
-                    loadingTimer = -1;
-                }
-                $('#loading').hide();
-            }
-
-            return $q.reject(response);
-        });
-    };
-});

@@ -36,8 +36,20 @@
                     return Restangular.all(url).getList({tipoPersona: 'juridica'}).$object;
                 }
             };
-        }).factory('PersonaJuridica', function() {
+        }).factory('PersonaJuridica', function(Restangular) {
+            var url = "personas/juridicas";
+            var _PersonaNatural = Restangular.extendModel(url, function(model) {
+                model.getFullName = function() {
+                    return this.apellidoPaterno + this.apellidoMaterno + this.nombres;
+                };
+                return model;
+            });
 
+            return {
+                $search: function(queryParams){
+                    return Restangular.all(url).getList(queryParams).$object;
+                }
+            };
         }).factory('PersonaNatural', function(Restangular) {
 
             var url = "personas/naturales";

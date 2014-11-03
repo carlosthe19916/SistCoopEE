@@ -1,9 +1,8 @@
 {
   "realm": "SISTCOOP",
-  "realm-public-key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCB8dw5pUJ+i4zssO8h65I/e/sXO75t1BPGkB1L2YrO9pKdkD/dWPwzqYdIsLXS6oAvtsChrXlPWX5RI36ESWMK17nmtLPMd28oyc69+vtLodBbpyiYnh0LYrrxJXB56i30bU9a0lG9x/2NNa46QbLUJ3/OzgLwwzN5QeYbbXLidQIDAQAB",
+  "realm-public-key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCBOxje7EJON61Q97N4il55wxWpWlfaDEx6yr5m+QcBdoi25vCaHB14WTRpqz/BjuDADpla1aWxXs8rfMN5isQrvIX1TIvr7+7mAKjo5PiYiQeUTgVnXG1zbCD2jykjxn/EfVhW+cYpYuCrQNlkrf+vwWHUV23yMdYRRUpF0ej+0QIDAQAB",
   "auth-server-url": "https://keycloak-softgreen.rhcloud.com/auth",
   "ssl-required": "external",
-  "resource": "app-jefecaja",
-  "public-client": true,
-  "enable-cors": true
+  "resource": "APP_JEFECAJA",
+  "public-client": true
 }
