@@ -75,6 +75,9 @@
 
             $scope.gridOptions = {
                 data: [],
+                enableRowSelection: true,
+                enableRowHeaderSelection: false,
+                multiSelect: false,
                 columnDefs: [
                     {field: 'tipoDocumento', displayName: 'Documento'},
                     {field: 'numeroDocumento', displayName: 'Numero'},
@@ -86,7 +89,7 @@
                 ]
             };
             $scope.removeColumn = function(){
-                if(!$scope.activeProfile.canUpdateMP()){
+                if(!$scope.activeProfile.hasPermission('persona', 'update')){
                     $scope.gridOptions.columnDefs.splice($scope.gridOptions.columnDefs.length - 1, 1);
                 }
             };

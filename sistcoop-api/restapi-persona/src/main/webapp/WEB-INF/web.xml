@@ -23,10 +23,19 @@
 			<role-name>USER</role-name>
 		</auth-constraint>
 	</security-constraint>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Rest services</web-resource-name>
+			<url-pattern>/rest/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>PUBLIC</role-name>
+		</auth-constraint>
+	</security-constraint>
 
 	<login-config>
 		<auth-method>KEYCLOAK</auth-method>
-		<realm-name>SistCoop</realm-name>
+		<realm-name>SISTCOOP</realm-name>
 	</login-config>
 
 	<security-role>
@@ -34,5 +43,8 @@
 	</security-role>
 	<security-role>
 		<role-name>USER</role-name>
+	</security-role>
+	<security-role>
+		<role-name>PUBLIC</role-name>
 	</security-role>
 </web-app>

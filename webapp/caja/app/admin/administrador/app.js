@@ -1,55 +1,10 @@
 'use strict';
 
-var consoleBaseUrl = window.location.href;
-consoleBaseUrl = consoleBaseUrl.substring(0, consoleBaseUrl.indexOf("/app/admin/administrador"));
-consoleBaseUrl = consoleBaseUrl + "/app/admin/administrador";
+consoleBaseUrl = consoleBaseUrl + "/administrador";
 var configUrl = consoleBaseUrl + "/config";
 var logoutUrl = consoleBaseUrl + "/logout";
-var auth = {};
-var logout = function(){
-    console.log('*** LOGOUT');
-    window.location = logoutUrl;
-};
-
 var authUrl = window.location.href;
 authUrl = window.location.href.substring(0,  authUrl.indexOf('/admin/administrador'));
-
-var module = angular.module('sistcoop', [
-    'ngSanitize',
-    'ngMessages',
-
-    'persona',
-
-    'ui.bootstrap',
-    'ui.router',
-    'ui.select',
-    'ui.utils',
-    'ui.grid',
-    'ui.grid.edit'
-]);
-
-var resourceRequests = 0;
-var loadingTimer = -1;
-/*
-angular.element(document).ready(function ($http) {
-    var keycloakAuth = new Keycloak(configUrl);
-    keycloakAuth.onAuthLogout = function() {
-        window.location.reload();
-    };
-    keycloakAuth.init({ onLoad: 'login-required' }).success(function (authenticated) {
-        if(keycloakAuth.realmAccess === undefined) {
-            keycloakAuth.logout();
-        } else {
-            auth.authz = keycloakAuth;
-            module.factory('Auth', function() {
-                return auth;
-            });
-            angular.bootstrap(document, ["sistcoop"]);
-        }
-    }).error(function () {
-         window.location.reload();
-    });
-});*/
 
 angular.element(document).ready(function ($http) {
     var keycloakAuth = new Keycloak(configUrl);
@@ -67,51 +22,6 @@ angular.element(document).ready(function ($http) {
     }).error(function () {
         window.location.reload();
     });
-});
-
-module.factory('authInterceptor', function($q, Auth) {
-    return {
-        request: function (config) {
-            var deferred = $q.defer();
-            if (Auth.authz.token) {
-                Auth.authz.updateToken(5).success(function() {
-                    config.headers = config.headers || {};
-                    config.headers.Authorization = 'Bearer ' + Auth.authz.token;
-
-                    deferred.resolve(config);
-                }).error(function() {
-                    location.reload();
-                });
-            }
-            return deferred.promise;
-        }
-    };
-});
-
-module.config(['$provide', function($provide){
-    var profile = angular.copy(window.auth.authz);
-
-    var personaRestapiRoles = ['ADMIN', 'USER', 'PUBLIC'];
-    profile.canSelectMP = function(){
-        return profile.resourceAccess.PERSONA_RESTAPI.roles.indexOf(personaRestapiRoles[0]) >= 0 ||
-            profile.resourceAccess.PERSONA_RESTAPI.roles.indexOf(personaRestapiRoles[1]) >= 0 ||
-            profile.resourceAccess.PERSONA_RESTAPI.roles.indexOf(personaRestapiRoles[2]) >= 0;
-    };
-    profile.canCreateMP = function(){
-        return profile.resourceAccess.PERSONA_RESTAPI.roles.indexOf(personaRestapiRoles[0]) >= 0 ||
-            profile.resourceAccess.PERSONA_RESTAPI.roles.indexOf(personaRestapiRoles[1]) >= 0;
-    };
-    profile.canUpdateMP = function(){
-        return profile.resourceAccess.PERSONA_RESTAPI.roles.indexOf(personaRestapiRoles[0]) >= 0 ;
-    };
-    profile.canDeleteMP = function(){
-        return profile.resourceAccess.PERSONA_RESTAPI.roles.indexOf(personaRestapiRoles[0]) >= 0 ;
-    };
-    $provide.constant('activeProfile', profile);
-}]);
-
-module.config(function(uiSelectConfig) {
-    uiSelectConfig.theme = 'bootstrap';
 });
 
 module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
@@ -214,74 +124,3 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
             }
         });
 } ]);
-
-module.config(function($httpProvider) {
-    $httpProvider.interceptors.push('errorInterceptor');
-
-    var spinnerFunction = function(data, headersGetter) {
-        if (resourceRequests == 0) {
-            loadingTimer = window.setTimeout(function() {
-                $('#loading').show();
-                loadingTimer = -1;
-            }, 500);
-        }
-        resourceRequests++;
-        return data;
-    };
-    $httpProvider.defaults.transformRequest.push(spinnerFunction);
-
-    $httpProvider.interceptors.push('spinnerInterceptor');
-    $httpProvider.interceptors.push('authInterceptor');
-
-});
-
-module.factory('errorInterceptor', function($q, $window, $rootScope, $location,Notifications) {
-    return function(promise) {
-        return promise.then(function(response) {
-            return response;
-        }, function(response) {
-            if (response.status == 401) {
-                console.log('session timeout?');
-                logout();
-            } else if (response.status == 403) {
-                Notifications.error("Forbidden");
-            } else if (response.status == 404) {
-                Notifications.error("Not found");
-            } else if (response.status) {
-                if (response.data && response.data.errorMessage) {
-                    Notifications.error(response.data.errorMessage);
-                } else {
-                    Notifications.error("An unexpected server error has occurred");
-                }
-            }
-            return $q.reject(response);
-        });
-    };
-});
-
-module.factory('spinnerInterceptor', function($q, $window, $rootScope, $location) {
-    return function(promise) {
-        return promise.then(function(response) {
-            resourceRequests--;
-            if (resourceRequests == 0) {
-                if(loadingTimer != -1) {
-                    window.clearTimeout(loadingTimer);
-                    loadingTimer = -1;
-                }
-                $('#loading').hide();
-            }
-            return response;
-        }, function(response) {
-            resourceRequests--;
-            if (resourceRequests == 0) {
-                if(loadingTimer != -1) {
-                    window.clearTimeout(loadingTimer);
-                    loadingTimer = -1;
-                }
-                $('#loading').hide();
-            }
-
-            return $q.reject(response);
-        });
-    };
-});
