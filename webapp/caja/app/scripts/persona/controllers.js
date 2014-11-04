@@ -6,7 +6,7 @@
 (function(window, angular, undefined) {'use strict';
 
     angular.module('persona.controllers', [])
-        .controller('CrearPersonaNaturalController', function($scope, Sexo, EstadoCivil, PersonaNatural, TipoDocumento){
+        .controller('CrearPersonaNaturalController', function($scope, Sexo, EstadoCivil, PersonaNatural, TipoDocumento, Notifications){
 
             /*Datos de la vista*/
             $scope.view = {
@@ -57,15 +57,18 @@
             $scope.check = function($event){
                 if(!angular.isUndefined($event))
                     $event.preventDefault();
-                if(!angular.isUndefined($scope.$scope.combo.selected.tipoDocumento) && !angular.isUndefined($scope.view.personaNatural.numeroDocumento)){
-                    var result = PersonaNatural.$single(personaConfig.urlPrefix + '/personas/naturales/buscar').$fetch({tipoDocumento:$scope.tipoDocumento, numeroDocumento: $scope.numeroDocumento});
-                    result.$then(function(data) {
-                        if(!data.$response.data){
-                            Notifications.info("Documento de identidad disponible.");
-                        } else {
-                            Notifications.warn("Documento de identidad no disponible.");
+                if(!angular.isUndefined($scope.combo.selected.tipoDocumento) && !angular.isUndefined($scope.view.personaNatural.numeroDocumento)){
+                    PersonaNatural.$findByTipoNumeroDocumento($scope.combo.selected.tipoDocumento.abreviatura, $scope.view.personaNatural.numeroDocumento).then(
+                        function(data){
+
                         }
-                    });
+                    );
+                    console.log(JSON.stringify(result));
+                    for(var i in result){
+                        Notifications.info("Documento de identidad disponible.");
+                        break;
+                    }
+                    Notifications.warn("Documento de identidad no disponible.");
                 }
             };
 

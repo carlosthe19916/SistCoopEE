@@ -4,13 +4,13 @@
         .config(function(RestangularProvider) {
             RestangularProvider.setBaseUrl('http://localhost:8080/restapi-persona/rest/v1');
 
-            RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
+           RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
                 var extractedData;
-                if (operation === "getList") {
+                if(data){
                     extractedData = data[Object.keys(data)[0]];
                     extractedData.meta = data.meta;
                 } else {
-                    extractedData = data.data;
+                    extractedData = data;
                 }
                 return extractedData;
             });
@@ -90,7 +90,7 @@
                     return Restangular.all(url).getList(queryParams).$object;
                 },
                 $findByTipoNumeroDocumento: function(tipoDocumento, numeroDocumento){
-
+                    return Restangular.one(url+'/buscar').get({tipoDocumento: tipoDocumento, numeroDocumento: numeroDocumento}).$object;
                 }
             };
         });
