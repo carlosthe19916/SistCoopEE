@@ -5,7 +5,6 @@ import java.util.Date;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "personaNatural")
@@ -44,7 +43,7 @@ public class PersonaNaturalRepresentation implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	@XmlAttribute
+	
 	public Long getId() {
 		return id;
 	}
@@ -53,7 +52,7 @@ public class PersonaNaturalRepresentation implements Serializable {
 		this.id = id;
 	}
 
-	@XmlAttribute
+	
 	public String getCodigoPais() {
 		return codigoPais;
 	}
@@ -62,7 +61,7 @@ public class PersonaNaturalRepresentation implements Serializable {
 		this.codigoPais = codigoPais;
 	}
 
-	@XmlAttribute
+	
 	public String getTipoDocumento() {
 		return tipoDocumento;
 	}
@@ -71,7 +70,7 @@ public class PersonaNaturalRepresentation implements Serializable {
 		this.tipoDocumento = tipoDocumento;
 	}
 
-	@XmlAttribute
+	
 	public String getNumeroDocumento() {
 		return numeroDocumento;
 	}
@@ -80,7 +79,7 @@ public class PersonaNaturalRepresentation implements Serializable {
 		this.numeroDocumento = numeroDocumento;
 	}
 
-	@XmlAttribute
+	
 	public String getApellidoPaterno() {
 		return apellidoPaterno;
 	}
@@ -89,7 +88,7 @@ public class PersonaNaturalRepresentation implements Serializable {
 		this.apellidoPaterno = apellidoPaterno;
 	}
 
-	@XmlAttribute
+	
 	public String getApellidoMaterno() {
 		return apellidoMaterno;
 	}
@@ -98,7 +97,7 @@ public class PersonaNaturalRepresentation implements Serializable {
 		this.apellidoMaterno = apellidoMaterno;
 	}
 
-	@XmlAttribute
+	
 	public String getNombres() {
 		return nombres;
 	}
@@ -107,7 +106,7 @@ public class PersonaNaturalRepresentation implements Serializable {
 		this.nombres = nombres;
 	}
 
-	@XmlAttribute
+	
 	public Date getFechaNacimiento() {
 		return fechaNacimiento;
 	}
@@ -116,7 +115,7 @@ public class PersonaNaturalRepresentation implements Serializable {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
-	@XmlAttribute
+	
 	public String getSexo() {
 		return sexo;
 	}
@@ -125,7 +124,7 @@ public class PersonaNaturalRepresentation implements Serializable {
 		this.sexo = sexo;
 	}
 
-	@XmlAttribute
+	
 	public String getEstadoCivil() {
 		return estadoCivil;
 	}
@@ -134,7 +133,7 @@ public class PersonaNaturalRepresentation implements Serializable {
 		this.estadoCivil = estadoCivil;
 	}
 
-	@XmlAttribute
+	
 	public String getOcupacion() {
 		return ocupacion;
 	}
@@ -143,7 +142,7 @@ public class PersonaNaturalRepresentation implements Serializable {
 		this.ocupacion = ocupacion;
 	}
 
-	@XmlAttribute
+	
 	public String getUrlFoto() {
 		return urlFoto;
 	}
@@ -152,7 +151,7 @@ public class PersonaNaturalRepresentation implements Serializable {
 		this.urlFoto = urlFoto;
 	}
 
-	@XmlAttribute
+	
 	public String getUrlFirma() {
 		return urlFirma;
 	}
@@ -161,7 +160,7 @@ public class PersonaNaturalRepresentation implements Serializable {
 		this.urlFirma = urlFirma;
 	}
 
-	@XmlAttribute
+	
 	public String getUbigeo() {
 		return ubigeo;
 	}
@@ -170,7 +169,7 @@ public class PersonaNaturalRepresentation implements Serializable {
 		this.ubigeo = ubigeo;
 	}
 
-	@XmlAttribute
+	
 	public String getDireccion() {
 		return direccion;
 	}
@@ -179,7 +178,7 @@ public class PersonaNaturalRepresentation implements Serializable {
 		this.direccion = direccion;
 	}
 
-	@XmlAttribute
+	
 	public String getReferencia() {
 		return referencia;
 	}
@@ -188,7 +187,7 @@ public class PersonaNaturalRepresentation implements Serializable {
 		this.referencia = referencia;
 	}
 
-	@XmlAttribute
+	
 	public String getTelefono() {
 		return telefono;
 	}
@@ -197,7 +196,7 @@ public class PersonaNaturalRepresentation implements Serializable {
 		this.telefono = telefono;
 	}
 
-	@XmlAttribute
+	
 	public String getCelular() {
 		return celular;
 	}
@@ -206,7 +205,7 @@ public class PersonaNaturalRepresentation implements Serializable {
 		this.celular = celular;
 	}
 
-	@XmlAttribute
+	
 	public String getEmail() {
 		return email;
 	}

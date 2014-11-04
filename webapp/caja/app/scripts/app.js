@@ -23,13 +23,15 @@ var module = angular.module('sistcoop', [
     'common.controllers',
     'common.directives',
 
+    'restangular',
     'ui.bootstrap',
     'ui.router',
     'ui.select',
     'ui.utils',
     'ui.grid',
     'ui.grid.edit',
-    'ui.grid.selection'
+    'ui.grid.selection',
+    'blockUI'
 ]);
 
 var resourceRequests = 0;
@@ -52,6 +54,32 @@ module.factory('authInterceptor', function($q, Auth) {
             return deferred.promise;
         }
     };
+});
+
+module.config(function(RestangularProvider) {
+    RestangularProvider.setBaseUrl('http://localhost:8080');
+    RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
+        var extractedData;
+        if(data){
+            extractedData = data[Object.keys(data)[0]];
+            extractedData.meta = data.meta;
+        } else {
+            extractedData = data;
+        }
+        return extractedData;
+    });
+});
+
+module.factory('PersonaRestangular', function(Restangular) {
+    return Restangular.withConfig(function(RestangularConfigurer) {
+        RestangularConfigurer.setBaseUrl('http://localhost:8080/restapi-persona/rest/v1');
+    });
+});
+
+module.factory('UbigeoRestangular', function(Restangular) {
+    return Restangular.withConfig(function(RestangularConfigurer) {
+        RestangularConfigurer.setBaseUrl('http://localhost:8080/restapi-ubigeo/rest/v1');
+    });
 });
 
 module.config(['$provide', function($provide){
@@ -96,6 +124,17 @@ module.config(['$provide', function($provide){
 
 module.config(function(uiSelectConfig) {
     uiSelectConfig.theme = 'bootstrap';
+});
+
+module.config(function(blockUIConfig) {
+    blockUIConfig.template = ''+
+        +'<div class="row">'
+        +'<div class="col-md-2 col-md-offset-6" style="top: 2.9em; position: fixed; z-index: 1500; text-align: center;">'
+        +'<div class="alert alert-warning">'
+        +'<span><strong>Cargando...</strong></span>'
+        +'</div>'
+        +'</div>'
+        +'</div>';
 });
 
 module.config(function($httpProvider) {

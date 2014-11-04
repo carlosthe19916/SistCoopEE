@@ -6,7 +6,7 @@
 (function(window, angular, undefined) {'use strict';
 
     angular.module('persona.controllers', [])
-        .controller('CrearPersonaNaturalController', function($scope, Sexo, EstadoCivil, PersonaNatural, TipoDocumento, Notifications){
+        .controller('CrearPersonaNaturalController', function($scope, $state, Pais, Sexo, EstadoCivil, PersonaNatural, TipoDocumento, Notifications){
 
             /*Datos de la vista*/
             $scope.view = {
@@ -15,10 +15,10 @@
 
             /*combos*/
             $scope.combo = {
-                pais: undefined,
-                tipoDocumento: TipoDocumento.$search({tipoPersona: 'natural'}),
-                sexo: Sexo.$search(),
-                estadoCivil: EstadoCivil.$search()
+                pais: Pais.$search().$object,
+                tipoDocumento: TipoDocumento.$search({tipoPersona: 'natural'}).$object,
+                sexo: Sexo.$search().$object,
+                estadoCivil: EstadoCivil.$search().$object
             };
             $scope.combo.selected = {
                 pais: undefined,
@@ -37,19 +37,27 @@
             /*Operacion principal*/
             $scope.crearTransaccion = function(){
                 if ($scope.form.$valid) {
-
-                    var aa = PersonaNatural.$find(1);
-
-                    var personaServer = PersonaNatural.findByTipoNumeroDocumento($scope.view.personaNatural.tipoDocumento, $scope.view.personaNatural.numeroDocumento);
-                    personaServer.$then(function(_persona) {
-                        console.log(_persona);
+                    var save = function(){
+                        $scope.view.personaNatural.codigoPais = $scope.combo.selected.pais ? $scope.combo.selected.pais.alpha3Code: null;
+                        $scope.view.personaNatural.tipoDocumento = $scope.combo.selected.tipoDocumento ? $scope.combo.selected.tipoDocumento.abreviatura: null;
+                        $scope.view.personaNatural.sexo = $scope.combo.selected.sexo ? $scope.combo.selected.sexo.denominacion : null;
+                        $scope.view.personaNatural.estadoCivil = $scope.combo.selected.estadoCivil ? $scope.combo.selected.estadoCivil.denominacion : null;
+                        $scope.view.personaNatural.$save().then(
+                            function(data){
+                                Notifications.success("Persona creada");
+                                $state.go('app.administracion.buscarPersonaNatural');
+                            },
+                            function error(error){
+                                Notifications.error(error.data+".");
+                            }
+                        );
+                    };
+                    PersonaNatural.$findByTipoNumeroDocumento($scope.combo.selected.tipoDocumento.abreviatura, $scope.view.personaNatural.numeroDocumento).then(function(data){
+                        if(data)
+                            Notifications.error("Documento de identidad no disponible.");
+                        else
+                            save();
                     });
-
-                    $scope.view.personaNatural.codigoPais = $scope.combo.selected.pais ? $scope.combo.selected.pais.alpha3Code: null;
-                    $scope.view.personaNatural.sexo = $scope.combo.selected.sexo ? $scope.combo.selected.sexo.denominacion : null;
-                    $scope.view.personaNatural.estadoCivil = $scope.combo.selected.estadoCivil ? $scope.combo.selected.estadoCivil.denominacion : null;
-
-                    $scope.view.personaNatural.$save();
                 }
             };
 
@@ -58,17 +66,12 @@
                 if(!angular.isUndefined($event))
                     $event.preventDefault();
                 if(!angular.isUndefined($scope.combo.selected.tipoDocumento) && !angular.isUndefined($scope.view.personaNatural.numeroDocumento)){
-                    PersonaNatural.$findByTipoNumeroDocumento($scope.combo.selected.tipoDocumento.abreviatura, $scope.view.personaNatural.numeroDocumento).then(
-                        function(data){
-
-                        }
-                    );
-                    console.log(JSON.stringify(result));
-                    for(var i in result){
-                        Notifications.info("Documento de identidad disponible.");
-                        break;
-                    }
-                    Notifications.warn("Documento de identidad no disponible.");
+                    PersonaNatural.$findByTipoNumeroDocumento($scope.combo.selected.tipoDocumento.abreviatura, $scope.view.personaNatural.numeroDocumento).then(function(data){
+                        if(!data)
+                            Notifications.info("Documento de identidad disponible.");
+                        else
+                            Notifications.warn("Documento de identidad no disponible.");
+                    });
                 }
             };
 
@@ -131,7 +134,7 @@
             $scope.moveEditColum();
 
             $scope.search = function(){
-                $scope.gridOptions.data = PersonaNatural.$search($scope.filterOptions);
+                $scope.gridOptions.data = PersonaNatural.$search($scope.filterOptions).$object;
             };
 
         })
@@ -154,7 +157,7 @@
             $scope.moveEditColum();
 
             $scope.search = function(){
-                $scope.gridOptions.data = PersonaJuridica.$search($scope.filterOptions);
+                $scope.gridOptions.data = PersonaJuridica.$search($scope.filterOptions).$object;
             };
         });
 

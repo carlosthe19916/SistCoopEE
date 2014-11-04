@@ -8,7 +8,7 @@
                     <label>Nacionalidad </label>
                     <div class="input-group">
                         <span ng-bind="combo.selected.pais ? combo.selected.pais.alpha3Code : 'NA'" class="input-group-addon"></span>
-                        <ui-select name="pais" ng-model="combo.selected.pais" theme="bootstrap" ui-autofocus required>
+                        <ui-select name="pais" ng-model="combo.selected.pais" theme="bootstrap" required autofocus>
                             <ui-select-match placeholder="Seleccione">{{$select.selected.fullName}}</ui-select-match>
                             <ui-select-choices repeat="item in combo.pais | filter: $select.search">
                                 <div ng-bind-html="item.fullName | highlight: $select.search"></div>
@@ -123,6 +123,69 @@
                             <div ng-bind-html="item.denominacion | highlight: $select.search"></div>
                         </ui-select-choices>
                     </ui-select>
+                </div>
+            </div>
+        </div>
+
+        <h4><strong>Datos adicionales</strong></h4>
+
+
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group" ng-class="{ 'has-error' : form.direccion.$invalid && (form.direccion.$touched || form.$submitted)}">
+                    <label>Direcci&oacute;n</label>
+                    <input name="direccion" type="text" ng-model="view.personaNatural.direccion" ng-maxlength="70" class="form-control" capitalize />
+                    <div ng-messages="form.direccion.$error" ng-if="form.direccion.$touched || form.$submitted">
+                        <div class="help-block" ng-message="maxlength">Maximo 70 Caracteres.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group" ng-class="{ 'has-error' : form.referencia.$invalid && (form.referencia.$touched || form.$submitted)}">
+                    <label>Referencia</label>
+                    <input name="referencia" type="text" ng-model="view.personaNatural.referencia" ng-maxlength="70" class="form-control" capitalize />
+                    <div ng-messages="form.referencia.$error" ng-if="form.referencia.$touched || form.$submitted">
+                        <div class="help-block" ng-message="maxlength">Maximo 70 Caracteres.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group" ng-class="{ 'has-error' : form.ocupacion.$invalid && (form.ocupacion.$touched || form.$submitted)}">
+                    <label>Ocupaci&oacute;n</label>
+                    <input name="ocupacion" type="text" ng-model="view.personaNatural.ocupacion" ng-maxlength="70" class="form-control" capitalize />
+                    <div ng-messages="form.ocupacion.$error" ng-if="form.ocupacion.$touched || form.$submitted">
+                        <div class="help-block" ng-message="maxlength">Maximo 70 Caracteres.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group" ng-class="{ 'has-error' : form.telefono.$invalid && (form.telefono.$touched || form.$submitted)}">
+                    <label>Telefono</label>
+                    <input name="telefono" type="text" ng-model="view.personaNatural.telefono" ng-maxlength="20" class="form-control" />
+                    <div ng-messages="form.telefono.$error" ng-if="form.telefono.$touched || form.$submitted">
+                        <div class="help-block" ng-message="maxlength">Maximo 20 Caracteres.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group" ng-class="{ 'has-error' : form.celular.$invalid && (form.celular.$touched || form.$submitted)}">
+                    <label>Celular</label>
+                    <input name="celular" type="text" ng-model="view.personaNatural.celular" ng-maxlength="20" class="form-control" />
+                    <div ng-messages="form.celular.$error" ng-if="form.celular.$touched || form.$submitted">
+                        <div class="help-block" ng-message="maxlength">Maximo 20 Caracteres.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group" ng-class="{ 'has-error' : form.email.$invalid && (form.email.$touched || form.$submitted)}">
+                    <label>Email</label>
+                    <input name="email" type="email" ng-model="view.personaNatural.email" ng-maxlength="70" class="form-control" />
+                    <div ng-messages="form.email.$error" ng-if="form.email.$touched || form.$submitted">
+                        <div class="help-block" ng-message="email">Email Incorrecto.</div>
+                        <div class="help-block" ng-message="maxlength">Maximo 70 Caracteres.</div>
+                    </div>
                 </div>
             </div>
         </div>

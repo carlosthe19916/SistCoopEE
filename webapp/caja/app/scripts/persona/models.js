@@ -1,96 +1,79 @@
 (function(window, angular, undefined) {'use strict';
 
-    angular.module('persona.models', ['restangular'])
-        .config(function(RestangularProvider) {
-            RestangularProvider.setBaseUrl('http://localhost:8080/restapi-persona/rest/v1');
-
-           RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
-                var extractedData;
-                if(data){
-                    extractedData = data[Object.keys(data)[0]];
-                    extractedData.meta = data.meta;
-                } else {
-                    extractedData = data;
-                }
-                return extractedData;
-            });
-
-        }).factory('EstadoCivil', function(Restangular) {
+    angular.module('persona.models', [])
+        .config(function() {
+        }).factory('EstadoCivil', function(PersonaRestangular) {
             var url = "estadosCiviles";
             return {
                 $search: function(queryParams){
-                    return Restangular.all(url).getList(queryParams).$object;
+                    return PersonaRestangular.all(url).getList(queryParams);
                 }
             };
-        }).factory('Sexo', function(Restangular) {
+        }).factory('Sexo', function(PersonaRestangular) {
             var url = "sexos";
             return {
                 $search: function(queryParams){
-                    return Restangular.all(url).getList(queryParams).$object;
+                    return PersonaRestangular.all(url).getList(queryParams);
                 }
             };
-        }).factory('TipoPersona', function(Restangular) {
+        }).factory('TipoPersona', function(PersonaRestangular) {
             var url = "tiposPersona";
             return {
                 $search: function(queryParams){
-                    return Restangular.all(url).getList(queryParams).$object;
+                    return PersonaRestangular.all(url).getList(queryParams);
                 }
             };
-        }).factory('TipoEmpresa', function(Restangular) {
+        }).factory('TipoEmpresa', function(PersonaRestangular) {
             var url = "tiposEmpresa";
             return {
                 $search: function(queryParams){
-                    return Restangular.all(url).getList(queryParams).$object;
+                    return PersonaRestangular.all(url).getList(queryParams);
                 }
             };
-        }).factory('TipoDocumento', function(Restangular) {
+        }).factory('TipoDocumento', function(PersonaRestangular) {
             var url = "tiposDocumento";
             return {
                 $search: function(queryParams){
-                    return Restangular.all(url).getList(queryParams).$object;
+                    return PersonaRestangular.all(url).getList(queryParams);
                 },
                 $searchByPersonaNatural: function(){
-                    return Restangular.all(url).getList({tipoPersona: 'natural'}).$object;
+                    return PersonaRestangular.all(url).getList({tipoPersona: 'natural'});
                 },
                 $searchByPersonaJuridica: function(){
-                    return Restangular.all(url).getList({tipoPersona: 'juridica'}).$object;
+                    return PersonaRestangular.all(url).getList({tipoPersona: 'juridica'});
                 }
             };
-        }).factory('PersonaJuridica', function(Restangular) {
+        }).factory('PersonaJuridica', function(PersonaRestangular) {
             var url = "personas/juridicas";
-            var _PersonaJuridica = Restangular.extendModel(url, function(model) {
-                model.getFullName = function() {
-                    return this.apellidoPaterno + this.apellidoMaterno + this.nombres;
-                };
-                return model;
-            });
-
             return {
                 $search: function(queryParams){
-                    return Restangular.all(url).getList(queryParams).$object;
+                    return PersonaRestangular.all(url).getList(queryParams);
                 }
             };
-        }).factory('PersonaNatural', function(Restangular) {
-
+        }).factory('PersonaNatural', function(PersonaRestangular) {
             var url = "personas/naturales";
-            var _PersonaNatural = Restangular.extendModel(url, function(model) {
-                model.getFullName = function() {
-                    return this.apellidoPaterno + this.apellidoMaterno + this.nombres;
-                };
-                return model;
-            });
-
             return {
                 $build: function(){
                     return {
-
+                        id: undefined,
+                        tipoDocumento: undefined,
+                        numeroDocumento: undefined,
+                        apellidoPaterno: undefined,
+                        apellidoMaterno: undefined,
+                        nombres: undefined,
+                        fechaNacimiento: undefined,
+                        sexo: undefined,
+                        estadoCivil: undefined,
+                        $save: function(){
+                            return PersonaRestangular.all(url).post({'personaNatural': this});
+                        }
                     }
                 },
                 $search: function(queryParams){
-                    return Restangular.all(url).getList(queryParams).$object;
+                    return PersonaRestangular.all(url).getList(queryParams);
                 },
                 $findByTipoNumeroDocumento: function(tipoDocumento, numeroDocumento){
-                    return Restangular.one(url+'/buscar').get({tipoDocumento: tipoDocumento, numeroDocumento: numeroDocumento}).$object;
+                    return PersonaRestangular.one(url+'/buscar').get({tipoDocumento: tipoDocumento, numeroDocumento: numeroDocumento});
                 }
             };
         });

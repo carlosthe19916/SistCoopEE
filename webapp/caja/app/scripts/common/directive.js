@@ -18,8 +18,7 @@ angular.module('common.directives', [])
                 capitalize(scope[attrs.ngModel]);  // capitalize initial value
             }
         };
-    })
-    .directive('sgMaxDate', function() {
+    }).directive('sgMaxDate', function() {
         return {
             require: 'ngModel',
             link: function($scope, elem, attrs, ngModel) {
@@ -29,4 +28,23 @@ angular.module('common.directives', [])
                 }
             }
         };
+    })
+    .directive('uiAutofocus', function($timeout) {
+        return {
+            restrict: 'A',
+            require: 'uiSelect',
+            link: function(scope, elem, attr) {
+                if(elem.hasClass('ui-select-bootstrap')){
+                    if(elem[0].children.length == 4){
+                        $timeout(function() {
+                            if(attr.uiAutofocus == 'open')
+                                elem.find("button.ui-select-match").click();
+                            elem.find("input.ui-select-focusser").focus();
+                        }, 0);
+                    }
+                }
+            }
+        };
     });
+
+
