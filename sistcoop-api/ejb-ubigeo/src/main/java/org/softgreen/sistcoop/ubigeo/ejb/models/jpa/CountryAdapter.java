@@ -144,8 +144,7 @@ public class CountryAdapter implements CountryModel {
 
 	@Override
 	public void commit() {
-		// TODO Auto-generated method stub
-
+		em.merge(countryEntity);
 	}
 
 	public static CountryEntity toCountryEntity(CountryModel model, EntityManager em) {

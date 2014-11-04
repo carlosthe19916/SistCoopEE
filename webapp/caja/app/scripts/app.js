@@ -19,6 +19,7 @@ var module = angular.module('sistcoop', [
     'ngMessages',
 
     'persona',
+    'ubigeo',
     'common.controllers',
     'common.directives',
 

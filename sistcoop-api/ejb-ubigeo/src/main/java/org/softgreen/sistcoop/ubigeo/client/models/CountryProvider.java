@@ -2,11 +2,11 @@ package org.softgreen.sistcoop.ubigeo.client.models;
 
 import java.util.List;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 
 import org.softgreen.sistcoop.ubigeo.client.providers.Provider;
 
-@Remote
+@Local
 public interface CountryProvider extends Provider {
 
 	public CountryModel findByAlpha2Code(String code);

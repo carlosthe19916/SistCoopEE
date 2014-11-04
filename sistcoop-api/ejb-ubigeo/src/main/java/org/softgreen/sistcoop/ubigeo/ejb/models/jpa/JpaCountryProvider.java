@@ -3,7 +3,7 @@ package org.softgreen.sistcoop.ubigeo.ejb.models.jpa;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.Remote;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -18,7 +18,7 @@ import org.softgreen.sistcoop.ubigeo.ejb.models.jpa.entities.CountryEntity;
 
 @Named
 @Stateless
-@Remote(CountryProvider.class)
+@Local(CountryProvider.class)
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class JpaCountryProvider implements CountryProvider {
 

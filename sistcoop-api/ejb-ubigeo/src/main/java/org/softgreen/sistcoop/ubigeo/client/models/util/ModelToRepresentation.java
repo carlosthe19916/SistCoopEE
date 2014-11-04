@@ -1,7 +1,5 @@
 package org.softgreen.sistcoop.ubigeo.client.models.util;
 
-import javax.ejb.Stateless;
-
 import org.softgreen.sistcoop.ubigeo.client.models.CountryModel;
 import org.softgreen.sistcoop.ubigeo.client.models.DepartamentoModel;
 import org.softgreen.sistcoop.ubigeo.client.models.DistritoModel;
@@ -15,7 +13,7 @@ import org.softgreen.sistcoop.ubigeo.client.representations.idm.ProvinciaReprese
  * @author <a href="mailto:bill@burkecentral.com">Bill Burke</a>
  * @version $Revision: 1 $
  */
-@Stateless
+
 public class ModelToRepresentation {
 
 	public static CountryRepresentation toRepresentation(CountryModel model) {
