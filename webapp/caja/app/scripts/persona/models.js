@@ -4,25 +4,45 @@
         .config(function(RestangularProvider) {
             RestangularProvider.setBaseUrl('http://localhost:8080/restapi-persona/rest/v1');
 
-            RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
+           RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
                 var extractedData;
-                if (operation === "getList") {
+                if(data){
                     extractedData = data[Object.keys(data)[0]];
                     extractedData.meta = data.meta;
                 } else {
-                    extractedData = data.data;
+                    extractedData = data;
                 }
                 return extractedData;
             });
 
-        }).factory('EstadoCivil', function() {
-
-        }).factory('Sexo', function() {
-
-        }).factory('TipoPersona', function() {
-
-        }).factory('TipoEmpresa', function() {
-
+        }).factory('EstadoCivil', function(Restangular) {
+            var url = "estadosCiviles";
+            return {
+                $search: function(queryParams){
+                    return Restangular.all(url).getList(queryParams).$object;
+                }
+            };
+        }).factory('Sexo', function(Restangular) {
+            var url = "sexos";
+            return {
+                $search: function(queryParams){
+                    return Restangular.all(url).getList(queryParams).$object;
+                }
+            };
+        }).factory('TipoPersona', function(Restangular) {
+            var url = "tiposPersona";
+            return {
+                $search: function(queryParams){
+                    return Restangular.all(url).getList(queryParams).$object;
+                }
+            };
+        }).factory('TipoEmpresa', function(Restangular) {
+            var url = "tiposEmpresa";
+            return {
+                $search: function(queryParams){
+                    return Restangular.all(url).getList(queryParams).$object;
+                }
+            };
         }).factory('TipoDocumento', function(Restangular) {
             var url = "tiposDocumento";
             return {
@@ -38,7 +58,7 @@
             };
         }).factory('PersonaJuridica', function(Restangular) {
             var url = "personas/juridicas";
-            var _PersonaNatural = Restangular.extendModel(url, function(model) {
+            var _PersonaJuridica = Restangular.extendModel(url, function(model) {
                 model.getFullName = function() {
                     return this.apellidoPaterno + this.apellidoMaterno + this.nombres;
                 };
@@ -61,8 +81,16 @@
             });
 
             return {
+                $build: function(){
+                    return {
+
+                    }
+                },
                 $search: function(queryParams){
                     return Restangular.all(url).getList(queryParams).$object;
+                },
+                $findByTipoNumeroDocumento: function(tipoDocumento, numeroDocumento){
+                    return Restangular.one(url+'/buscar').get({tipoDocumento: tipoDocumento, numeroDocumento: numeroDocumento}).$object;
                 }
             };
         });
