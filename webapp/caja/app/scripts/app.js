@@ -19,6 +19,8 @@ var module = angular.module('sistcoop', [
     'ngMessages',
 
     'persona',
+    'common.controllers',
+    'common.directives',
 
     'ui.bootstrap',
     'ui.router',

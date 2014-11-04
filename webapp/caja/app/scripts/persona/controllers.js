@@ -6,21 +6,23 @@
 (function(window, angular, undefined) {'use strict';
 
     angular.module('persona.controllers', [])
-        .controller('CrearPersonaNaturalController', function($scope, Country, Departamento, Sexo, EstadoCivil, PersonaNatural){
+        .controller('CrearPersonaNaturalController', function($scope, Sexo, EstadoCivil, PersonaNatural, TipoDocumento){
 
             /*Datos de la vista*/
             $scope.view = {
-                personaNatural: PersonaNatural.$find(2)
+                personaNatural: PersonaNatural.$build()
             };
 
             /*combos*/
             $scope.combo = {
-                pais: Country.$search(),
+                pais: undefined,
+                tipoDocumento: TipoDocumento.$search({tipoPersona: 'natural'}),
                 sexo: Sexo.$search(),
                 estadoCivil: EstadoCivil.$search()
             };
             $scope.combo.selected = {
                 pais: undefined,
+                tipoDocumento: undefined,
                 sexo: undefined,
                 estadoCivil: undefined
             };
@@ -34,7 +36,7 @@
 
             /*Operacion principal*/
             $scope.crearTransaccion = function(){
-                if ($scope.formCrearPersonanatural.$valid) {
+                if ($scope.form.$valid) {
 
                     var aa = PersonaNatural.$find(1);
 
@@ -48,6 +50,22 @@
                     $scope.view.personaNatural.estadoCivil = $scope.combo.selected.estadoCivil ? $scope.combo.selected.estadoCivil.denominacion : null;
 
                     $scope.view.personaNatural.$save();
+                }
+            };
+
+            /*Verificar persona*/
+            $scope.check = function($event){
+                if(!angular.isUndefined($event))
+                    $event.preventDefault();
+                if(!angular.isUndefined($scope.$scope.combo.selected.tipoDocumento) && !angular.isUndefined($scope.view.personaNatural.numeroDocumento)){
+                    var result = PersonaNatural.$single(personaConfig.urlPrefix + '/personas/naturales/buscar').$fetch({tipoDocumento:$scope.tipoDocumento, numeroDocumento: $scope.numeroDocumento});
+                    result.$then(function(data) {
+                        if(!data.$response.data){
+                            Notifications.info("Documento de identidad disponible.");
+                        } else {
+                            Notifications.warn("Documento de identidad no disponible.");
+                        }
+                    });
                 }
             };
 
