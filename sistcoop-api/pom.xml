@@ -34,6 +34,7 @@
 		<module>ejb-organizacion</module>
 		<module>ejb-socio</module>
 		<module>restapi-persona</module>
+		<module>restapi-ubigeo</module>
 	</modules>
 
 	<properties>
@@ -108,6 +109,15 @@
 			<dependency>
 				<groupId>softgreen.sistcoop</groupId>
 				<artifactId>restapi-persona</artifactId>
+				<version>${project.version}</version>
+				<type>war</type>
+				<scope>compile</scope>
+			</dependency>
+			<!-- Define the version of the WAR so that we don't need to repeat ourselves 
+				in every module -->
+			<dependency>
+				<groupId>softgreen.sistcoop</groupId>
+				<artifactId>restapi-ubigeo</artifactId>
 				<version>${project.version}</version>
 				<type>war</type>
 				<scope>compile</scope>

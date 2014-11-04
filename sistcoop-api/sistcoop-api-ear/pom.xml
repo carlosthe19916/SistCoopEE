@@ -41,6 +41,11 @@
 			<artifactId>restapi-persona</artifactId>
 			<type>war</type>
 		</dependency>
+		<dependency>
+			<groupId>softgreen.sistcoop</groupId>
+			<artifactId>restapi-ubigeo</artifactId>
+			<type>war</type>
+		</dependency>
 
 		<dependency>
 			<groupId>softgreen.sistcoop</groupId>
