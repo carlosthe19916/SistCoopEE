@@ -183,14 +183,15 @@ module.config(function(uiSelectConfig) {
 });
 
 module.config(function(blockUIConfig) {
-    blockUIConfig.template = ''+
-        +'<div class="row">'
-        +'<div class="col-md-2 col-md-offset-6" style="top: 2.9em; position: fixed; z-index: 1500; text-align: center;">'
-        +'<div class="alert alert-warning">'
-        +'<span><strong>Cargando...</strong></span>'
-        +'</div>'
-        +'</div>'
-        +'</div>';
+    blockUIConfig.message = 'Cargando...';
+    blockUIConfig.template = '' +
+        '<div class="row">' +
+        '<div class="col-md-2 col-md-offset-6" style="top: 2.9em; position: fixed; z-index: 1500; text-align: center;">' +
+        '<div class="alert alert-warning">' +
+        '<span><strong>{{ state.message}}</strong></span>' +
+        '</div>' +
+        '</div>' +
+        '</div>';
 });
 
 module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {

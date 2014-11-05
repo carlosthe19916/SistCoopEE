@@ -1,5 +1,5 @@
 <div ng-controller="BuscarController">
-    <div class="row" ng-controller="BuscarPersonaController">
+    <div class="row">
         <div class="col-sm-12" ng-controller="BuscarPersonaJuridicaController as ctrl">
             <div class="form-group">
                 <form name="ctrl.form" ng-submit="search()" novalidate>
@@ -15,13 +15,13 @@
                             </div>
                             <div class="col-sm-6" sg-data-keep="{module: 'PERSONA', permission: 'CREATE'}" style="text-align: right;">
                                 <div class="form-group" style="margin-bottom: 0px;">
-                                    <button type="button" ng-click="viewActions.nuevo()" class="btn btn-primary">Nuevo</button>
+                                    <button type="button" ng-click="nuevo()" class="btn btn-primary">Nuevo</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </form>
-                <div ui-grid="gridOptions" class="grid"></div>
+                <div ui-grid="gridOptions" external-scopes="gridActions" ui-grid-selection class="grid"></div>
             </div>
 
         </div>
