@@ -23,4 +23,13 @@ module.controller('GlobalCtrl', function($scope, $timeout, $http, Auth, $locatio
         Notifications.error("Usuario no pudo ser cargado");
     });*/
 
+    $scope.control = {
+        block: false
+    };
+    $scope.blockControl = function(){
+        $scope.control.block = true;
+    };
+    $scope.unblockControl = function(){
+        $scope.control.block = false;
+    };
 });

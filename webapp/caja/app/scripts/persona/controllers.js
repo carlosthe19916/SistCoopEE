@@ -37,6 +37,7 @@
             /*Operacion principal*/
             $scope.crearTransaccion = function(){
                 if ($scope.form.$valid) {
+                    $scope.blockControl();
                     var save = function(){
                         $scope.view.personaNatural.codigoPais = $scope.combo.selected.pais ? $scope.combo.selected.pais.alpha3Code: null;
                         $scope.view.personaNatural.tipoDocumento = $scope.combo.selected.tipoDocumento ? $scope.combo.selected.tipoDocumento.abreviatura: null;
@@ -44,6 +45,7 @@
                         $scope.view.personaNatural.estadoCivil = $scope.combo.selected.estadoCivil ? $scope.combo.selected.estadoCivil.denominacion : null;
                         $scope.view.personaNatural.$save().then(
                             function(data){
+                                $scope.unblockControl();
                                 Notifications.success("Persona creada");
                                 $state.go('app.administracion.buscarPersonaNatural');
                             },
@@ -107,7 +109,7 @@
                 ]
             };
             $scope.removeColumn = function(){
-                if(!$scope.activeProfile.hasPermission('persona', 'update')){
+                if(!$scope.activeProfile.hasPermission('PERSONA', 'UPDATE')){
                     $scope.gridOptions.columnDefs.splice($scope.gridOptions.columnDefs.length - 1, 1);
                 }
             };

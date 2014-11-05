@@ -31,7 +31,8 @@ var module = angular.module('sistcoop', [
     'ui.grid',
     'ui.grid.edit',
     'ui.grid.selection',
-    'blockUI'
+    'blockUI',
+    'angular-ladda'
 ]);
 
 var resourceRequests = 0;
@@ -85,45 +86,92 @@ module.factory('UbigeoRestangular', function(Restangular) {
 module.config(['$provide', function($provide){
     var profile = angular.copy(window.auth.authz);
 
+    //modulesNames = ['PERSONA', 'UBIGEO'];
+    //operations = ['SELECT', 'CREATE', 'UPDATE', 'DELETE'];
+
     var apiModules = [
         {
-            name: 'persona',
+            module: 'PERSONA',
             roles: {
-                available: ['ADMIN', 'USER', 'PUBLIC'],
+                available: [
+                    {rol: 'PUBLIC', permissions: ['SELECT']},
+                    {rol: 'USER', permissions: ['SELECT', 'CREATE']},
+                    {rol: 'ADMIN', permissions: ['SELECT', 'CREATE', 'UPDATE', 'DELETE']}
+                ],
                 assigned: profile.resourceAccess.PERSONA_RESTAPI === undefined ? [] : profile.resourceAccess.PERSONA_RESTAPI.roles
             }
         },
-        {name: 'ubigeo'}
+        {
+            module: 'UBIGEO',
+            roles: {
+                available: [
+                    {rol: 'PUBLIC', permissions: ['SELECT']},
+                    {rol: 'USER', permissions: ['SELECT', 'CREATE']},
+                    {rol: 'ADMIN', permissions: ['SELECT', 'CREATE', 'UPDATE', 'DELETE']}
+                ],
+                assigned: profile.resourceAccess.UBIGEO_RESTAPI === undefined ? [] : profile.resourceAccess.UBIGEO_RESTAPI.roles
+            }
+        }
     ];
 
-    var operations = ['select', 'create', 'update', 'delete'];
+    var getModule = function(moduleName){
+        for(var i = 0; i< apiModules.length; i++){
+            if(apiModules[i].module == moduleName.toUpperCase())
+                return apiModules[i];
+        }
+        return undefined;
+    };
 
-    profile.hasRole = function(module, rol){
-        if(module == 'PERSONA'){
-            var a = apiModules[0].roles.assigned.indexOf(rol) >= 0;
-            console.log(a);
-            return a;
+    var getRolesAssigned = function(moduleName){
+        var module = getModule(moduleName);
+        var result = [];
+        for(var i=0;i<module.roles.available.length;i++){
+            if(module.roles.assigned.indexOf(module.roles.available[i].rol) != -1)
+                result.push(module.roles.available[i]);
+        }
+        return result;
+    };
+
+    profile.hasRole = function(moduleName, roles){
+        var module = getModule(moduleName);
+        if(Array.isArray(roles)){
+            var result = true;
+            for(var i = 0; i< roles.length; i++){
+                if(module.roles.assigned.indexOf(roles[i]) < 0){
+                    result = false;
+                    break;
+                }
+            }
+            return result;
+        } else {
+            roles = roles.toUpperCase();
+            return module.roles.assigned.indexOf(roles) >= 0;
         }
     };
 
-    profile.hasPermission = function(module, operation){
-        if(module.toLowerCase() == 'persona'){
-            if(operation.toLowerCase() == operations[0])
-                return apiModules[0].roles.assigned.indexOf('PUBLIC') >= 0;
-            else if(operation.toLowerCase() == operations[1])
-                return apiModules[0].roles.assigned.indexOf('USER') >= 0;
-            else if(operation.toLowerCase() == operations[2])
-                return apiModules[0].roles.assigned.indexOf('ADMIN') >= 0;
-            else if(operation.toLowerCase() == operations[3])
-                return apiModules[0].roles.assigned.indexOf('ADMIN') >= 0;
-            else
-                return false;
-        } else {
-            if(module.toLowerCase() == 'ubigeo'){
-
-            } else {
-                return false;
+    profile.hasPermission = function(moduleName, operations){
+        var rolesAssigned = getRolesAssigned(moduleName);
+        if(Array.isArray(operations)){
+            var band = [];
+            for(var i = 0; i< rolesAssigned.length; i++){
+                for(var j = 0; j< operations.length; i++){
+                    if(rolesAssigned[i].permissions.indexOf(operations[j]) > -1){
+                        band.push(operations[j]);
+                        break;
+                    }
+                }
             }
+            return band.length == operations.length;
+        } else {
+            operations = operations.toUpperCase();
+            var result = false;
+            for(var i = 0; i< rolesAssigned.length; i++){
+                if(rolesAssigned[i].permissions.indexOf(operations) > -1){
+                    result = true;
+                    break;
+                }
+            }
+            return result;
         }
     };
 
@@ -143,6 +191,130 @@ module.config(function(blockUIConfig) {
         +'</div>'
         +'</div>'
         +'</div>';
+});
+
+module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+
+    $urlRouterProvider.otherwise('/home');
+
+    $stateProvider
+        .state('home', {
+            url: '/home',
+            templateUrl: '../../views/themplate/themplate01.html'
+        })
+        .state('app', {
+            abstract: true,
+            url: '/app',
+            templateUrl: '../../views/themplate/themplate02.html'
+        })
+
+        .state('app.administracion', {
+            url: "/administracion",
+            views: {
+                "viewMenu":{
+                    controller: function($scope){
+                        $scope.menus = [
+                            {'name':'Persona Natural', 'state': '', header: true},
+                            {'name':'Nuevo', 'state': 'app.administracion.crearPersonaNatural', header: false},
+                            {'name':'Buscar', 'state': 'app.administracion.buscarPersonaNatural', header: false},
+
+                            {'name':'Persona Jurídica', 'state': '', header: true},
+                            {'name':'Nuevo', 'state': 'app.administracion.crearPersonaJuridica', header: false},
+                            {'name':'Buscar', 'state': 'app.administracion.buscarPersonaJuridica', header: false}
+                        ];
+                    }
+                },
+                "viewContent":{
+                    templateUrl: '../../views/themplate/themplate02-content.html',
+                    controller: function($scope){
+                        $scope.themplate = {};
+                        $scope.themplate.header = 'Administracion';
+                    }
+                }
+            }
+        })
+
+        .state('app.administracion.buscarPersonaNatural', {
+            url: '/persona/natural/buscar',
+            templateUrl: "../../views/persona/natural/buscarPersonaNatural.html",
+            controller: function($scope) {
+                $scope.themplate.header = 'Buscar persona natural';
+            },
+            module: 'PERSONA',
+            roles: ['PUBLIC']
+        })
+        .state('app.administracion.crearPersonaNatural', {
+            url: "/persona/natural?documento&numero",
+            templateUrl: "../../views/persona/natural/crearPersonaNatural.html",
+            controller: function($scope, $stateParams) {
+                $scope.themplate.header = 'Crear persona natural';
+
+                $scope.params = {};
+                $scope.params.tipoDocumento = $stateParams.documento;
+                $scope.params.numeroDocumento = $stateParams.numero;
+            },
+            module: 'PERSONA',
+            roles: ['USER']
+        })
+        .state('app.administracion.editarPersonaNatural', {
+            url: "/persona/natural/:id",
+            templateUrl: "../../views/persona/natural/editarPersonaNatural.html",
+            controller: function($scope, $stateParams) {
+                $scope.themplate.header = 'Editar persona natural';
+
+                $scope.params = {};
+                $scope.params.id = $stateParams.id;
+            },
+            module: 'PERSONA',
+            roles: ['ADMIN']
+        })
+
+        .state('app.administracion.buscarPersonaJuridica', {
+            url: '/persona/juridica/buscar',
+            templateUrl: "../../views/persona/juridica/buscarPersonaJuridica.html",
+            controller: function($scope, $stateParams) {
+                $scope.themplate.header = 'Buscar persona juridica';
+            },
+            module: 'PERSONA',
+            roles: ['PUBLIC']
+        })
+        .state('app.administracion.crearPersonaJuridica', {
+            url: "/persona/juridica?documento&numero",
+            templateUrl: "../../views/persona/juridica/crearPersonaJuridica.html",
+            controller: function($scope, $stateParams) {
+                $scope.themplate.header = 'Crear persona juridica';
+
+                $scope.params = {};
+                $scope.params.tipoDocumento = $stateParams.documento;
+                $scope.params.numeroDocumento = $stateParams.numero;
+            },
+            module: 'PERSONA',
+            roles: ['USER']
+        })
+        .state('app.administracion.editarPersonaJuridica', {
+            url: "/persona/juridica/:id",
+            templateUrl: "../../views/persona/juridica/editarPersonaJuridica.html",
+            controller: function($scope, $stateParams) {
+                $scope.themplate.header = 'Editar persona juridica';
+
+                $scope.params = {};
+                $scope.params.id = $stateParams.id;
+            },
+            module: 'PERSONA',
+            roles: ['ADMIN']
+        });
+} ]);
+
+module.run(function($rootScope, activeProfile) {
+    $rootScope.$on('$stateChangeStart',
+        function(event, toState, toParams, fromState, fromParams){
+            if(toState.module && toState.roles){
+                if(!activeProfile.hasRole(toState.module, toState.roles)){
+                    event.preventDefault();
+                    alert('State unauthorized.');
+                }
+            }
+        })
 });
 
 module.config(function($httpProvider) {
