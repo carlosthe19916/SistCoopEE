@@ -98,6 +98,14 @@ module.config(['$provide', function($provide){
 
     var operations = ['select', 'create', 'update', 'delete'];
 
+    profile.hasRole = function(module, rol){
+        if(module == 'PERSONA'){
+            var a = apiModules[0].roles.assigned.indexOf(rol) >= 0;
+            console.log(a);
+            return a;
+        }
+    };
+
     profile.hasPermission = function(module, operation){
         if(module.toLowerCase() == 'persona'){
             if(operation.toLowerCase() == operations[0])

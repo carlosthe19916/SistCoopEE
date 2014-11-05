@@ -68,9 +68,11 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
         .state('app.administracion.buscarPersonaNatural', {
             url: '/persona/natural/buscar',
             templateUrl: "../../views/persona/natural/buscarPersonaNatural.html",
-            controller: function($scope, $stateParams) {
+            controller: function($scope) {
                 $scope.themplate.header = 'Buscar persona natural';
-            }
+            },
+            module: 'PERSONA',
+            roles: ['PUBLIC']
         })
         .state('app.administracion.crearPersonaNatural', {
             url: "/persona/natural?documento&numero",
@@ -81,7 +83,9 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
                 $scope.params = {};
                 $scope.params.tipoDocumento = $stateParams.documento;
                 $scope.params.numeroDocumento = $stateParams.numero;
-            }
+            },
+            module: 'PERSONA',
+            roles: ['USER']
         })
         .state('app.administracion.editarPersonaNatural', {
             url: "/persona/natural/:id",
@@ -91,7 +95,9 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
 
                 $scope.params = {};
                 $scope.params.id = $stateParams.id;
-            }
+            },
+            module: 'PERSONA',
+            roles: ['ADMIN']
         })
 
         .state('app.administracion.buscarPersonaJuridica', {
@@ -99,7 +105,9 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
             templateUrl: "../../views/persona/juridica/buscarPersonaJuridica.html",
             controller: function($scope, $stateParams) {
                 $scope.themplate.header = 'Buscar persona juridica';
-            }
+            },
+            module: 'PERSONA',
+            roles: ['PUBLIC']
         })
         .state('app.administracion.crearPersonaJuridica', {
             url: "/persona/juridica?documento&numero",
@@ -110,17 +118,30 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
                 $scope.params = {};
                 $scope.params.tipoDocumento = $stateParams.documento;
                 $scope.params.numeroDocumento = $stateParams.numero;
-            }
+            },
+            module: 'PERSONA',
+            roles: ['USER']
         })
         .state('app.administracion.editarPersonaJuridica', {
             url: "/persona/juridica/:id",
-            views: {
-                "viewContent":{
-                    templateUrl: "../../views/persona/juridica/editarPersonaJuridica.html",
-                    controller: function($scope, $stateParams) {
-                        $scope.id = $stateParams.id;
-                    }
-                }
-            }
+            templateUrl: "../../views/persona/juridica/editarPersonaJuridica.html",
+            controller: function($scope, $stateParams) {
+                $scope.themplate.header = 'Editar persona juridica';
+
+                $scope.params = {};
+                $scope.params.id = $stateParams.id;
+            },
+            module: 'PERSONA',
+            roles: ['ADMIN']
         });
 } ]);
+
+module.run(function($rootScope, activeProfile) {
+    $rootScope.$on('$stateChangeStart',
+        function(event, toState, toParams, fromState, fromParams){
+            if(!activeProfile.hasRole(toState.module, toState.roles)){
+                event.preventDefault();
+                alert('State unauthorized.');
+            }
+        })
+});
