@@ -72,6 +72,9 @@
                 $search: function(queryParams){
                     return PersonaRestangular.all(url).getList(queryParams);
                 },
+                $find: function(id){
+                    return PersonaRestangular.one(url+'/'+id).get();
+                },
                 $findByTipoNumeroDocumento: function(tipoDocumento, numeroDocumento){
                     return PersonaRestangular.one(url+'/buscar').get({tipoDocumento: tipoDocumento, numeroDocumento: numeroDocumento});
                 }

@@ -86,7 +86,7 @@
                 limit: 10
             };
         })
-        .controller('BuscarPersonaNaturalController', function($scope, $state, PersonaNatural){
+        .controller('BuscarPersonaNaturalController', function($scope, $state, Storage, PersonaNatural){
             $scope.nuevo = function(){
                 $state.go('app.administracion.crearPersonaNatural');
             };
@@ -111,6 +111,7 @@
             };
             $scope.gridActions = {
                 edit: function(row){
+                    Storage.setObject(row);
                     $state.go('app.administracion.editarPersonaNatural', {id: row.id});
                 }
             };

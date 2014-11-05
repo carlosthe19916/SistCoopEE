@@ -22,6 +22,7 @@ var module = angular.module('sistcoop', [
     'ubigeo',
     'common.controllers',
     'common.directives',
+    'common.services',
 
     'restangular',
     'ui.bootstrap',
@@ -260,11 +261,22 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
         .state('app.administracion.editarPersonaNatural', {
             url: "/persona/natural/:id",
             templateUrl: "../../views/persona/natural/editarPersonaNatural.html",
-            controller: function($scope, $stateParams) {
+            resolve: {
+                persona: function($state, $stateParams, Storage, PersonaNatural) {
+                    var savedObject = Storage.getObject();
+                    if(savedObject){
+                        return savedObject;
+                    } else {
+                        return PersonaNatural.$find($stateParams.id);
+                    }
+                }
+            },
+            controller: function($scope, $stateParams, persona) {
                 $scope.themplate.header = 'Editar persona natural';
 
                 $scope.params = {};
                 $scope.params.id = $stateParams.id;
+                $scope.params.object = persona;
             },
             module: 'PERSONA',
             roles: ['ADMIN']
