@@ -2268,32 +2268,6 @@ button.close {
   background-color: #d9d9d9 \9;
 }
 
-.breadcrumb {
-  padding: 8px 15px;
-  margin: 0 0 20px;
-  list-style: none;
-  background-color: #f5f5f5;
-  -webkit-border-radius: 2px;
-     -moz-border-radius: 2px;
-          border-radius: 2px;
-}
-
-.breadcrumb > li {
-  display: inline-block;
-  *display: inline;
-  text-shadow: 0 1px 0 #ffffff;
-  *zoom: 1;
-}
-
-.breadcrumb > li > .divider {
-  padding: 0 5px;
-  color: #ccc;
-}
-
-.breadcrumb > .active {
-  color: #999999;
-}
-
 .pager {
   margin: 20px 0;
   text-align: center;
