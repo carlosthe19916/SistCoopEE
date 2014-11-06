@@ -102,7 +102,8 @@
 
             /*Datos de la vista*/
             $scope.view = {
-                personaNatural: undefined
+                personaNatural: undefined,
+                personaNaturalDB: undefined
             };
 
             /*combos*/
@@ -122,6 +123,7 @@
             /*Cargar parametros de URL*/
             $scope.loadParams = function(){
                 $scope.view.personaNatural = $scope.params.object;
+                $scope.view.personaNaturalDB = angular.copy($scope.params.object);
 
                 var comboPaisListener = $scope.$watch('combo.pais', function(newValue, oldValue) {
                     if($scope.combo.pais.length){

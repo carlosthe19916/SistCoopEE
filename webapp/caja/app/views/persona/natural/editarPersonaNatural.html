@@ -18,10 +18,22 @@
                                 <img src="../../images/photo.png" alt="..." class="img-circle">
                             </div>
                             <div class="col-sm-8">
-                                <p>Nacionalidad: <strong>PERU</strong></p>
-                                <p>Documento: <strong>DNI:46779354</strong></p>
-                                <p>Apellidos: <strong>Feria Vila</strong></p>
-                                <p>Nombres: <strong>Carlos Esteban</strong></p>
+                                <p>
+                                    Cod. pais:&nbsp;
+                                    <strong ng-bind="view.personaNaturalDB.codigoPais"></strong>
+                                </p>
+                                <p>Documento:&nbsp;
+                                    <strong ng-bind="view.personaNaturalDB.tipoDocumento"></strong>
+                                    <strong>&nbsp;-&nbsp;</strong>
+                                    <strong ng-bind="view.personaNaturalDB.numeroDocumento"></strong>
+                                </p>
+                                <p>Apellidos:&nbsp;
+                                    <strong ng-bind="view.personaNaturalDB.apellidoPaterno"></strong>&nbsp;
+                                    <strong ng-bind="view.personaNaturalDB.apellidoMaterno"></strong>
+                                </p>
+                                <p>Nombres:&nbsp;
+                                    <strong ng-bind="view.personaNaturalDB.nombres"></strong>
+                                </p>
                             </div>
                         </div>
                         <div class="row">

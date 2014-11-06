@@ -334,11 +334,11 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
         });
 } ]);
 
-module.run(function(Restangular) {
+module.run(function(Restangular, Notifications) {
     Restangular.setErrorInterceptor(function(response, deferred, responseHandler) {
 
         if(response.status === 0) {
-            console.log(response);
+            Notifications.error('Al parecer no se pudo realizar la conexion al sistema, actualice la pagina presionando F5.');
             return false; // error handled
         }
         if(response.status === 403) {
