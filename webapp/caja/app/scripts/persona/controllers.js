@@ -78,7 +78,27 @@
             };
 
         })
-        .controller('EditarPersonaNaturalController', function($scope, $state, Pais, Sexo, EstadoCivil, PersonaNatural, TipoDocumento, Notifications){
+        .controller('EditarPersonaNaturalController', function($scope, $state, $modal, Pais, Sexo, EstadoCivil, PersonaNatural, TipoDocumento, Notifications){
+
+            $scope.openModal = function (size) {
+
+                var modalInstance = $modal.open({
+                    templateUrl: '../../views/persona/natural/subirFoto.html',
+                    //controller: 'ModalInstanceCtrl',
+                    size: 'lg',
+                    resolve: {
+                        items: function () {
+                            return [];
+                        }
+                    }
+                });
+
+                modalInstance.result.then(function (selectedItem) {
+                    $scope.selected = selectedItem;
+                }, function () {
+
+                });
+            };
 
             /*Datos de la vista*/
             $scope.view = {
@@ -102,7 +122,54 @@
             /*Cargar parametros de URL*/
             $scope.loadParams = function(){
                 $scope.view.personaNatural = $scope.params.object;
-                console.log($scope.params.object);
+
+                var comboPaisListener = $scope.$watch('combo.pais', function(newValue, oldValue) {
+                    if($scope.combo.pais.length){
+                        for(var i=0;i<$scope.combo.pais.length;i++){
+                            if($scope.combo.pais[i].alpha3Code == $scope.params.object.codigoPais){
+                                $scope.combo.selected.pais = $scope.combo.pais[i];
+                                comboPaisListener();
+                                break;
+                            }
+                        }
+                    }
+                }, true);
+
+                var comboTipoDocumentoListener = $scope.$watch('combo.tipoDocumento', function(newValue, oldValue) {
+                    if($scope.combo.tipoDocumento.length){
+                        for(var i=0;i<$scope.combo.tipoDocumento.length;i++){
+                            if($scope.combo.tipoDocumento[i].abreviatura == $scope.params.object.tipoDocumento){
+                                $scope.combo.selected.tipoDocumento = $scope.combo.tipoDocumento[i];
+                                comboTipoDocumentoListener();
+                                break;
+                            }
+                        }
+                    }
+                }, true);
+
+                var comboSexoListener = $scope.$watch('combo.sexo', function(newValue, oldValue) {
+                    if($scope.combo.sexo.length){
+                        for(var i=0;i<$scope.combo.sexo.length;i++){
+                            if($scope.combo.sexo[i].denominacion == $scope.params.object.sexo){
+                                $scope.combo.selected.sexo = $scope.combo.sexo[i];
+                                comboSexoListener();
+                                break;
+                            }
+                        }
+                    }
+                }, true);
+
+                var comboEstadoCivilListener = $scope.$watch('combo.estadoCivil', function(newValue, oldValue) {
+                    if($scope.combo.estadoCivil.length){
+                        for(var i=0;i<$scope.combo.estadoCivil.length;i++){
+                            if($scope.combo.estadoCivil[i].denominacion == $scope.params.object.estadoCivil){
+                                $scope.combo.selected.estadoCivil = $scope.combo.estadoCivil[i];
+                                comboEstadoCivilListener();
+                                break;
+                            }
+                        }
+                    }
+                }, true);
             };
             $scope.loadParams();
 

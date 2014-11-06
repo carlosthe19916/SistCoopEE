@@ -26,7 +26,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-4">
-                                <button type="button" class="btn btn-link" style="font-size: 14px;">Cambiar foto</button>
+                                <button type="button" ng-click="openModal()" class="btn btn-link" style="font-size: 14px;">Cambiar foto</button>
                             </div>
                         </div>
                     </div>
@@ -38,6 +38,7 @@
                 </div>
                 <div class="card-actions">
                     <button type="button" class="btn btn-default">Editar</button>
+                    <button type="button" class="btn btn-danger" style="float: right;">Eliminar</button>
                 </div>
             </div>
         </div>
@@ -45,7 +46,9 @@
             <div class="card" style="border-top-width: 1px;">
                 <h3 class="card-heading simple">
                     Datos adicionales
-                    <button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <button type="button" class="btn btn-link" tooltip-placement="bottom" tooltip="Datos adicionales de la persona." tooltip-trigger="mouseenter" style="color: #999;padding: 0;float: right;">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                    </button>
                 </h3>
                 <div class="card-body">
                     <div style="border-bottom: 1px solid #e5e5e5;margin-bottom: 20px;">
