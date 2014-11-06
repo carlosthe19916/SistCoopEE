@@ -70,6 +70,22 @@ module.config(function(RestangularProvider) {
         }
         return extractedData;
     });
+    RestangularProvider.setResponseExtractor(function(response) {
+        var newResponse = angular.copy(response);
+        if (angular.isArray(response)) {
+            angular.forEach(newResponse, function(value, key) {
+                newResponse[key].originalElement = angular.copy(value);
+            });
+        } else {
+            newResponse.originalElement = angular.copy(response);
+            angular.forEach(response, function(value, key) {
+                var k = key.replace('@','');
+                this[k.toString()] = value;
+                delete this[key];
+            }, newResponse);
+        }
+        return newResponse;
+    });
 });
 
 module.factory('PersonaRestangular', function(Restangular) {

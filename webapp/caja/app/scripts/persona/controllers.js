@@ -78,7 +78,78 @@
             };
 
         })
+        .controller('EditarPersonaNaturalController', function($scope, $state, Pais, Sexo, EstadoCivil, PersonaNatural, TipoDocumento, Notifications){
 
+            /*Datos de la vista*/
+            $scope.view = {
+                personaNatural: undefined
+            };
+
+            /*combos*/
+            $scope.combo = {
+                pais: Pais.$search().$object,
+                tipoDocumento: TipoDocumento.$search({tipoPersona: 'natural'}).$object,
+                sexo: Sexo.$search().$object,
+                estadoCivil: EstadoCivil.$search().$object
+            };
+            $scope.combo.selected = {
+                pais: undefined,
+                tipoDocumento: undefined,
+                sexo: undefined,
+                estadoCivil: undefined
+            };
+
+            /*Cargar parametros de URL*/
+            $scope.loadParams = function(){
+                $scope.view.personaNatural = $scope.params.object;
+                console.log($scope.params.object);
+            };
+            $scope.loadParams();
+
+            /*Operacion principal*/
+            $scope.crearTransaccion = function(){
+                if ($scope.form.$valid) {
+                    $scope.blockControl();
+                    var save = function(){
+                        $scope.view.personaNatural.codigoPais = $scope.combo.selected.pais ? $scope.combo.selected.pais.alpha3Code: null;
+                        $scope.view.personaNatural.tipoDocumento = $scope.combo.selected.tipoDocumento ? $scope.combo.selected.tipoDocumento.abreviatura: null;
+                        $scope.view.personaNatural.sexo = $scope.combo.selected.sexo ? $scope.combo.selected.sexo.denominacion : null;
+                        $scope.view.personaNatural.estadoCivil = $scope.combo.selected.estadoCivil ? $scope.combo.selected.estadoCivil.denominacion : null;
+                        $scope.view.personaNatural.$save().then(
+                            function(data){
+                                $scope.unblockControl();
+                                Notifications.success("Persona creada");
+                                $state.go('app.administracion.buscarPersonaNatural');
+                            },
+                            function error(error){
+                                Notifications.error(error.data+".");
+                            }
+                        );
+                    };
+                    PersonaNatural.$findByTipoNumeroDocumento($scope.combo.selected.tipoDocumento.abreviatura, $scope.view.personaNatural.numeroDocumento).then(function(data){
+                        if(data)
+                            Notifications.error("Documento de identidad no disponible.");
+                        else
+                            save();
+                    });
+                }
+            };
+
+            /*Verificar persona*/
+            $scope.check = function($event){
+                if(!angular.isUndefined($event))
+                    $event.preventDefault();
+                if(!angular.isUndefined($scope.combo.selected.tipoDocumento) && !angular.isUndefined($scope.view.personaNatural.numeroDocumento)){
+                    PersonaNatural.$findByTipoNumeroDocumento($scope.combo.selected.tipoDocumento.abreviatura, $scope.view.personaNatural.numeroDocumento).then(function(data){
+                        if(!data)
+                            Notifications.info("Documento de identidad disponible.");
+                        else
+                            Notifications.warn("Documento de identidad no disponible.");
+                    });
+                }
+            };
+
+        })
         .controller('BuscarController', function($scope){
             $scope.filterOptions = {
                 filterText: undefined,
