@@ -318,6 +318,24 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
         });
 } ]);
 
+module.run(function(Restangular) {
+    Restangular.setErrorInterceptor(function(response, deferred, responseHandler) {
+
+        if(response.status === 0) {
+            console.log(response);
+            return false; // error handled
+        }
+        if(response.status === 403) {
+            return false; // error handled
+        }
+        if(response.status === 405) {
+            alert("405");
+            return false; // error handled
+        }
+        return true; // error not handled
+    });
+});
+
 module.run(function($rootScope, activeProfile) {
     $rootScope.$on('$stateChangeStart',
         function(event, toState, toParams, fromState, fromParams){
