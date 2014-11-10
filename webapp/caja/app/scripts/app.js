@@ -60,6 +60,20 @@ module.factory('authInterceptor', function($q, Auth) {
 
 module.config(function(RestangularProvider) {
     RestangularProvider.setBaseUrl('http://localhost:8080');
+
+    RestangularProvider.addFullRequestInterceptor(function(element, operation, route, url, headers, params, httpConfig) {
+        if(operation == 'post' || operation == 'put'){
+            var newElement;
+            if(element){
+                newElement = element[Object.keys(element)[0]];
+                angular.forEach(newElement, function(value, key) {
+                    this['@' + key.toString()] = value !== null ? value: undefined;
+                    delete this[key];
+                }, newElement);
+            }
+        }
+    });
+
     RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
         var extractedData;
         if(data){
@@ -77,12 +91,14 @@ module.config(function(RestangularProvider) {
                 newResponse[key].originalElement = angular.copy(value);
             });
         } else {
-            newResponse.originalElement = angular.copy(response);
-            angular.forEach(response, function(value, key) {
-                var k = key.replace('@','');
-                this[k.toString()] = value;
-                delete this[key];
-            }, newResponse);
+            if(response){
+                //newResponse.originalElement = angular.copy(response);
+                angular.forEach(response, function(value, key) {
+                    var k = key.replace('@','');
+                    this[k.toString()] = value;
+                    delete this[key];
+                }, newResponse);
+            }
         }
         return newResponse;
     });

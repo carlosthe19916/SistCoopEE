@@ -7,6 +7,8 @@ angular.module('common.directives', [])
                 var capitalize = function(inputValue) {
                     if(typeof inputValue === 'undefined')
                         return undefined;
+                    if(inputValue === null)
+                        return null;
                     var capitalized = inputValue.toUpperCase();
                     if(capitalized !== inputValue) {
                         modelCtrl.$setViewValue(capitalized);

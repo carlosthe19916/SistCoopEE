@@ -1,9 +1,10 @@
 package org.softgreen.sistcoop.persona.restapi.representation;
 
+
 public class SexoRepresentation {
 
-	String denominacion;
-
+	private String denominacion;
+	
 	public SexoRepresentation(String denominacion) {
 		this.denominacion = denominacion;
 	}

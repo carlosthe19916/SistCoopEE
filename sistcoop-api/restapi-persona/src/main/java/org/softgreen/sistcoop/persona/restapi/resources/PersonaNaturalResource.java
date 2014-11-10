@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -18,6 +19,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import org.jboss.resteasy.annotations.providers.jaxb.json.BadgerFish;
+import org.softgreen.sistcoop.persona.clien.enums.EstadoCivil;
+import org.softgreen.sistcoop.persona.clien.enums.Sexo;
 import org.softgreen.sistcoop.persona.client.models.PersonaNaturalModel;
 import org.softgreen.sistcoop.persona.client.models.PersonaNaturalProvider;
 import org.softgreen.sistcoop.persona.client.models.TipoDocumentoModel;
@@ -111,9 +114,28 @@ public class PersonaNaturalResource {
 	@PUT
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
-	public Response update(@PathParam("id") Long id, PersonaNaturalRepresentation personaNaturalRepresentation) {
-		// TODO Auto-generated method stub
-		return null;
+	public void update(@PathParam("id") Long id, PersonaNaturalRepresentation rep) {				
+		PersonaNaturalModel model = personaNaturalProvider.getPersonaNaturalById(id);
+		TipoDocumentoModel tipoDocumentoModel = tipoDocumentoProvider.getTipoDocumentoByAbreviatura(rep.getTipoDocumento());
+		
+		model.setCodigoPais(rep.getCodigoPais());
+		model.setTipoDocumento(tipoDocumentoModel);
+		model.setNumeroDocumento(rep.getNumeroDocumento());
+		model.setApellidoPaterno(rep.getApellidoPaterno());
+		model.setApellidoMaterno(rep.getApellidoMaterno());
+		model.setNombres(rep.getNombres());
+		model.setFechaNacimiento(rep.getFechaNacimiento());
+		model.setSexo(Sexo.valueOf(rep.getSexo().toUpperCase()));
+		model.setEstadoCivil(EstadoCivil.valueOf(rep.getEstadoCivil().toUpperCase()));
+		
+		model.setUbigeo(rep.getUbigeo());
+		model.setDireccion(rep.getDireccion());
+		model.setReferencia(rep.getReferencia());
+		model.setTelefono(rep.getTelefono());
+		model.setCelular(rep.getCelular());
+		model.setEmail(rep.getEmail());
+		
+		model.commit();		
 	}
 
 	@DELETE

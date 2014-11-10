@@ -47,7 +47,7 @@
                             function(data){
                                 $scope.unblockControl();
                                 Notifications.success("Persona creada");
-                                $state.go('app.administracion.buscarPersonaNatural');
+                                $state.go('app.administracion.editarPersonaNatural');
                             },
                             function error(error){
                                 Notifications.error(error.data+".");
@@ -187,19 +187,22 @@
                         $scope.view.personaNatural.$save().then(
                             function(data){
                                 $scope.unblockControl();
-                                Notifications.success("Persona creada");
-                                $state.go('app.administracion.buscarPersonaNatural');
+                                Notifications.success("Persona actualizada");
                             },
                             function error(error){
+                                $scope.unblockControl();
                                 Notifications.error(error.data+".");
                             }
                         );
                     };
                     PersonaNatural.$findByTipoNumeroDocumento($scope.combo.selected.tipoDocumento.abreviatura, $scope.view.personaNatural.numeroDocumento).then(function(data){
-                        if(data)
+                        if(data && data.id != $scope.view.personaNatural.id){
                             Notifications.error("Documento de identidad no disponible.");
-                        else
+                            $scope.unblockControl();
+                        }
+                        else {
                             save();
+                        }
                     });
                 }
             };
@@ -227,6 +230,7 @@
             };
         })
         .controller('BuscarPersonaNaturalController', function($scope, $state, Storage, PersonaNatural){
+
             $scope.nuevo = function(){
                 $state.go('app.administracion.crearPersonaNatural');
             };

@@ -51,7 +51,24 @@
                 }
             };
         }).factory('PersonaNatural', function(PersonaRestangular) {
+
             var url = "personas/naturales";
+
+            PersonaRestangular.extendModel(url, function(obj) {
+                obj.$save = function() {
+                    if(!this.id){
+                        return PersonaRestangular.all(url).post({'personaNatural': this});
+                    }
+                    else {
+                        return PersonaRestangular.one(url, this.id).customPUT({'personaNatural': PersonaRestangular.copy(this)},'',{},{});
+                    }
+                };
+                obj.fullName = function(){
+                    return this.apellidoPaterno+' '+this.apellidoMaterno+', '+this.nombres;
+                };
+                return obj;
+            });
+
             return {
                 $build: function(){
                     return {
@@ -73,7 +90,7 @@
                     return PersonaRestangular.all(url).getList(queryParams);
                 },
                 $find: function(id){
-                    return PersonaRestangular.one(url+'/'+id).get();
+                    return PersonaRestangular.one(url, id).get();
                 },
                 $findByTipoNumeroDocumento: function(tipoDocumento, numeroDocumento){
                     return PersonaRestangular.one(url+'/buscar').get({tipoDocumento: tipoDocumento, numeroDocumento: numeroDocumento});
