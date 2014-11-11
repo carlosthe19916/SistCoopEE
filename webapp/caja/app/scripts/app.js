@@ -74,26 +74,6 @@ module.config(function(RestangularProvider) {
         }
     });
 
-    RestangularProvider.setResponseInterceptor(function (data, operation, what, url, response, deferred) {
-        if (operation == 'post') {
-            console.log("cabece:"+JSON.stringify(response.headers ));
-            console.log(response.headers('Location'));
-
-            var json = JSON.stringify(response, function(key,value){
-                if(key == "marker"){
-                    return undefined;
-                }
-                console.log("key:"+key+" value:"+value);
-                return value;
-            });
-
-            console.log("Final:"+json);
-
-
-        }
-        return response.data;
-    });
-
     RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
         var extractedData;
         if(data){

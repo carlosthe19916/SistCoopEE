@@ -56,12 +56,7 @@
 
             PersonaRestangular.extendModel(url, function(obj) {
                 obj.$save = function() {
-                    if(!this.id){
-                        return PersonaRestangular.all(url).post({'personaNatural': this});
-                    }
-                    else {
-                        return PersonaRestangular.one(url, this.id).customPUT({'personaNatural': PersonaRestangular.copy(this)},'',{},{});
-                    }
+                    return PersonaRestangular.one(url, this.id).customPUT({'personaNatural': PersonaRestangular.copy(this)},'',{},{});
                 };
                 obj.fullName = function(){
                     return this.apellidoPaterno+' '+this.apellidoMaterno+', '+this.nombres;
@@ -82,9 +77,15 @@
                         sexo: undefined,
                         estadoCivil: undefined,
                         $save: function(){
-                            return PersonaRestangular.all(url).post({'personaNatural': this});
+                            var config = PersonaRestangular.withConfig(function(RestangularConfigurer) {
+                                RestangularConfigurer.setFullResponse(true);
+                            });
+                            return config.all(url).post({'personaNatural': angular.copy(this)});
                         }
                     }
+                },
+                $url: function(urlResource){
+                    return PersonaRestangular.oneUrl(url, urlResource).get();
                 },
                 $search: function(queryParams){
                     return PersonaRestangular.all(url).getList(queryParams);
