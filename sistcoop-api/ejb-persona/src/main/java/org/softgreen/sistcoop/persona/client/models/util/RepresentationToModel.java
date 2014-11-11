@@ -46,7 +46,7 @@ public class RepresentationToModel {
 				rep.getFechaNacimiento(), 
 				Sexo.valueOf(rep.getSexo().toUpperCase()));		
 
-		model.setEstadoCivil(EstadoCivil.valueOf(rep.getEstadoCivil().toUpperCase()));
+		model.setEstadoCivil(rep.getEstadoCivil() != null ? EstadoCivil.valueOf(rep.getEstadoCivil().toUpperCase()) : null);
 		model.setOcupacion(rep.getOcupacion());
 		model.setUrlFoto(rep.getUrlFoto());
 		model.setUrlFirma(rep.getUrlFirma());
