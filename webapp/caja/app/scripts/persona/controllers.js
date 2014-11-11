@@ -7,11 +7,9 @@
 
     angular.module('persona.controllers', [])
         .controller('CrearPersonaNaturalController', function($scope, $state, Storage, Pais, Sexo, EstadoCivil, PersonaNatural, TipoDocumento, Notifications){
-
             $scope.view = {
                 personaNatural: PersonaNatural.$build()
             };
-
             $scope.combo = {
                 pais: Pais.$search().$object,
                 tipoDocumento: TipoDocumento.$search({tipoPersona: 'natural'}).$object,
@@ -31,7 +29,7 @@
             };
             $scope.loadParams();
 
-            $scope.crearTransaccion = function(){
+            $scope.submit = function(){
                 if ($scope.form.$valid) {
                     $scope.blockControl();
                     var save = function(){
@@ -49,8 +47,8 @@
                                 });
                             },
                             function error(error){
-                                Notifications.error(error.data+".");
                                 $scope.unblockControl();
+                                Notifications.error(error.data+".");
                             }
                         );
                     };
@@ -82,7 +80,6 @@
         .controller('EditarPersonaNaturalController', function($scope, $state, $modal, Pais, Sexo, EstadoCivil, PersonaNatural, TipoDocumento, Notifications){
 
             $scope.openModal = function (size) {
-
                 var modalInstance = $modal.open({
                     templateUrl: '../../views/persona/natural/subirFoto.html',
                     //controller: 'ModalInstanceCtrl',
@@ -93,21 +90,16 @@
                         }
                     }
                 });
-
                 modalInstance.result.then(function (selectedItem) {
                     $scope.selected = selectedItem;
                 }, function () {
-
                 });
             };
 
-            /*Datos de la vista*/
             $scope.view = {
                 personaNatural: undefined,
                 personaNaturalDB: undefined
             };
-
-            /*combos*/
             $scope.combo = {
                 pais: Pais.$search().$object,
                 tipoDocumento: TipoDocumento.$search({tipoPersona: 'natural'}).$object,
@@ -121,7 +113,6 @@
                 estadoCivil: undefined
             };
 
-            /*Cargar parametros de URL*/
             $scope.loadParams = function(){
                 $scope.view.personaNatural = $scope.params.object;
                 $scope.view.personaNaturalDB = angular.copy($scope.params.object);
@@ -176,8 +167,7 @@
             };
             $scope.loadParams();
 
-            /*Operacion principal*/
-            $scope.crearTransaccion = function(){
+            $scope.submit = function(){
                 if ($scope.form.$valid) {
                     $scope.blockControl();
                     var save = function(){
@@ -189,6 +179,7 @@
                             function(data){
                                 $scope.unblockControl();
                                 Notifications.success("Persona actualizada");
+                                $scope.view.personaNaturalDB = angular.copy($scope.view.personaNatural);
                             },
                             function error(error){
                                 $scope.unblockControl();
@@ -208,16 +199,17 @@
                 }
             };
 
-            /*Verificar persona*/
             $scope.check = function($event){
                 if(!angular.isUndefined($event))
                     $event.preventDefault();
                 if(!angular.isUndefined($scope.combo.selected.tipoDocumento) && !angular.isUndefined($scope.view.personaNatural.numeroDocumento)){
                     PersonaNatural.$findByTipoNumeroDocumento($scope.combo.selected.tipoDocumento.abreviatura, $scope.view.personaNatural.numeroDocumento).then(function(data){
-                        if(!data)
+                        if(data && data.id == $scope.view.personaNatural.id){
                             Notifications.info("Documento de identidad disponible.");
-                        else
+                        }
+                        else {
                             Notifications.warn("Documento de identidad no disponible.");
+                        }
                     });
                 }
             };

@@ -20,7 +20,10 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div style="text-align: center;">
-                <button class="btn btn-default btn-sm">Selecciona una foto de tu equipo</button>
+                <span class="btn btn-default fileinput-button" ng-class="{disabled: disabled}">
+                    <span>Selecciona una foto de tu equipo</span>
+                    <input type="file" name="files[]" ng-disabled="disabled">
+                </span>
             </div>
         </div>
     </div>

@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -126,7 +125,7 @@ public class PersonaNaturalResource {
 		model.setNombres(rep.getNombres());
 		model.setFechaNacimiento(rep.getFechaNacimiento());
 		model.setSexo(Sexo.valueOf(rep.getSexo().toUpperCase()));
-		model.setEstadoCivil(EstadoCivil.valueOf(rep.getEstadoCivil().toUpperCase()));
+		model.setEstadoCivil(rep.getEstadoCivil() != null ? EstadoCivil.valueOf(rep.getEstadoCivil().toUpperCase()) : null);
 		
 		model.setUbigeo(rep.getUbigeo());
 		model.setDireccion(rep.getDireccion());

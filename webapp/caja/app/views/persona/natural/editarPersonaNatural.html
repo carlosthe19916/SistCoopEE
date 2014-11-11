@@ -1,7 +1,7 @@
 <div ng-controller="EditarPersonaNaturalController">
-<form name="form" ng-submit="crearTransaccion()" novalidate>
+<form name="form" ng-submit="submit()" novalidate>
 <tabset>
-<tab heading="Resumen">
+<tab heading="Resumen" active="tabs.resumen">
     <div class="row">
         <div class="col-sm-6">
             <div class="card" style="border-top-width: 1px;">
@@ -18,22 +18,47 @@
                                 <img src="../../images/photo.png" alt="..." class="img-circle">
                             </div>
                             <div class="col-sm-8">
-                                <p>
-                                    Cod. pais:&nbsp;
-                                    <strong ng-bind="view.personaNaturalDB.codigoPais"></strong>
-                                </p>
-                                <p>Documento:&nbsp;
-                                    <strong ng-bind="view.personaNaturalDB.tipoDocumento"></strong>
-                                    <strong>&nbsp;-&nbsp;</strong>
-                                    <strong ng-bind="view.personaNaturalDB.numeroDocumento"></strong>
-                                </p>
-                                <p>Apellidos:&nbsp;
-                                    <strong ng-bind="view.personaNaturalDB.apellidoPaterno"></strong>&nbsp;
-                                    <strong ng-bind="view.personaNaturalDB.apellidoMaterno"></strong>
-                                </p>
-                                <p>Nombres:&nbsp;
-                                    <strong ng-bind="view.personaNaturalDB.nombres"></strong>
-                                </p>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p>Cod.pais:&nbsp;</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p><strong ng-bind="view.personaNaturalDB.codigoPais"></strong></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p>Documento:&nbsp;</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p>
+                                            <strong ng-bind="view.personaNaturalDB.tipoDocumento"></strong>
+                                            <strong>/</strong>
+                                            <strong ng-bind="view.personaNaturalDB.numeroDocumento"></strong>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p>Apellidos:&nbsp;</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p>
+                                            <strong ng-bind="view.personaNaturalDB.apellidoPaterno"></strong>&nbsp;
+                                            <strong ng-bind="view.personaNaturalDB.apellidoMaterno"></strong>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p>Nombres:&nbsp;</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p>
+                                            <strong ng-bind="view.personaNaturalDB.nombres"></strong>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -43,13 +68,39 @@
                         </div>
                     </div>
                     <div style="border-bottom: 1px solid #e5e5e5;margin-bottom: 20px;">
-                        <p>Fecha nacimiento: <strong>01/01/1991</strong> Sexo: <strong>02254752</strong></p>
-                        <p>Estado civil: <strong>01/01/1991</strong></p>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p>F.nacimiento:&nbsp;</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p>
+                                    <strong ng-bind="view.personaNaturalDB.fechaNacimiento | date : 'dd/MM/yyyy'"></strong>
+                                </p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p>Sexo:&nbsp;</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p>
+                                    <strong ng-bind="view.personaNaturalDB.sexo"></strong>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p>Estado civil:&nbsp;</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p>
+                                    <strong ng-bind="view.personaNaturalDB.estadoCivil"></strong>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                     <p></p>
                 </div>
                 <div class="card-actions">
-                    <button type="button" class="btn btn-default">Editar</button>
+                    <button type="button" ng-click="tabs.datosPersonales=true" class="btn btn-default">Editar</button>
                     <button type="button" class="btn btn-danger" style="float: right;">Eliminar</button>
                 </div>
             </div>
@@ -64,24 +115,89 @@
                 </h3>
                 <div class="card-body">
                     <div style="border-bottom: 1px solid #e5e5e5;margin-bottom: 20px;">
-                        <p>Direccion: <strong>Jr Mariano melgar 997</strong></p>
-                        <p>Referencia: <strong>Esquina del parque de las banderas</strong></p>
-                        <p>Distrito: <strong>AYACUCHO-HUAMANGA-AYACUCHO</strong></p>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p>Ocupacion:&nbsp;</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p>
+                                    <strong ng-bind="view.personaNaturalDB.ocupacion"></strong>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                     <div style="border-bottom: 1px solid #e5e5e5;margin-bottom: 20px;">
-                        <p>Telefono: <strong>966350507</strong> Celular: <strong>02254752</strong></p>
-                        <p>Email: <strong>carlosthe19916@gmail.com</strong></p>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p>Direccion:&nbsp;</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p>
+                                    <strong ng-bind="view.personaNaturalDB.direccion"></strong>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p>Referencia:&nbsp;</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p>
+                                    <strong ng-bind="view.personaNaturalDB.referencia"></strong>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p>Ubigeo:&nbsp;</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p>
+                                    <strong ng-bind="view.personaNaturalDB.ubigeo"></strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="border-bottom: 1px solid #e5e5e5;margin-bottom: 20px;">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p>Telefono:&nbsp;</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p>
+                                    <strong ng-bind="view.personaNaturalDB.telefono"></strong>
+                                </p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p>Celular:&nbsp;</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p>
+                                    <strong ng-bind="view.personaNaturalDB.celular"></strong>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p>Email:&nbsp;</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p>
+                                    <strong ng-bind="view.personaNaturalDB.email"></strong>
+                                </p>
+                            </div>
+                        </div>
                     </div>
                     <p></p>
                 </div>
                 <div class="card-actions">
-                    <button type="button" class="btn btn-default">Editar</button>
+                    <button type="button" ng-click="tabs.datosAdicionales=true" class="btn btn-default">Editar</button>
                 </div>
             </div>
         </div>
     </div>
 </tab>
-<tab heading="Datos personales">
+<tab heading="Datos personales" active="tabs.datosPersonales">
     <h4><strong>Datos personales</strong> </h4>
     <div class="row">
         <div class="col-sm-4">
@@ -172,7 +288,7 @@
             <div class="form-group" ng-class="{ 'has-error' : form.fechanacimiento.$invalid && (form.fechanacimiento.$touched || form.$submitted)}">
                 <label>Fecha Nacimiento</label>
                 <div class="input-group">
-                    <input type="text" name="fechanacimiento" class="form-control" sg-max-date="maxDate" ng-model="view.personaNatural.fechaNacimiento" datepicker-popup="dd/MM/yyyy" is-open="opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" ng-required="true" close-text="Close" placeholder="dd/mm/yyyy" required>
+                    <input type="text" name="fechanacimiento" class="form-control" ng-model="view.personaNatural.fechaNacimiento" sg-max-date="maxDate" datepicker-popup="dd/MM/yyyy" is-open="opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" ng-required="true" close-text="Close" placeholder="dd/mm/yyyy" required>
                     <span class="input-group-btn"><button class="btn btn-default" type="button" ng-click="open($event)"><span class="glyphicon glyphicon-calendar"></span></button></span>
                 </div>
                 <div ng-messages="form.fechanacimiento.$error" ng-if="form.fechanacimiento.$touched || form.$submitted">
@@ -209,17 +325,61 @@
     </div>
     <p>
         <button type="submit" class="btn btn-primary" ladda="control.block" data-style="expand-right">Guardar</button>
-        <button type="button" class="btn btn-default" ng-click="cancelar()">Cancelar</button>
+        <button type="button" class="btn btn-default" ng-click="tabs.resumen=true">Cancelar</button>
     </p>
 </tab>
-<tab>
+<tab active="tabs.datosAdicionales">
     <tab-heading>
         <i class="glyphicon glyphicon-bell"></i> Datos adicionales
     </tab-heading>
-    <form>
         <h4><strong>Datos adicionales</strong></h4>
-
-
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group" ng-class="{'has-error' : form.departamento.$invalid && (form.departamento.$touched || form.$submitted)}">
+                    <label>Departamento</label>
+                    <ui-select name="departamento" ng-model="ubigeo.departamento" theme="bootstrap">
+                        <ui-select-match placeholder="Seleccione">{{$select.selected.denominacion}}</ui-select-match>
+                        <ui-select-choices repeat="item in departamentos | filter: $select.search">
+                            <div ng-bind-html="item.denominacion | highlight: $select.search"></div>
+                            <small ng-bind-html="item.codigo | highlight: $select.search"></small>
+                        </ui-select-choices>
+                    </ui-select>
+                    <div ng-messages="form.departamento.$error" ng-if="form.departamento.$touched || form.$submitted">
+                        <div class="help-block" ng-message="required">Ingrese departamento.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group" ng-class="{'has-error' : form.provincia.$invalid && (form.provincia.$touched || form.$submitted)}">
+                    <label>Provincia</label>
+                    <ui-select name="provincia" ng-model="ubigeo.provincia" theme="bootstrap">
+                        <ui-select-match placeholder="Seleccione">{{$select.selected.denominacion}}</ui-select-match>
+                        <ui-select-choices repeat="item in provincias | filter: $select.search">
+                            <div ng-bind-html="item.denominacion | highlight: $select.search"></div>
+                            <small ng-bind-html="item.codigo | highlight: $select.search"></small>
+                        </ui-select-choices>
+                    </ui-select>
+                    <div ng-messages="form.provincia.$error" ng-if="form.provincia.$touched || form.$submitted">
+                        <div class="help-block" ng-message="required">Ingrese provincia.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group" ng-class="{'has-error' : form.provincia.$invalid && (form.provincia.$touched || form.$submitted)}">
+                    <label>Distrito</label>
+                    <ui-select name="distrito" ng-model="ubigeo.distrito" theme="bootstrap">
+                        <ui-select-match placeholder="Seleccione">{{$select.selected.denominacion}}</ui-select-match>
+                        <ui-select-choices repeat="item in distritos | filter: $select.search">
+                            <div ng-bind-html="item.denominacion | highlight: $select.search"></div>
+                            <small ng-bind-html="item.codigo | highlight: $select.search"></small>
+                        </ui-select-choices>
+                    </ui-select>
+                    <div ng-messages="form.distrito.$error" ng-if="form.distrito.$touched || form.$submitted">
+                        <div class="help-block" ng-message="required">Ingrese provincia.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-sm-4">
                 <div class="form-group" ng-class="{ 'has-error' : form.direccion.$invalid && (form.direccion.$touched || form.$submitted)}">
@@ -281,9 +441,8 @@
         </div>
         <p>
             <button type="submit" class="btn btn-primary" ladda="control.inProcess" data-style="expand-right">Guardar</button>
-            <button type="button" class="btn btn-default" ng-click="cancelar()">Cancelar</button>
+            <button type="button" class="btn btn-default" ng-click="tabs.resumen=true">Cancelar</button>
         </p>
-    </form>
 </tab>
 </tabset>
 </form>

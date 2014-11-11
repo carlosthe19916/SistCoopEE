@@ -33,7 +33,8 @@ var module = angular.module('sistcoop', [
     'ui.grid.edit',
     'ui.grid.selection',
     'blockUI',
-    'angular-ladda'
+    'angular-ladda',
+    'blueimp.fileupload'
 ]);
 
 var resourceRequests = 0;

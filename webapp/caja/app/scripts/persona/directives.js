@@ -97,7 +97,7 @@
                     +'</div>'
                     +'</div>'
             }
-        }).directive('sgUbigeo',function(Departamento, Provincia, Distrito, ubigeoConfig){
+        }).directive('sgUbigeo',function(Departamento, Provincia, Distrito){
             return {
                 restrict:'E',
                 replace: false,
