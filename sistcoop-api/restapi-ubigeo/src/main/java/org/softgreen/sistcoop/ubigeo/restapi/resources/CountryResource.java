@@ -9,6 +9,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+import org.jboss.resteasy.annotations.cache.Cache;
 import org.softgreen.sistcoop.ubigeo.client.models.CountryModel;
 import org.softgreen.sistcoop.ubigeo.client.models.CountryProvider;
 import org.softgreen.sistcoop.ubigeo.client.models.util.ModelToRepresentation;
@@ -22,6 +23,7 @@ public class CountryResource {
 	@Inject
 	protected CountryProvider countryProvider;
 
+	@Cache
 	@GET
 	@Produces({ "application/xml", "application/json" })
 	public CountryList findAll() {

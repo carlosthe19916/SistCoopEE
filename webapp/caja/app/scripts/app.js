@@ -61,6 +61,7 @@ module.factory('authInterceptor', function($q, Auth) {
 
 module.config(function(RestangularProvider) {
     RestangularProvider.setBaseUrl('http://localhost:8080');
+    RestangularProvider.setDefaultHttpFields({cache: true});
 
     RestangularProvider.addFullRequestInterceptor(function(element, operation, route, url, headers, params, httpConfig) {
         if(operation == 'post' || operation == 'put'){

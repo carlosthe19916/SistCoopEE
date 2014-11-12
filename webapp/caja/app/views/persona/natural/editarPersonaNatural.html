@@ -288,7 +288,7 @@
             <div class="form-group" ng-class="{ 'has-error' : form.fechanacimiento.$invalid && (form.fechanacimiento.$touched || form.$submitted)}">
                 <label>Fecha Nacimiento</label>
                 <div class="input-group">
-                    <input type="text" name="fechanacimiento" class="form-control" ng-model="view.personaNatural.fechaNacimiento" sg-max-date="maxDate" datepicker-popup="dd/MM/yyyy" is-open="opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" ng-required="true" close-text="Close" placeholder="dd/mm/yyyy" required>
+                    <input type="text" name="fechanacimiento" class="form-control" datepicker-popup="dd/MM/yyyy" ng-model="view.personaNatural.fechaNacimiento" sg-max-date="maxDate" datepicker-options="dateOptions" datepicker-options="dateOptions" is-open="opened" min-date="minDate" max-date="maxDate" close-text="Close" ng-required="true" placeholder="dd/mm/yyyy" required>
                     <span class="input-group-btn"><button class="btn btn-default" type="button" ng-click="open($event)"><span class="glyphicon glyphicon-calendar"></span></button></span>
                 </div>
                 <div ng-messages="form.fechanacimiento.$error" ng-if="form.fechanacimiento.$touched || form.$submitted">
@@ -333,53 +333,7 @@
         <i class="glyphicon glyphicon-bell"></i> Datos adicionales
     </tab-heading>
         <h4><strong>Datos adicionales</strong></h4>
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="form-group" ng-class="{'has-error' : form.departamento.$invalid && (form.departamento.$touched || form.$submitted)}">
-                    <label>Departamento</label>
-                    <ui-select name="departamento" ng-model="ubigeo.departamento" theme="bootstrap">
-                        <ui-select-match placeholder="Seleccione">{{$select.selected.denominacion}}</ui-select-match>
-                        <ui-select-choices repeat="item in departamentos | filter: $select.search">
-                            <div ng-bind-html="item.denominacion | highlight: $select.search"></div>
-                            <small ng-bind-html="item.codigo | highlight: $select.search"></small>
-                        </ui-select-choices>
-                    </ui-select>
-                    <div ng-messages="form.departamento.$error" ng-if="form.departamento.$touched || form.$submitted">
-                        <div class="help-block" ng-message="required">Ingrese departamento.</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="form-group" ng-class="{'has-error' : form.provincia.$invalid && (form.provincia.$touched || form.$submitted)}">
-                    <label>Provincia</label>
-                    <ui-select name="provincia" ng-model="ubigeo.provincia" theme="bootstrap">
-                        <ui-select-match placeholder="Seleccione">{{$select.selected.denominacion}}</ui-select-match>
-                        <ui-select-choices repeat="item in provincias | filter: $select.search">
-                            <div ng-bind-html="item.denominacion | highlight: $select.search"></div>
-                            <small ng-bind-html="item.codigo | highlight: $select.search"></small>
-                        </ui-select-choices>
-                    </ui-select>
-                    <div ng-messages="form.provincia.$error" ng-if="form.provincia.$touched || form.$submitted">
-                        <div class="help-block" ng-message="required">Ingrese provincia.</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="form-group" ng-class="{'has-error' : form.provincia.$invalid && (form.provincia.$touched || form.$submitted)}">
-                    <label>Distrito</label>
-                    <ui-select name="distrito" ng-model="ubigeo.distrito" theme="bootstrap">
-                        <ui-select-match placeholder="Seleccione">{{$select.selected.denominacion}}</ui-select-match>
-                        <ui-select-choices repeat="item in distritos | filter: $select.search">
-                            <div ng-bind-html="item.denominacion | highlight: $select.search"></div>
-                            <small ng-bind-html="item.codigo | highlight: $select.search"></small>
-                        </ui-select-choices>
-                    </ui-select>
-                    <div ng-messages="form.distrito.$error" ng-if="form.distrito.$touched || form.$submitted">
-                        <div class="help-block" ng-message="required">Ingrese provincia.</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <sg-ubigeo ng-model="view.personaNatural.ubigeo"></sg-ubigeo>
         <div class="row">
             <div class="col-sm-4">
                 <div class="form-group" ng-class="{ 'has-error' : form.direccion.$invalid && (form.direccion.$touched || form.$submitted)}">
@@ -440,7 +394,7 @@
             </div>
         </div>
         <p>
-            <button type="submit" class="btn btn-primary" ladda="control.inProcess" data-style="expand-right">Guardar</button>
+            <button type="submit" class="btn btn-primary" ladda="control.block" data-style="expand-right">Guardar</button>
             <button type="button" class="btn btn-default" ng-click="tabs.resumen=true">Cancelar</button>
         </p>
 </tab>

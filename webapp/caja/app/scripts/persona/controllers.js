@@ -76,6 +76,10 @@
                 }
             };
 
+            $scope.cancelar = function(){
+                $state.go('app.administracion.buscarPersonaNatural');
+            };
+
         })
         .controller('EditarPersonaNaturalController', function($scope, $state, $modal, Pais, Sexo, EstadoCivil, PersonaNatural, TipoDocumento, Notifications){
 
@@ -113,11 +117,12 @@
                 estadoCivil: undefined
             };
 
+            $scope.setDate = function(){
+                $scope.view.personaNatural.fechaNacimiento = new Date();
+            };
             $scope.loadParams = function(){
                 $scope.view.personaNatural = $scope.params.object;
                 $scope.view.personaNaturalDB = angular.copy($scope.params.object);
-
-                $scope.view.personaNatural.fechaNacimiento = new Date();
 
                 var comboPaisListener = $scope.$watch('combo.pais', function(newValue, oldValue) {
                     if($scope.combo.pais.length){
