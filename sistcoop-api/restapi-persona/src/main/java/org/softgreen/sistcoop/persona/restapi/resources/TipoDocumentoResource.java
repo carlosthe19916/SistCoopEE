@@ -9,6 +9,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -17,6 +18,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import org.jboss.resteasy.annotations.providers.jaxb.json.BadgerFish;
 import org.softgreen.sistcoop.persona.clien.enums.TipoPersona;
 import org.softgreen.sistcoop.persona.client.models.TipoDocumentoModel;
 import org.softgreen.sistcoop.persona.client.models.TipoDocumentoProvider;
@@ -38,6 +40,7 @@ public class TipoDocumentoResource {
 	@Context
 	protected UriInfo uriInfo;
 
+	@BadgerFish
 	@GET
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
@@ -77,7 +80,7 @@ public class TipoDocumentoResource {
 		return Response.created(uriInfo.getAbsolutePathBuilder().path(tipoDocumentoModel.getAbreviatura()).build()).build();
 	}
 
-	@GET
+	@PUT
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
 	public void update(@PathParam("id") String id, TipoDocumentoRepresentation tipoDocumentoRepresentation) {

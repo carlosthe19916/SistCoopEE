@@ -37,9 +37,6 @@ import org.softgreen.sistcoop.persona.restapi.representation.PersonaJuridicaList
 @Stateless
 public class PersonaJuridicaResource {
 
-	// @EJB
-	// protected PersonaJuridicaManager personaJuridicaManager;
-
 	@Inject
 	protected PersonaJuridicaProvider personaJuridicaProvider;
 

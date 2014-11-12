@@ -81,6 +81,78 @@
             };
 
         })
+        .controller('CrearPersonaJuridicaController', function($scope, $state, Storage, Pais, TipoEmpresa, PersonaJuridica, TipoDocumento, Notifications){
+            $scope.view = {
+                persona: PersonaJuridica.$build()
+            };
+            $scope.combo = {
+                pais: Pais.$search().$object,
+                tipoDocumento: TipoDocumento.$search({tipoPersona: 'juridica'}).$object,
+                tipoEmpresa: TipoEmpresa.$search().$object
+            };
+            $scope.combo.selected = {
+                pais: undefined,
+                tipoDocumento: undefined,
+                tipoEmpresa: undefined
+            };
+
+            $scope.loadParams = function(){
+                $scope.view.persona.tipoDocumento = $scope.params.tipoDocumento;
+                $scope.view.persona.numeroDocumento = $scope.params.numeroDocumento;
+            };
+            $scope.loadParams();
+
+            $scope.submit = function(){
+                if ($scope.form.$valid) {
+                    $scope.blockControl();
+                    var save = function(){
+                        $scope.view.persona.codigoPais = $scope.combo.selected.pais ? $scope.combo.selected.pais.alpha3Code: null;
+                        $scope.view.persona.tipoDocumento = $scope.combo.selected.tipoDocumento ? $scope.combo.selected.tipoDocumento.abreviatura: null;
+                        $scope.view.persona.tipoEmpresa = $scope.combo.selected.tipoEmpresa ? $scope.combo.selected.tipoEmpresa.denominacion : null;
+                        $scope.view.persona.$save().then(
+                            function(data){
+                                $scope.unblockControl();
+                                Notifications.success("Persona creada");
+                                PersonaJuridica.$url(data.headers('Location')).then(function(data){
+                                    Storage.setObject(data);
+                                    $state.go('app.administracion.editarPersonaJuridica', {id: data.id});
+                                });
+                            },
+                            function error(error){
+                                $scope.unblockControl();
+                                Notifications.error(error.data+".");
+                            }
+                        );
+                    };
+                    PersonaJuridica.$findByTipoNumeroDocumento($scope.combo.selected.tipoDocumento.abreviatura, $scope.view.persona.numeroDocumento).then(function(data){
+                        if(data) {
+                            Notifications.error("Documento de identidad no disponible.");
+                            $scope.unblockControl();
+                        } else {
+                            save();
+                        }
+                    });
+                }
+            };
+
+            $scope.check = function($event){
+                if(!angular.isUndefined($event))
+                    $event.preventDefault();
+                if(!angular.isUndefined($scope.combo.selected.tipoDocumento) && !angular.isUndefined($scope.view.persona.numeroDocumento)){
+                    PersonaJuridica.$findByTipoNumeroDocumento($scope.combo.selected.tipoDocumento.abreviatura, $scope.view.persona.numeroDocumento).then(function(data){
+                        if(!data)
+                            Notifications.info("Documento de identidad disponible.");
+                        else
+                            Notifications.warn("Documento de identidad no disponible.");
+                    });
+                }
+            };
+
+            $scope.cancelar = function(){
+                $state.go('app.administracion.buscarPersonaJuridica');
+            };
+
+        })
         .controller('EditarPersonaNaturalController', function($scope, $state, $modal, Pais, Sexo, EstadoCivil, PersonaNatural, TipoDocumento, Notifications){
 
             $scope.openModal = function (size) {

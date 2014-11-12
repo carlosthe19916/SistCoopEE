@@ -957,30 +957,6 @@ select[size] {
   height: auto;
 }
 
-.radio,
-.checkbox {
-  min-height: 20px;
-  padding-left: 20px;
-}
-
-.controls > .radio:first-child,
-.controls > .checkbox:first-child {
-  padding-top: 5px;
-}
-
-.radio.inline,
-.checkbox.inline {
-  display: inline-block;
-  padding-top: 5px;
-  margin-bottom: 0;
-  vertical-align: middle;
-}
-
-.radio.inline + .radio.inline,
-.checkbox.inline + .checkbox.inline {
-  margin-left: 10px;
-}
-
 .controls-row {
   *zoom: 1;
 }
@@ -999,11 +975,6 @@ select[size] {
 .controls-row [class*="span"],
 .row-fluid .controls-row [class*="span"] {
   float: left;
-}
-
-.controls-row .checkbox[class*="span"],
-.controls-row .radio[class*="span"] {
-  padding-top: 5px;
 }
 
 /* Allow for input prepend/append in search forms */

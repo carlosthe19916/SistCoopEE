@@ -20,9 +20,7 @@ var module = angular.module('sistcoop', [
 
     'persona',
     'ubigeo',
-    'common.controllers',
-    'common.directives',
-    'common.services',
+    'common',
 
     'restangular',
     'ui.bootstrap',

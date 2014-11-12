@@ -22,7 +22,6 @@ import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
 
 import org.softgreen.sistcoop.persona.clien.enums.EstadoCivil;
 import org.softgreen.sistcoop.persona.clien.enums.Sexo;
@@ -32,6 +31,10 @@ import org.softgreen.sistcoop.persona.restapi.representation.EstadoCivilList;
 import org.softgreen.sistcoop.persona.restapi.representation.EstadoCivilRepresentation;
 import org.softgreen.sistcoop.persona.restapi.representation.SexoList;
 import org.softgreen.sistcoop.persona.restapi.representation.SexoRepresentation;
+import org.softgreen.sistcoop.persona.restapi.representation.TipoEmpresaList;
+import org.softgreen.sistcoop.persona.restapi.representation.TipoEmpresaRepresentation;
+import org.softgreen.sistcoop.persona.restapi.representation.TipoPersonaList;
+import org.softgreen.sistcoop.persona.restapi.representation.TipoPersonaRepresentation;
 
 @Path("/")
 public class MaestroResource {
@@ -39,15 +42,13 @@ public class MaestroResource {
 	@GET
 	@Path("/tiposPersona")
 	@Produces({ "application/xml", "application/json" })
-	public Response getTipoPersonas() {
-		Response response;
+	public TipoPersonaList getTipoPersonas() {
 		TipoPersona[] s = TipoPersona.values();
-		List<TipoPersona> list = new ArrayList<TipoPersona>();
+		List<TipoPersonaRepresentation> list = new ArrayList<TipoPersonaRepresentation>();
 		for (int i = 0; i < s.length; i++) {
-			list.add(s[i]);
+			list.add(new TipoPersonaRepresentation(s[i].toString()));
 		}
-		response = Response.status(Response.Status.OK).entity(list).build();
-		return response;
+		return new TipoPersonaList(list);
 	}
 
 	@GET
@@ -77,15 +78,13 @@ public class MaestroResource {
 	@GET
 	@Path("/tiposEmpresa")
 	@Produces({ "application/xml", "application/json" })
-	public Response getTiposEmpresa() {
-		Response response;
+	public TipoEmpresaList getTiposEmpresa() {
 		TipoEmpresa[] s = TipoEmpresa.values();
-		List<TipoEmpresa> list = new ArrayList<TipoEmpresa>();
+		List<TipoEmpresaRepresentation> list = new ArrayList<TipoEmpresaRepresentation>();
 		for (int i = 0; i < s.length; i++) {
-			list.add(s[i]);
+			list.add(new TipoEmpresaRepresentation(s[i].toString()));
 		}
-		response = Response.status(Response.Status.OK).entity(list).build();
-		return response;
+		return new TipoEmpresaList(list);
 	}
 
 }

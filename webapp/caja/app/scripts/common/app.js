@@ -5,6 +5,11 @@
  */
 (function(window, angular, undefined) {'use strict';
 
-    angular.module('ubigeo.controllers', []);
+    angular.module('common',
+        [
+            'common.controllers',
+            'common.directives',
+            'common.services'
+        ]);
 
 })(window, window.angular);

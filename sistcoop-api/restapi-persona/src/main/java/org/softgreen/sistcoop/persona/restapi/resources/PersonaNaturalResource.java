@@ -113,10 +113,10 @@ public class PersonaNaturalResource {
 	@PUT
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
-	public void update(@PathParam("id") Long id, PersonaNaturalRepresentation rep) {				
+	public void update(@PathParam("id") Long id, PersonaNaturalRepresentation rep) {
 		PersonaNaturalModel model = personaNaturalProvider.getPersonaNaturalById(id);
 		TipoDocumentoModel tipoDocumentoModel = tipoDocumentoProvider.getTipoDocumentoByAbreviatura(rep.getTipoDocumento());
-		
+
 		model.setCodigoPais(rep.getCodigoPais());
 		model.setTipoDocumento(tipoDocumentoModel);
 		model.setNumeroDocumento(rep.getNumeroDocumento());
@@ -126,15 +126,15 @@ public class PersonaNaturalResource {
 		model.setFechaNacimiento(rep.getFechaNacimiento());
 		model.setSexo(Sexo.valueOf(rep.getSexo().toUpperCase()));
 		model.setEstadoCivil(rep.getEstadoCivil() != null ? EstadoCivil.valueOf(rep.getEstadoCivil().toUpperCase()) : null);
-		
+
 		model.setUbigeo(rep.getUbigeo());
 		model.setDireccion(rep.getDireccion());
 		model.setReferencia(rep.getReferencia());
 		model.setTelefono(rep.getTelefono());
 		model.setCelular(rep.getCelular());
 		model.setEmail(rep.getEmail());
-		
-		model.commit();		
+
+		model.commit();
 	}
 
 	@DELETE
