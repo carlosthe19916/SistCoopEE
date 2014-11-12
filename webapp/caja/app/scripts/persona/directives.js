@@ -111,7 +111,7 @@
                         return (value.length == 6  || value.length == 0);
                     };
 
-                    $scope.departamentos = Departamento.$search();
+                    $scope.departamentos = Departamento.$search().$object;
                     $scope.provincias = undefined;
                     $scope.distritos = undefined;
 

@@ -1,4 +1,4 @@
-package org.softgreen.sistcoop.persona.restapi.resources;
+package org.softgreen.sistcoop.ubigeo.restapi.resources;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,15 +9,15 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import org.softgreen.sistcoop.persona.restapi.representation.CountryList;
 import org.softgreen.sistcoop.ubigeo.client.models.CountryModel;
 import org.softgreen.sistcoop.ubigeo.client.models.CountryProvider;
 import org.softgreen.sistcoop.ubigeo.client.models.util.ModelToRepresentation;
 import org.softgreen.sistcoop.ubigeo.client.representations.idm.CountryRepresentation;
+import org.softgreen.sistcoop.ubigeo.restapi.representation.CountryList;
 
 @Path("/paises")
 @Stateless
-public class TipoDocumentoResource {
+public class CountryResource {
 
 	@Inject
 	protected CountryProvider countryProvider;

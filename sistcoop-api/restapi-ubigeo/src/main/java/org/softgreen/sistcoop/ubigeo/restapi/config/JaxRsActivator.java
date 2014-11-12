@@ -1,4 +1,4 @@
-package org.softgreen.sistcoop.persona.restapi.config;
+package org.softgreen.sistcoop.ubigeo.restapi.config;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

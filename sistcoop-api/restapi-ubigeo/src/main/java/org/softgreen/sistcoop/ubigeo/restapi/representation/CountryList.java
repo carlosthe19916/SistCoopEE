@@ -1,4 +1,4 @@
-package org.softgreen.sistcoop.persona.restapi.representation;
+package org.softgreen.sistcoop.ubigeo.restapi.representation;
 
 import java.io.Serializable;
 import java.util.List;

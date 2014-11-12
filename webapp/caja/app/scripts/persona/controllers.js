@@ -117,6 +117,8 @@
                 $scope.view.personaNatural = $scope.params.object;
                 $scope.view.personaNaturalDB = angular.copy($scope.params.object);
 
+                $scope.view.personaNatural.fechaNacimiento = new Date();
+
                 var comboPaisListener = $scope.$watch('combo.pais', function(newValue, oldValue) {
                     if($scope.combo.pais.length){
                         for(var i=0;i<$scope.combo.pais.length;i++){
