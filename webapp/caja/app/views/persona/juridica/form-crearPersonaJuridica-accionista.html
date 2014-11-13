@@ -1,0 +1,80 @@
+<div>
+    <h4><strong>Datos del accionista</strong> </h4>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group" ng-class="{ 'has-error' : form.tipoDocumento.$invalid && (form.tipoDocumento.$touched || form.$submitted)}">
+                <label>Tipo documento</label>
+                <ui-select name="tipoDocumento" ng-model="combo.selected.tipoDocumentoRepresentanteLegal" theme="bootstrap" required>
+                    <ui-select-match placeholder="Seleccione">{{$select.selected.abreviatura}}</ui-select-match>
+                    <ui-select-choices repeat="item in combo.tipoDocumentoRepresentanteLegal | filter: $select.search">
+                        <div ng-bind-html="item.abreviatura | highlight: $select.search"></div>
+                    </ui-select-choices>
+                </ui-select>
+                <div ng-messages="form.tipoDocumento.$error" ng-if="form.tipoDocumento.$touched || form.$submitted">
+                    <div class="help-block" ng-message="required">Ingrese documento.</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4" ng-class="{ 'has-error' : form.numeroDocumento.$invalid && (form.numeroDocumento.$touched || form.$submitted)}">
+            <div class="form-group">
+                <label>N&uacute;mero documento</label>
+                <div class="input-group">
+                    <input type="text" name="numeroDocumento" ng-model="view.persona.numeroDocumentoRepresentanteLegal" ui-keypress="{13:'check($event)'}" ng-pattern="/^[0-9]+$/" ng-minlength="combo.selected.tipoDocumentoRepresentanteLegal.cantidadCaracteres" ng-maxlength="combo.selected.tipoDocumentoRepresentanteLegal.cantidadCaracteres" class="form-control" required/>
+                    <span class="input-group-btn"><button type="button" ng-click="setRepresentanteLegal()" tooltip="Seleccionar representante" tooltip-trigger="mouseenter" tooltip-placement="bottom" class="btn btn-default"><span class="glyphicon glyphicon-check"></span></button></span>
+                </div>
+                <div ng-messages="form.numeroDocumento.$error" ng-if="form.numeroDocumento.$touched || form.$submitted">
+                    <div class="help-block" ng-message="required">Ingrese numero documento.</div>
+                    <div class="help-block" ng-message="minlength">Debe tener <span ng-bind="combo.selected.tipoDocumento.cantidadCaracteres"></span> digitos.</div>
+                    <div class="help-block" ng-message="maxlength">Debe tener <span ng-bind="combo.selected.tipoDocumento.cantidadCaracteres"></span> digitos.</div>
+                    <div class="help-block" ng-message="pattern">Numero invalido.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h4><strong>Accionista</strong> </h4>
+    <div class="row">
+        <div class="col-sm-2">
+            <p>Cod.Pais:&nbsp;</p>
+        </div>
+        <div class="col-sm-2">
+            <p><strong ng-bind="view.personaNaturalDB.codigoPais"></strong></p>
+        </div>
+        <div class="col-sm-2">
+            <p>Documento:&nbsp;</p>
+        </div>
+        <div class="col-sm-2">
+            <p>
+                <strong ng-bind="view.personaNaturalDB.tipoDocumento"></strong>
+                <strong>/</strong>
+                <strong ng-bind="view.personaNaturalDB.numeroDocumento"></strong>
+            </p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <p>Nombre:&nbsp;</p>
+        </div>
+        <div class="col-sm-2">
+            <p><strong ng-bind="view.personaNaturalDB.fullName()"></strong></p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <p>F.nacimiento:&nbsp;</p>
+        </div>
+        <div class="col-sm-2">
+            <p><strong ng-bind="view.personaNaturalDB.fechaNacimiento"></strong></p>
+        </div>
+        <div class="col-sm-2">
+            <p>Sexo:&nbsp;</p>
+        </div>
+        <div class="col-sm-2">
+            <p><strong ng-bind="view.personaNaturalDB.sexo"></strong></p>
+        </div>
+    </div>
+    <p>
+        <button type="submit" class="btn btn-primary" ladda="control.block" data-style="expand-right">Guardar</button>
+        <button type="button" class="btn btn-default" ng-click="cancelar()">Cancelar</button>
+    </p>
+</div>

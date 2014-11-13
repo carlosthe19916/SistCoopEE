@@ -17,6 +17,7 @@ authUrl = window.location.href.substring(0,  authUrl.indexOf('/admin'));
 var module = angular.module('sistcoop', [
     'ngSanitize',
     'ngMessages',
+    'ngAnimate',
 
     'persona',
     'ubigeo',
@@ -229,6 +230,7 @@ module.config(function(blockUIConfig) {
 
 module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
+    $urlRouterProvider.when('/app/administracion/persona/juridica', '/app/administracion/persona/juridica/principal');
     $urlRouterProvider.otherwise('/home');
 
     $stateProvider
@@ -325,7 +327,7 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
         })
         .state('app.administracion.crearPersonaJuridica', {
             url: "/persona/juridica?documento&numero",
-            templateUrl: "../../views/persona/juridica/crearPersonaJuridica.html",
+            templateUrl: "../../views/persona/juridica/form-crearPersonaJuridica.html",
             controller: function($scope, $stateParams) {
                 $scope.themplate.header = 'Crear persona juridica';
 
@@ -333,6 +335,18 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
                 $scope.params.tipoDocumento = $stateParams.documento;
                 $scope.params.numeroDocumento = $stateParams.numero;
             },
+            module: 'PERSONA',
+            roles: ['USER']
+        })
+        .state('app.administracion.crearPersonaJuridica.principal', {
+            url: "/principal",
+            templateUrl: "../../views/persona/juridica/form-crearPersonaJuridica-principal.html",
+            module: 'PERSONA',
+            roles: ['USER']
+        })
+        .state('app.administracion.crearPersonaJuridica.accionista', {
+            url: "/accionista",
+            templateUrl: "../../views/persona/juridica/form-crearPersonaJuridica-accionista.html",
             module: 'PERSONA',
             roles: ['USER']
         })

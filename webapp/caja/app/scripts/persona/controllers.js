@@ -83,17 +83,22 @@
         })
         .controller('CrearPersonaJuridicaController', function($scope, $state, Storage, Pais, TipoEmpresa, PersonaJuridica, TipoDocumento, Notifications){
             $scope.view = {
-                persona: PersonaJuridica.$build()
+                persona: PersonaJuridica.$build(),
+                representanteLegal: undefined
             };
             $scope.combo = {
                 pais: Pais.$search().$object,
                 tipoDocumento: TipoDocumento.$search({tipoPersona: 'juridica'}).$object,
-                tipoEmpresa: TipoEmpresa.$search().$object
+                tipoEmpresa: TipoEmpresa.$search().$object,
+
+                tipoDocumentoRepresentanteLegal: TipoDocumento.$search({tipoPersona: 'natural'}).$object
             };
             $scope.combo.selected = {
                 pais: undefined,
                 tipoDocumento: undefined,
-                tipoEmpresa: undefined
+                tipoEmpresa: undefined,
+
+                tipoDocumentoRepresentanteLEgal: undefined
             };
 
             $scope.loadParams = function(){
@@ -146,6 +151,18 @@
                             Notifications.warn("Documento de identidad no disponible.");
                     });
                 }
+            };
+
+            $scope.checkTabPrincipal = function(){
+                if($scope.form.$valid){
+                    $state.go('app.administracion.crearPersonaJuridica.accionista');
+                } else {
+                    $scope.form.$setSubmitted();
+                }
+            };
+
+            $scope.setRepresentanteLegal = function(){
+
             };
 
             $scope.cancelar = function(){
