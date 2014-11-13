@@ -82,8 +82,6 @@
 
         })
         .controller('CrearPersonaJuridicaController', function($scope, $state, Storage, Pais, TipoEmpresa, PersonaJuridica, PersonaNatural, TipoDocumento, Notifications, Navigation){
-
-            $scope.prueba = PersonaJuridica.$find(1);
             $scope.view = {
                 persona: PersonaJuridica.$build(),
                 representante: undefined

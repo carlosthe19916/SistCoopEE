@@ -68,8 +68,19 @@ module.config(function(RestangularProvider) {
             if(element){
                 newElement = element[Object.keys(element)[0]];
                 angular.forEach(newElement, function(value, key) {
-                    this['@' + key.toString()] = value !== null ? value: undefined;
-                    delete this[key];
+                    if(angular.isObject(value)){
+                        var obj = angular.copy(value);
+                        angular.forEach(value, function(val, k) {
+                            if(angular.isObject(value)){
+                                this['@' + k.toString()] = val !== null ? val: undefined;
+                                delete this[k];
+                            }
+                        }, obj);
+                        this[key.toString()] = obj;
+                    } else {
+                        this['@' + key.toString()] = value !== null ? value: undefined;
+                        delete this[key];
+                    }
                 }, newElement);
             }
         }
