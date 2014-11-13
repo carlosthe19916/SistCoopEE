@@ -81,29 +81,42 @@
             };
 
         })
-        .controller('CrearPersonaJuridicaController', function($scope, $state, Storage, Pais, TipoEmpresa, PersonaJuridica, TipoDocumento, Notifications){
+        .controller('CrearPersonaJuridicaController', function($scope, $state, Storage, Pais, TipoEmpresa, PersonaJuridica, PersonaNatural, TipoDocumento, Notifications, Navigation){
             $scope.view = {
                 persona: PersonaJuridica.$build(),
-                representanteLegal: undefined
+                representante: undefined
             };
             $scope.combo = {
                 pais: Pais.$search().$object,
                 tipoDocumento: TipoDocumento.$search({tipoPersona: 'juridica'}).$object,
                 tipoEmpresa: TipoEmpresa.$search().$object,
 
-                tipoDocumentoRepresentanteLegal: TipoDocumento.$search({tipoPersona: 'natural'}).$object
+                tipoDocumentoRepresentante: TipoDocumento.$search({tipoPersona: 'natural'}).$object
             };
             $scope.combo.selected = {
                 pais: undefined,
                 tipoDocumento: undefined,
                 tipoEmpresa: undefined,
 
-                tipoDocumentoRepresentanteLEgal: undefined
+                tipoDocumentoRepresentante: undefined
             };
 
             $scope.loadParams = function(){
                 $scope.view.persona.tipoDocumento = $scope.params.tipoDocumento;
                 $scope.view.persona.numeroDocumento = $scope.params.numeroDocumento;
+                if(!angular.isUndefined($scope.params.tipoDocumento) && !angular.isUndefined($scope.params.numeroDocumento)){
+                    var tipoDocumentoListener = $scope.$watch('combo.tipoDocumento', function(newValue, oldValue){
+                        if($scope.combo.tipoDocumento.length){
+                            for(var i=0;i<$scope.combo.tipoDocumento.length;i++){
+                                if($scope.combo.tipoDocumento[i].abreviatura.toLowerCase() == $scope.params.tipoDocumento.toLowerCase()){
+                                    $scope.combo.selected.tipoDocumento = $scope.combo.tipoDocumento[i];
+                                    break;
+                                }
+                            }
+                            tipoDocumentoListener();
+                        }
+                    }, true);
+                }
             };
             $scope.loadParams();
 
@@ -140,10 +153,11 @@
                 }
             };
 
-            $scope.check = function($event){
+            $scope.checkPersona = function($event){
                 if(!angular.isUndefined($event))
                     $event.preventDefault();
-                if(!angular.isUndefined($scope.combo.selected.tipoDocumento) && !angular.isUndefined($scope.view.persona.numeroDocumento)){
+                if(!angular.isUndefined($scope.combo.selected.tipoDocumento)
+                    && !angular.isUndefined($scope.view.persona.numeroDocumento)){
                     PersonaJuridica.$findByTipoNumeroDocumento($scope.combo.selected.tipoDocumento.abreviatura, $scope.view.persona.numeroDocumento).then(function(data){
                         if(!data)
                             Notifications.info("Documento de identidad disponible.");
@@ -153,22 +167,39 @@
                 }
             };
 
-            $scope.checkTabPrincipal = function(){
+            $scope.setRepresentante = function($event){
+                if(!angular.isUndefined($event))
+                    $event.preventDefault();
+                if(!angular.isUndefined($scope.combo.selected.tipoDocumentoRepresentante)
+                    && !angular.isUndefined($scope.view.representante.numeroDocumento)){
+                    PersonaNatural.$findByTipoNumeroDocumento($scope.combo.selected.tipoDocumentoRepresentante.abreviatura, $scope.view.representante.numeroDocumento).then(function(data){
+                        if(data)
+                            $scope.view.persona.representanteLegal = data;
+                        else
+                            Notifications.warn("Persona no encontrada.");
+                    });
+                }
+            };
+
+            $scope.goTabAccionista = function(){
                 if($scope.form.$valid){
+                    $scope.form.$setPristine();
                     $state.go('app.administracion.crearPersonaJuridica.accionista');
                 } else {
                     $scope.form.$setSubmitted();
                 }
             };
-
-            $scope.setRepresentanteLegal = function(){
-
+            $scope.goTabPrincipal = function(){
+                $state.go('app.administracion.crearPersonaJuridica.principal');
+            };
+            $scope.goCrearPersonaNatural = function(){
+                Navigation.addState({name: 'Crear persona juridica', state: 'app.administracion.crearPersonaJuridica', object: $scope.view});
+                $state.go('app.administracion.crearPersonaNatural');
             };
 
             $scope.cancelar = function(){
                 $state.go('app.administracion.buscarPersonaJuridica');
             };
-
         })
         .controller('EditarPersonaNaturalController', function($scope, $state, $modal, Pais, Sexo, EstadoCivil, PersonaNatural, TipoDocumento, Notifications){
 

@@ -4,9 +4,9 @@
         <div class="col-sm-4">
             <div class="form-group" ng-class="{ 'has-error' : form.tipoDocumento.$invalid && (form.tipoDocumento.$touched || form.$submitted)}">
                 <label>Tipo documento</label>
-                <ui-select name="tipoDocumento" ng-model="combo.selected.tipoDocumentoRepresentanteLegal" theme="bootstrap" required>
+                <ui-select name="tipoDocumento" ng-model="combo.selected.tipoDocumentoRepresentante" theme="bootstrap" required>
                     <ui-select-match placeholder="Seleccione">{{$select.selected.abreviatura}}</ui-select-match>
-                    <ui-select-choices repeat="item in combo.tipoDocumentoRepresentanteLegal | filter: $select.search">
+                    <ui-select-choices repeat="item in combo.tipoDocumentoRepresentante | filter: $select.search">
                         <div ng-bind-html="item.abreviatura | highlight: $select.search"></div>
                     </ui-select-choices>
                 </ui-select>
@@ -19,14 +19,22 @@
             <div class="form-group">
                 <label>N&uacute;mero documento</label>
                 <div class="input-group">
-                    <input type="text" name="numeroDocumento" ng-model="view.persona.numeroDocumentoRepresentanteLegal" ui-keypress="{13:'check($event)'}" ng-pattern="/^[0-9]+$/" ng-minlength="combo.selected.tipoDocumentoRepresentanteLegal.cantidadCaracteres" ng-maxlength="combo.selected.tipoDocumentoRepresentanteLegal.cantidadCaracteres" class="form-control" required/>
-                    <span class="input-group-btn"><button type="button" ng-click="setRepresentanteLegal()" tooltip="Seleccionar representante" tooltip-trigger="mouseenter" tooltip-placement="bottom" class="btn btn-default"><span class="glyphicon glyphicon-check"></span></button></span>
+                    <input type="text" name="numeroDocumento" ng-model="view.representante.numeroDocumento" ui-keypress="{13:'setRepresentante($event)'}" ng-pattern="/^[0-9]+$/" ng-minlength="combo.selected.tipoDocumentoRepresentante.cantidadCaracteres" ng-maxlength="combo.selected.tipoDocumentoRepresentante.cantidadCaracteres" class="form-control" required/>
+                    <span class="input-group-btn"><button type="button" ng-click="setRepresentante()" tooltip="Seleccionar representante" tooltip-trigger="mouseenter" tooltip-placement="bottom" class="btn btn-default"><span class="glyphicon glyphicon-check"></span></button></span>
                 </div>
                 <div ng-messages="form.numeroDocumento.$error" ng-if="form.numeroDocumento.$touched || form.$submitted">
                     <div class="help-block" ng-message="required">Ingrese numero documento.</div>
-                    <div class="help-block" ng-message="minlength">Debe tener <span ng-bind="combo.selected.tipoDocumento.cantidadCaracteres"></span> digitos.</div>
-                    <div class="help-block" ng-message="maxlength">Debe tener <span ng-bind="combo.selected.tipoDocumento.cantidadCaracteres"></span> digitos.</div>
+                    <div class="help-block" ng-message="minlength">Debe tener <span ng-bind="combo.selected.tipoDocumentoRepresentante.cantidadCaracteres"></span> digitos.</div>
+                    <div class="help-block" ng-message="maxlength">Debe tener <span ng-bind="combo.selected.tipoDocumentoRepresentante.cantidadCaracteres"></span> digitos.</div>
                     <div class="help-block" ng-message="pattern">Numero invalido.</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label>&nbsp;</label>
+                <div>
+                    <button type="button" class="btn btn-link" ng-click="goCrearPersonaNatural()">Nuevo</button>
                 </div>
             </div>
         </div>
@@ -34,47 +42,51 @@
 
     <h4><strong>Accionista</strong> </h4>
     <div class="row">
-        <div class="col-sm-2">
+        <div class="col-sm-1">
             <p>Cod.Pais:&nbsp;</p>
         </div>
         <div class="col-sm-2">
-            <p><strong ng-bind="view.personaNaturalDB.codigoPais"></strong></p>
+            <p><strong ng-bind="view.persona.representanteLegal.codigoPais"></strong></p>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-1">
             <p>Documento:&nbsp;</p>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
             <p>
-                <strong ng-bind="view.personaNaturalDB.tipoDocumento"></strong>
+                <strong ng-bind="view.persona.representanteLegal.tipoDocumento"></strong>
                 <strong>/</strong>
-                <strong ng-bind="view.personaNaturalDB.numeroDocumento"></strong>
+                <strong ng-bind="view.persona.representanteLegal.numeroDocumento"></strong>
             </p>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
+        <div class="col-sm-1">
             <p>Nombre:&nbsp;</p>
         </div>
-        <div class="col-sm-2">
-            <p><strong ng-bind="view.personaNaturalDB.fullName()"></strong></p>
+        <div class="col-sm-11">
+            <p>
+                <strong ng-bind="view.persona.representanteLegal.apellidoPaterno"></strong>&nbsp;
+                <strong ng-bind="view.persona.representanteLegal.apellidoMaterno"></strong>,&nbsp;
+                <strong ng-bind="view.persona.representanteLegal.nombres"></strong>
+            </p>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-2">
+        <div class="col-sm-1">
             <p>F.nacimiento:&nbsp;</p>
         </div>
         <div class="col-sm-2">
-            <p><strong ng-bind="view.personaNaturalDB.fechaNacimiento"></strong></p>
+            <p><strong ng-bind="view.persona.representanteLegal.fechaNacimiento | date:'dd/MM/yyyy'"></strong></p>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-1">
             <p>Sexo:&nbsp;</p>
         </div>
         <div class="col-sm-2">
-            <p><strong ng-bind="view.personaNaturalDB.sexo"></strong></p>
+            <p><strong ng-bind="view.persona.representanteLegal.sexo"></strong></p>
         </div>
     </div>
     <p>
+        <button type="button" class="btn btn-default" ng-click="goTabPrincipal()">« Anterior</button>
         <button type="submit" class="btn btn-primary" ladda="control.block" data-style="expand-right">Guardar</button>
-        <button type="button" class="btn btn-default" ng-click="cancelar()">Cancelar</button>
     </p>
 </div>

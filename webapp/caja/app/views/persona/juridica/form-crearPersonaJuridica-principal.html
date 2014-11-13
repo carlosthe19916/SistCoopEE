@@ -33,14 +33,14 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-4" ng-class="{ 'has-error' : form.numeroDocumento.$invalid && (form.numeroDocumento.$touched || form.$submitted)}">
+        <div class="col-sm-4" ng-class="{ 'has-error' : form.numeroDocumento.$invalid && (form.numeroDocumento.$dirty || form.numeroDocumento.$touched || form.$submitted)}">
             <div class="form-group">
                 <label>N&uacute;mero documento</label>
                 <div class="input-group">
-                    <input type="text" name="numeroDocumento" ng-model="view.persona.numeroDocumento" ui-keypress="{13:'check($event)'}" ng-pattern="/^[0-9]+$/" ng-minlength="combo.selected.tipoDocumento.cantidadCaracteres" ng-maxlength="combo.selected.tipoDocumento.cantidadCaracteres" class="form-control" required/>
-                    <span class="input-group-btn"><button type="button" ng-click="check()" tooltip="Check" tooltip-trigger="mouseenter" tooltip-placement="bottom" class="btn btn-default"><span class="glyphicon glyphicon-check"></span></button></span>
+                    <input type="text" name="numeroDocumento" ng-model="view.persona.numeroDocumento" ui-keypress="{13:'checkPersona($event)'}" ng-pattern="/^[0-9]+$/" ng-minlength="combo.selected.tipoDocumento.cantidadCaracteres" ng-maxlength="combo.selected.tipoDocumento.cantidadCaracteres" class="form-control" required/>
+                    <span class="input-group-btn"><button type="button" ng-click="checkPersona()" tooltip="Check" tooltip-trigger="mouseenter" tooltip-placement="bottom" class="btn btn-default"><span class="glyphicon glyphicon-check"></span></button></span>
                 </div>
-                <div ng-messages="form.numeroDocumento.$error" ng-if="form.numeroDocumento.$touched || form.$submitted">
+                <div ng-messages="form.numeroDocumento.$error" ng-if="form.numeroDocumento.$dirty || form.numeroDocumento.$touched || form.$submitted">
                     <div class="help-block" ng-message="required">Ingrese numero documento.</div>
                     <div class="help-block" ng-message="minlength">Debe tener <span ng-bind="combo.selected.tipoDocumento.cantidadCaracteres"></span> digitos.</div>
                     <div class="help-block" ng-message="maxlength">Debe tener <span ng-bind="combo.selected.tipoDocumento.cantidadCaracteres"></span> digitos.</div>
@@ -128,6 +128,6 @@
     </div>
     <p>
         <button type="button" class="btn btn-default" ng-click="cancelar()">Cancelar</button>
-        <button type="button" class="btn btn-default" ng-click="checkTabPrincipal()">Siguiente »</button>
+        <button type="button" class="btn btn-default" ng-click="goTabAccionista()">Siguiente »</button>
     </p>
 </div>

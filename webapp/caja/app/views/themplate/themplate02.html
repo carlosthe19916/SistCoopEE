@@ -3,7 +3,7 @@
         <div class="span3">
             <div ui-view="viewMenu" class="sidebar-nav">
                 <ul class="nav nav-list">
-                    <li ng-repeat="menu in menus" ng-class="{ 'nav-header' : menu.header}" ui-sref-active-eq="active">
+                    <li ng-repeat="menu in menus" ng-class="{ 'nav-header' : menu.header}" ui-sref-active="active">
                         <span ng-if="menu.header" ng-bind="menu.name"></span>
                         <a ui-sref="{{menu.state}}" ng-if="!menu.header" ng-bind="menu.name"></a>
                     </li>

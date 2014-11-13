@@ -17,7 +17,7 @@ authUrl = window.location.href.substring(0,  authUrl.indexOf('/admin'));
 var module = angular.module('sistcoop', [
     'ngSanitize',
     'ngMessages',
-    'ngAnimate',
+    //'ngAnimate',
 
     'persona',
     'ubigeo',

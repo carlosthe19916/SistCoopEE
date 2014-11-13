@@ -24,6 +24,16 @@
             };
             $scope.toggleMax();
 
+        })
+        .controller('NavigationController', function($scope, $state, Navigation, Storage){
+            $scope.states = Navigation.getStates();
+
+            $scope.goToState = function(index){
+                Storage.setObject($scope.states[index].object);
+                var nextState = $scope.states[index].state;
+                $scope.states.splice(index, $scope.states.length - index);
+                $state.go(nextState);
+            };
         });
 
 })(window, window.angular);
