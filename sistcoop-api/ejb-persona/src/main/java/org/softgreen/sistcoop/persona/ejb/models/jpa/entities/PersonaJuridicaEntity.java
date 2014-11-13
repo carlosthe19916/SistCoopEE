@@ -106,7 +106,7 @@ public class PersonaJuridicaEntity extends PersonaEntity implements
 	}
 
 	@Size(min = 0, max = 50)
-	@Column(name="NOMBRE_COMERCIAL")
+	@Column(name="NOMBRE_COMERCIAL", nullable = true)
 	public String getNombreComercial() {
 		return nombreComercial;
 	}
@@ -128,7 +128,7 @@ public class PersonaJuridicaEntity extends PersonaEntity implements
 	}
 
 	@Size(min = 0, max = 70)
-	@Column(name="ACTIVIDAD_PRINCIPAL")
+	@Column(name="ACTIVIDAD_PRINCIPAL", nullable = true)
 	public String getActividadPrincipal() {
 		return actividadPrincipal;
 	}

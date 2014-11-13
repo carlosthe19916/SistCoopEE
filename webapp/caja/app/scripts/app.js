@@ -68,7 +68,7 @@ module.config(function(RestangularProvider) {
             if(element){
                 newElement = element[Object.keys(element)[0]];
                 angular.forEach(newElement, function(value, key) {
-                    if(angular.isObject(value)){
+                    if(angular.isObject(value) && !angular.isDate(value) && !angular.isArray(value)){
                         var obj = angular.copy(value);
                         angular.forEach(value, function(val, k) {
                             if(angular.isObject(value)){
