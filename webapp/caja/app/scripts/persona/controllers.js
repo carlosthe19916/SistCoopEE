@@ -82,6 +82,8 @@
 
         })
         .controller('CrearPersonaJuridicaController', function($scope, $state, Storage, Pais, TipoEmpresa, PersonaJuridica, PersonaNatural, TipoDocumento, Notifications, Navigation){
+
+            $scope.prueba = PersonaJuridica.$find(1);
             $scope.view = {
                 persona: PersonaJuridica.$build(),
                 representante: undefined
@@ -100,23 +102,60 @@
 
                 tipoDocumentoRepresentante: undefined
             };
+            $scope.combo.synchronize = function(){
+                $scope.view.persona.codigoPais = $scope.combo.selected.pais ? $scope.combo.selected.pais.alpha3Code: undefined;
+                $scope.view.persona.tipoDocumento = $scope.combo.selected.tipoDocumento ? $scope.combo.selected.tipoDocumento.abreviatura: undefined;
+                $scope.view.persona.tipoEmpresa = $scope.combo.selected.tipoEmpresa ? $scope.combo.selected.tipoEmpresa.denominacion : undefined;
+
+                $scope.view.persona.representanteLegal.tipoDocumento = $scope.combo.selected.tipoDocumentoRepresentante ? $scope.combo.selected.tipoDocumentoRepresentante.abreviatura: undefined;
+            };
 
             $scope.loadParams = function(){
                 $scope.view.persona.tipoDocumento = $scope.params.tipoDocumento;
                 $scope.view.persona.numeroDocumento = $scope.params.numeroDocumento;
-                if(!angular.isUndefined($scope.params.tipoDocumento) && !angular.isUndefined($scope.params.numeroDocumento)){
-                    var tipoDocumentoListener = $scope.$watch('combo.tipoDocumento', function(newValue, oldValue){
-                        if($scope.combo.tipoDocumento.length){
-                            for(var i=0;i<$scope.combo.tipoDocumento.length;i++){
-                                if($scope.combo.tipoDocumento[i].abreviatura.toLowerCase() == $scope.params.tipoDocumento.toLowerCase()){
-                                    $scope.combo.selected.tipoDocumento = $scope.combo.tipoDocumento[i];
-                                    break;
-                                }
-                            }
-                            tipoDocumentoListener();
+                if($scope.params.object) $scope.view = $scope.params.object;
+
+                var getElement = function(object, atributo, comparador){
+                    if(object.length){
+                        for(var i=0; i<object.length; i++){
+                            if(object[i][atributo.toString()] == comparador)
+                                return object[i];
+                        }
+                    }
+                };
+                if(!angular.isUndefined($scope.view.persona.codigoPais)){
+                    var comboPaisListener = $scope.$watch('combo.pais', function(newValue, oldValue) {
+                        if($scope.combo.pais.length){
+                            $scope.combo.selected.pais = getElement($scope.combo.pais, 'alpha3Code', $scope.view.persona.codigoPais);
+                            comboPaisListener();
                         }
                     }, true);
                 }
+                if(!angular.isUndefined($scope.view.persona.tipoDocumento)){
+                    var comboTipoDocumentoListener = $scope.$watch('combo.tipoDocumento', function(newValue, oldValue) {
+                        if($scope.combo.tipoDocumento.length){
+                            $scope.combo.selected.tipoDocumento = getElement($scope.combo.tipoDocumento, 'abreviatura', $scope.view.persona.tipoDocumento.toUpperCase());
+                            comboTipoDocumentoListener();
+                        }
+                    }, true);
+                }
+                if(!angular.isUndefined($scope.view.persona.tipoEmpresa)){
+                    var comboTipoEmpresaListener = $scope.$watch('combo.tipoEmpresa', function(newValue, oldValue) {
+                        if($scope.combo.tipoEmpresa.length){
+                            $scope.combo.selected.tipoEmpresa = getElement($scope.combo.tipoEmpresa, 'denominacion', $scope.view.persona.tipoEmpresa);
+                            comboTipoEmpresaListener();
+                        }
+                    }, true);
+                }
+                if(!angular.isUndefined($scope.view.persona.representanteLegal.tipoDocumento)){
+                    var comboTipoDocumentoRepresentanteListener = $scope.$watch('combo.tipoDocumentoRepresentante', function(newValue, oldValue) {
+                        if($scope.combo.tipoDocumentoRepresentante.length){
+                            $scope.combo.selected.tipoDocumentoRepresentante = getElement($scope.combo.tipoDocumentoRepresentante, 'abreviatura', $scope.view.persona.representanteLegal.tipoDocumento.toUpperCase());
+                            comboTipoDocumentoRepresentanteListener();
+                        }
+                    }, true);
+                }
+
             };
             $scope.loadParams();
 
@@ -124,9 +163,11 @@
                 if ($scope.form.$valid) {
                     $scope.blockControl();
                     var save = function(){
-                        $scope.view.persona.codigoPais = $scope.combo.selected.pais ? $scope.combo.selected.pais.alpha3Code: null;
-                        $scope.view.persona.tipoDocumento = $scope.combo.selected.tipoDocumento ? $scope.combo.selected.tipoDocumento.abreviatura: null;
-                        $scope.view.persona.tipoEmpresa = $scope.combo.selected.tipoEmpresa ? $scope.combo.selected.tipoEmpresa.denominacion : null;
+                        $scope.combo.synchronize();
+                        $scope.view.persona.representanteLegal = {
+                            tipoDocumento: $scope.view.persona.representanteLegal.tipoDocumento,
+                            numeroDocumento: $scope.view.persona.representanteLegal.numeroDocumento
+                        };
                         $scope.view.persona.$save().then(
                             function(data){
                                 $scope.unblockControl();
@@ -193,7 +234,8 @@
                 $state.go('app.administracion.crearPersonaJuridica.principal');
             };
             $scope.goCrearPersonaNatural = function(){
-                Navigation.addState({name: 'Crear persona juridica', state: 'app.administracion.crearPersonaJuridica', object: $scope.view});
+                $scope.combo.synchronize();
+                Navigation.addState({name: 'Crear persona juridica', state: 'app.administracion.crearPersonaJuridica.accionista', object: $scope.view});
                 $state.go('app.administracion.crearPersonaNatural');
             };
 

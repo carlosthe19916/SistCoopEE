@@ -84,10 +84,12 @@ public class ModelToRepresentation {
 		rep.setNombreComercial(model.getNombreComercial());
 		rep.setTipoEmpresa(model.getTipoEmpresa() != null ? model.getTipoEmpresa().toString() : null);
 
-		// representante legal
-		// rep.setIdRepresentanteLegal(model.getRepresentanteLegal().getId());
-		// rep.setTipoDocumentoRepresentanteLegal(model.getRepresentanteLegal().getTipoDocumento().getAbreviatura());
-		// rep.setNumeroDocumentoRepresentanteLegal(model.getRepresentanteLegal().getNumeroDocumento());
+		 //representante legal
+		PersonaNaturalRepresentation representanteRep = new PersonaNaturalRepresentation();
+		representanteRep.setId(model.getRepresentanteLegal().getId());
+		representanteRep.setTipoDocumento(model.getRepresentanteLegal().getTipoDocumento().getAbreviatura());
+		representanteRep.setNumeroDocumento(model.getRepresentanteLegal().getNumeroDocumento());
+		rep.setRepresentanteLegal(representanteRep);		
 
 		// direccion de residencia
 		rep.setUbigeo(model.getUbigeo());

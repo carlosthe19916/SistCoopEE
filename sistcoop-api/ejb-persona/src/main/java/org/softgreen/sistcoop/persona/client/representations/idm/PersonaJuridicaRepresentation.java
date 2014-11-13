@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "personaJuridica")
@@ -36,9 +37,7 @@ public class PersonaJuridicaRepresentation implements Serializable {
 	private String celular;
 	private String email;
 
-	private Long idRepresentanteLegal;
-	private String tipoDocumentoRepresentanteLegal;
-	private String numeroDocumentoRepresentanteLegal;
+	private PersonaNaturalRepresentation representanteLegal;
 
 	@XmlAttribute
 	public Long getId() {
@@ -184,31 +183,13 @@ public class PersonaJuridicaRepresentation implements Serializable {
 		this.email = email;
 	}
 
-	@XmlAttribute
-	public Long getIdRepresentanteLegal() {
-		return idRepresentanteLegal;
+	@XmlElement
+	public PersonaNaturalRepresentation getRepresentanteLegal() {
+		return representanteLegal;
 	}
 
-	public void setIdRepresentanteLegal(Long idRepresentanteLegal) {
-		this.idRepresentanteLegal = idRepresentanteLegal;
-	}
-
-	@XmlAttribute
-	public String getTipoDocumentoRepresentanteLegal() {
-		return tipoDocumentoRepresentanteLegal;
-	}
-
-	public void setTipoDocumentoRepresentanteLegal(String tipoDocumentoRepresentanteLegal) {
-		this.tipoDocumentoRepresentanteLegal = tipoDocumentoRepresentanteLegal;
-	}
-
-	@XmlAttribute
-	public String getNumeroDocumentoRepresentanteLegal() {
-		return numeroDocumentoRepresentanteLegal;
-	}
-
-	public void setNumeroDocumentoRepresentanteLegal(String numeroDocumentoRepresentanteLegal) {
-		this.numeroDocumentoRepresentanteLegal = numeroDocumentoRepresentanteLegal;
+	public void setRepresentanteLegal(PersonaNaturalRepresentation representanteLegal) {
+		this.representanteLegal = representanteLegal;
 	}
 
 }

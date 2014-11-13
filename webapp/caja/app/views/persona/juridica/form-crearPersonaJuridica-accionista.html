@@ -4,7 +4,7 @@
         <div class="col-sm-4">
             <div class="form-group" ng-class="{ 'has-error' : form.tipoDocumento.$invalid && (form.tipoDocumento.$touched || form.$submitted)}">
                 <label>Tipo documento</label>
-                <ui-select name="tipoDocumento" ng-model="combo.selected.tipoDocumentoRepresentante" theme="bootstrap" required>
+                <ui-select name="tipoDocumento" ng-model="combo.selected.tipoDocumentoRepresentante" theme="bootstrap" ui-autofocus required>
                     <ui-select-match placeholder="Seleccione">{{$select.selected.abreviatura}}</ui-select-match>
                     <ui-select-choices repeat="item in combo.tipoDocumentoRepresentante | filter: $select.search">
                         <div ng-bind-html="item.abreviatura | highlight: $select.search"></div>

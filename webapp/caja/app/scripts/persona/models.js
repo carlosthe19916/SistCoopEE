@@ -59,6 +59,11 @@
                         id: undefined,
                         tipoDocumento: undefined,
                         numeroDocumento: undefined,
+                        razonSocial: undefined,
+                        representanteLegal: {
+                            tipoDocumento: undefined,
+                            numeroDocumento: undefined
+                        },
                         $save: function(){
                             var config = PersonaRestangular.withConfig(function(RestangularConfigurer) {
                                 RestangularConfigurer.setFullResponse(true);

@@ -95,9 +95,21 @@ module.config(function(RestangularProvider) {
             if(response){
                 //newResponse.originalElement = angular.copy(response);
                 angular.forEach(response, function(value, key) {
-                    var k = key.replace('@','');
-                    this[k.toString()] = value;
-                    delete this[key];
+                    if(key.substring(0,1) == '@') {
+                        var newKey = key.replace('@', '');
+                        this[newKey.toString()] = value;
+                        delete this[key];
+                    } else {
+                        var obj = angular.copy(value);
+                        angular.forEach(value, function(val, k) {
+                            if(k.substring(0,1) == '@') {
+                                var newKey = k.replace('@', '');
+                                this[newKey.toString()] = val;
+                                delete this[k];
+                            }
+                        }, obj);
+                        this[key.toString()] = obj;
+                    }
                 }, newResponse);
             }
         }
@@ -328,12 +340,18 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
         .state('app.administracion.crearPersonaJuridica', {
             url: "/persona/juridica?documento&numero",
             templateUrl: "../../views/persona/juridica/form-crearPersonaJuridica.html",
-            controller: function($scope, $stateParams) {
+            resolve: {
+                persona: function($state, Storage) {
+                    return Storage.getObject();
+                }
+            },
+            controller: function($scope, $stateParams, persona) {
                 $scope.themplate.header = 'Crear persona juridica';
 
                 $scope.params = {};
                 $scope.params.tipoDocumento = $stateParams.documento;
                 $scope.params.numeroDocumento = $stateParams.numero;
+                $scope.params.object = persona;
             },
             module: 'PERSONA',
             roles: ['USER']

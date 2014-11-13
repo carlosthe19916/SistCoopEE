@@ -34,6 +34,10 @@
                 $scope.states.splice(index, $scope.states.length - index);
                 $state.go(nextState);
             };
+
+            $scope.clear = function(){
+                $scope.states = [];
+            };
         });
 
 })(window, window.angular);

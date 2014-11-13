@@ -7,7 +7,10 @@
                 </h3>
                 <ul class="nav nav-wizard" ng-controller="NavigationController" style="display: inline-block; float: right; font-size: 12px">
                     <li ng-repeat="item in states" ng-class="{'active': $first}">
-                        <a ng-bind="item.name" ng-click="goToState($index)"></a>
+                        <a ng-bind="item.name" ng-click="goToState($index)" style="cursor: pointer;"></a>
+                    </li>
+                    <li ng-show="states.length">
+                        <button type="button" ng-click="clear()" class="close" style="padding: 10px; margin-left: 15px;"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     </li>
                 </ul>
             </div>
