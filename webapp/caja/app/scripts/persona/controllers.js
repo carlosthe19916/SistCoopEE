@@ -235,9 +235,6 @@
                 estadoCivil: undefined
             };
 
-            $scope.setDate = function(){
-                $scope.view.personaNatural.fechaNacimiento = new Date();
-            };
             $scope.loadParams = function(){
                 $scope.view.personaNatural = $scope.params.object;
                 $scope.view.personaNaturalDB = angular.copy($scope.params.object);
@@ -342,6 +339,16 @@
         })
         .controller('EditarPersonaJuridicaController', function($scope, $state, $modal, Pais, Sexo, EstadoCivil, PersonaNatural, TipoDocumento, Notifications){
 
+            $scope.view = {
+                persona: undefined,
+                personaDB: undefined
+            };
+
+            $scope.loadParams = function(){
+                $scope.view.persona = $scope.params.object;
+                $scope.view.personaDB = angular.copy($scope.params.object);
+            };
+            $scope.loadParams();
 
         })
         .controller('BuscarController', function($scope){

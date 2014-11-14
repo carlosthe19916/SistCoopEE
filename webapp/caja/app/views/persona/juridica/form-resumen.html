@@ -3,7 +3,7 @@
         <div class="card" style="border-top-width: 1px;">
             <h3 class="card-heading simple">
                 Datos principales
-                <button type="button" class="btn btn-link" tooltip-placement="bottom" tooltip="Datos personales de la persona." tooltip-trigger="mouseenter" style="color: #999;padding: 0;float: right;">
+                <button type="button" class="btn btn-link" tooltip-placement="bottom" tooltip="Datos principales de la persona." tooltip-trigger="mouseenter" style="color: #999;padding: 0;float: right;">
                     <span class="glyphicon glyphicon-info-sign"></span>
                 </button>
             </h3>
@@ -19,7 +19,7 @@
                                     <p>Cod.pais:&nbsp;</p>
                                 </div>
                                 <div class="col-sm-9">
-                                    <p><strong ng-bind="view.personaNaturalDB.codigoPais"></strong></p>
+                                    <p><strong ng-bind="view.personaDB.codigoPais"></strong></p>
                                 </div>
                             </div>
                             <div class="row">
@@ -28,68 +28,57 @@
                                 </div>
                                 <div class="col-sm-9">
                                     <p>
-                                        <strong ng-bind="view.personaNaturalDB.tipoDocumento"></strong>
-                                        <strong>/</strong>
-                                        <strong ng-bind="view.personaNaturalDB.numeroDocumento"></strong>
+                                        <strong ng-bind="view.personaDB.tipoDocumento"></strong>
+                                        <strong ng-show="view.personaDB.tipoDocumento">/</strong>
+                                        <strong ng-bind="view.personaDB.numeroDocumento"></strong>
                                     </p>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <p>Apellidos:&nbsp;</p>
+                                    <p>Razon social:&nbsp;</p>
                                 </div>
                                 <div class="col-sm-9">
-                                    <p>
-                                        <strong ng-bind="view.personaNaturalDB.apellidoPaterno"></strong>&nbsp;
-                                        <strong ng-bind="view.personaNaturalDB.apellidoMaterno"></strong>
-                                    </p>
+                                    <p><strong ng-bind="view.personaDB.razonSocial"></strong></p>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <p>Nombres:&nbsp;</p>
+                                    <p>Nombre comercial:&nbsp;</p>
                                 </div>
                                 <div class="col-sm-9">
-                                    <p>
-                                        <strong ng-bind="view.personaNaturalDB.nombres"></strong>
-                                    </p>
+                                    <p><strong ng-bind="view.personaDB.nombreComercial"></strong></p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-4">
-                            <button type="button" ng-click="openModal()" class="btn btn-link" style="font-size: 14px;">Cambiar foto</button>
+                            <button type="button" ng-click="openModal()" class="btn btn-link" style="font-size: 14px;">Cambiar logo</button>
                         </div>
                     </div>
                 </div>
                 <div style="border-bottom: 1px solid #e5e5e5;margin-bottom: 20px;">
                     <div class="row">
                         <div class="col-sm-3">
-                            <p>F.nacimiento:&nbsp;</p>
+                            <p>F.constitucion:&nbsp;</p>
                         </div>
                         <div class="col-sm-3">
-                            <p>
-                                <strong ng-bind="view.personaNaturalDB.fechaNacimiento | date : 'dd/MM/yyyy'"></strong>
-                            </p>
+                            <p><strong ng-bind="view.personaDB.fechaConstitucion | date : 'dd/MM/yyyy'"></strong></p>
                         </div>
                         <div class="col-sm-3">
-                            <p>Sexo:&nbsp;</p>
+                            <p>Tipo empresa:&nbsp;</p>
                         </div>
                         <div class="col-sm-3">
-                            <p>
-                                <strong ng-bind="view.personaNaturalDB.sexo"></strong>
-                            </p>
+                            <p><strong ng-bind="view.personaDB.tipoEmpresa"></strong></p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-3">
-                            <p>Estado civil:&nbsp;</p>
+                            <p>Fin de lucro:&nbsp;</p>
                         </div>
                         <div class="col-sm-3">
-                            <p>
-                                <strong ng-bind="view.personaNaturalDB.estadoCivil"></strong>
-                            </p>
+                            <p><strong ng-bind="view.personaDB.finLucro"></strong></p>
                         </div>
                     </div>
                 </div>
@@ -117,7 +106,7 @@
                         </div>
                         <div class="col-sm-9">
                             <p>
-                                <strong ng-bind="view.personaNaturalDB.ocupacion"></strong>
+                                <strong ng-bind="view.personaDB.ocupacion"></strong>
                             </p>
                         </div>
                     </div>
@@ -129,7 +118,7 @@
                         </div>
                         <div class="col-sm-9">
                             <p>
-                                <strong ng-bind="view.personaNaturalDB.direccion"></strong>
+                                <strong ng-bind="view.personaDB.direccion"></strong>
                             </p>
                         </div>
                     </div>
@@ -139,7 +128,7 @@
                         </div>
                         <div class="col-sm-9">
                             <p>
-                                <strong ng-bind="view.personaNaturalDB.referencia"></strong>
+                                <strong ng-bind="view.personaDB.referencia"></strong>
                             </p>
                         </div>
                     </div>
@@ -149,7 +138,7 @@
                         </div>
                         <div class="col-sm-9">
                             <p>
-                                <strong ng-bind="view.personaNaturalDB.ubigeo"></strong>
+                                <strong ng-bind="view.personaDB.ubigeo"></strong>
                             </p>
                         </div>
                     </div>
@@ -161,7 +150,7 @@
                         </div>
                         <div class="col-sm-3">
                             <p>
-                                <strong ng-bind="view.personaNaturalDB.telefono"></strong>
+                                <strong ng-bind="view.personaDB.telefono"></strong>
                             </p>
                         </div>
                         <div class="col-sm-3">
@@ -169,7 +158,7 @@
                         </div>
                         <div class="col-sm-3">
                             <p>
-                                <strong ng-bind="view.personaNaturalDB.celular"></strong>
+                                <strong ng-bind="view.personaDB.celular"></strong>
                             </p>
                         </div>
                     </div>
@@ -179,7 +168,7 @@
                         </div>
                         <div class="col-sm-9">
                             <p>
-                                <strong ng-bind="view.personaNaturalDB.email"></strong>
+                                <strong ng-bind="view.personaDB.email"></strong>
                             </p>
                         </div>
                     </div>
