@@ -17,7 +17,6 @@
         })
         .factory('Navigation', function(){
             //state = {name:'', state: '', object: ''}
-
             var states = [];
             return {
                 getStates: function(){

@@ -81,7 +81,7 @@
             };
 
         })
-        .controller('CrearPersonaJuridicaController', function($scope, $state, Storage, Pais, TipoEmpresa, PersonaJuridica, PersonaNatural, TipoDocumento, Notifications, Navigation, Util){
+        .controller('CrearPersonaJuridicaController', function($scope, $state,$parse, Storage, Pais, TipoEmpresa, PersonaJuridica, PersonaNatural, TipoDocumento, Notifications, Navigation, Util){
             $scope.view = {
                 persona: PersonaJuridica.$build(),
                 representante: undefined
@@ -110,49 +110,30 @@
                 $scope.view.persona.numeroDocumento = $scope.params.numeroDocumento;
                 if($scope.params.object) $scope.view = $scope.params.object;
 
-                var createListener = function(watchedObjectName, selectedObject, attributeName, toCompare){
-                    var listener = $scope.watch(watchedObjectName.toString(), function(){
-                        if($scope[watchedObjectName.toString()].length){
-                            $scope[selectedObject] = Util.getElementOfArray($scope[watchedObjectName], attributeName, toCompare);
+                var createListener = function(watchedObjectName, attributeName, toCompare, selectedObject){
+                    var listener = $scope.$watch(watchedObjectName.toString(), function(){
+                        var getter = $parse(watchedObjectName.toString());
+                        var model = getter($scope);
+                        if(model.length){
+                            var selected = Util.getElementOfArray(model, attributeName, toCompare);
+                            $parse(selectedObject.toString()).assign($scope, selected);
+                            if(!$scope.$$phase) {
+                                $scope.$apply();
+                            }
                             listener();
                         }
                     }, true);
                     return listener;
                 };
 
-                if(!angular.isUndefined($scope.view.persona.codigoPais)){
-                    var comboPaisListener = $scope.$watch('combo.pais', function(newValue, oldValue) {
-                        if($scope.combo.pais.length){
-                            $scope.combo.selected.pais = Util.getElementOfArray($scope.combo.pais, 'alpha3Code', $scope.view.persona.codigoPais);
-                            comboPaisListener();
-                        }
-                    }, true);
-                }
-                if(!angular.isUndefined($scope.view.persona.tipoDocumento)){
-                    var comboTipoDocumentoListener = $scope.$watch('combo.tipoDocumento', function(newValue, oldValue) {
-                        if($scope.combo.tipoDocumento.length){
-                            $scope.combo.selected.tipoDocumento = Util.getElementOfArray($scope.combo.tipoDocumento, 'abreviatura', $scope.view.persona.tipoDocumento.toUpperCase());
-                            comboTipoDocumentoListener();
-                        }
-                    }, true);
-                }
-                if(!angular.isUndefined($scope.view.persona.tipoEmpresa)){
-                    var comboTipoEmpresaListener = $scope.$watch('combo.tipoEmpresa', function(newValue, oldValue) {
-                        if($scope.combo.tipoEmpresa.length){
-                            $scope.combo.selected.tipoEmpresa = Util.getElementOfArray($scope.combo.tipoEmpresa, 'denominacion', $scope.view.persona.tipoEmpresa);
-                            comboTipoEmpresaListener();
-                        }
-                    }, true);
-                }
-                if(!angular.isUndefined($scope.view.persona.representanteLegal.tipoDocumento)){
-                    var comboTipoDocumentoRepresentanteListener = $scope.$watch('combo.tipoDocumentoRepresentante', function(newValue, oldValue) {
-                        if($scope.combo.tipoDocumentoRepresentante.length){
-                            $scope.combo.selected.tipoDocumentoRepresentante = Util.getElementOfArray($scope.combo.tipoDocumentoRepresentante, 'abreviatura', $scope.view.persona.representanteLegal.tipoDocumento.toUpperCase());
-                            comboTipoDocumentoRepresentanteListener();
-                        }
-                    }, true);
-                }
-
+                if(angular.isDefined($scope.view.persona.codigoPais))
+                    createListener('combo.pais', 'alpha3Code', $scope.view.persona.codigoPais, 'combo.selected.pais');
+                if(angular.isDefined($scope.view.persona.tipoDocumento))
+                    createListener('combo.tipoDocumento', 'abreviatura', $scope.view.persona.tipoDocumento.toUpperCase(), 'combo.selected.tipoDocumento');
+                if(angular.isDefined($scope.view.persona.tipoEmpresa))
+                    createListener('combo.tipoEmpresa', 'denominacion', $scope.view.persona.tipoEmpresa, 'combo.selected.tipoEmpresa');
+                if(angular.isDefined($scope.view.persona.representanteLegal.tipoDocumento))
+                    createListener('combo.tipoDocumentoRepresentante', 'denominacion', $scope.view.persona.representanteLegal.tipoDocumento.toUpperCase(), 'combo.selected.tipoDocumentoRepresentante');
             };
             $scope.loadParams();
 

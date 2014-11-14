@@ -107,7 +107,7 @@ public class PersonaJuridicaResource {
 		TipoDocumentoModel tipoDocumentoModel = tipoDocumentoProvider.getTipoDocumentoByAbreviatura(personaJuridicaRepresentation.getTipoDocumento());
 		PersonaJuridicaModel personaJuridicaModel = representationToModel.createPersonaJuridica(personaJuridicaRepresentation, tipoDocumentoModel, representanteModel, personaJuridicaProvider);
 		PersonaJuridicaRepresentation result = ModelToRepresentation.toRepresentation(personaJuridicaModel);
-		return Response.created(uriInfo.getAbsolutePathBuilder().path(result.getId().toString()).build()).build();
+		return Response.created(uriInfo.getAbsolutePathBuilder().path(result.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").build();
 	}
 
 	@PUT
@@ -180,7 +180,7 @@ public class PersonaJuridicaResource {
 
 		AccionistaModel accionistaModel = personaJuridicaModel.addAccionista(personaNaturalModel, accionistaRepresentation.getPorcentajeParticipacion());
 		AccionistaRepresentation representation = ModelToRepresentation.toRepresentation(accionistaModel);
-		return Response.created(uriInfo.getAbsolutePathBuilder().path(representation.getId().toString()).build()).build();
+		return Response.created(uriInfo.getAbsolutePathBuilder().path(representation.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").build();
 	}
 
 	@PUT

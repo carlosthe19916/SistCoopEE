@@ -76,8 +76,8 @@ public class TipoDocumentoResource {
 	@POST
 	@Produces({ "application/xml", "application/json" })
 	public Response create(TipoDocumentoRepresentation tipoDocumentoRepresentation) {
-		TipoDocumentoModel tipoDocumentoModel = representationToModel.createTipoDocumento(tipoDocumentoRepresentation, tipoDocumentoProvider);
-		return Response.created(uriInfo.getAbsolutePathBuilder().path(tipoDocumentoModel.getAbreviatura()).build()).build();
+		TipoDocumentoModel tipoDocumentoModel = representationToModel.createTipoDocumento(tipoDocumentoRepresentation, tipoDocumentoProvider);		
+		return Response.created(uriInfo.getAbsolutePathBuilder().path(tipoDocumentoModel.getAbreviatura()).build()).header("Access-Control-Expose-Headers", "Location").build();
 	}
 
 	@PUT
