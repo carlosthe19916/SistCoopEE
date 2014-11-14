@@ -109,31 +109,6 @@
                 $scope.view.persona.tipoDocumento = $scope.params.tipoDocumento;
                 $scope.view.persona.numeroDocumento = $scope.params.numeroDocumento;
                 if($scope.params.object) $scope.view = $scope.params.object;
-
-                var createListener = function(watchedObjectName, attributeName, toCompare, selectedObject){
-                    var listener = $scope.$watch(watchedObjectName.toString(), function(){
-                        var getter = $parse(watchedObjectName.toString());
-                        var model = getter($scope);
-                        if(model.length){
-                            var selected = Util.getElementOfArray(model, attributeName, toCompare);
-                            $parse(selectedObject.toString()).assign($scope, selected);
-                            if(!$scope.$$phase) {
-                                $scope.$apply();
-                            }
-                            listener();
-                        }
-                    }, true);
-                    return listener;
-                };
-
-                if(angular.isDefined($scope.view.persona.codigoPais))
-                    createListener('combo.pais', 'alpha3Code', $scope.view.persona.codigoPais, 'combo.selected.pais');
-                if(angular.isDefined($scope.view.persona.tipoDocumento))
-                    createListener('combo.tipoDocumento', 'abreviatura', $scope.view.persona.tipoDocumento.toUpperCase(), 'combo.selected.tipoDocumento');
-                if(angular.isDefined($scope.view.persona.tipoEmpresa))
-                    createListener('combo.tipoEmpresa', 'denominacion', $scope.view.persona.tipoEmpresa, 'combo.selected.tipoEmpresa');
-                if(angular.isDefined($scope.view.persona.representanteLegal.tipoDocumento))
-                    createListener('combo.tipoDocumentoRepresentante', 'denominacion', $scope.view.persona.representanteLegal.tipoDocumento.toUpperCase(), 'combo.selected.tipoDocumentoRepresentante');
             };
             $scope.loadParams();
 

@@ -5,6 +5,7 @@
             <div class="form-group" ng-class="{ 'has-error' : form.tipoDocumento.$invalid && (form.tipoDocumento.$touched || form.$submitted)}">
                 <label>Tipo documento</label>
                 <ui-select name="tipoDocumento" ng-model="combo.selected.tipoDocumentoRepresentante" theme="bootstrap" ui-autofocus required>
+                    <ui-select-autoload pk-name="abreviatura" comparator="{{view.persona.representanteLegal.tipoDocumento}}" ignore-case="true"></ui-select-autoload>
                     <ui-select-match placeholder="Seleccione">{{$select.selected.abreviatura}}</ui-select-match>
                     <ui-select-choices repeat="item in combo.tipoDocumentoRepresentante | filter: $select.search">
                         <div ng-bind-html="item.abreviatura | highlight: $select.search"></div>
