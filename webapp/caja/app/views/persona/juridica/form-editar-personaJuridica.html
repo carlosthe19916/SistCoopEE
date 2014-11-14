@@ -1,0 +1,17 @@
+<div class="row" ng-controller="EditarPersonaJuridicaController">
+    <div class="col-sm-12">
+        <div>
+            <div>
+                <ul class="nav nav-tabs">
+                    <li ui-sref-active-eq="active"><a ui-sref=".resumen">Resumen</a></li>
+                    <li ui-sref-active-eq="active"><a ui-sref=".principal">Datos principales</a></li>
+                    <li ui-sref-active-eq="active"><a ui-sref=".representante">Representante</a></li>
+                    <li ui-sref-active-eq="active"><a ui-sref=".accionista"><i class="glyphicon glyphicon-bell"></i>Accionistas</a></li>
+                </ul>
+            </div>
+            <form name="form" ng-submit="submit()" novalidate>
+                <div ui-view></div>
+            </form>
+        </div>
+    </div>
+</div>

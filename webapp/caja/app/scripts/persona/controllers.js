@@ -178,10 +178,10 @@
                 }
             };
 
-            $scope.goTabAccionista = function(){
+            $scope.goTabRepresentante = function(){
                 if($scope.form.$valid){
                     $scope.form.$setPristine();
-                    $state.go('app.administracion.crearPersonaJuridica.accionista');
+                    $state.go('app.administracion.crearPersonaJuridica.representante');
                 } else {
                     $scope.form.$setSubmitted();
                 }
@@ -191,7 +191,7 @@
             };
             $scope.goCrearPersonaNatural = function(){
                 $scope.combo.synchronize();
-                Navigation.addState({name: 'Crear persona juridica', state: 'app.administracion.crearPersonaJuridica.accionista', object: $scope.view});
+                Navigation.addState({name: 'Crear persona juridica', state: 'app.administracion.crearPersonaJuridica.representante', object: $scope.view});
                 $state.go('app.administracion.crearPersonaNatural');
             };
 
@@ -338,6 +338,10 @@
                     });
                 }
             };
+
+        })
+        .controller('EditarPersonaJuridicaController', function($scope, $state, $modal, Pais, Sexo, EstadoCivil, PersonaNatural, TipoDocumento, Notifications){
+
 
         })
         .controller('BuscarController', function($scope){
