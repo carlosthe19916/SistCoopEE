@@ -81,28 +81,10 @@
             };
 
         })
-        .controller('CrearPersonaJuridicaController', function($scope, $state,$parse, Storage, Pais, TipoEmpresa, PersonaJuridica, PersonaNatural, TipoDocumento, Notifications, Navigation, Util){
+        .controller('CrearPersonaJuridicaCtrl', function($scope, $state, PersonaJuridica, Notifications, Navigation, Storage){
             $scope.view = {
                 persona: PersonaJuridica.$build(),
                 representante: undefined
-            };
-            $scope.combo = {
-                pais: Pais.$search().$object,
-                tipoDocumento: TipoDocumento.$search({tipoPersona: 'juridica'}).$object,
-                tipoEmpresa: TipoEmpresa.$search().$object,
-                tipoDocumentoRepresentante: TipoDocumento.$search({tipoPersona: 'natural'}).$object
-            };
-            $scope.combo.selected = {
-                pais: undefined,
-                tipoDocumento: undefined,
-                tipoEmpresa: undefined,
-                tipoDocumentoRepresentante: undefined
-            };
-            $scope.combo.synchronize = function(){
-                $scope.view.persona.codigoPais = $scope.combo.selected.pais ? $scope.combo.selected.pais.alpha3Code: undefined;
-                $scope.view.persona.tipoDocumento = $scope.combo.selected.tipoDocumento ? $scope.combo.selected.tipoDocumento.abreviatura: undefined;
-                $scope.view.persona.tipoEmpresa = $scope.combo.selected.tipoEmpresa ? $scope.combo.selected.tipoEmpresa.denominacion : undefined;
-                $scope.view.persona.representanteLegal.tipoDocumento = $scope.combo.selected.tipoDocumentoRepresentante ? $scope.combo.selected.tipoDocumentoRepresentante.abreviatura: undefined;
             };
 
             $scope.loadParams = function(){
@@ -119,7 +101,6 @@
                 if ($scope.form.$valid && angular.isDefined($scope.view.persona.representanteLegal.id)) {
                     $scope.blockControl();
                     var save = function(){
-                        $scope.combo.synchronize();
                         $scope.view.persona.representanteLegal = {
                             tipoDocumento: $scope.view.persona.representanteLegal.tipoDocumento,
                             numeroDocumento: $scope.view.persona.representanteLegal.numeroDocumento
@@ -139,7 +120,7 @@
                             }
                         );
                     };
-                    PersonaJuridica.$findByTipoNumeroDocumento($scope.combo.selected.tipoDocumento.abreviatura, $scope.view.persona.numeroDocumento).then(function(data){
+                    PersonaJuridica.$findByTipoNumeroDocumento($scope.view.persona.tipoDocumento, $scope.view.persona.numeroDocumento).then(function(data){
                         if(data) {
                             Notifications.error("Documento de identidad no disponible.");
                             $scope.unblockControl();
@@ -148,6 +129,24 @@
                         }
                     });
                 }
+            };
+
+        })
+        .controller('DatosPrincipalesCtrl', function($scope, $state, Pais, TipoDocumento, TipoEmpresa, PersonaJuridica, Notifications){
+            $scope.combo = {
+                pais: Pais.$search().$object,
+                tipoDocumento: TipoDocumento.$search({tipoPersona: 'juridica'}).$object,
+                tipoEmpresa: TipoEmpresa.$search().$object
+            };
+            $scope.combo.selected = {
+                pais: undefined,
+                tipoDocumento: undefined,
+                tipoEmpresa: undefined
+            };
+            $scope.combo.synchronize = function(){
+                $scope.view.persona.codigoPais = $scope.combo.selected.pais ? $scope.combo.selected.pais.alpha3Code: undefined;
+                $scope.view.persona.tipoDocumento = $scope.combo.selected.tipoDocumento ? $scope.combo.selected.tipoDocumento.abreviatura: undefined;
+                $scope.view.persona.tipoEmpresa = $scope.combo.selected.tipoEmpresa ? $scope.combo.selected.tipoEmpresa.denominacion : undefined;
             };
 
             $scope.checkPersona = function($event){
@@ -164,12 +163,36 @@
                 }
             };
 
+            $scope.goTabRepresentante = function(){
+                if($scope.form.$valid){
+                    $scope.combo.synchronize();
+                    $scope.form.$setPristine();
+                    $state.go('app.administracion.crearPersonaJuridica.representante');
+                } else {
+                    $scope.form.$setSubmitted();
+                }
+            };
+
+            $scope.cancelar = function(){
+                $state.go('app.administracion.buscarPersonaJuridica');
+            };
+        })
+        .controller('RepresentanteLegalCtrl', function($scope, $state, TipoDocumento, PersonaNatural, Notifications, Navigation){
+            $scope.combo = {
+                tipoDocumento: TipoDocumento.$search({tipoPersona: 'natural'}).$object
+            };
+            $scope.combo.selected = {
+                tipoDocumento: undefined,
+            };
+            $scope.combo.synchronize = function(){
+                $scope.view.persona.representanteLegal.tipoDocumento = $scope.combo.selected.tipoDocumento ? $scope.combo.selected.tipoDocumento.abreviatura: undefined;
+            };
             $scope.setRepresentante = function($event){
                 if(!angular.isUndefined($event))
                     $event.preventDefault();
-                if(!angular.isUndefined($scope.combo.selected.tipoDocumentoRepresentante)
+                if(!angular.isUndefined($scope.combo.selected.tipoDocumento)
                     && !angular.isUndefined($scope.view.representante.numeroDocumento)){
-                    PersonaNatural.$findByTipoNumeroDocumento($scope.combo.selected.tipoDocumentoRepresentante.abreviatura, $scope.view.representante.numeroDocumento).then(function(data){
+                    PersonaNatural.$findByTipoNumeroDocumento($scope.combo.selected.tipoDocumento.abreviatura, $scope.view.representante.numeroDocumento).then(function(data){
                         if(data)
                             $scope.view.persona.representanteLegal = data;
                         else
@@ -178,14 +201,6 @@
                 }
             };
 
-            $scope.goTabRepresentante = function(){
-                if($scope.form.$valid){
-                    $scope.form.$setPristine();
-                    $state.go('app.administracion.crearPersonaJuridica.representante');
-                } else {
-                    $scope.form.$setSubmitted();
-                }
-            };
             $scope.goTabPrincipal = function(){
                 $state.go('app.administracion.crearPersonaJuridica.principal');
             };
@@ -193,10 +208,6 @@
                 $scope.combo.synchronize();
                 Navigation.addState({name: 'Crear persona juridica', state: 'app.administracion.crearPersonaJuridica.representante', object: $scope.view});
                 $state.go('app.administracion.crearPersonaNatural');
-            };
-
-            $scope.cancelar = function(){
-                $state.go('app.administracion.buscarPersonaJuridica');
             };
         })
         .controller('EditarPersonaNaturalController', function($scope, $state, $modal, Pais, Sexo, EstadoCivil, PersonaNatural, TipoDocumento, Notifications){
@@ -359,7 +370,6 @@
             };
         })
         .controller('BuscarPersonaNaturalController', function($scope, $state, Storage, PersonaNatural){
-
             $scope.nuevo = function(){
                 $state.go('app.administracion.crearPersonaNatural');
             };
@@ -400,7 +410,7 @@
                 $scope.gridOptions.data = PersonaNatural.$search($scope.filterOptions).$object;
             };
         })
-        .controller('BuscarPersonaJuridicaController', function($scope, $state, PersonaJuridica){
+        .controller('BuscarPersonaJuridicaController', function($scope, $state, Storage, PersonaJuridica){
             $scope.nuevo = function(){
                 $state.go('app.administracion.crearPersonaJuridica');
             };
@@ -424,6 +434,7 @@
             };
             $scope.gridActions = {
                 edit: function(row){
+                    Storage.setObject(row);
                     $state.go('app.administracion.editarPersonaJuridica', {id: row.id});
                 }
             };

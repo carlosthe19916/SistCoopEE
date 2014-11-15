@@ -77,6 +77,9 @@ public class RepresentationToModel {
 				TipoEmpresa.valueOf(rep.getTipoEmpresa().toUpperCase()),
 				rep.isFinLucro());
 		
+		model.setActividadPrincipal(rep.getActividadPrincipal());
+		model.setNombreComercial(rep.getNombreComercial());
+		
 		model.setUbigeo(rep.getUbigeo());
 		model.setDireccion(rep.getDireccion());
 		model.setReferencia(rep.getReferencia());

@@ -59,7 +59,7 @@ module.factory('authInterceptor', function($q, Auth) {
 
 module.config(function(RestangularProvider) {
     RestangularProvider.setBaseUrl('http://localhost:8080');
-    RestangularProvider.setDefaultHttpFields({cache: true});
+    //RestangularProvider.setDefaultHttpFields({cache: true});
 
     RestangularProvider.addFullRequestInterceptor(function(element, operation, route, url, headers, params, httpConfig) {
         if(operation == 'post' || operation == 'put'){
@@ -253,7 +253,7 @@ module.config(function(blockUIConfig) {
 module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider.when('/app/administracion/persona/juridica', '/app/administracion/persona/juridica/principal');
-    $urlRouterProvider.when('/app/administracion/persona/juridica/:id', '/app/administracion/persona/juridica/:id/resumen');
+    $urlRouterProvider.when('/app/administracion/persona/juridica/{id:[0-9]{1,8}}', '/app/administracion/persona/juridica/{id:[0-9]{1,8}}/resumen');
     $urlRouterProvider.otherwise('/home');
 
     $stateProvider
@@ -339,7 +339,6 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
             roles: ['ADMIN']
         })
 
-        /** -PERSONA JURIDICA- **/
         .state('app.administracion.buscarPersonaJuridica', {
             url: '/persona/juridica/buscar',
             templateUrl: "../../views/persona/juridica/form-buscar-personaJuridica.html",
