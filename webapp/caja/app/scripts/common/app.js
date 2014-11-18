@@ -9,7 +9,8 @@
         [
             'common.controllers',
             'common.directives',
-            'common.services'
+            'common.services',
+            'common.filters'
         ]);
 
 })(window, window.angular);

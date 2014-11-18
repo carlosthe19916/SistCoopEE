@@ -338,6 +338,12 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
             module: 'PERSONA',
             roles: ['ADMIN']
         })
+        .state('app.administracion.editarPersonaNatural.resumen', {
+            url: "/resumen",
+            templateUrl: "../../views/persona/natural/form-resumen.html",
+            module: 'PERSONA',
+            roles: ['ADMIN']
+        })
 
         .state('app.administracion.buscarPersonaJuridica', {
             url: '/persona/juridica/buscar',
@@ -411,6 +417,12 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
         .state('app.administracion.editarPersonaJuridica.principal', {
             url: "/principal",
             templateUrl: "../../views/persona/juridica/form-principal.html",
+            module: 'PERSONA',
+            roles: ['USER']
+        })
+        .state('app.administracion.editarPersonaJuridica.adicionales', {
+            url: "/adicionales",
+            templateUrl: "../../views/persona/juridica/form-datosAdicionales.html",
             module: 'PERSONA',
             roles: ['USER']
         })

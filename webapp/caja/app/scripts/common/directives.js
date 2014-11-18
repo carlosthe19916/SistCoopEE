@@ -2,6 +2,28 @@
 (function(window, angular, undefined) {'use strict';
 
     angular.module('common.directives', [])
+        .directive('sgYesNo', function() {
+            return {
+                require: 'ngModel',
+                link: function($scope, elem, attrs, ngModel) {
+                    ngModel.$validators.sgmaxdate = function(modelValue,viewValue){
+                        var value = modelValue || viewValue;
+                        return $scope.maxDate >= value;
+                    }
+                }
+            };
+        })
+        .directive('sgMaxDate', function() {
+            return {
+                require: 'ngModel',
+                link: function($scope, elem, attrs, ngModel) {
+                    ngModel.$validators.sgmaxdate = function(modelValue,viewValue){
+                        var value = modelValue || viewValue;
+                        return $scope.maxDate >= value;
+                    }
+                }
+            };
+        })
         .directive('capitalize', function() {
             return {
                 require: 'ngModel',
@@ -20,16 +42,6 @@
                     };
                     modelCtrl.$parsers.push(capitalize);
                     capitalize(scope[attrs.ngModel]);  // capitalize initial value
-                }
-            };
-        }).directive('sgMaxDate', function() {
-            return {
-                require: 'ngModel',
-                link: function($scope, elem, attrs, ngModel) {
-                    ngModel.$validators.sgmaxdate = function(modelValue,viewValue){
-                        var value = modelValue || viewValue;
-                        return $scope.maxDate >= value;
-                    }
                 }
             };
         })

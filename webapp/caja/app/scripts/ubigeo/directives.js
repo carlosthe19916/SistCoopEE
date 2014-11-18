@@ -106,7 +106,7 @@
                     +'<div class="col-sm-4">'
                     +'<div class="form-group" ng-class="{ \'has-error\' : formCrearPersonanatural.departamento.$invalid && (formCrearPersonanatural.departamento.$touched || formCrearPersonanatural.$submitted)}">'
                     +'<label>Departamento</label>'
-                    +'<ui-select name="departamento" ng-model="ubigeo.departamento" theme="bootstrap">'
+                    +'<ui-select name="departamento" ng-model="ubigeo.departamento" theme="bootstrap" ui-autofocus>'
                     +'<ui-select-match placeholder="Seleccione">{{$select.selected.denominacion}}</ui-select-match>'
                     +'<ui-select-choices repeat="item in departamentos | filter: $select.search">'
                     +'<div ng-bind-html="item.denominacion | highlight: $select.search"></div>'

@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import org.jboss.resteasy.annotations.providers.jaxb.json.BadgerFish;
+import org.softgreen.sistcoop.persona.clien.enums.TipoEmpresa;
 import org.softgreen.sistcoop.persona.client.models.AccionistaModel;
 import org.softgreen.sistcoop.persona.client.models.AccionistaProvider;
 import org.softgreen.sistcoop.persona.client.models.PersonaJuridicaModel;
@@ -31,6 +32,7 @@ import org.softgreen.sistcoop.persona.client.models.util.ModelToRepresentation;
 import org.softgreen.sistcoop.persona.client.models.util.RepresentationToModel;
 import org.softgreen.sistcoop.persona.client.representations.idm.AccionistaRepresentation;
 import org.softgreen.sistcoop.persona.client.representations.idm.PersonaJuridicaRepresentation;
+import org.softgreen.sistcoop.persona.restapi.representation.AccionistaList;
 import org.softgreen.sistcoop.persona.restapi.representation.PersonaJuridicaList;
 
 @Path("/personas/juridicas")
@@ -65,6 +67,7 @@ public class PersonaJuridicaResource {
 		return rep;
 	}
 
+	@BadgerFish
 	@GET
 	@Path("/buscar")
 	@Produces({ "application/xml", "application/json" })
@@ -113,14 +116,28 @@ public class PersonaJuridicaResource {
 	@PUT
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
-	public Response update(@PathParam("id") Long id, PersonaJuridicaRepresentation personaJuridicaRepresentation) {
-		PersonaJuridicaModel personaJuridicaModel = personaJuridicaProvider.getPersonaJuridicaById(id);
-		if (personaJuridicaModel == null) {
-			return null;
-		}
-		// personaJuridicaManager.updatePersonaJuridicaFromRep(personaJuridicaModel,
-		// personaJuridicaRepresentation);
-		return Response.noContent().build();
+	public void update(@PathParam("id") Long id, PersonaJuridicaRepresentation rep) {
+		PersonaJuridicaModel model = personaJuridicaProvider.getPersonaJuridicaById(id);
+		TipoDocumentoModel tipoDocumentoModel = tipoDocumentoProvider.getTipoDocumentoByAbreviatura(rep.getTipoDocumento());
+		
+		model.setCodigoPais(rep.getCodigoPais());
+		model.setTipoDocumento(tipoDocumentoModel);
+		model.setNumeroDocumento(rep.getNumeroDocumento());
+		model.setRazonSocial(rep.getRazonSocial());
+		model.setFechaConstitucion(rep.getFechaConstitucion());
+		model.setActividadPrincipal(rep.getActividadPrincipal());
+		model.setNombreComercial(rep.getNombreComercial());
+		model.setFinLucro(rep.isFinLucro());
+		model.setTipoEmpresa(TipoEmpresa.valueOf(rep.getTipoEmpresa()));
+		
+		model.setUbigeo(rep.getUbigeo());
+		model.setDireccion(rep.getDireccion());
+		model.setReferencia(rep.getReferencia());
+		model.setTelefono(rep.getTelefono());
+		model.setCelular(rep.getCelular());
+		model.setEmail(rep.getEmail());
+
+		model.commit();
 	}
 
 	@DELETE
@@ -137,6 +154,7 @@ public class PersonaJuridicaResource {
 	/**
 	 * ACCIONISTA
 	 */
+	@BadgerFish
 	@GET
 	@Path("/{id}/accionistas/{idAccionista}")
 	@Produces({ "application/xml", "application/json" })
@@ -153,17 +171,14 @@ public class PersonaJuridicaResource {
 	@GET
 	@Path("/{id}/accionistas")
 	@Produces({ "application/xml", "application/json" })
-	public Response findAllAccionistas(@PathParam("id") Long id) {
+	public AccionistaList findAllAccionistas(@PathParam("id") Long id) {
 		PersonaJuridicaModel personaJuridicaModel = personaJuridicaProvider.getPersonaJuridicaById(id);
-		if (personaJuridicaModel == null) {
-			return Response.status(Response.Status.NOT_FOUND).build();
-		}
 		List<AccionistaModel> list = personaJuridicaModel.getAccionistas();
 		List<AccionistaRepresentation> result = new ArrayList<AccionistaRepresentation>();
 		for (AccionistaModel model : list) {
 			result.add(ModelToRepresentation.toRepresentation(model));
 		}
-		return Response.ok().entity(result).build();
+		return new AccionistaList(result);
 	}
 
 	@POST
@@ -186,29 +201,23 @@ public class PersonaJuridicaResource {
 	@PUT
 	@Path("/{id}/accionistas/{idAccionista}")
 	@Produces({ "application/xml", "application/json" })
-	public Response updateAccionista(@PathParam("id") Long id, @PathParam("idAccionista") Long idAccionista, AccionistaRepresentation accionistaRepresentation) {
+	public void updateAccionista(@PathParam("id") Long id, @PathParam("idAccionista") Long idAccionista, AccionistaRepresentation accionistaRepresentation) {
 		PersonaJuridicaModel personaJuridicaModel = personaJuridicaProvider.getPersonaJuridicaById(id);
 		if (personaJuridicaModel == null) {
-			return Response.status(Response.Status.NOT_FOUND).build();
+			
 		}
 		// AccionistaModel accionistaModel =
 		// accionistaProvider.getAccionistaById(idAccionista);
 		// personaJuridicaManager.updateAccionistaFromRep(accionistaModel,
-		// accionistaRepresentation);
-		return Response.noContent().build();
+		// accionistaRepresentation);		
 	}
 
 	@DELETE
 	@Path("/{id}/accionistas/{idAccionista}")
 	@Produces({ "application/xml", "application/json" })
-	public Response removeAccionista(@PathParam("id") Long id, @PathParam("idAccionista") Long idAccionista) {
+	public void removeAccionista(@PathParam("id") Long id, @PathParam("idAccionista") Long idAccionista) {
 		AccionistaModel accionistaModel = accionistaProvider.getAccionistaById(idAccionista);
 		boolean removed = accionistaProvider.removeAccionista(accionistaModel);
-		if (removed) {
-			return Response.noContent().build();
-		} else {
-			return Response.serverError().build();
-		}
 	}
 
 }

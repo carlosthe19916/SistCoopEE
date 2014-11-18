@@ -87,8 +87,14 @@ public class ModelToRepresentation {
 		 //representante legal
 		PersonaNaturalRepresentation representanteRep = new PersonaNaturalRepresentation();
 		representanteRep.setId(model.getRepresentanteLegal().getId());
+		representanteRep.setCodigoPais(model.getRepresentanteLegal().getCodigoPais());
 		representanteRep.setTipoDocumento(model.getRepresentanteLegal().getTipoDocumento().getAbreviatura());
 		representanteRep.setNumeroDocumento(model.getRepresentanteLegal().getNumeroDocumento());
+		representanteRep.setApellidoPaterno(model.getRepresentanteLegal().getApellidoPaterno());
+		representanteRep.setApellidoMaterno(model.getRepresentanteLegal().getApellidoMaterno());
+		representanteRep.setNombres(model.getRepresentanteLegal().getNombres());
+		representanteRep.setFechaNacimiento(model.getRepresentanteLegal().getFechaNacimiento());
+		representanteRep.setSexo(model.getRepresentanteLegal().getSexo().toString());
 		rep.setRepresentanteLegal(representanteRep);		
 
 		// direccion de residencia

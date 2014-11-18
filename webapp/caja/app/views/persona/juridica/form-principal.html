@@ -120,7 +120,7 @@
                 <label>Fin lucro</label>
                 <div class="checkbox" style="margin-top:5px;">
                     <label>
-                        <input type="checkbox" name="finLucro" ng-model="view.persona.finLucro"> Seleccione si tiene fin de lucro
+                        <input type="checkbox" name="finLucro" ng-model="view.persona.finLucro" ng-init="view.persona.finLucro"> Seleccione si tiene fin de lucro
                     </label>
                 </div>
                 <div ng-messages="form.finLucro.$error" ng-if="form.finLucro.$touched || form.$submitted">
@@ -129,12 +129,12 @@
             </div>
         </div>
     </div>
-    <p>
+    <p ng-if="!view.persona.id">
         <button type="button" class="btn btn-default" ng-click="cancelar()">Cancelar</button>
         <button type="button" class="btn btn-default" ng-click="goTabRepresentante()">Siguiente »</button>
     </p>
-    <p>
-        <button type="button" class="btn btn-primary" ng-click="cancelar()">Guardar</button>
-        <button type="button" class="btn btn-default">Cancelar</button>
+    <p ng-if="view.persona.id">
+        <button type="submit" class="btn btn-primary" ladda="control.block" data-style="expand-right">Guardar</button>
+        <button type="button" class="btn btn-default" ui-sref="^">Cancelar</button>
     </p>
 </div>

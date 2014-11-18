@@ -4,6 +4,13 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "accionista")
+@XmlAccessorType(XmlAccessType.PROPERTY)
 public class AccionistaRepresentation implements Serializable {
 
 	/**
@@ -25,6 +32,7 @@ public class AccionistaRepresentation implements Serializable {
 	private Date fechaNacimiento;
 	private String sexo;
 
+	@XmlAttribute
 	public Long getId() {
 		return id;
 	}
@@ -33,6 +41,7 @@ public class AccionistaRepresentation implements Serializable {
 		this.id = id;
 	}
 
+	@XmlAttribute
 	public Long getIdPersonaNatural() {
 		return idPersonaNatural;
 	}
@@ -41,6 +50,7 @@ public class AccionistaRepresentation implements Serializable {
 		this.idPersonaNatural = idPersonaNatural;
 	}
 
+	@XmlAttribute
 	public BigDecimal getPorcentajeParticipacion() {
 		return porcentajeParticipacion;
 	}
@@ -49,6 +59,7 @@ public class AccionistaRepresentation implements Serializable {
 		this.porcentajeParticipacion = porcentajeParticipacion;
 	}
 
+	@XmlAttribute
 	public String getCodigoPais() {
 		return codigoPais;
 	}
@@ -57,6 +68,7 @@ public class AccionistaRepresentation implements Serializable {
 		this.codigoPais = codigoPais;
 	}
 
+	@XmlAttribute
 	public String getTipoDocumento() {
 		return tipoDocumento;
 	}
@@ -65,6 +77,7 @@ public class AccionistaRepresentation implements Serializable {
 		this.tipoDocumento = tipoDocumento;
 	}
 
+	@XmlAttribute
 	public String getNumeroDocumento() {
 		return numeroDocumento;
 	}
@@ -73,6 +86,7 @@ public class AccionistaRepresentation implements Serializable {
 		this.numeroDocumento = numeroDocumento;
 	}
 
+	@XmlAttribute
 	public String getApellidoPaterno() {
 		return apellidoPaterno;
 	}
@@ -81,6 +95,7 @@ public class AccionistaRepresentation implements Serializable {
 		this.apellidoPaterno = apellidoPaterno;
 	}
 
+	@XmlAttribute
 	public String getApellidoMaterno() {
 		return apellidoMaterno;
 	}
@@ -89,6 +104,7 @@ public class AccionistaRepresentation implements Serializable {
 		this.apellidoMaterno = apellidoMaterno;
 	}
 
+	@XmlAttribute
 	public String getNombres() {
 		return nombres;
 	}
@@ -97,6 +113,7 @@ public class AccionistaRepresentation implements Serializable {
 		this.nombres = nombres;
 	}
 
+	@XmlAttribute
 	public Date getFechaNacimiento() {
 		return fechaNacimiento;
 	}
@@ -105,6 +122,7 @@ public class AccionistaRepresentation implements Serializable {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
+	@XmlAttribute
 	public String getSexo() {
 		return sexo;
 	}
