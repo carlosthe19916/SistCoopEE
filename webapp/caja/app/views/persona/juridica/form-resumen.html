@@ -1,4 +1,4 @@
-<div ng-controller="ResumenPersonaJuridicaCtrl">
+<div ng-controller="PersonaJuridicaResumenCtrl">
 <div class="row">
 <div class="col-sm-6">
     <div class="card" style="border-top-width: 1px;">
@@ -211,8 +211,8 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <table class="table table-striped table-bordered table-condensed">
-                            <caption ng-show="!view.personaDB.accionistas">No se encontraron accionistas.</caption>
-                            <thead ng-show="view.personaDB.accionistas">
+                            <caption ng-show="!view.personaDB.accionistas.length">No se encontraron accionistas.</caption>
+                            <thead ng-show="view.personaDB.accionistas.length">
                             <tr>
                                 <th>#</th>
                                 <th>Documento</th>

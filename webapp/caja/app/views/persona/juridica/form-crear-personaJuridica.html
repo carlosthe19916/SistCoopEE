@@ -1,10 +1,10 @@
-<div class="row" ng-controller="CrearPersonaJuridicaCtrl">
+<div class="row" ng-controller="CrearPersonaJuridicaCtrl as parent">
     <div class="col-sm-12">
         <div>
             <div>
                 <ul class="nav nav-tabs nav-tabs-google">
                     <li ui-sref-active-eq="active"><a ui-sref=".principal">Datos principales</a></li>
-                    <li ui-sref-active-eq="active"><a ui-sref=".representante">Accionista</a></li>
+                    <li ui-sref-active-eq="active"><a ui-sref=".representante">Representante legal</a></li>
                 </ul>
             </div>
             <form name="form" ng-submit="submit()" novalidate>

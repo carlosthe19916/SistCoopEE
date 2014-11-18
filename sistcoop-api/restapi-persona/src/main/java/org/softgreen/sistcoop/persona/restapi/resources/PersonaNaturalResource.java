@@ -27,6 +27,7 @@ import org.softgreen.sistcoop.persona.client.models.TipoDocumentoProvider;
 import org.softgreen.sistcoop.persona.client.models.util.ModelToRepresentation;
 import org.softgreen.sistcoop.persona.client.models.util.RepresentationToModel;
 import org.softgreen.sistcoop.persona.client.representations.idm.PersonaNaturalRepresentation;
+import org.softgreen.sistcoop.persona.restapi.config.Jsend;
 import org.softgreen.sistcoop.persona.restapi.representation.PersonaNaturalList;
 
 @Path("/personas/naturales")
@@ -106,8 +107,8 @@ public class PersonaNaturalResource {
 	@Produces({ "application/xml", "application/json" })
 	public Response create(PersonaNaturalRepresentation personaNaturalRepresentation) {
 		TipoDocumentoModel tipoDocumentoModel = tipoDocumentoProvider.getTipoDocumentoByAbreviatura(personaNaturalRepresentation.getTipoDocumento());
-		PersonaNaturalModel personaNaturalModel = representationToModel.createPersonaNatural(personaNaturalRepresentation, tipoDocumentoModel, personaNaturalProvider);
-		return Response.created(uriInfo.getAbsolutePathBuilder().path(personaNaturalModel.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").build();
+		PersonaNaturalModel personaNaturalModel = representationToModel.createPersonaNatural(personaNaturalRepresentation, tipoDocumentoModel, personaNaturalProvider);		
+		return Response.created(uriInfo.getAbsolutePathBuilder().path(personaNaturalModel.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(personaNaturalModel.getId())).build();
 	}
 
 	@PUT

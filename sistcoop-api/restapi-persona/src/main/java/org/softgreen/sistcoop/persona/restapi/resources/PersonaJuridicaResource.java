@@ -32,6 +32,7 @@ import org.softgreen.sistcoop.persona.client.models.util.ModelToRepresentation;
 import org.softgreen.sistcoop.persona.client.models.util.RepresentationToModel;
 import org.softgreen.sistcoop.persona.client.representations.idm.AccionistaRepresentation;
 import org.softgreen.sistcoop.persona.client.representations.idm.PersonaJuridicaRepresentation;
+import org.softgreen.sistcoop.persona.restapi.config.Jsend;
 import org.softgreen.sistcoop.persona.restapi.representation.AccionistaList;
 import org.softgreen.sistcoop.persona.restapi.representation.PersonaJuridicaList;
 
@@ -110,7 +111,7 @@ public class PersonaJuridicaResource {
 		TipoDocumentoModel tipoDocumentoModel = tipoDocumentoProvider.getTipoDocumentoByAbreviatura(personaJuridicaRepresentation.getTipoDocumento());
 		PersonaJuridicaModel personaJuridicaModel = representationToModel.createPersonaJuridica(personaJuridicaRepresentation, tipoDocumentoModel, representanteModel, personaJuridicaProvider);
 		PersonaJuridicaRepresentation result = ModelToRepresentation.toRepresentation(personaJuridicaModel);
-		return Response.created(uriInfo.getAbsolutePathBuilder().path(result.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").build();
+		return Response.created(uriInfo.getAbsolutePathBuilder().path(result.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(result.getId())).build();
 	}
 
 	@PUT

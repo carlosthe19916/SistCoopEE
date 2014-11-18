@@ -357,18 +357,12 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
         .state('app.administracion.crearPersonaJuridica', {
             url: "/persona/juridica?documento&numero",
             templateUrl: "../../views/persona/juridica/form-crear-personaJuridica.html",
-            resolve: {
-                persona: function($state, Storage) {
-                    return Storage.getObject();
-                }
-            },
-            controller: function($scope, $stateParams, persona) {
+            controller: function($scope, $stateParams) {
                 $scope.themplate.header = 'Crear persona juridica';
 
                 $scope.params = {};
                 $scope.params.tipoDocumento = $stateParams.documento;
                 $scope.params.numeroDocumento = $stateParams.numero;
-                $scope.params.object = persona;
             },
             module: 'PERSONA',
             roles: ['USER']
@@ -389,13 +383,8 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
             url: "/persona/juridica/:id",
             templateUrl: "../../views/persona/juridica/form-editar-personaJuridica.html",
             resolve: {
-                persona: function($state, $stateParams, Storage, PersonaJuridica) {
-                    var savedObject = Storage.getObject();
-                    if(savedObject){
-                        return savedObject;
-                    } else {
-                        return PersonaJuridica.$find($stateParams.id);
-                    }
+                persona: function($state, $stateParams, PersonaJuridica) {
+                    return PersonaJuridica.$find($stateParams.id);
                 }
             },
             controller: function($scope, $stateParams, persona) {
@@ -412,31 +401,31 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
             url: "/resumen",
             templateUrl: "../../views/persona/juridica/form-resumen.html",
             module: 'PERSONA',
-            roles: ['USER']
+            roles: ['ADMIN']
         })
         .state('app.administracion.editarPersonaJuridica.principal', {
             url: "/principal",
             templateUrl: "../../views/persona/juridica/form-principal.html",
             module: 'PERSONA',
-            roles: ['USER']
+            roles: ['ADMIN']
         })
         .state('app.administracion.editarPersonaJuridica.adicionales', {
             url: "/adicionales",
             templateUrl: "../../views/persona/juridica/form-datosAdicionales.html",
             module: 'PERSONA',
-            roles: ['USER']
+            roles: ['ADMIN']
         })
         .state('app.administracion.editarPersonaJuridica.representante', {
             url: "/representante",
             templateUrl: "../../views/persona/juridica/form-representante.html",
             module: 'PERSONA',
-            roles: ['USER']
+            roles: ['ADMIN']
         })
         .state('app.administracion.editarPersonaJuridica.accionista', {
             url: "/accionistas",
             templateUrl: "../../views/persona/juridica/form-accionista.html",
             module: 'PERSONA',
-            roles: ['USER']
+            roles: ['ADMIN']
         });
 } ]);
 
