@@ -1,147 +1,69 @@
-<!doctype html>
-<html class="no-js">
-<head>
+<html lang="en"><head>
     <meta charset="utf-8">
-    <title>SistCoop</title>
-
-    <link rel="icon" href="favicon.ico">
-
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="bower_components/todc-bootstrap/dist/css/todc-bootstrap.css">
-    <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css">
+    <title>Theme Template for Bootstrap</title>
 
+    <!-- Bootstrap core CSS -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/bootplus/css/bootplus.css">
     <link rel="stylesheet" href="styles/bootplus/css/bootplus-responsive.css">
     <link rel="stylesheet" href="styles/main.css">
-
-    <!-- endbuild -->
-
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-messages/angular-messages.js"></script>
-    <script src="bower_components/angular-restmod/dist/angular-restmod-bundle.js"></script>
-    <script src="bower_components/angular-restmod/dist/styles/ams.js"></script>
-    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="bower_components/angular-ui-select/dist/select.js"></script>
-    <script src="bower_components/angular-ui-utils/ui-utils.js"></script>
-
-    <!-- UI BLOCK -->
-    <link rel="stylesheet" href="bower_components/angular-block-ui/dist/angular-block-ui.css">
-    <script src="bower_components/angular-block-ui/dist/angular-block-ui.js"></script>
-    <!-- endbuild -->
-    <!-- UI GRID -->
-    <link rel="stylesheet" href="bower_components/angular-ui-grid/ui-grid.css">
-    <script src="bower_components/angular-ui-grid/ui-grid.js"></script>
-    <!-- endbuild -->
-
-    <script src="js/keycloak.js"></script>
-    <script src="scripts/app.js"></script>
-    <script src="scripts/controllers.js"></script>
-    <script src="scripts/services.js"></script>
-
-    <!-- Rest SDK -->
-    <script src="js/ubigeoSDK.js"></script>
-    <script src="js/personaSDK.js"></script>
-    <!-- end rest SDK -->
-
-    <script src="scripts/persona/controllers.js"></script>
-    <script src="scripts/persona/directives.js"></script>
-    <script src="scripts/common/controllers.js"></script>
-    <script src="scripts/common/directives.js"></script>
-    <script src="scripts/common/ng-focus-on.js"></script>
-    <style>
-        [ng\:cloak], [ng-cloak], .ng-cloak {
-            display: none !important;
-        }
-    </style>
 </head>
-<body ng-controller="GlobalCtrl" ng-cloak ng-show="auth.user">
 
-<!-- page content -->
-<div>
-    <div class="navbar navbar-inverse navbar-fixed-top" style="min-height: 20px;">
-        <div class="navbar-inner">
-            <div class="container-fluid">
-                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="brand" href="#">SistCoop caja</a>
-                <div class="nav-collapse collapse" style="display: inherit;">
+<body>
 
-                    <div class="nav navbar-text pull-right">
-                        <div class="btn-group" dropdown style="padding-top: 0px; margin-top: 0px;">
-                            <button type="button" class="btn btn-link dropdown-toggle" style="color:#29465F">
-                                <span class="glyphicon glyphicon-user">&nbsp;</span>
-                                <span ng-bind="auth.user.username"></span>&nbsp;&nbsp;&nbsp;
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="/SistCoopApp/account">Mi Perfil</a></li>
-                                <li><a href="#" ui-sref="app.configuracion.impresora({redirect:true})">Impresora</a></li>
-                                <li class="divider"></li>
-                                <li><a href="/SistCoopApp/logout">Salir</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <p class="navbar-text pull-right" style="margin-top: 0;">
-                        Logged in as
-                    </p>
-                    <ul class="nav">
-                        <li ui-sref-active="active">
-                            <a ui-sref="home">Home</a>
-                        </li>
-                        <li ui-sref-active="active">
-                            <a ui-sref="app.caja">Caja</a>
-                        </li>
-                        <li ui-sref-active="active">
-                            <a ui-sref="app.transaccion">Transacciones</a>
-                        </li>
-                        <li ui-sref-active="active">
-                            <a ui-sref="app.socio">Cuentas personales</a>
-                        </li>
-                        <li ui-sref-active="active">
-                            <a ui-sref="app.administracion">Administracion</a>
-                        </li>
-                    </ul>
-                </div><!--/.nav-collapse -->
-            </div>
+<nav class="navbar navbar-inverse navbar-inner navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target="#navbar" aria-expanded="true" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="#">Bootstrap theme</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse in" aria-expanded="true" style="border-color: #BEBDBD;">
+            <ul class="nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
         </div>
     </div>
+</nav>
 
-    <div ng-show="idletimeout" class="alert alert-danger" style="text-align: center;">
-        Tu session esta a punto de terminar en <strong><span ng-bind="clock"></span> segundos</strong> por inactividad.
-        <a id="idletimeout-resume" ng-click="updateToken()">Haga click aca para continuar usando el sistema</a>.
-    </div>
-
-    <div class="row">
-        <div ng-show="notification" class="col-md-4 col-md-offset-6" style="top: 3.7em; position: fixed; z-index: 1100; text-align: center;">
-            <div class="alert" ng-class="'alert-' + notification.type">
-                <span class="glyphicon glyphicon-ok-circle ng-hide" ng-show="notification.type == 'success'"></span>
-                <span class="glyphicon glyphicon-info-sign ng-hide" ng-show="notification.type == 'info'"></span>
-                <span class="glyphicon glyphicon-wrench ng-hide" ng-show="notification.type == 'danger'"></span>
-                <span class="glyphicon glyphicon-warning-sign ng-hide" ng-show="notification.type == 'warning'"></span>
-                <strong ng-bind="notification.header"></strong>
-                <span ng-bind="notification.message"></span>
-            </div>
+<!-- Fixed navbar
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar1" aria-expanded="true" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Bootstrap theme</a>
+        </div>
+        <div id="navbar1" class="navbar-collapse collapse in" aria-expanded="true">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
         </div>
     </div>
+</nav>
+-->
 
-    <div ui-view>
-        <span>Loading...</span>
-    </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
-</div>
-
-<!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-
-</body>
-</html>
+</body></html>

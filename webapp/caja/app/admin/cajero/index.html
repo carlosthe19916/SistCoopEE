@@ -103,20 +103,13 @@
     <div class="navbar navbar-inverse navbar-fixed-top" style="min-height: 20px;">
         <div class="navbar-inner">
             <div class="container-fluid">
-                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" ng-click="isCollapsed = !isCollapsed" data-target="#navbar">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
                 <a class="brand" href="#">SistCoop cajero</a>
-                <div class="nav-collapse" style="display: inherit;">
-                    <p class="navbar-text pull-right" style="margin-top: 0;">
-                        <a ng-click="logout()" style="cursor: pointer;">Logout</a>
-                    </p>
-                    <p class="navbar-text pull-right" style="margin-top: 0;">
-                        Logged in as
-                        <strong ng-bind="auth.user.username"></strong>
-                    </p>
+                <div id="navbar" collapse="!isCollapsed" class="nav-collapse collapse in" style="display: inherit;">
                     <ul class="nav">
                         <li ui-sref-active="active">
                             <a ui-sref="home">Home</a>
@@ -124,6 +117,15 @@
                         <li ui-sref-active="active">
                             <a ui-sref="app.administracion">Administracion</a>
                         </li>
+                    </ul>
+                    <ul>
+                        <p class="navbar-text pull-right" style="margin-top: 0;">
+                            <a ng-click="logout()" style="cursor: pointer;">Logout</a>
+                        </p>
+                        <p class="navbar-text pull-right" style="margin-top: 0;">
+                            Logged in as
+                            <strong ng-bind="auth.user.username"></strong>
+                        </p>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -153,5 +155,8 @@
     </div>
 
 </div>
+
+<script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
 </body>
 </html>

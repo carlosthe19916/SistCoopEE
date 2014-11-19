@@ -1553,14 +1553,6 @@ table th[class*="span"],
     filter: alpha(opacity=40);
 }
 
-button.close {
-    padding: 0;
-    cursor: pointer;
-    background: transparent;
-    border: 0;
-    -webkit-appearance: none;
-}
-
 .nav {
     margin-bottom: 20px;
     margin-left: 0;
