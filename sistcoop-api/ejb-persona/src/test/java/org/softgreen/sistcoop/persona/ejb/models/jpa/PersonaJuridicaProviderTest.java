@@ -195,10 +195,10 @@ public class PersonaJuridicaProviderTest {
 		representation.setTipoDocumento("RUC");
 		representation.setNumeroDocumento("11111111111");	
 
-		representation.setNumeroDocumentoRepresentanteLegal("46779354");
-		representation.setTipoDocumentoRepresentanteLegal("DNI");
+		//representation.setNumeroDocumentoRepresentanteLegal("46779354");
+		//representation.setTipoDocumentoRepresentanteLegal("DNI");
 		
-		PersonaNaturalModel representanteLegal = personaNaturalProvider.getPersonaNaturalByTipoNumeroDoc(
+		/*PersonaNaturalModel representanteLegal = personaNaturalProvider.getPersonaNaturalByTipoNumeroDoc(
 				tipoDocumentoProvider.getTipoDocumentoByAbreviatura(representation.getTipoDocumentoRepresentanteLegal()), 
 				representation.getNumeroDocumentoRepresentanteLegal());
 				
@@ -206,9 +206,9 @@ public class PersonaJuridicaProviderTest {
 				representation, 
 				tipoDocumentoProvider.getTipoDocumentoByAbreviatura(representation.getTipoDocumento()),
 				representanteLegal, 
-				personaJuridicaProvider);
+				personaJuridicaProvider);*/
 		
-		log.info("representationToModel:" + model.getId());
+		//log.info("representationToModel:" + model.getId());
 	}	
 	
 	@Test

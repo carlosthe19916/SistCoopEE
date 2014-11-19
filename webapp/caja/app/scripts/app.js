@@ -252,8 +252,13 @@ module.config(function(blockUIConfig) {
 
 module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
+    $urlRouterProvider.when('/app/administracion/persona/natural', '/app/administracion/persona/natural/principal');
+    $urlRouterProvider.when('/app/administracion/persona/natural/{id:[0-9]{1,8}}', '/app/administracion/persona/natural/{id:[0-9]{1,8}}/resumen');
+
     $urlRouterProvider.when('/app/administracion/persona/juridica', '/app/administracion/persona/juridica/principal');
     $urlRouterProvider.when('/app/administracion/persona/juridica/{id:[0-9]{1,8}}', '/app/administracion/persona/juridica/{id:[0-9]{1,8}}/resumen');
+
+
     $urlRouterProvider.otherwise('/home');
 
     $stateProvider
@@ -295,7 +300,7 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
 
         .state('app.administracion.buscarPersonaNatural', {
             url: '/persona/natural/buscar',
-            templateUrl: "../../views/persona/natural/buscarPersonaNatural.html",
+            templateUrl: "../../views/persona/natural/form-buscar-personaNatural.html",
             controller: function($scope) {
                 $scope.themplate.header = 'Buscar persona natural';
             },
@@ -304,7 +309,7 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
         })
         .state('app.administracion.crearPersonaNatural', {
             url: "/persona/natural?documento&numero",
-            templateUrl: "../../views/persona/natural/crearPersonaNatural.html",
+            templateUrl: "../../views/persona/natural/form-crear-personaNatural.html",
             controller: function($scope, $stateParams) {
                 $scope.themplate.header = 'Crear persona natural';
 
@@ -315,17 +320,18 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
             module: 'PERSONA',
             roles: ['USER']
         })
+        .state('app.administracion.crearPersonaNatural.datosPrincipales', {
+            url: "/principal",
+            templateUrl: "../../views/persona/natural/form-datosPrincipales.html",
+            module: 'PERSONA',
+            roles: ['USER']
+        })
         .state('app.administracion.editarPersonaNatural', {
             url: "/persona/natural/:id",
-            templateUrl: "../../views/persona/natural/editarPersonaNatural.html",
+            templateUrl: "../../views/persona/natural/form-editar-personaNatural.html",
             resolve: {
-                persona: function($state, $stateParams, Storage, PersonaNatural) {
-                    var savedObject = Storage.getObject();
-                    if(savedObject){
-                        return savedObject;
-                    } else {
-                        return PersonaNatural.$find($stateParams.id);
-                    }
+                persona: function($state, $stateParams, PersonaNatural) {
+                    return PersonaNatural.$find($stateParams.id);
                 }
             },
             controller: function($scope, $stateParams, persona) {
@@ -336,11 +342,23 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
                 $scope.params.object = persona;
             },
             module: 'PERSONA',
-            roles: ['ADMIN']
+            roles: ['PUBLIC']
         })
         .state('app.administracion.editarPersonaNatural.resumen', {
             url: "/resumen",
             templateUrl: "../../views/persona/natural/form-resumen.html",
+            module: 'PERSONA',
+            roles: ['PUBLIC']
+        })
+        .state('app.administracion.editarPersonaNatural.datosPrincipales', {
+            url: "/principal",
+            templateUrl: "../../views/persona/natural/form-datosPrincipales.html",
+            module: 'PERSONA',
+            roles: ['ADMIN']
+        })
+        .state('app.administracion.editarPersonaNatural.datosAdicionales', {
+            url: "/adicionales",
+            templateUrl: "../../views/persona/natural/form-datosAdicionales.html",
             module: 'PERSONA',
             roles: ['ADMIN']
         })
@@ -367,9 +385,9 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
             module: 'PERSONA',
             roles: ['USER']
         })
-        .state('app.administracion.crearPersonaJuridica.principal', {
+        .state('app.administracion.crearPersonaJuridica.datosPrincipales', {
             url: "/principal",
-            templateUrl: "../../views/persona/juridica/form-principal.html",
+            templateUrl: "../../views/persona/juridica/form-datosPrincipales.html",
             module: 'PERSONA',
             roles: ['USER']
         })

@@ -1,249 +1,195 @@
-<div ng-controller="ResumenPersonaJuridicaCtrl">
-<div class="row">
-<div class="col-sm-6">
-    <div class="card" style="border-top-width: 1px;">
-        <h3 class="card-heading simple">
-            Datos principales
-            <button type="button" class="btn btn-link" tooltip-placement="bottom" tooltip="Datos principales de la persona." tooltip-trigger="mouseenter" style="color: #999;padding: 0;float: right;">
-                <span class="glyphicon glyphicon-info-sign"></span>
-            </button>
-        </h3>
-        <div class="card-body">
-            <div style="border-bottom: 1px solid #e5e5e5; padding-bottom: 10px; margin-bottom: 20px;">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <p>Cod.pais:&nbsp;</p>
+<div ng-controller="PersonaNaturalResumenCtrl">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card" style="border-top-width: 1px;">
+                <h3 class="card-heading simple">
+                    Datos personales
+                    <button type="button" class="btn btn-link" tooltip-placement="bottom" tooltip="Datos personales de la persona." tooltip-trigger="mouseenter" style="color: #999;padding: 0;float: right;">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                    </button>
+                </h3>
+                <div class="card-body">
+                    <div style="border-bottom: 1px solid #e5e5e5; padding-bottom: 10px; margin-bottom: 20px;">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <img src="../../images/photo.png" alt="..." class="img-circle">
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p>Cod.pais:&nbsp;</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p><strong ng-bind="view.personaDB.codigoPais"></strong></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p>Documento:&nbsp;</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p>
+                                            <strong ng-bind="view.personaDB.tipoDocumento"></strong>
+                                            <strong>/</strong>
+                                            <strong ng-bind="view.personaDB.numeroDocumento"></strong>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p>Apellidos:&nbsp;</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p>
+                                            <strong ng-bind="view.personaDB.apellidoPaterno"></strong>&nbsp;
+                                            <strong ng-bind="view.personaDB.apellidoMaterno"></strong>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <p>Nombres:&nbsp;</p>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <p>
+                                            <strong ng-bind="view.personaDB.nombres"></strong>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <button type="button" ng-click="openModal()" class="btn btn-link" style="font-size: 14px;">Cambiar foto</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-sm-8">
-                        <p><strong ng-bind="view.personaDB.codigoPais"></strong></p>
+                    <div style="border-bottom: 1px solid #e5e5e5;margin-bottom: 20px;">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p>F.nacimiento:&nbsp;</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p>
+                                    <strong ng-bind="view.personaDB.fechaNacimiento | date : 'dd/MM/yyyy'"></strong>
+                                </p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p>Sexo:&nbsp;</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p>
+                                    <strong ng-bind="view.personaDB.sexo"></strong>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p>Estado civil:&nbsp;</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p>
+                                    <strong ng-bind="view.personaDB.estadoCivil"></strong>
+                                </p>
+                            </div>
+                        </div>
                     </div>
+                    <p></p>
                 </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <p>Documento:&nbsp;</p>
-                    </div>
-                    <div class="col-sm-8">
-                        <p>
-                            <strong ng-bind="view.personaDB.tipoDocumento"></strong>
-                            <strong ng-show="view.personaDB.tipoDocumento">/</strong>
-                            <strong ng-bind="view.personaDB.numeroDocumento"></strong>
-                        </p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <p>Razon social:&nbsp;</p>
-                    </div>
-                    <div class="col-sm-8">
-                        <p><strong ng-bind="view.personaDB.razonSocial"></strong></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <p>Nombre comercial:&nbsp;</p>
-                    </div>
-                    <div class="col-sm-8">
-                        <p><strong ng-bind="view.personaDB.nombreComercial"></strong></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <p>Actividad principal:&nbsp;</p>
-                    </div>
-                    <div class="col-sm-8">
-                        <p><strong ng-bind="view.personaDB.actividadPrincipal"></strong></p>
-                    </div>
+                <div class="card-actions">
+                    <button type="button" ui-sref="^.datosPrincipales" class="btn btn-default">Editar</button>
                 </div>
             </div>
-            <div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <p>F.constitucion:&nbsp;</p>
-                    </div>
-                    <div class="col-sm-3">
-                        <p><strong ng-bind="view.personaDB.fechaConstitucion | date : 'dd/MM/yyyy'"></strong></p>
-                    </div>
-                    <div class="col-sm-3">
-                        <p>T.empresa:&nbsp;</p>
-                    </div>
-                    <div class="col-sm-3">
-                        <p><strong ng-bind="view.personaDB.tipoEmpresa"></strong></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <p>Fin de lucro:&nbsp;</p>
-                    </div>
-                    <div class="col-sm-3">
-                        <p><strong ng-bind="view.personaDB.finLucro | si_no"></strong></p>
-                    </div>
-                </div>
-            </div>
-            <p></p>
         </div>
-
-        <h3 class="card-heading simple">
-            Representante legal
-        </h3>
-        <div class="card-body">
-            <div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <p>Cod.pais:&nbsp;</p>
+        <div class="col-sm-6">
+            <div class="card" style="border-top-width: 1px;">
+                <h3 class="card-heading simple">
+                    Datos adicionales
+                    <button type="button" class="btn btn-link" tooltip-placement="bottom" tooltip="Datos adicionales de la persona." tooltip-trigger="mouseenter" style="color: #999;padding: 0;float: right;">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                    </button>
+                </h3>
+                <div class="card-body">
+                    <div style="border-bottom: 1px solid #e5e5e5;margin-bottom: 20px;">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p>Ocupacion:&nbsp;</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p>
+                                    <strong ng-bind="view.personaDB.ocupacion"></strong>
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-sm-8">
-                        <p><strong ng-bind="view.personaDB.representanteLegal.codigoPais"></strong></p>
+                    <div style="border-bottom: 1px solid #e5e5e5;margin-bottom: 20px;">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p>Direccion:&nbsp;</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p>
+                                    <strong ng-bind="view.personaDB.direccion"></strong>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p>Referencia:&nbsp;</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p>
+                                    <strong ng-bind="view.personaDB.referencia"></strong>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p>Ubigeo:&nbsp;</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p>
+                                    <strong ng-bind="view.personaDB.ubigeo"></strong>
+                                </p>
+                            </div>
+                        </div>
                     </div>
+                    <div style="border-bottom: 1px solid #e5e5e5;margin-bottom: 20px;">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p>Telefono:&nbsp;</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p>
+                                    <strong ng-bind="view.personaDB.telefono"></strong>
+                                </p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p>Celular:&nbsp;</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p>
+                                    <strong ng-bind="view.personaDB.celular"></strong>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p>Email:&nbsp;</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p>
+                                    <strong ng-bind="view.personaDB.email"></strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <p></p>
                 </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <p>Documento:&nbsp;</p>
-                    </div>
-                    <div class="col-sm-8">
-                        <p>
-                            <strong ng-bind="view.personaDB.representanteLegal.tipoDocumento"></strong>
-                            <strong ng-show="view.personaDB.representanteLegal.tipoDocumento">/</strong>
-                            <strong ng-bind="view.personaDB.representanteLegal.numeroDocumento"></strong>
-                        </p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <p>Apellidos:&nbsp;</p>
-                    </div>
-                    <div class="col-sm-8">
-                        <p>
-                            <strong ng-bind="view.personaDB.representanteLegal.apellidoPaterno"></strong>&nbsp;
-                            <strong ng-bind="view.personaDB.representanteLegal.apellidoMaterno"></strong>
-                        </p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <p>Nombres:&nbsp;</p>
-                    </div>
-                    <div class="col-sm-8">
-                        <p>
-                            <strong ng-bind="view.personaDB.representanteLegal.nombres"></strong>
-                        </p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <p>Sexo:&nbsp;</p>
-                    </div>
-                    <div class="col-sm-8">
-                        <p><strong ng-bind="view.personaDB.representanteLegal.sexo"></strong></p>
-                    </div>
-                </div>
-            </div>
-            <p></p>
-        </div>
-    </div>
-</div>
-<div class="col-sm-6">
-    <div class="card" style="border-top-width: 1px;">
-        <h3 class="card-heading simple">
-            Datos adicionales
-            <button type="button" class="btn btn-link" tooltip-placement="bottom" tooltip="Datos adicionales de la persona." tooltip-trigger="mouseenter" style="color: #999;padding: 0;float: right;">
-                <span class="glyphicon glyphicon-info-sign"></span>
-            </button>
-        </h3>
-        <div class="card-body">
-            <div style="border-bottom: 1px solid #e5e5e5;margin-bottom: 20px;">
-                <div class="row">
-                    <div class="col-sm-3">
-                        <p>Direccion:&nbsp;</p>
-                    </div>
-                    <div class="col-sm-9">
-                        <p><strong ng-bind="view.personaDB.direccion"></strong></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <p>Referencia:&nbsp;</p>
-                    </div>
-                    <div class="col-sm-9">
-                        <p><strong ng-bind="view.personaDB.referencia"></strong></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <p>Ubigeo:&nbsp;</p>
-                    </div>
-                    <div class="col-sm-9">
-                        <p><strong ng-bind="view.personaDB.ubigeo"></strong></p>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <p>Telefono:&nbsp;</p>
-                    </div>
-                    <div class="col-sm-3">
-                        <p><strong ng-bind="view.personaDB.telefono"></strong></p>
-                    </div>
-                    <div class="col-sm-3">
-                        <p>Celular:&nbsp;</p>
-                    </div>
-                    <div class="col-sm-3">
-                        <p><strong ng-bind="view.personaDB.celular"></strong></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <p>Email:&nbsp;</p>
-                    </div>
-                    <div class="col-sm-9">
-                        <p><strong ng-bind="view.personaDB.email"></strong></p>
-                    </div>
-                </div>
-            </div>
-            <p></p>
-        </div>
-
-        <h3 class="card-heading simple">
-            Accionistas
-        </h3>
-        <div class="card-body">
-            <div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <table class="table table-striped table-bordered table-condensed">
-                            <caption ng-show="!view.personaDB.accionistas">No se encontraron accionistas.</caption>
-                            <thead ng-show="view.personaDB.accionistas">
-                            <tr>
-                                <th>#</th>
-                                <th>Documento</th>
-                                <th>Nombres</th>
-                                <th>%</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="item in view.personaDB.accionistas">
-                                <td><span ng-bind="{{$index+1}}"></span></td>
-                                <td>
-                                    <span ng-bind="item.tipoDocumento"></span><span>/</span><span ng-bind="item.numeroDocumento"></span>
-                                </td>
-                                <td>
-                                    <span ng-bind="item.apellidoPaterno"></span><span>&nbsp;</span><span ng-bind="item.apellidoMaterno"></span><span>,&nbsp;</span><span ng-bind="item.nombres"></span>
-                                </td>
-                                <td>
-                                    <span ng-bind="item.porcentajeParticipacion"></span>
-                                </td>
-                                <td style="text-align: center">
-                                    <button type="button" ng-click="verPersona(item)" class="btn btn-info btn-xs">Ver</button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="card-actions">
+                    <button type="button" ui-sref="^.datosAdicionales" class="btn btn-default">Editar</button>
                 </div>
             </div>
         </div>
     </div>
-</div>
-</div>
 </div>

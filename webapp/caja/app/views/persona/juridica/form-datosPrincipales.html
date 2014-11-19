@@ -7,7 +7,7 @@
                 <div class="input-group">
                     <span ng-bind="combo.selected.pais ? combo.selected.pais.alpha3Code : 'NA'" class="input-group-addon"></span>
                     <ui-select name="pais" ng-model="combo.selected.pais" theme="bootstrap" ui-autofocus required>
-                        <ui-select-autoload pk-name="alpha3Code" comparator="{{view.persona.codigoPais}}" ignore-case="true"></ui-select-autoload>
+                        <ui-select-autoload pk-name="alpha3Code" comparator="view.persona.codigoPais" ignore-case="true"></ui-select-autoload>
                         <ui-select-match placeholder="Seleccione">{{$select.selected.fullName}}</ui-select-match>
                         <ui-select-choices repeat="item in combo.pais | filter: $select.search">
                             <div ng-bind-html="item.fullName | highlight: $select.search"></div>
@@ -24,7 +24,7 @@
             <div class="form-group" ng-class="{ 'has-error' : form.tipoDocumento.$invalid && (form.tipoDocumento.$touched || form.$submitted)}">
                 <label>Tipo documento</label>
                 <ui-select name="tipoDocumento" ng-model="combo.selected.tipoDocumento" theme="bootstrap" required>
-                    <ui-select-autoload pk-name="abreviatura" comparator="{{view.persona.tipoDocumento}}" ignore-case="true"></ui-select-autoload>
+                    <ui-select-autoload pk-name="abreviatura" comparator="view.persona.tipoDocumento" ignore-case="true"></ui-select-autoload>
                     <ui-select-match placeholder="Seleccione">{{$select.selected.abreviatura}}</ui-select-match>
                     <ui-select-choices repeat="item in combo.tipoDocumento | filter: $select.search">
                         <div ng-bind-html="item.abreviatura | highlight: $select.search"></div>
@@ -104,7 +104,7 @@
             <div class="form-group" ng-class="{ 'has-error' : form.tipoEmpresa.$invalid && (form.tipoEmpresa.$touched || form.$submitted)}">
                 <label>Tipo empresa</label>
                 <ui-select name="tipoEmpresa" ng-model="combo.selected.tipoEmpresa" theme="bootstrap" required>
-                    <ui-select-autoload pk-name="denominacion" comparator="{{view.persona.tipoEmpresa}}" ignore-case="true"></ui-select-autoload>
+                    <ui-select-autoload pk-name="denominacion" comparator="view.persona.tipoEmpresa" ignore-case="true"></ui-select-autoload>
                     <ui-select-match placeholder="Seleccione">{{$select.selected.denominacion}}</ui-select-match>
                     <ui-select-choices repeat="item in combo.tipoEmpresa | filter: $select.search">
                         <div ng-bind-html="item.denominacion | highlight: $select.search"></div>

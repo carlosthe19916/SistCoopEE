@@ -79,7 +79,7 @@
                 scope: {
                     //@ one way binding; = two way binding
                     pkName: '@',
-                    comparator: '@',
+                    comparator: '=',
                     ignoreCase: '@'
                 },
                 controller: function($scope) {
@@ -93,12 +93,17 @@
                                 //unwatch listener
                                 listener();
                             }
-                        },true);
+                        }, true);
                     }
+
+                    $scope.$parent.$watch('$select.ngModel.$modelValue', function(newValue, oldValue){
+                        if(angular.isDefined(newValue)){
+                            $scope.comparator = $scope.$parent.$select.ngModel.$modelValue[$scope.pkName];
+                        }
+                    }, true);
                 }
             };
-        })
-        ;
+        });
 
 })(window, window.angular);
 
