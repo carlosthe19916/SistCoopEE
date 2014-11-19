@@ -46,14 +46,6 @@
                 $scope.gridOptions.data = PersonaJuridica.$search($scope.filterOptions).$object;
             };
 
-            //verificar permisos de UPDATE
-            $scope.removeColumn = function(){
-                if(!$scope.activeProfile.hasPermission('PERSONA', 'UPDATE')){
-                    $scope.gridOptions.columnDefs.splice($scope.gridOptions.columnDefs.length - 1, 1);
-                }
-            };
-            $scope.removeColumn();
-
         });
 
 

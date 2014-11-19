@@ -130,11 +130,11 @@
         </div>
     </div>
     <p ng-if="!view.persona.id">
-        <button type="button" class="btn btn-default" ng-click="cancelar()">Cancelar</button>
+        <button type="button" class="btn btn-default" ui-sref="app.administracion.buscarPersonaJuridica">Cancelar</button>
         <button type="button" class="btn btn-default" ng-click="goTabRepresentante()">Siguiente »</button>
     </p>
     <p ng-if="view.persona.id">
         <button type="submit" class="btn btn-primary" ladda="control.block" data-style="expand-right">Guardar</button>
-        <button type="button" class="btn btn-default" ui-sref="^">Cancelar</button>
+        <button type="button" class="btn btn-default" ui-sref="^.resumen">Cancelar</button>
     </p>
 </div>

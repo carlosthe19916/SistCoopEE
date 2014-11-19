@@ -38,13 +38,6 @@
                 }
             };
 
-            $scope.removeColumn = function(){
-                if(!$scope.activeProfile.hasPermission('PERSONA', 'UPDATE')){
-                    $scope.gridOptions.columnDefs.splice($scope.gridOptions.columnDefs.length - 1, 1);
-                }
-            };
-            $scope.removeColumn();
-
             $scope.search = function(){
                 $scope.gridOptions.data = PersonaNatural.$search($scope.filterOptions).$object;
             };

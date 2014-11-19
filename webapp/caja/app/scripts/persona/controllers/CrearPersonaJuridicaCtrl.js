@@ -6,7 +6,7 @@
 (function(window, angular, undefined) {'use strict';
 
     angular.module('persona.controllers')
-        .controller('CrearPersonaJuridicaCtrl', function($scope, $state, PersonaJuridica, Notifications, Navigation, Storage){
+        .controller('CrearPersonaJuridicaCtrl', function($scope, $state, PersonaJuridica, Notifications){
 
             $scope.view = {
                 persona: PersonaJuridica.$build()
@@ -17,12 +17,6 @@
                 $scope.view.persona.numeroDocumento = $scope.params.numeroDocumento;
             };
             $scope.loadParams();
-
-            $scope.loadStoreData = function(){
-                var obj = Storage.getObject();
-                if(obj) $scope.view = obj;
-            };
-            $scope.loadStoreData();
 
             $scope.submit = function(){
                 if ($scope.form.$valid) {

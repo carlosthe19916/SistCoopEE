@@ -6,22 +6,16 @@
 (function(window, angular, undefined) {'use strict';
 
     angular.module('persona.controllers')
-        .controller('DatosAdicionalesCtrl', function($scope, $state){
-
-            $scope.form.$setPristine();
-            $scope.view.persona = angular.copy($scope.view.personaDB);
+        .controller('PersonaJuridicaDatosAdicionalesCtrl', function($scope, $state){
 
             $scope.goTabRepresentante = function(){
                 if($scope.form.$valid){
-                    $scope.combo.synchronize();
                     $state.go('app.administracion.crearPersonaJuridica.representante');
                 } else {
                     $scope.form.$setSubmitted();
                 }
             };
-            $scope.cancelar = function(){
-                $state.go('app.administracion.buscarPersonaJuridica');
-            };
+
         });
 
 })(window, window.angular);

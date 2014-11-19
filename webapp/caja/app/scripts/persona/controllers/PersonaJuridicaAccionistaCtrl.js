@@ -4,16 +4,13 @@
     angular.module('persona.controllers')
         .controller('AccionistaCtrl', function($scope, $state, TipoDocumento, PersonaNatural, Notifications, Navigation){
 
-            $scope.refreshPage = function(){
-                $scope.form.$setPristine();
-                $scope.view.persona = angular.copy($scope.view.personaDB);
+            $scope.entradas = {
+                tipoDocumento: undefined,
+                numeroDocumento: undefined,
+                porcentaje: undefined
             };
-            $scope.refreshPage();
-
-            $scope.view = {
-                personaDB: $scope.view.personaDB,
-                accionista: undefined,
-                accionistaDB: undefined
+            $scope.buscados = {
+                persona: undefined
             };
 
             $scope.combo = {
@@ -27,32 +24,40 @@
                 if(!angular.isUndefined($event))
                     $event.preventDefault();
                 if(!angular.isUndefined($scope.combo.selected.tipoDocumento)
-                    && !angular.isUndefined($scope.view.accionista.numeroDocumento)){
-                    PersonaNatural.$findByTipoNumeroDocumento($scope.combo.selected.tipoDocumento.abreviatura, $scope.view.accionista.numeroDocumento).then(function(data){
-                        if(!data)
+                    && !angular.isUndefined($scope.entradas.numeroDocumento)){
+                    PersonaNatural.$findByTipoNumeroDocumento($scope.combo.selected.tipoDocumento.abreviatura, $scope.entradas.numeroDocumento).then(function(response){
+                        if(!response)
                             Notifications.warn("Persona no encontrada.");
-                        $scope.view.accionistaDB = data;
+                        $scope.buscados.persona = response;
                     });
                 }
             };
 
             $scope.crearAccionista = function(){
-                var accionista = {
-                    tipoDocumento: $scope.view.accionistaDB.tipoDocumento,
-                    numeroDocumento: $scope.view.accionistaDB.numeroDocumento,
-                    porcentajeParticipacion: $scope.view.accionista.porcentajeParticipacion
-                };
-                $scope.view.personaDB.$addAccionista(accionista).then(
-                    function(data){
-                        $scope.unblockControl();
-                        Notifications.success("Accionista agregado");
-                        $scope.view.personaDB.accionistas.push($scope.view.accionistaDB);
-                    },
-                    function error(error){
-                        $scope.unblockControl();
-                        Notifications.error(error.data+".");
-                    }
-                );
+                if($scope.form.$valid){
+                    var accionista = {
+                        tipoDocumento: $scope.entradas.tipoDocumento,
+                        numeroDocumento: $scope.entradas.numeroDocumento,
+                        porcentajeParticipacion: $scope.entradas.porcentaje
+                    };
+                    $scope.view.persona.$addAccionista(accionista).then(
+                        function(data){
+                            $scope.unblockControl();
+                            Notifications.success("Accionista agregado");
+                            $scope.buscados.persona.porcentajeParticipacion = $scope.entradas.porcentaje;
+                            $scope.view.persona.accionistas.push($scope.buscados.persona);
+                            $scope.view.personaDB.accionistas.push($scope.buscados.persona);
+                        },
+                        function error(error){
+                            $scope.unblockControl();
+                            Notifications.error(error.data+".");
+                        }
+                    );
+                }
+            };
+
+            $scope.editarPersonaNatural = function(item){
+                $state.go('app.administracion.editarPersonaNatural', {id:item.id});
             };
 
             $scope.goCrearPersonaNatural = function(){

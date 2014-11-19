@@ -3,13 +3,25 @@
         <div>
             <div>
                 <ul class="nav nav-tabs">
-                    <li ui-sref-active-eq="active"><a ui-sref=".resumen">Resumen</a></li>
-                    <li ui-sref-active-eq="active"><a ui-sref=".principal">Datos principales</a></li>
-                    <li ui-sref-active-eq="active"><a ui-sref=".adicionales">Datos adicionales</a></li>
-                    <li ui-sref-active-eq="active"><a ui-sref=".representante">Representante</a></li>
-                    <li ui-sref-active-eq="active"><a ui-sref=".accionista"><i class="glyphicon glyphicon-bell"></i>Accionistas</a></li>
+                    <li ui-sref-active-eq="active">
+                        <a ui-sref=".resumen">Resumen</a>
+                    </li>
+                    <li ui-sref-active-eq="active" sg-data-keep="{module: 'PERSONA', permission: 'UPDATE'}">
+                        <a ui-sref=".datosPrincipales">Datos principales</a>
+                    </li>
+                    <li ui-sref-active-eq="active" sg-data-keep="{module: 'PERSONA', permission: 'UPDATE'}">
+                        <a ui-sref=".datosAdicionales">Datos adicionales</a>
+                    </li>
+                    <li ui-sref-active-eq="active" sg-data-keep="{module: 'PERSONA', permission: 'UPDATE'}">
+                        <a ui-sref=".representante">Representante</a>
+                    </li>
+                    <li ui-sref-active-eq="active" sg-data-keep="{module: 'PERSONA', permission: 'UPDATE'}">
+                        <a ui-sref=".accionista"><i class="glyphicon glyphicon-bell"></i>Accionistas</a>
+                    </li>
 
-                    <li class="pull-right"><button type="button" class="btn btn-danger">Eliminar</button></li>
+                    <li class="pull-right" sg-data-keep="{module: 'PERSONA', permission: 'DELETE'}">
+                        <button type="button" class="btn btn-danger">Eliminar</button>
+                    </li>
                 </ul>
             </div>
             <form name="form" ng-submit="submit()" novalidate>

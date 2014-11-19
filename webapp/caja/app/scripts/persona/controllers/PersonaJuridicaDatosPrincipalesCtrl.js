@@ -8,12 +8,6 @@
     angular.module('persona.controllers')
         .controller('PersonaJuridicaDatosPrincipalesCtrl', function($scope, $state, Pais, TipoDocumento, TipoEmpresa, PersonaJuridica, Notifications){
 
-            $scope.refreshPage = function(){
-                $scope.view.persona = angular.copy($scope.view.personaDB);
-                $scope.form.$setPristine();
-            };
-            $scope.refreshPage();
-
             $scope.combo = {
                 pais: Pais.$search().$object,
                 tipoDocumento: TipoDocumento.$search({tipoPersona: 'juridica'}).$object,
@@ -23,11 +17,6 @@
                 pais: undefined,
                 tipoDocumento: undefined,
                 tipoEmpresa: undefined
-            };
-            $scope.combo.synchronize = function(){
-                $scope.view.persona.codigoPais = $scope.combo.selected.pais ? $scope.combo.selected.pais.alpha3Code: undefined;
-                $scope.view.persona.tipoDocumento = $scope.combo.selected.tipoDocumento ? $scope.combo.selected.tipoDocumento.abreviatura: undefined;
-                $scope.view.persona.tipoEmpresa = $scope.combo.selected.tipoEmpresa ? $scope.combo.selected.tipoEmpresa.denominacion : undefined;
             };
 
             $scope.checkPersona = function($event){
@@ -46,16 +35,12 @@
 
             $scope.goTabRepresentante = function(){
                 if($scope.form.$valid){
-                    $scope.combo.synchronize();
                     $state.go('app.administracion.crearPersonaJuridica.representante');
                 } else {
                     $scope.form.$setSubmitted();
                 }
             };
 
-            $scope.cancelar = function(){
-                $state.go('app.administracion.buscarPersonaJuridica');
-            };
         });
 
 })(window, window.angular);

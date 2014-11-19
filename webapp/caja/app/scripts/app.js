@@ -413,21 +413,21 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
                 $scope.params.object = persona;
             },
             module: 'PERSONA',
-            roles: ['ADMIN']
+            roles: ['PUBLIC']
         })
         .state('app.administracion.editarPersonaJuridica.resumen', {
             url: "/resumen",
             templateUrl: "../../views/persona/juridica/form-resumen.html",
             module: 'PERSONA',
-            roles: ['ADMIN']
+            roles: ['PUBLIC']
         })
-        .state('app.administracion.editarPersonaJuridica.principal', {
+        .state('app.administracion.editarPersonaJuridica.datosPrincipales', {
             url: "/principal",
-            templateUrl: "../../views/persona/juridica/form-principal.html",
+            templateUrl: "../../views/persona/juridica/form-datosPrincipales.html",
             module: 'PERSONA',
             roles: ['ADMIN']
         })
-        .state('app.administracion.editarPersonaJuridica.adicionales', {
+        .state('app.administracion.editarPersonaJuridica.datosAdicionales', {
             url: "/adicionales",
             templateUrl: "../../views/persona/juridica/form-datosAdicionales.html",
             module: 'PERSONA',
