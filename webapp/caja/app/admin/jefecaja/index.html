@@ -23,6 +23,7 @@
     <script src="../../bower_components/angular/angular.js"></script>
     <script src="../../bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="../../bower_components/angular-messages/angular-messages.js"></script>
+    <script src="../../bower_components/angular-animate/angular-animate.js"></script>
     <script src="../../bower_components/restangular/dist/restangular.js"></script>
     <script src="../../bower_components/underscore/underscore.js"></script>
     <script src="../../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
@@ -45,6 +46,10 @@
     <script src="../../bower_components/angular-ladda/dist/angular-ladda.min.js"></script>
     <!-- endbuild -->
 
+    <!-- Bootstrap nav wizard-->
+    <link rel="stylesheet" href="../../bower_components/bootstrap-nav-wizard/bootstrap-nav-wizard.css">
+    <!-- endbuild -->
+
     <script src="../../js/keycloak.js"></script>
     <script src="../../scripts/app.js"></script>
     <script src="app.js"></script>
@@ -62,8 +67,29 @@
     <script src="../../scripts/ubigeo/directives.js"></script>
     <script src="../../scripts/ubigeo/models.js"></script>
 
+    <script src="../../scripts/common/app.js"></script>
     <script src="../../scripts/common/controllers.js"></script>
     <script src="../../scripts/common/directives.js"></script>
+    <script src="../../scripts/common/services.js"></script>
+    <script src="../../scripts/common/filters.js"></script>
+
+    <script src="../../scripts/persona/controllers/BuscarCtrl.js"></script>
+    <script src="../../scripts/persona/controllers/BuscarPersonaJuridicaCtrl.js"></script>
+    <script src="../../scripts/persona/controllers/BuscarPersonaNaturalCtrl.js"></script>
+    <script src="../../scripts/persona/controllers/CrearPersonaJuridicaCtrl.js"></script>
+    <script src="../../scripts/persona/controllers/CrearPersonaNaturalCtrl.js"></script>
+    <script src="../../scripts/persona/controllers/EditarPersonaJuridicaCtrl.js"></script>
+    <script src="../../scripts/persona/controllers/EditarPersonaNaturalCtrl.js"></script>
+
+    <script src="../../scripts/persona/controllers/PersonaNaturalResumenCtrl.js"></script>
+    <script src="../../scripts/persona/controllers/PersonaNaturalDatosPrincipalesCtrl.js"></script>
+    <script src="../../scripts/persona/controllers/PersonaNaturalDatosAdicionalesCtrl.js"></script>
+
+    <script src="../../scripts/persona/controllers/PersonaJuridicaResumenCtrl.js"></script>
+    <script src="../../scripts/persona/controllers/PersonaJuridicaDatosPrincipalesCtrl.js"></script>
+    <script src="../../scripts/persona/controllers/PersonaJuridicaDatosAdicionalesCtrl.js"></script>
+    <script src="../../scripts/persona/controllers/PersonaJuridicaRepresentanteLegalCtrl.js"></script>
+    <script src="../../scripts/persona/controllers/PersonaJuridicaAccionistaCtrl.js"></script>
 
     <style>
         [ng\:cloak], [ng-cloak], .ng-cloak {
@@ -84,6 +110,9 @@
                 </button>
                 <a class="brand" href="#">SistCoop jefe caja</a>
                 <div class="nav-collapse" style="display: inherit;">
+                    <p class="navbar-text pull-right" style="margin-top: 0;">
+                        <a ng-click="logout()" style="cursor: pointer;">Logout</a>
+                    </p>
                     <p class="navbar-text pull-right" style="margin-top: 0;">
                         Logged in as
                         <strong ng-bind="auth.user.username"></strong>
