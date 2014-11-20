@@ -272,6 +272,100 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
             templateUrl: '../../views/themplate/themplate02.html'
         })
 
+        .state('app.transaccion', {
+            url: "/transaccion",
+            views: {
+                "viewMenu":{
+                    controller: function($scope){
+                        $scope.menus = [
+                            {'name':'Cuenta aporte', 'state': 'app.transaccion', header: true},
+                            {'name':'Aporte', 'state': 'app.transaccion.aporte', header: false},
+
+                            {'name':'Cuenta bancaria', 'state': 'app.transaccion', header: true},
+                            {'name':'Deposito/retiro', 'state': 'app.transaccion.transaccionBancaria', header: false},
+                            {'name':'Transferencia', 'state': 'app.transaccion.transferenciaBancaria', header: false},
+
+                            {'name':'Otros', 'state': 'app.transaccion', header: true},
+                            {'name':'Compra/venta', 'state': 'app.transaccion.compraVenta', header: false},
+
+                            {'name':'Transacciones del dia', 'state': 'app.transaccion', header: true},
+                            {'name':'Transacciones', 'state': 'app.transaccion.buscarTransaccion', header: false},
+
+                            {'name':'Interno', 'state': 'app.transaccion', header: true},
+                            {'name':'Pendiente', 'state': 'app.transaccion.buscarPendientes', header: false},
+                            {'name':'Boveda/boveda', 'state': 'app.transaccion.buscarTransaccionBovedaBoveda', header: false},
+                            {'name':'Boveda/caja', 'state': 'app.transaccion.buscarTransaccionBovedaCaja', header: false},
+                            {'name':'Caja/caja', 'state': 'app.transaccion.buscarTransaccionCajaCaja', header: false},
+
+
+                            {'name':'Externo', 'state': 'app.transaccion', header: true},
+                            {'name':'Entidad/boveda', 'state': 'app.transaccion.buscarTransaccionEntidadBoveda', header: false}
+                        ];
+                    }
+                },
+                "viewContent":{
+                    templateUrl: '../../views/themplate/themplate02-content.html',
+                    controller: function($scope){
+                        $scope.themplate = {};
+                        $scope.themplate.header = 'Administracion';
+                    }
+                }
+            }
+        })
+        .state('app.organizacion', {
+            url: "/organizacion",
+            views: {
+                "viewMenu":{
+                    controller: function($scope){
+                        $scope.menus = [
+                            {'name':'ESTRUCTURA', 'state': 'app.organizacion', header: true},
+                            {'name':'Sucursales', 'state': 'app.organizacion.buscarSucursal', header: false},
+                            {'name':'Bovedas', 'state': 'app.organizacion.buscarBoveda', header: false},
+                            {'name':'Cajas', 'state': 'app.organizacion.buscarCaja', header: false},
+
+                            {'name':'RRHH', 'state': 'app.organizacion', header: true},
+                            {'name':'Trabajadores', 'state': 'app.trabajador.buscarTrabajador', header: false},
+                            {'name':'Usuarios', 'state': 'app.trabajador.buscarUsuarios', header: false}
+                        ];
+                    }
+                },
+                "viewContent":{
+                    templateUrl: '../../views/themplate/themplate02-content.html',
+                    controller: function($scope){
+                        $scope.themplate = {};
+                        $scope.themplate.header = 'Organizacion';
+                    }
+                }
+            }
+        })
+        .state('app.socio', {
+            url: "/socio",
+            views: {
+                "viewMenu":{
+                    controller: function($scope){
+                        $scope.menus = [
+                            {'name':'Socio', 'state': 'app.socio', header: true},
+                            {'name':'Buscar', 'state': 'app.socio.buscarSocio', header: false},
+
+                            {'name':'Cuenta aporte', 'state': 'app.socio', header: true},
+                            {'name':'Nuevo', 'state': 'app.socio.crearCuentaAporte', header: false},
+                            {'name':'Buscar', 'state': 'app.socio.buscarCuentaAporte', header: false},
+
+                            {'name':'Cuenta bancaria', 'state': 'app.socio', header: true},
+                            {'name':'Nuevo', 'state': 'app.socio.crearCuentaBancaria', header: false},
+                            {'name':'Buscar', 'state': 'app.socio.buscarCuentaBancaria', header: false}
+                        ];
+                    }
+                },
+                "viewContent":{
+                    templateUrl: '../../views/themplate/themplate02-content.html',
+                    controller: function($scope){
+                        $scope.themplate = {};
+                        $scope.themplate.header = 'Administracion';
+                    }
+                }
+            }
+        })
         .state('app.administracion', {
             url: "/administracion",
             views: {
@@ -296,6 +390,16 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
                     }
                 }
             }
+        })
+
+        .state('app.organizacion.buscarSucursal', {
+            url: '/sucursal',
+            templateUrl: "../../views/sucursal/form-buscar-sucursal.html",
+            controller: function($scope) {
+                $scope.themplate.header = 'Buscar sucursal';
+            },
+            module: 'PERSONA',
+            roles: ['PUBLIC']
         })
 
         .state('app.administracion.buscarPersonaNatural', {
