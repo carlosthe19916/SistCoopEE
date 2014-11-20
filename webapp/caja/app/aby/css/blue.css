@@ -1,0 +1,149 @@
+.section-icon .fa {
+    color: #53a5db !important;
+}
+
+.portfolio .portfolio-item:hover h4 {
+    color: #53a5db;
+}
+
+.portfolio .portfolio-item:hover .project-container {
+    box-shadow: inset 0px -3px 0px #53a5db;
+}
+
+.color-overlay {
+    background-color: #53a5db !important;
+}
+
+strong {
+    color: #53a5db;
+    font-weight: 700;
+}
+
+input:focus, textarea:focus, select:focus {
+    border: 1px solid #53a5db;
+}
+
+input[type="submit"], button {
+    color: #53a5db;
+    border: 2px solid #53a5db;
+}
+
+input[type="submit"]:hover, button:hover {
+    background: #53a5db;
+    border: 2px solid #53a5db;
+}
+
+.error_box .error_overlay {
+    background: #53a5db;
+}
+
+#navigation .navbar-toggle:hover {
+    background: #53a5db;
+}
+
+.navbar-default .navbar-brand {
+    color: #53a5db;
+}
+
+.navbar-default .navbar-brand:hover {
+    color: #53a5db;
+}
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus,
+.navbar-default .navbar-nav > li.active > a,
+.navbar-default .navbar-nav > li.active > a:hover,
+.navbar-default .navbar-nav > li.active > a:focus {
+    background: #53a5db;
+}
+
+.services i.fa {
+    color: #ffffff;
+}
+
+.services .service-icon i.fa {
+    color: #53a5db;
+}
+
+.plan .head {
+    background: #53a5db;
+}
+
+.plan.recommended .head {
+    background: #6AB6DA;
+}
+
+.portfolio .portfolio-item .overlay-background {
+    background: #53a5db;
+}
+
+#project-page .project-details li span {
+    color: #ffffff;
+}
+
+#project-page .flex-control-paging li a:hover {
+    background: #ffffff;
+}
+
+body.project-page #project-page .flex-control-paging li a:hover {
+    background: #ffffff;
+}
+
+.testimonials-slider ul.slides p.author {
+    color: #ffffff;
+}
+
+.contact .contact-icon-container .fa {
+    color: #53a5db;
+}
+
+.socials-icons li a i.fa {
+    color: #53a5db;
+}
+
+.highlight {
+    color: #53a5db;
+}
+
+.bg-lite {
+    background: #e9f1f7;
+}
+
+.button-border-color {
+    color: #53a5db;
+    border: 2px solid #53a5db;
+}
+
+.button-border-color:hover {
+    background: #53a5db;
+    border: 2px solid #53a5db;
+}
+
+.button-border-color > * {
+    color: #53a5db;
+}
+
+.button-border-white:hover {
+    color: #53a5db;
+}
+
+.button-border-white:hover > * {
+    color: #53a5db;
+}
+
+.button-color {
+    background: #53a5db;
+    border: 2px solid #53a5db;
+}
+
+.button-color:hover {
+    color: #53a5db;
+}
+
+.line-color span {
+    background: #53a5db;
+}
+
+.fullscreen .next-section a:hover i.fa {
+    color: #53a5db;
+}

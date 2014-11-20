@@ -13,7 +13,7 @@
     "bootstrap": "~3.3.1",
     "todc-bootstrap": "~3.3.1-3.3.1",
     "bootstrap-nav-wizard": "~0.0.3",
-    "angular-bootstrap": "~0.11.2",
+    "angular-bootstrap": "~0.12",
     "angular-ui-router": "~0.2.11",
     "angular-ui-utils": "~0.1.1",
     "angular-ui-grid": "~3.0.0-rc.15",

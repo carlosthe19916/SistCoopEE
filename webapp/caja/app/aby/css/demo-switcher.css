@@ -1,0 +1,91 @@
+#demo-switcher {
+    position: fixed;
+    left: -220px;
+    top: 150px;
+    display: block;
+    width: 220px;
+    background: #ffffff;
+    padding: 24px 22px 22px;
+    z-index: 90000;
+    border-radius: 0 4px 4px 0;
+    box-shadow: 1px 1px 3px 0 rgba(0,0,0,0.4);
+}
+
+#demo-switcher .demo-toggle {
+    position: absolute;
+    display: block;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    top: 18px;
+    right: -50px;
+    background: #111;
+    border-radius: 0 4px 4px 0;
+    box-shadow: 1px 1px 3px 0 rgba(0,0,0,0.3);
+}
+
+#demo-switcher .demo-toggle i {
+    font-size: 24px;
+    color: #fff;
+    line-height: 50px;
+}
+
+#demo-switcher .demo-toggle:hover {
+    background: #222;
+}
+
+#demo-switcher .demo-toggle:hover i {
+    color: #f0f0f0;
+}
+
+#demo-switcher h2 {
+    font-size: 16px;
+    font-weight: normal;
+    text-transform: uppercase;
+    color: #111111;
+    margin-bottom: 8px;
+    display: block;
+    float: left;
+}
+
+#demo-switcher ul {
+    margin-bottom: 20px;
+    float: left;
+    width: 100%;
+}
+#demo-switcher ul:last-child {
+    margin-bottom: 0;
+}
+
+#demo-switcher ul li {
+    float: left;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+#demo-switcher a.demo-option {
+    padding: 4px 10px;
+    background: #444;
+    border-radius: 5px;
+    color: #ffffff;
+    float: left;
+    margin-right: 5px;
+    font-size: 12px;
+    text-transform: uppercase;
+    line-height: normal;
+    display: block;
+}
+
+#demo-switcher a.demo-option.demo-active {
+    background: #00baff;
+}
+
+#demo-switcher ul.template-set-color li a {
+    width: 30px;
+    height: 30px;
+}
+
+.import-margin {
+    margin-top: 180px !important;
+}
