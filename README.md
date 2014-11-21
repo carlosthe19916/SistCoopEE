@@ -1,0 +1,4 @@
+SistCoopEE
+==========
+
+SistCoop Enterprise edition
