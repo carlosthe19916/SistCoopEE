@@ -16,8 +16,7 @@ public class ModelToRepresentation {
 
 		rep.setId(model.getId());
 		rep.setAbreviatura(model.getAbreviatura());
-		rep.setDenominacion(model.getDenominacion());
-		rep.setUbigeo(model.getUbigeo());
+		rep.setDenominacion(model.getDenominacion());		
 		rep.setEstado(model.getEstado());
 
 		return rep;

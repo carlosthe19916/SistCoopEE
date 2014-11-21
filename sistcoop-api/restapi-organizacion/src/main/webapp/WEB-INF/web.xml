@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
 
-	<module-name>PERSONA-RESTAPI</module-name>
+	<module-name>ORGANIZACION-RESTAPI</module-name>
 
 	<security-constraint>
 		<web-resource-collection>
@@ -20,7 +20,7 @@
 			<url-pattern>/rest/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
-			<role-name>USER</role-name>
+			<role-name>ADMINISTRADOR_GENERAL</role-name>
 		</auth-constraint>
 	</security-constraint>
 	<security-constraint>
@@ -29,7 +29,25 @@
 			<url-pattern>/rest/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
-			<role-name>PUBLIC</role-name>
+			<role-name>ADMINISTRADOR</role-name>
+		</auth-constraint>
+	</security-constraint>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Rest services</web-resource-name>
+			<url-pattern>/rest/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>JEFE_CAJA</role-name>
+		</auth-constraint>
+	</security-constraint>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Rest services</web-resource-name>
+			<url-pattern>/rest/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>CAJERO</role-name>
 		</auth-constraint>
 	</security-constraint>
 
@@ -42,9 +60,15 @@
 		<role-name>ADMIN</role-name>
 	</security-role>
 	<security-role>
-		<role-name>USER</role-name>
+		<role-name>ADMINISTRADOR_GENERAL</role-name>
 	</security-role>
 	<security-role>
-		<role-name>PUBLIC</role-name>
+		<role-name>ADMINISTRADOR</role-name>
+	</security-role>
+	<security-role>
+		<role-name>JEFE_CAJA</role-name>
+	</security-role>
+	<security-role>
+		<role-name>CAJERO</role-name>
 	</security-role>
 </web-app>

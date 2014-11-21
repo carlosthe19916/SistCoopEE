@@ -12,10 +12,8 @@ import org.softgreen.sistcoop.organizacion.client.representations.idm.SucursalRe
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class RepresentationToModel {
 
-	public SucursalModel createTipoDocumento(SucursalRepresentation rep,
-			SucursalProvider provider) {
-		SucursalModel model = provider.addSucursal(rep.getAbreviatura(),
-				rep.getDenominacion(), rep.getUbigeo());
+	public SucursalModel createSucursal(SucursalRepresentation rep, SucursalProvider provider) {
+		SucursalModel model = provider.addSucursal(rep.getAbreviatura(), rep.getDenominacion(), rep.getUbigeo());
 		return model;
 	}
 

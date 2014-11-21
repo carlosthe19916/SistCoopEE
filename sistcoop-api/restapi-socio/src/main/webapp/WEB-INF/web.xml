@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
 
-	<module-name>PERSONA-RESTAPI</module-name>
+	<module-name>SOCIO-RESTAPI</module-name>
 
 	<security-constraint>
 		<web-resource-collection>

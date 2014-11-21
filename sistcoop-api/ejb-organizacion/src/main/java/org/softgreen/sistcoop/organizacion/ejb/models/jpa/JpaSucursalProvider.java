@@ -34,8 +34,7 @@ public class JpaSucursalProvider implements SucursalProvider {
 	public SucursalModel addSucursal(String abreviatura, String denominacion, String ubigeo) {
 		SucursalEntity sucursalEntity = new SucursalEntity();
 		sucursalEntity.setAbreviatura(abreviatura);
-		sucursalEntity.setDenominacion(denominacion);
-		sucursalEntity.setUbigeo(ubigeo);
+		sucursalEntity.setDenominacion(denominacion);	
 		sucursalEntity.setEstado(true);
 		em.persist(sucursalEntity);
 		return new SucursalAdapter(em, sucursalEntity);

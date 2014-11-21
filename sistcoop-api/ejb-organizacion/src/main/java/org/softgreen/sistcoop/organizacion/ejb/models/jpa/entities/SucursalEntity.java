@@ -48,7 +48,6 @@ public class SucursalEntity implements Serializable{
 	private Integer id;
 	private String denominacion;
 	private String abreviatura;
-	private String ubigeo;
 	private boolean estado;
 
 	private Set<AgenciaEntity> agencias = new HashSet<AgenciaEntity>();
@@ -92,19 +91,7 @@ public class SucursalEntity implements Serializable{
 
 	public void setAbreviatura(String abreviatura) {
 		this.abreviatura = abreviatura;
-	}
-
-	@NotNull
-	@Size(min = 6, max = 6)
-	@NotBlank
-	@NotEmpty
-	public String getUbigeo() {
-		return ubigeo;
-	}
-
-	public void setUbigeo(String ubigeo) {
-		this.ubigeo = ubigeo;
-	}
+	}	
 
 	@NotNull
 	@Type(type = "org.hibernate.type.TrueFalseType")

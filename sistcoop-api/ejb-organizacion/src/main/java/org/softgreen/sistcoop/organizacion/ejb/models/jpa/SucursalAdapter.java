@@ -52,16 +52,6 @@ public class SucursalAdapter implements SucursalModel {
 	}
 
 	@Override
-	public String getUbigeo() {
-		return sucursalEntity.getUbigeo();
-	}
-
-	@Override
-	public void setUbigeo(String ubigeo) {
-		sucursalEntity.setUbigeo(ubigeo);
-	}
-
-	@Override
 	public boolean getEstado() {
 		return sucursalEntity.isEstado();
 	}

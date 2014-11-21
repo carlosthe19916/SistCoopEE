@@ -21,6 +21,7 @@ var module = angular.module('sistcoop', [
 
     'persona',
     'ubigeo',
+    'organizacion',
     'common',
 
     'restangular',
@@ -136,6 +137,12 @@ module.factory('PersonaRestangular', function(Restangular) {
 module.factory('UbigeoRestangular', function(Restangular) {
     return Restangular.withConfig(function(RestangularConfigurer) {
         RestangularConfigurer.setBaseUrl('http://localhost:8080/restapi-ubigeo/rest/v1');
+    });
+});
+
+module.factory('OrganizacionRestangular', function(Restangular) {
+    return Restangular.withConfig(function(RestangularConfigurer) {
+        RestangularConfigurer.setBaseUrl('http://localhost:8080/restapi-organizacion/rest/v1');
     });
 });
 
@@ -393,10 +400,55 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
         })
 
         .state('app.organizacion.buscarSucursal', {
-            url: '/sucursal',
+            url: '/sucursal/buscar',
             templateUrl: "../../views/sucursal/form-buscar-sucursal.html",
             controller: function($scope) {
                 $scope.themplate.header = 'Buscar sucursal';
+            },
+            module: 'PERSONA',
+            roles: ['PUBLIC']
+        })
+        .state('app.organizacion.crearSucursal', {
+            url: '/sucursal',
+            templateUrl: "../../views/sucursal/form-crear-sucursal.html",
+            controller: function($scope) {
+                $scope.themplate.header = 'Crear sucursal';
+            },
+            module: 'PERSONA',
+            roles: ['PUBLIC']
+        })
+        .state('app.organizacion.crearSucursal.datosPrincipales', {
+            url: '/sucursal/principal',
+            templateUrl: "../../views/sucursal/form-datosPrincipales.html",
+            controller: function($scope) {
+                $scope.themplate.header = 'Crear sucursal';
+            },
+            module: 'PERSONA',
+            roles: ['PUBLIC']
+        })
+        .state('app.organizacion.editarSucursal', {
+            url: "/sucursal/:id",
+            templateUrl: "../../views/sucursal/form-editar-sucursal.html",
+            resolve: {
+                sucursal: function($state, $stateParams, Sucursal) {
+                    return Sucursal.$find($stateParams.id);
+                }
+            },
+            controller: function($scope, $stateParams, sucursal) {
+                $scope.themplate.header = 'Editar sucursal';
+
+                $scope.params = {};
+                $scope.params.id = $stateParams.id;
+                $scope.params.object = sucursal;
+            },
+            module: 'PERSONA',
+            roles: ['PUBLIC']
+        })
+        .state('app.organizacion.editarSucursal.datosPrincipales', {
+            url: '/principal',
+            templateUrl: "../../views/sucursal/form-datosPrincipales.html",
+            controller: function($scope) {
+                $scope.themplate.header = 'Editar sucursal';
             },
             module: 'PERSONA',
             roles: ['PUBLIC']

@@ -12,10 +12,6 @@ public interface SucursalModel extends Model {
 
 	void setAbreviatura(String abreviatura);
 
-	String getUbigeo();
-
-	void setUbigeo(String ubigeo);
-
 	boolean getEstado();
 
 	void setEstado(boolean estado);
