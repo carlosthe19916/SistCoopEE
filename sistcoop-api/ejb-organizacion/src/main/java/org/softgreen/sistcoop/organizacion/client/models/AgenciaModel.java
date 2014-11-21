@@ -2,6 +2,10 @@ package org.softgreen.sistcoop.organizacion.client.models;
 
 import java.util.List;
 
+/**
+ * Tested
+ */
+
 public interface AgenciaModel extends Model {
 
 	Integer getId();
