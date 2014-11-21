@@ -20,7 +20,7 @@ public interface AgenciaModel extends Model {
 
 	void setUbigeo(String ubigeo);
 
-	String getEstado();
+	boolean getEstado();
 
 	void setEstado(boolean estado);
 
@@ -31,4 +31,5 @@ public interface AgenciaModel extends Model {
 	List<CajaModel> getCajas();
 
 	List<TrabajadorModel> getTrabajadores();
+
 }

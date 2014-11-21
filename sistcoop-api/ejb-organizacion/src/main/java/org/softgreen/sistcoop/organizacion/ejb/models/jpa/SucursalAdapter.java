@@ -1,8 +1,14 @@
 package org.softgreen.sistcoop.organizacion.ejb.models.jpa;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.EntityManager;
 
+import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
 import org.softgreen.sistcoop.organizacion.client.models.SucursalModel;
+import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.AgenciaEntity;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.SucursalEntity;
 
 public class SucursalAdapter implements SucursalModel {
@@ -59,6 +65,22 @@ public class SucursalAdapter implements SucursalModel {
 	@Override
 	public void setEstado(boolean estado) {
 		sucursalEntity.setEstado(estado);
+	}
+
+	@Override
+	public List<AgenciaModel> getAgencias() {
+		return getAgencias(true);
+	}
+
+	@Override
+	public List<AgenciaModel> getAgencias(boolean estado) {
+		Set<AgenciaEntity> list = sucursalEntity.getAgencias();
+		List<AgenciaModel> result = new ArrayList<AgenciaModel>();
+		for (AgenciaEntity entity : list) {
+			if (entity.isEstado() == estado)
+				result.add(new AgenciaAdapter(em, entity));
+		}
+		return result;
 	}
 
 	public static SucursalEntity toSucursalEntity(SucursalModel model, EntityManager em) {

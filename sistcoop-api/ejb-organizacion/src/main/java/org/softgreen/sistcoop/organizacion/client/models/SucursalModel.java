@@ -1,8 +1,10 @@
 package org.softgreen.sistcoop.organizacion.client.models;
 
+import java.util.List;
+
 public interface SucursalModel extends Model {
 
-	Integer getId();	
+	Integer getId();
 
 	String getDenominacion();
 
@@ -15,5 +17,9 @@ public interface SucursalModel extends Model {
 	boolean getEstado();
 
 	void setEstado(boolean estado);
+
+	List<AgenciaModel> getAgencias();
+
+	List<AgenciaModel> getAgencias(boolean estado);
 
 }

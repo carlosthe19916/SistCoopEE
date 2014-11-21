@@ -23,5 +23,5 @@ public interface BovedaModel extends Model {
 	void setEstado(boolean estado);
 
 	AgenciaModel getAgencia();
-
+	
 }

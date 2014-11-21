@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.InternalServerErrorException;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -120,7 +121,7 @@ public class PersonaJuridicaResource {
 	public void update(@PathParam("id") Long id, PersonaJuridicaRepresentation rep) {
 		PersonaJuridicaModel model = personaJuridicaProvider.getPersonaJuridicaById(id);
 		TipoDocumentoModel tipoDocumentoModel = tipoDocumentoProvider.getTipoDocumentoByAbreviatura(rep.getTipoDocumento());
-		
+
 		model.setCodigoPais(rep.getCodigoPais());
 		model.setTipoDocumento(tipoDocumentoModel);
 		model.setNumeroDocumento(rep.getNumeroDocumento());
@@ -130,7 +131,7 @@ public class PersonaJuridicaResource {
 		model.setNombreComercial(rep.getNombreComercial());
 		model.setFinLucro(rep.isFinLucro());
 		model.setTipoEmpresa(TipoEmpresa.valueOf(rep.getTipoEmpresa()));
-		
+
 		model.setUbigeo(rep.getUbigeo());
 		model.setDireccion(rep.getDireccion());
 		model.setReferencia(rep.getReferencia());
@@ -149,7 +150,7 @@ public class PersonaJuridicaResource {
 		boolean removed = personaJuridicaProvider.removePersonaJuridica(personaJuridicaModel);
 		if (!removed) {
 			throw new InternalServerErrorException("No se pudo eliminar el elemento");
-		} 
+		}
 	}
 
 	/**
@@ -205,20 +206,31 @@ public class PersonaJuridicaResource {
 	public void updateAccionista(@PathParam("id") Long id, @PathParam("idAccionista") Long idAccionista, AccionistaRepresentation accionistaRepresentation) {
 		PersonaJuridicaModel personaJuridicaModel = personaJuridicaProvider.getPersonaJuridicaById(id);
 		if (personaJuridicaModel == null) {
-			
+			throw new NotFoundException("Sucursal not found.");
 		}
-		// AccionistaModel accionistaModel =
-		// accionistaProvider.getAccionistaById(idAccionista);
-		// personaJuridicaManager.updateAccionistaFromRep(accionistaModel,
-		// accionistaRepresentation);		
+		AccionistaModel accionistaModel = accionistaProvider.getAccionistaById(idAccionista);
+		if (accionistaModel == null) {
+			throw new NotFoundException("Accionista not found.");
+		}
+		accionistaModel.setPorcentajeParticipacion(accionistaRepresentation.getPorcentajeParticipacion());
+		accionistaModel.commit();
 	}
 
 	@DELETE
 	@Path("/{id}/accionistas/{idAccionista}")
 	@Produces({ "application/xml", "application/json" })
 	public void removeAccionista(@PathParam("id") Long id, @PathParam("idAccionista") Long idAccionista) {
+		PersonaJuridicaModel personaJuridicaModel = personaJuridicaProvider.getPersonaJuridicaById(id);
+		if (personaJuridicaModel == null) {
+			throw new NotFoundException("Sucursal not found.");
+		}
 		AccionistaModel accionistaModel = accionistaProvider.getAccionistaById(idAccionista);
+		if (accionistaModel == null) {
+			throw new NotFoundException("Accionista not found.");
+		}
 		boolean removed = accionistaProvider.removeAccionista(accionistaModel);
+		if (!removed)
+			throw new InternalServerErrorException("Internal server error.");
 	}
 
 }
