@@ -17,7 +17,8 @@ import org.softgreen.sistcoop.organizacion.client.models.TrabajadorModel;
 public class TrabajadorManager {
 
 	public boolean desactivarTrabajador(TrabajadorModel model) {
-		error;
+		//error;
+		return false;
 	}
 
 }

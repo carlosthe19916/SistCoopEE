@@ -17,13 +17,14 @@ import org.softgreen.sistcoop.organizacion.client.models.TrabajadorModel;
 public class CajaManager {
 
 	public boolean desactivarCaja(CajaModel model) {
-		model.get
+		//model.get
 		
-		model.setEstado(false);
+		//model.setEstado(false);
 		model.commit();
-		List<BovedaModel> bovedasModel = model.getBovedas();
+		/*List<BovedaModel> bovedasModel = model.getBovedas();
 		List<CajaModel> cajasModel = model.getCajas();
-		List<TrabajadorModel> trajadoresModel = model.getTrabajadores();
+		List<TrabajadorModel> trajadoresModel = model.getTrabajadores();*/
+		return false;
 	}
 
 }

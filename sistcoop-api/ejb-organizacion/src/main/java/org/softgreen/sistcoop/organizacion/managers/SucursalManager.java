@@ -34,7 +34,7 @@ public class SucursalManager {
 		for (AgenciaModel agenciaModel : agencias) {
 			boolean result = desactivarAgencia(agenciaModel);
 			if (!result) {
-				rollback();
+				//rollback();
 				break;
 			}
 		}
@@ -51,26 +51,27 @@ public class SucursalManager {
 		for (BovedaModel bovedaModel : bovedasModel) {
 			boolean result = bovedaManager.desactivarBoveda(bovedaModel);
 			if(!result){
-				rollback();
+				//rollback();
 				break;
 			}
 		}
 		for (CajaModel cajaModel : cajasModel) {
 			boolean result = cajaManager.desactivarCaja(cajaModel);
 			if(!result){
-				rollback();
+				//rollback();
 				break;
 			}
 		}
 		for (TrabajadorModel trabajadorModel : trajadoresModel) {
 			boolean result = trabajadorManager.desactivarTrabajador(trabajadorModel);
 			if(!result){
-				rollback();
+				//rollback();
 				break;
 			}
 		}
 		
-		commitAll();
+		//commitAll();
+		return false;
 	}
 
 }

@@ -1,7 +1,6 @@
 package org.softgreen.sistcoop.organizacion.ejb.models.jpa;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -15,7 +14,6 @@ import org.softgreen.sistcoop.organizacion.client.models.TrabajadorModel;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.AgenciaEntity;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.BovedaEntity;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.CajaEntity;
-import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.SucursalEntity;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.TrabajadorEntity;
 
 public class AgenciaAdapter implements AgenciaModel {

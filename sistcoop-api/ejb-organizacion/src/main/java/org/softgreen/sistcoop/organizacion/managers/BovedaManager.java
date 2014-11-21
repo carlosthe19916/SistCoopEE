@@ -32,7 +32,8 @@ public class BovedaManager {
 		//eliminar todas las relaciones bovedacaja
 		
 		
-		commitAll();
+		//commitAll();
+		return false;
 	}
 
 }
