@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 /**
  * Tested
  */
-public interface DetalleHistorialModel extends Model {
+public interface DetalleTransaccionInternaModel extends Model {
 
 	Long getId();
 
@@ -17,5 +17,5 @@ public interface DetalleHistorialModel extends Model {
 
 	void setCantidad(int valor);
 
-	HistorialModel getHistorial();
+	TransaccionInternaModel getHistorial();
 }

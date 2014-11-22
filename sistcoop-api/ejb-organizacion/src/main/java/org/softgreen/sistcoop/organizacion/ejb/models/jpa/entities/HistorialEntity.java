@@ -29,7 +29,7 @@ import org.hibernate.annotations.Type;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
 public abstract class HistorialEntity {
-
+	
 	protected Long id;
 	protected Date fechaApertura;
 	protected Date fechaCierre;

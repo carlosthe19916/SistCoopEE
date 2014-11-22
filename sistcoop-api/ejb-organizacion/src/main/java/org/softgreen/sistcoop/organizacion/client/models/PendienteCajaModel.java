@@ -11,26 +11,14 @@ public interface PendienteCajaModel extends Model {
 
 	Date getFecha();
 
-	void setFecha(Date fecha);
-
 	Date getHora();
-
-	void setHora(Date hora);
 
 	String getMoneda();
 
-	void setMoneda(String hora);
-
 	BigDecimal getMonto();
-
-	void setMonto(BigDecimal hora);
 
 	String getObservacion();
 
-	void setObservacion(String hora);
-
 	String getTrabajador();
-
-	void setTrabajador(String trabajador);
 
 }

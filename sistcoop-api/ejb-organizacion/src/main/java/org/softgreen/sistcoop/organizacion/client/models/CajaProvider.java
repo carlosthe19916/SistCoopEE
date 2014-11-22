@@ -1,7 +1,5 @@
 package org.softgreen.sistcoop.organizacion.client.models;
 
-import java.util.List;
-
 import javax.ejb.Local;
 
 import org.softgreen.sistcoop.organizacion.client.providers.Provider;
@@ -13,14 +11,10 @@ import org.softgreen.sistcoop.organizacion.client.providers.Provider;
 @Local
 public interface CajaProvider extends Provider {
 
-	CajaModel addCaja(SucursalModel sucursal, String codigo, String abreviatura, String denominacion, String ubigeo);
+	CajaModel addCaja(AgenciaModel agenciaModel, String denominacion);
 
 	boolean removeCaja(CajaModel CajaModel);
 
 	CajaModel getCajaById(Integer id);
-
-	List<CajaModel> getCajas();
-
-	List<CajaModel> getCajas(boolean estado);
 
 }

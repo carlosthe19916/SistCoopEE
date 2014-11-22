@@ -4,8 +4,6 @@ public interface EntidadModel extends Model {
 
 	public Integer getId();
 
-	public void setId(Integer id);
-
 	public String getDenominacion();
 
 	public void setDenominacion(String id);
