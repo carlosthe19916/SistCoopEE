@@ -2,8 +2,7 @@ package org.softgreen.sistcoop.organizacion.client.models;
 
 import java.math.BigDecimal;
 
-public interface TransaccionBancariaModel extends TransaccionClienteModel,
-		Model {
+public interface TransaccionBancariaModel extends TransaccionClienteModel, Model {
 
 	String getNumeroCuenta();
 

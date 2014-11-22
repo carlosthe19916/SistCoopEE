@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.annotations.Type;
 
 @Entity
-@Table(indexes = { @Index(columnList = "id") })
+@Table(name="HISTORIAL", indexes = { @Index(columnList = "id") })
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
 public abstract class HistorialEntity {

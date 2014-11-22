@@ -20,7 +20,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlTransient;
 
-@Entity
+@Entity(name="DETALLE_TRANSACCION_INTERNA")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
 public abstract class DetalleTransaccionInternaEntity implements Serializable {

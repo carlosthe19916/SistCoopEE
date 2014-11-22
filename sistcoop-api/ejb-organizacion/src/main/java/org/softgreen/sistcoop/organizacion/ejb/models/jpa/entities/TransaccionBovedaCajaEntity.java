@@ -34,7 +34,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 
 @Entity
-@Table(indexes = { @Index(columnList = "id") })
+@Table(name="TRANSACCION_BOVEDA_CAJA", indexes = { @Index(columnList = "id") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class TransaccionBovedaCajaEntity extends TransaccionInternaEntity implements java.io.Serializable {

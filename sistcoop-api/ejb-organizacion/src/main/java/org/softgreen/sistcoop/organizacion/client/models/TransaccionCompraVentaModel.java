@@ -22,8 +22,6 @@ public interface TransaccionCompraVentaModel extends TransaccionInternaModel,
 
 	void setObservacion();
 
-	// Set<DetalleTransaccionClienteModel> getDetalle();
-
 	String getMonedaRecibida();
 
 	String getMonedaEntregada();

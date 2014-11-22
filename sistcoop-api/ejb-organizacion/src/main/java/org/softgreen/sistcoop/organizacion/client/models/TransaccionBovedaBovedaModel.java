@@ -25,4 +25,7 @@ public interface TransaccionBovedaBovedaModel extends TransaccionInternaModel,
 
 	void setObservacion(String observacion);
 
+	HistorialBovedaModel getHistorialOrigen();
+
+	HistorialBovedaModel getHistorialDestino();
 }

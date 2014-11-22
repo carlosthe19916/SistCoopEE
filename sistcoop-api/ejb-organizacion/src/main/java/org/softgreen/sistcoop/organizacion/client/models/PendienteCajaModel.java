@@ -21,4 +21,5 @@ public interface PendienteCajaModel extends Model {
 
 	String getTrabajador();
 
+	HistorialCajaModel getHistorialCaja();
 }

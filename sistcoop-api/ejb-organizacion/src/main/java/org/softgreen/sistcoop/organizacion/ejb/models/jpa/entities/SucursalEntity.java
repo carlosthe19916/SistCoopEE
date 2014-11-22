@@ -28,7 +28,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(indexes = { @Index(columnList = "id") })
+@Table(name="SUCURSAL", indexes = { @Index(columnList = "id") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @NamedQueries({ 

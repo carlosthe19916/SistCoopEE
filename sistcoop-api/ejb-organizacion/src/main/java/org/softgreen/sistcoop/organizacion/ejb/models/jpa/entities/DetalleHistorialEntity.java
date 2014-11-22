@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Table(indexes = { @Index(columnList = "id") })
+@Table(name="DETALLE_HISTORIAL", indexes = { @Index(columnList = "id") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class DetalleHistorialEntity implements Serializable {

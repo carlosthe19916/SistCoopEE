@@ -13,8 +13,6 @@ public interface TransaccionBovedaEntidadModel extends TransaccionInternaModel,
 
 	Long getId();
 
-	EntidadModel getEntidad();
-
 	BigDecimal getSaldoDisponible();
 
 	String getOrigen();
@@ -23,4 +21,7 @@ public interface TransaccionBovedaEntidadModel extends TransaccionInternaModel,
 
 	void setObservacion(String observacion);
 
+	HistorialBovedaModel getHistorialBoveda();
+
+	EntidadModel getEntidad();
 }

@@ -1,6 +1,7 @@
 package org.softgreen.sistcoop.organizacion.client.models;
 
 import java.util.Date;
+import java.util.List;
 
 public interface TransaccionInternaModel extends Model {
 
@@ -18,4 +19,5 @@ public interface TransaccionInternaModel extends Model {
 
 	void setEstadoConfirmacion();
 
+	List<DetalleTransaccionInternaModel> getDetalle();
 }

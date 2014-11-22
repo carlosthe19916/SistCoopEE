@@ -40,7 +40,7 @@ public class SucursalResource {
 	@Inject
 	protected SucursalProvider sucursalProvider;
 
-	@Inject
+	//@Inject
 	protected AgenciaProvider agenciaProvider;
 
 	@Inject

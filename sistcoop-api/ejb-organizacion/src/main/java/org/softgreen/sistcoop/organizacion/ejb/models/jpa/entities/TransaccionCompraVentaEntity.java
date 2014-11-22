@@ -7,7 +7,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name="TRANSACCION_COMPRA_VENTA")
 @PrimaryKeyJoinColumn
 public class TransaccionCompraVentaEntity extends TransaccionClienteEntity {
 

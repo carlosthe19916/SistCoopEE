@@ -32,7 +32,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(indexes = { @Index(columnList = "id") })
+@Table(name="PENDIENTE_CAJA", indexes = { @Index(columnList = "id") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class PendienteCajaEntity implements java.io.Serializable {

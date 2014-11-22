@@ -21,4 +21,7 @@ public interface TransaccionCajaCajaModel extends TransaccionInternaModel,
 
 	BigDecimal getMonto();
 
+	HistorialCajaModel getHistorialOrigen();
+
+	HistorialCajaModel getHistorialDestino();
 }

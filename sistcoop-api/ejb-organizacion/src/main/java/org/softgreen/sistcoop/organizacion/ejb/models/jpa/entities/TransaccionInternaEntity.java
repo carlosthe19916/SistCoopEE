@@ -109,5 +109,4 @@ public abstract class TransaccionInternaEntity implements Serializable {
 	public void setOptlk(Timestamp optlk) {
 		this.optlk = optlk;
 	}
-
 }

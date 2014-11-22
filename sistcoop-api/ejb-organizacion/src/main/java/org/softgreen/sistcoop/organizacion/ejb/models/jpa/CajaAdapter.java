@@ -1,9 +1,14 @@
 package org.softgreen.sistcoop.organizacion.ejb.models.jpa;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
+import org.softgreen.sistcoop.organizacion.client.models.BovedaCajaModel;
+import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
 import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
+import org.softgreen.sistcoop.organizacion.client.models.HistorialModel;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.CajaEntity;
 
 public class CajaAdapter implements CajaModel {
@@ -87,6 +92,24 @@ public class CajaAdapter implements CajaModel {
 		return null;
 	}
 
+	@Override
+	public HistorialModel getHistorialActivo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<HistorialModel> getHistoriales() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BovedaCajaModel getBovedaCaja(BovedaModel bovedaModel) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	public static CajaEntity toCajaEntity(CajaModel model, EntityManager em) {
 		if (model instanceof CajaAdapter) {
 			return ((CajaAdapter) model).getCajaEntity();
@@ -109,4 +132,5 @@ public class CajaAdapter implements CajaModel {
 	public int hashCode() {
 		return getId().hashCode();
 	}
+
 }

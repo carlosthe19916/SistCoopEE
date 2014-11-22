@@ -29,7 +29,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table
+@Table(name="TRANSACCION_CLIENTE")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class TransaccionClienteEntity implements Serializable {
 

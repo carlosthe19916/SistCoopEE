@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.annotations.NaturalId;
 
 @Entity
-@Table(indexes = { @Index(columnList = "id") })
+@Table(name="TRABAJADOR_CAJA", indexes = { @Index(columnList = "id") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class TrabajadorCajaEntity {

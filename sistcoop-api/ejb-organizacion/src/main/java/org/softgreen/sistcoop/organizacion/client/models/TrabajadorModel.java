@@ -24,4 +24,6 @@ public interface TrabajadorModel extends Model {
 
 	void setAgencia(AgenciaModel agenciaModel);
 
+	TrabajadorCajaModel getTrabajadorCaja(CajaModel cajaModel);
+	
 }

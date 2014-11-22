@@ -1,5 +1,7 @@
 package org.softgreen.sistcoop.organizacion.client.models;
 
+import java.util.List;
+
 /**
  * Tested
  */
@@ -24,5 +26,11 @@ public interface CajaModel extends Model {
 	void setEstado(boolean estado);
 
 	AgenciaModel getAgencia();
+
+	HistorialModel getHistorialActivo();
+
+	List<HistorialModel> getHistoriales();
+
+	BovedaCajaModel getBovedaCaja(BovedaModel bovedaModel);
 
 }

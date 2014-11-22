@@ -11,8 +11,6 @@ public interface DetalleHistorialModel extends Model {
 
 	BigDecimal getValor();
 
-	void setValor(BigDecimal valor);
-
 	int getCantidad();
 
 	void setCantidad(int valor);

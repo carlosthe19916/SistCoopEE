@@ -3,6 +3,8 @@ package org.softgreen.sistcoop.organizacion.ejb.models.jpa;
 import javax.persistence.EntityManager;
 
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
+import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
+import org.softgreen.sistcoop.organizacion.client.models.TrabajadorCajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorModel;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.TrabajadorEntity;
 
@@ -93,7 +95,14 @@ public class TrabajadorAdapter implements TrabajadorModel {
 
 	}
 
-	public static TrabajadorEntity toTrabajadorEntity(TrabajadorModel model, EntityManager em) {
+	@Override
+	public TrabajadorCajaModel getTrabajadorCaja(CajaModel cajaModel) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public static TrabajadorEntity toTrabajadorEntity(TrabajadorModel model,
+			EntityManager em) {
 		if (model instanceof TrabajadorAdapter) {
 			return ((TrabajadorAdapter) model).getTrabajadorEntity();
 		}

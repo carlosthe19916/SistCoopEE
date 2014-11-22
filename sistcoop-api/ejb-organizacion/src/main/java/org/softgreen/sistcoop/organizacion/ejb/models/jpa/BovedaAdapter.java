@@ -1,9 +1,14 @@
 package org.softgreen.sistcoop.organizacion.ejb.models.jpa;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
+import org.softgreen.sistcoop.organizacion.client.models.BovedaCajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
+import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
+import org.softgreen.sistcoop.organizacion.client.models.HistorialModel;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.BovedaEntity;
 
 public class BovedaAdapter implements BovedaModel {
@@ -93,7 +98,26 @@ public class BovedaAdapter implements BovedaModel {
 		return null;
 	}
 
-	public static BovedaEntity toBovedaEntity(BovedaModel model, EntityManager em) {
+	@Override
+	public HistorialModel getHistorialActivo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<HistorialModel> getHistoriales() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BovedaCajaModel getBovedaCaja(CajaModel cajaModel) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public static BovedaEntity toBovedaEntity(BovedaModel model,
+			EntityManager em) {
 		if (model instanceof BovedaAdapter) {
 			return ((BovedaAdapter) model).getBovedaEntity();
 		}

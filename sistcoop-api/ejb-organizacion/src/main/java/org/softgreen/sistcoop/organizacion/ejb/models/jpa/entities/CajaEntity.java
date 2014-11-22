@@ -30,7 +30,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(indexes = { @Index(columnList = "id") })
+@Table(name="CAJA", indexes = { @Index(columnList = "id") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @NamedQueries({ @NamedQuery(name = CajaEntity.findByUsername, query = "SELECT c FROM CajaEntity c INNER JOIN c.trabajadorCajas tc INNER JOIN tc.trabajador t WHERE t.usuario = :username") })
