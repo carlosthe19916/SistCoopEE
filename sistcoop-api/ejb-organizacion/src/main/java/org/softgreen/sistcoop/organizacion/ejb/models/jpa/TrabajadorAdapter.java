@@ -72,9 +72,9 @@ public class TrabajadorAdapter implements TrabajadorModel {
 	}
 
 	@Override
-	public String getEstado() {
+	public boolean getEstado() {
 		// TODO Auto-generated method stub
-		return null;
+		return false;
 	}
 
 	@Override
@@ -101,8 +101,7 @@ public class TrabajadorAdapter implements TrabajadorModel {
 		return null;
 	}
 
-	public static TrabajadorEntity toTrabajadorEntity(TrabajadorModel model,
-			EntityManager em) {
+	public static TrabajadorEntity toTrabajadorEntity(TrabajadorModel model, EntityManager em) {
 		if (model instanceof TrabajadorAdapter) {
 			return ((TrabajadorAdapter) model).getTrabajadorEntity();
 		}

@@ -16,7 +16,7 @@ public interface TrabajadorModel extends Model {
 
 	void setUsuario(String usuario);
 
-	String getEstado();
+	boolean getEstado();
 
 	void setEstado(boolean estado);
 
@@ -25,5 +25,5 @@ public interface TrabajadorModel extends Model {
 	void setAgencia(AgenciaModel agenciaModel);
 
 	TrabajadorCajaModel getTrabajadorCaja(CajaModel cajaModel);
-	
+
 }

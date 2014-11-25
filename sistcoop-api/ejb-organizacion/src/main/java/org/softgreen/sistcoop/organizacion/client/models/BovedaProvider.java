@@ -11,8 +11,7 @@ import org.softgreen.sistcoop.organizacion.client.providers.Provider;
 @Local
 public interface BovedaProvider extends Provider {
 
-	BovedaModel addBoveda(AgenciaModel agenciaModel, String moneda,
-			String denominacion);
+	BovedaModel addBoveda(AgenciaModel agenciaModel, String moneda, String denominacion);
 
 	boolean removeBoveda(BovedaModel BovedaModel);
 

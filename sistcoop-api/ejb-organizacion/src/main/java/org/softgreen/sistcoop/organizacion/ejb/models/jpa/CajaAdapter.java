@@ -6,9 +6,9 @@ import javax.persistence.EntityManager;
 
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaCajaModel;
-import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
 import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.HistorialModel;
+import org.softgreen.sistcoop.organizacion.client.models.TrabajadorCajaModel;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.CajaEntity;
 
 public class CajaAdapter implements CajaModel {
@@ -99,13 +99,13 @@ public class CajaAdapter implements CajaModel {
 	}
 
 	@Override
-	public List<HistorialModel> getHistoriales() {
+	public List<BovedaCajaModel> getBovedaCajas() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public BovedaCajaModel getBovedaCaja(BovedaModel bovedaModel) {
+	public List<TrabajadorCajaModel> getTrabajadorCajas() {
 		// TODO Auto-generated method stub
 		return null;
 	}

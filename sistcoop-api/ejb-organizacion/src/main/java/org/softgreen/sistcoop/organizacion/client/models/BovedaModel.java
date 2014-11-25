@@ -28,8 +28,6 @@ public interface BovedaModel extends Model {
 
 	HistorialModel getHistorialActivo();
 
-	List<HistorialModel> getHistoriales();
-
-	BovedaCajaModel getBovedaCaja(CajaModel cajaModel);
+	List<BovedaCajaModel> getBovedaCajas();
 
 }

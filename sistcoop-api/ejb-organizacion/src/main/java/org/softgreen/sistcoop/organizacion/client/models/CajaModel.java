@@ -29,8 +29,8 @@ public interface CajaModel extends Model {
 
 	HistorialModel getHistorialActivo();
 
-	List<HistorialModel> getHistoriales();
+	List<BovedaCajaModel> getBovedaCajas();
 
-	BovedaCajaModel getBovedaCaja(BovedaModel bovedaModel);
+	List<TrabajadorCajaModel> getTrabajadorCajas();
 
 }

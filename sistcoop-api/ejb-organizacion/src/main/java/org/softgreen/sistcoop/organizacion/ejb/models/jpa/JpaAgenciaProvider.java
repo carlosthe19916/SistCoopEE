@@ -48,8 +48,7 @@ public class JpaAgenciaProvider implements AgenciaProvider {
 	}
 
 	@Override
-	public AgenciaModel addAgencia(SucursalModel sucursal, String codigo,
-			String abreviatura, String denominacion, String ubigeo) {
+	public AgenciaModel addAgencia(SucursalModel sucursal, String codigo, String abreviatura, String denominacion, String ubigeo) {
 		AgenciaEntity agenciaEntity = new AgenciaEntity();
 		agenciaEntity.setCodigo(codigo);
 		agenciaEntity.setAbreviatura(abreviatura);

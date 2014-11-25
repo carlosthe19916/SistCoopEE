@@ -13,8 +13,7 @@ import org.softgreen.sistcoop.organizacion.client.providers.Provider;
 @Local
 public interface DetalleHistorialProvider extends Provider {
 
-	DetalleHistorialModel addDetalleHistorial(HistorialModel historialModel,
-			int cantidad, BigDecimal valor);
+	DetalleHistorialModel addDetalleHistorial(HistorialModel historialModel, int cantidad, BigDecimal valor);
 
 	DetalleHistorialModel getDetalleHistorialById(Long id);
 
