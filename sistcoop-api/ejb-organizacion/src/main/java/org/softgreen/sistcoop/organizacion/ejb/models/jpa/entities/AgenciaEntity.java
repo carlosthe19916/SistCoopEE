@@ -31,10 +31,12 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="AGENCIA", indexes = { @Index(columnList = "id") })
+@Table(name = "AGENCIA", indexes = { @Index(columnList = "id") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
-@NamedQueries(value = { @NamedQuery(name = AgenciaEntity.findByCodigo, query = "SELECT a FROM AgenciaEntity a WHERE a.codigo = :codigo") })
+@NamedQueries(value = {
+		@NamedQuery(name = AgenciaEntity.findByCodigo, query = "SELECT a FROM AgenciaEntity a WHERE a.codigo = :codigo"),
+		@NamedQuery(name = AgenciaEntity.findByEstado, query = "SELECT s FROM SucursalEntity s WHERE s.estado = :estado") })
 public class AgenciaEntity implements Serializable {
 
 	/**
@@ -42,8 +44,9 @@ public class AgenciaEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public final static String base = "org.softgreen.organizacion.entity.Agencia.";
+	public final static String base = "org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.Agencia.";
 	public final static String findByCodigo = base + "findByCodigo";
+	public final static String findByEstado = base + "findByEstado";
 
 	private Integer id;
 	private String codigo;

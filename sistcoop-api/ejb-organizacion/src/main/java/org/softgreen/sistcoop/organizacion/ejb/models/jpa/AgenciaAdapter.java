@@ -75,7 +75,6 @@ public class AgenciaAdapter implements AgenciaModel {
 	@Override
 	public void setUbigeo(String ubigeo) {
 		agenciaEntity.setUbigeo(ubigeo);
-		;
 	}
 
 	@Override
@@ -123,7 +122,8 @@ public class AgenciaAdapter implements AgenciaModel {
 		return result;
 	}
 
-	public static AgenciaEntity toSucursalEntity(AgenciaModel model, EntityManager em) {
+	public static AgenciaEntity toSucursalEntity(AgenciaModel model,
+			EntityManager em) {
 		if (model instanceof AgenciaAdapter) {
 			return ((AgenciaAdapter) model).getAgenciaEntity();
 		}
