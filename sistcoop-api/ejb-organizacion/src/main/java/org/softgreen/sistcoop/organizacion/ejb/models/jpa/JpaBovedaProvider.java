@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaProvider;
+import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.AgenciaEntity;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.BovedaEntity;
 
 @Named
@@ -29,8 +30,19 @@ public class JpaBovedaProvider implements BovedaProvider {
 
 	@Override
 	public BovedaModel addBoveda(AgenciaModel agenciaModel, String moneda, String denominacion) {
-		// TODO Auto-generated method stub
-		return null;
+		BovedaEntity bovedaEntity = new BovedaEntity();
+
+		AgenciaEntity agenciaEntity = AgenciaAdapter.toSucursalEntity(agenciaModel, em);
+		bovedaEntity.setAgencia(agenciaEntity);
+
+		bovedaEntity.setDenominacion(denominacion);
+		bovedaEntity.setMoneda(moneda);
+		bovedaEntity.setAbierto(false);
+		bovedaEntity.setEstadoMovimiento(false);
+		bovedaEntity.setEstado(true);
+
+		em.persist(bovedaEntity);
+		return new BovedaAdapter(em, bovedaEntity);
 	}
 
 	@Override

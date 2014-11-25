@@ -10,27 +10,27 @@ import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
 import org.softgreen.sistcoop.organizacion.client.models.DetalleHistorialModel;
 import org.softgreen.sistcoop.organizacion.client.models.HistorialBovedaModel;
 import org.softgreen.sistcoop.organizacion.client.models.HistorialModel;
-import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.HistorialEntity;
+import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.HistorialBovedaEntity;
 
 public class HistorialBovedaAdapter implements HistorialBovedaModel {
 
 	private static final long serialVersionUID = 1L;
 
-	protected HistorialEntity historialEntity;
+	protected HistorialBovedaEntity historialBovedaEntity;
 	protected EntityManager em;
 
-	public HistorialBovedaAdapter(EntityManager em, HistorialEntity HistorialEntity) {
+	public HistorialBovedaAdapter(EntityManager em, HistorialBovedaEntity HistorialBovedaEntity) {
 		this.em = em;
-		this.historialEntity = HistorialEntity;
+		this.historialBovedaEntity = HistorialBovedaEntity;
 	}
 
-	public HistorialEntity getHistorialEntity() {
-		return historialEntity;
+	public HistorialBovedaEntity getHistorialBovedaEntity() {
+		return historialBovedaEntity;
 	}
 
 	@Override
 	public void commit() {
-		em.merge(historialEntity);
+		em.merge(historialBovedaEntity);
 	}
 
 	@Override
@@ -105,11 +105,11 @@ public class HistorialBovedaAdapter implements HistorialBovedaModel {
 		return null;
 	}
 
-	public static HistorialEntity toSucursalEntity(HistorialModel model, EntityManager em) {
+	public static HistorialBovedaEntity toSucursalEntity(HistorialModel model, EntityManager em) {
 		if (model instanceof HistorialBovedaAdapter) {
-			return ((HistorialBovedaAdapter) model).getHistorialEntity();
+			return ((HistorialBovedaAdapter) model).getHistorialBovedaEntity();
 		}
-		return em.getReference(HistorialEntity.class, model.getId());
+		return em.getReference(HistorialBovedaEntity.class, model.getId());
 	}
 
 	@Override

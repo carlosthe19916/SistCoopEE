@@ -15,6 +15,7 @@ import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaProvider;
 import org.softgreen.sistcoop.organizacion.client.models.SucursalModel;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.AgenciaEntity;
+import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.SucursalEntity;
 
 @Named
 @Stateless
@@ -31,6 +32,22 @@ public class JpaAgenciaProvider implements AgenciaProvider {
 	}
 
 	@Override
+	public AgenciaModel addAgencia(SucursalModel sucursal, String codigo, String abreviatura, String denominacion, String ubigeo) {
+		AgenciaEntity agenciaEntity = new AgenciaEntity();
+		
+		SucursalEntity sucursalEntity = SucursalAdapter.toSucursalEntity(sucursal, em);
+		agenciaEntity.setSucursal(sucursalEntity);
+		
+		agenciaEntity.setCodigo(codigo);
+		agenciaEntity.setAbreviatura(abreviatura);
+		agenciaEntity.setDenominacion(denominacion);
+		agenciaEntity.setUbigeo(ubigeo);
+		agenciaEntity.setEstado(true);
+		em.persist(agenciaEntity);
+		return new AgenciaAdapter(em, agenciaEntity);
+	}
+
+	@Override
 	public boolean removeAgencia(AgenciaModel AgenciaModel) {
 		AgenciaEntity AgenciaEntity = em.find(AgenciaEntity.class, AgenciaModel.getId());
 		if (em.contains(AgenciaEntity))
@@ -44,18 +61,6 @@ public class JpaAgenciaProvider implements AgenciaProvider {
 	public AgenciaModel getAgenciaById(Integer id) {
 		AgenciaEntity AgenciaEntity = this.em.find(AgenciaEntity.class, id);
 		return AgenciaEntity != null ? new AgenciaAdapter(em, AgenciaEntity) : null;
-	}
-
-	@Override
-	public AgenciaModel addAgencia(SucursalModel sucursal, String codigo, String abreviatura, String denominacion, String ubigeo) {
-		AgenciaEntity agenciaEntity = new AgenciaEntity();
-		agenciaEntity.setCodigo(codigo);
-		agenciaEntity.setAbreviatura(abreviatura);
-		agenciaEntity.setDenominacion(denominacion);
-		agenciaEntity.setUbigeo(ubigeo);
-		agenciaEntity.setEstado(true);
-		em.persist(agenciaEntity);
-		return new AgenciaAdapter(em, agenciaEntity);
 	}
 
 	@Override

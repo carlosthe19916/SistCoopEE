@@ -15,51 +15,46 @@ public class CajaAdapter implements CajaModel {
 
 	private static final long serialVersionUID = 1L;
 
-	protected CajaEntity bovedaEntity;
+	protected CajaEntity cajaEntity;
 	protected EntityManager em;
 
-	public CajaAdapter(EntityManager em, CajaEntity bovedaEntity) {
+	public CajaAdapter(EntityManager em, CajaEntity cajaEntity) {
 		this.em = em;
-		this.bovedaEntity = bovedaEntity;
+		this.cajaEntity = cajaEntity;
 	}
 
 	public CajaEntity getCajaEntity() {
-		return bovedaEntity;
+		return cajaEntity;
 	}
 
 	@Override
 	public void commit() {
-		em.merge(bovedaEntity);
+		em.merge(cajaEntity);
 	}
 
 	@Override
 	public Integer getId() {
-		// TODO Auto-generated method stub
-		return null;
+		return cajaEntity.getId();
 	}
 
 	@Override
 	public String getDenominacion() {
-		// TODO Auto-generated method stub
-		return null;
+		return cajaEntity.getDenominacion();
 	}
 
 	@Override
 	public void setDenominacion(String denominacion) {
-		// TODO Auto-generated method stub
-
+		cajaEntity.setDenominacion(denominacion);
 	}
 
 	@Override
 	public boolean isAbierto() {
-		// TODO Auto-generated method stub
-		return false;
+		return cajaEntity.isAbierto();
 	}
 
 	@Override
 	public void setAbierto(boolean abierto) {
-		// TODO Auto-generated method stub
-
+		cajaEntity.setAbierto(abierto);
 	}
 
 	@Override
