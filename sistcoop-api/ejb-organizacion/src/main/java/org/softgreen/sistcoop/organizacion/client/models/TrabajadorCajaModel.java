@@ -8,6 +8,4 @@ public interface TrabajadorCajaModel extends Model {
 
 	CajaModel getCaja();
 
-	void setCaja(CajaModel cajaModel);
-
 }

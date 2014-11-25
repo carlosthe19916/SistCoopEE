@@ -2,9 +2,6 @@ package org.softgreen.sistcoop.organizacion.client.models;
 
 import java.util.List;
 
-/**
- * Tested
- */
 public interface CajaModel extends Model {
 
 	Integer getId();

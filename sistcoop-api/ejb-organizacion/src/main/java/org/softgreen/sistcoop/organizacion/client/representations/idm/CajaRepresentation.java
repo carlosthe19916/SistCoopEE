@@ -1,6 +1,9 @@
 package org.softgreen.sistcoop.organizacion.client.representations.idm;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -20,6 +23,9 @@ public class CajaRepresentation implements Serializable {
 	private boolean abierto;
 	private boolean estadoMovimiento;
 	private boolean estado;
+
+	private Map<String, BigDecimal> bovedas;
+	private List<TrabajadorRepresentation> trabajadores;
 
 	public Integer getId() {
 		return id;
@@ -59,6 +65,22 @@ public class CajaRepresentation implements Serializable {
 
 	public void setEstado(boolean estado) {
 		this.estado = estado;
+	}
+
+	public Map<String, BigDecimal> getBovedas() {
+		return bovedas;
+	}
+
+	public void setBovedas(Map<String, BigDecimal> bovedas) {
+		this.bovedas = bovedas;
+	}
+
+	public List<TrabajadorRepresentation> getTrabajadores() {
+		return trabajadores;
+	}
+
+	public void setTrabajadores(List<TrabajadorRepresentation> trabajadores) {
+		this.trabajadores = trabajadores;
 	}
 
 }

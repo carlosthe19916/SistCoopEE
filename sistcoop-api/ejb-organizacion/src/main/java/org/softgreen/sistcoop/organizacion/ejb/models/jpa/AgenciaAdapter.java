@@ -97,7 +97,8 @@ public class AgenciaAdapter implements AgenciaModel {
 		Set<BovedaEntity> list = agenciaEntity.getBovedas();
 		List<BovedaModel> result = new ArrayList<BovedaModel>();
 		for (BovedaEntity entity : list) {
-			result.add(new BovedaAdapter(em, entity));
+			if (entity.isEstado())
+				result.add(new BovedaAdapter(em, entity));
 		}
 		return result;
 	}
@@ -107,7 +108,8 @@ public class AgenciaAdapter implements AgenciaModel {
 		Set<CajaEntity> list = agenciaEntity.getCajas();
 		List<CajaModel> result = new ArrayList<CajaModel>();
 		for (CajaEntity entity : list) {
-			result.add(new CajaAdapter(em, entity));
+			if (entity.isEstado())
+				result.add(new CajaAdapter(em, entity));
 		}
 		return result;
 	}
@@ -117,13 +119,13 @@ public class AgenciaAdapter implements AgenciaModel {
 		Set<TrabajadorEntity> list = agenciaEntity.getTrabajadores();
 		List<TrabajadorModel> result = new ArrayList<TrabajadorModel>();
 		for (TrabajadorEntity entity : list) {
-			result.add(new TrabajadorAdapter(em, entity));
+			if (entity.isEstado())
+				result.add(new TrabajadorAdapter(em, entity));
 		}
 		return result;
 	}
 
-	public static AgenciaEntity toSucursalEntity(AgenciaModel model,
-			EntityManager em) {
+	public static AgenciaEntity toSucursalEntity(AgenciaModel model, EntityManager em) {
 		if (model instanceof AgenciaAdapter) {
 			return ((AgenciaAdapter) model).getAgenciaEntity();
 		}

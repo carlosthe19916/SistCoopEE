@@ -1,6 +1,5 @@
 package org.softgreen.sistcoop.organizacion.ejb.models.jpa;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -61,25 +60,13 @@ public class JpaAgenciaProvider implements AgenciaProvider {
 
 	@Override
 	public AgenciaModel getAgenciaByCodigo(String codigo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<AgenciaModel> getAgencias() {
-		return getAgencias(true);
-	}
-
-	@Override
-	public List<AgenciaModel> getAgencias(boolean estado) {
-		TypedQuery<AgenciaEntity> query = em.createNamedQuery(AgenciaEntity.findByEstado, AgenciaEntity.class);
-		query.setParameter("estado", estado);
+		TypedQuery<AgenciaEntity> query = em.createNamedQuery(AgenciaEntity.findByCodigo, AgenciaEntity.class);
+		query.setParameter("codigo", codigo);
 		List<AgenciaEntity> list = query.getResultList();
-		List<AgenciaModel> results = new ArrayList<AgenciaModel>();
-		for (AgenciaEntity entity : list) {
-			results.add(new AgenciaAdapter(em, entity));
-		}
-		return results;
+		if (list.size() > 0)
+			return new AgenciaAdapter(em, list.get(0));
+		else
+			return null;
 	}
 
 }

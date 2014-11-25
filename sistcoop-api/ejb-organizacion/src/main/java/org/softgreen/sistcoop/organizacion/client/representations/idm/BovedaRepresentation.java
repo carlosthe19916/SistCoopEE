@@ -1,6 +1,7 @@
 package org.softgreen.sistcoop.organizacion.client.representations.idm;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -21,6 +22,8 @@ public class BovedaRepresentation implements Serializable {
 	private boolean abierto;
 	private boolean estadoMovimiento;
 	private boolean estado;
+
+	private BigDecimal saldo;
 
 	public Integer getId() {
 		return id;
@@ -68,6 +71,14 @@ public class BovedaRepresentation implements Serializable {
 
 	public void setEstado(boolean estado) {
 		this.estado = estado;
+	}
+
+	public BigDecimal getSaldo() {
+		return saldo;
+	}
+
+	public void setSaldo(BigDecimal saldo) {
+		this.saldo = saldo;
 	}
 
 }

@@ -1,9 +1,18 @@
 package org.softgreen.sistcoop.organizacion.client.models.util;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
+import org.softgreen.sistcoop.organizacion.client.models.BovedaCajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
 import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
+import org.softgreen.sistcoop.organizacion.client.models.HistorialModel;
 import org.softgreen.sistcoop.organizacion.client.models.SucursalModel;
+import org.softgreen.sistcoop.organizacion.client.models.TrabajadorCajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorModel;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.AgenciaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.BovedaRepresentation;
@@ -11,10 +20,6 @@ import org.softgreen.sistcoop.organizacion.client.representations.idm.CajaRepres
 import org.softgreen.sistcoop.organizacion.client.representations.idm.SucursalRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.TrabajadorRepresentation;
 
-/**
- * @author <a href="mailto:bill@burkecentral.com">Bill Burke</a>
- * @version $Revision: 1 $
- */
 public class ModelToRepresentation {
 
 	public static SucursalRepresentation toRepresentation(SucursalModel model) {
@@ -53,6 +58,9 @@ public class ModelToRepresentation {
 		rep.setAbierto(model.isAbierto());
 		rep.setEstadoMovimiento(model.getEstadoMovimiento());
 		rep.setEstado(model.getEstado());
+	
+		HistorialModel historialModel = model.getHistorialActivo();				
+		rep.setSaldo(historialModel.getSaldo());
 		return rep;
 	}
 
@@ -65,6 +73,23 @@ public class ModelToRepresentation {
 		rep.setAbierto(model.isAbierto());
 		rep.setEstadoMovimiento(model.getEstadoMovimiento());
 		rep.setEstado(model.getEstado());
+		
+		Map<String, BigDecimal> bovedasAsignadas = new LinkedHashMap<String, BigDecimal>();
+		List<BovedaCajaModel> bovedasCajas = model.getBovedaCajas();
+		for (BovedaCajaModel bovedaCajaModel : bovedasCajas) {
+			BovedaModel bovedaModel = bovedaCajaModel.getBoveda();
+			HistorialModel historialActivo = bovedaModel.getHistorialActivo();
+			bovedasAsignadas.put(bovedaModel.getDenominacion(), historialActivo.getSaldo());
+		}		
+		rep.setBovedas(bovedasAsignadas);
+		
+		List<TrabajadorRepresentation> trabajadoresAsignados = new ArrayList<TrabajadorRepresentation>();
+		List<TrabajadorCajaModel> trabajadorCajas = model.getTrabajadorCajas();
+		for (TrabajadorCajaModel trabajadorCajaModel : trabajadorCajas) {
+			TrabajadorModel trabajadorModel = trabajadorCajaModel.getTrabajador();
+			trabajadoresAsignados.add(toRepresentation(trabajadorModel));
+		}
+		rep.setTrabajadores(trabajadoresAsignados);
 		return rep;
 	}
 

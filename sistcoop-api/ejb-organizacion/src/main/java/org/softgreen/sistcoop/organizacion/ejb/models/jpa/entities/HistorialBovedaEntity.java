@@ -14,8 +14,13 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 @Entity
 @DiscriminatorValue("boveda")
+@NamedQueries(value = {		
+		@NamedQuery(name = HistorialBovedaEntity.findByEstado, query = "SELECT s FROM HistorialBovedaEntity s WHERE s.estado = :estado") })
 public class HistorialBovedaEntity extends HistorialEntity implements Serializable {
 
 	/**
@@ -23,6 +28,9 @@ public class HistorialBovedaEntity extends HistorialEntity implements Serializab
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public final static String base = "org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.HistorialBovedaEntity.";	
+	public final static String findByEstado = base + "findByEstado";
+	
 	private BovedaEntity boveda;
 	private Set<TransaccionBovedaCajaEntity> transaccionesBovedaCaja = new HashSet<TransaccionBovedaCajaEntity>();
 	private Set<TransaccionBovedaEntidadEntity> transaccionesBovedaEntidad = new HashSet<TransaccionBovedaEntidadEntity>();

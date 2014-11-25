@@ -1,5 +1,7 @@
 package org.softgreen.sistcoop.organizacion.client.models;
 
+import java.util.List;
+
 public interface TrabajadorModel extends Model {
 
 	Integer getId();
@@ -24,6 +26,6 @@ public interface TrabajadorModel extends Model {
 
 	void setAgencia(AgenciaModel agenciaModel);
 
-	TrabajadorCajaModel getTrabajadorCaja(CajaModel cajaModel);
+	List<TrabajadorCajaModel> getTrabajadorCajas();
 
 }

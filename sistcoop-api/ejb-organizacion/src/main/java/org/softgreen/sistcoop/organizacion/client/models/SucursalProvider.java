@@ -8,7 +8,7 @@ import org.softgreen.sistcoop.organizacion.client.providers.Provider;
 
 @Local
 public interface SucursalProvider extends Provider {
-	
+
 	SucursalModel addSucursal(String abreviatura, String denominacion, String ubigeo);
 
 	boolean removeSucursal(SucursalModel sucursalModel);

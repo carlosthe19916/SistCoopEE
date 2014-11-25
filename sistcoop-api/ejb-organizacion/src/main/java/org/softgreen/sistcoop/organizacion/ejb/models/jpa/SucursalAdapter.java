@@ -80,7 +80,7 @@ public class SucursalAdapter implements SucursalModel {
 			if (entity.isEstado() == estado)
 				result.add(new AgenciaAdapter(em, entity));
 		}
-		return result;
+		return result;						
 	}
 
 	public static SucursalEntity toSucursalEntity(SucursalModel model, EntityManager em) {

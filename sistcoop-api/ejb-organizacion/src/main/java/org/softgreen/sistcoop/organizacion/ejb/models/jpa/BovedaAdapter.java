@@ -1,14 +1,20 @@
 package org.softgreen.sistcoop.organizacion.ejb.models.jpa;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaCajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
 import org.softgreen.sistcoop.organizacion.client.models.HistorialModel;
+import org.softgreen.sistcoop.organizacion.client.models.SucursalModel;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.BovedaEntity;
+import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.HistorialBovedaEntity;
+import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.HistorialEntity;
+import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.SucursalEntity;
 
 public class BovedaAdapter implements BovedaModel {
 
@@ -33,74 +39,68 @@ public class BovedaAdapter implements BovedaModel {
 
 	@Override
 	public Integer getId() {
-		// TODO Auto-generated method stub
-		return null;
+		return bovedaEntity.getId();
 	}
 
 	@Override
 	public String getMoneda() {
-		// TODO Auto-generated method stub
-		return null;
+		return bovedaEntity.getMoneda();
 	}
 
 	@Override
 	public String getDenominacion() {
-		// TODO Auto-generated method stub
-		return null;
+		return bovedaEntity.getDenominacion();
 	}
 
 	@Override
 	public void setDenominacion(String denominacion) {
-		// TODO Auto-generated method stub
-
+		bovedaEntity.setDenominacion(denominacion);
 	}
 
 	@Override
 	public boolean isAbierto() {
-		// TODO Auto-generated method stub
-		return false;
+		return bovedaEntity.isAbierto();
 	}
 
 	@Override
 	public void setAbierto(boolean abierto) {
-		// TODO Auto-generated method stub
-
+		bovedaEntity.setAbierto(abierto);
 	}
 
 	@Override
 	public boolean getEstadoMovimiento() {
-		// TODO Auto-generated method stub
-		return false;
+		return bovedaEntity.isEstadoMovimiento();
 	}
 
 	@Override
 	public void setEstadoMovimiento(boolean estadoMovimiento) {
-		// TODO Auto-generated method stub
-
+		bovedaEntity.setEstadoMovimiento(estadoMovimiento);
 	}
 
 	@Override
 	public boolean getEstado() {
-		// TODO Auto-generated method stub
-		return false;
+		return bovedaEntity.isEstado();
 	}
 
 	@Override
 	public void setEstado(boolean estado) {
-		// TODO Auto-generated method stub
-
+		bovedaEntity.setEstado(estado);
 	}
 
 	@Override
 	public AgenciaModel getAgencia() {
-		// TODO Auto-generated method stub
-		return null;
+		return new AgenciaAdapter(em, bovedaEntity.getAgencia());
 	}
 
 	@Override
-	public HistorialModel getHistorialActivo() {
-		// TODO Auto-generated method stub
-		return null;
+	public HistorialModel getHistorialActivo() {		
+		TypedQuery<HistorialBovedaEntity> query = em.createNamedQuery(HistorialBovedaEntity.findByEstado, HistorialBovedaEntity.class);
+		query.setParameter("estado", true);
+		List<HistorialBovedaEntity> list = query.getResultList();
+		if(list.size() > 0)
+			return null;
+		else 
+			return null;
 	}
 
 	@Override

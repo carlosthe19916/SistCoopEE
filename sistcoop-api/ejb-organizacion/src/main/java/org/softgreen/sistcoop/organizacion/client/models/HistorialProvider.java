@@ -4,10 +4,6 @@ import javax.ejb.Local;
 
 import org.softgreen.sistcoop.organizacion.client.providers.Provider;
 
-/**
- * Tested
- */
-
 @Local
 public interface HistorialProvider extends Provider {
 
@@ -17,6 +13,6 @@ public interface HistorialProvider extends Provider {
 
 	boolean removeHistorial(HistorialModel HistorialModel);
 
-	HistorialModel getHistorialById(Integer id);
+	HistorialModel getHistorialById(Long id);
 
 }
