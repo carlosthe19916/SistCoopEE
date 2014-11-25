@@ -2,10 +2,13 @@ package org.softgreen.sistcoop.organizacion.managers;
 
 import java.util.List;
 
+import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.inject.Inject;
+import javax.transaction.SystemException;
+import javax.transaction.UserTransaction;
 
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
@@ -24,54 +27,34 @@ public class SucursalManager {
 	protected BovedaManager bovedaManager;
 	
 	@Inject
-	protected CajaManager cajaManager;
+	protected CajaManager cajaManager;	
 	
-	public boolean desactivarSucursal(SucursalModel model) {
+	public void desactivarSucursal(SucursalModel model) {			
 		model.setEstado(false);
-		model.commit();
-
+		model.commit();			
 		List<AgenciaModel> agencias = model.getAgencias();
 		for (AgenciaModel agenciaModel : agencias) {
-			boolean result = desactivarAgencia(agenciaModel);
-			if (!result) {
-				//rollback();
-				break;
-			}
-		}
-		return true;
+			desactivarAgencia(agenciaModel);
+		}    	           
 	}
 
-	public boolean desactivarAgencia(AgenciaModel model) {
+	public void desactivarAgencia(AgenciaModel model) {
 		model.setEstado(false);
 		model.commit();
+		
 		List<BovedaModel> bovedasModel = model.getBovedas();
 		List<CajaModel> cajasModel = model.getCajas();
 		List<TrabajadorModel> trajadoresModel = model.getTrabajadores();
 
 		for (BovedaModel bovedaModel : bovedasModel) {
-			boolean result = bovedaManager.desactivarBoveda(bovedaModel);
-			if(!result){
-				//rollback();
-				break;
-			}
+			bovedaManager.desactivarBoveda(bovedaModel);
 		}
 		for (CajaModel cajaModel : cajasModel) {
-			boolean result = cajaManager.desactivarCaja(cajaModel);
-			if(!result){
-				//rollback();
-				break;
-			}
+			cajaManager.desactivarCaja(cajaModel);			
 		}
 		for (TrabajadorModel trabajadorModel : trajadoresModel) {
-			boolean result = trabajadorManager.desactivarTrabajador(trabajadorModel);
-			if(!result){
-				//rollback();
-				break;
-			}
+			trabajadorManager.desactivarTrabajador(trabajadorModel);
 		}
-		
-		//commitAll();
-		return false;
 	}
 
 }

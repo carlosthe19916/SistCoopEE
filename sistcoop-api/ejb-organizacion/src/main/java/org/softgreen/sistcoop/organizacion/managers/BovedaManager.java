@@ -18,22 +18,36 @@ import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.BovedaCajaEnt
 public class BovedaManager {
 
 	public boolean desactivarBoveda(BovedaModel model) {
-		if(model.isAbierto())
+		if (model.isAbierto())
 			return false;
-		
+
 		model.setEstado(false);
 		model.setEstadoMovimiento(false);
 		model.commit();
-		
-		//verificar saldo de boveda este en 0
-		
-		//verificar que todas las cajas asociadas a la boveda esten cerradas
-		
-		//eliminar todas las relaciones bovedacaja
-		
-		
-		//commitAll();
+
+		// verificar saldo de boveda este en 0
+
+		// verificar que todas las cajas asociadas a la boveda esten cerradas
+
+		// eliminar todas las relaciones bovedacaja
+
+		// commitAll();
 		return false;
 	}
 
+	public void abrir(BovedaModel bovedaModel) {
+
+	}
+
+	public void cerrar(BovedaModel bovedaModel) {
+
+	}
+
+	public void congelar(BovedaModel bovedaModel) {
+
+	}
+
+	public void descongelar(BovedaModel bovedaModel) {
+
+	}
 }
