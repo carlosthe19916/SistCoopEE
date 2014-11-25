@@ -3,6 +3,7 @@ package org.softgreen.sistcoop.organizacion.ejb.models.jpa;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaCajaModel;
@@ -10,6 +11,8 @@ import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.HistorialModel;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorCajaModel;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.CajaEntity;
+import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.HistorialBovedaEntity;
+import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.HistorialCajaEntity;
 
 public class CajaAdapter implements CajaModel {
 
@@ -59,38 +62,38 @@ public class CajaAdapter implements CajaModel {
 
 	@Override
 	public boolean getEstadoMovimiento() {
-		// TODO Auto-generated method stub
-		return false;
+		return cajaEntity.isEstadoMovimiento();
 	}
 
 	@Override
 	public void setEstadoMovimiento(boolean estadoMovimiento) {
-		// TODO Auto-generated method stub
-
+		cajaEntity.setEstadoMovimiento(estadoMovimiento);
 	}
 
 	@Override
 	public boolean getEstado() {
-		// TODO Auto-generated method stub
-		return false;
+		cajaEntity.isEstado();
 	}
 
 	@Override
 	public void setEstado(boolean estado) {
-		// TODO Auto-generated method stub
-
+		cajaEntity.setEstado(estado);
 	}
 
 	@Override
 	public AgenciaModel getAgencia() {
-		// TODO Auto-generated method stub
-		return null;
+		return new AgenciaAdapter(em, cajaEntity.getAgencia());
 	}
 
 	@Override
 	public HistorialModel getHistorialActivo() {
-		// TODO Auto-generated method stub
-		return null;
+		TypedQuery<HistorialCajaEntity> query = em.createNamedQuery(HistorialCajaEntity.findByEstado, HistorialCajaEntity.class);
+		query.setParameter("estado", true);
+		List<HistorialCajaEntity> list = query.getResultList();
+		if (list.size() > 0)
+			return new HistorialCajaAdapter(em, list.get(0));
+		else
+			return null;
 	}
 
 	@Override

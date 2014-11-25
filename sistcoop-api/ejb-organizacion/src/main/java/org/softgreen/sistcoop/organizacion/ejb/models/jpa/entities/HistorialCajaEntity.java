@@ -21,17 +21,19 @@ import org.hibernate.annotations.NamedQuery;
 @DiscriminatorValue("caja")
 @NamedQueries({ 
 	@NamedQuery(name = HistorialCajaEntity.findByHistorialActivo, query = "SELECT h FROM HistorialCajaEntity h INNER JOIN h.caja c WHERE c.id = :idCaja AND h.estado = true"), 
-	@NamedQuery(name = HistorialCajaEntity.findByHistorialDateRange, query = "SELECT h FROM HistorialCajaEntity h INNER JOIN h.caja c WHERE c.id = :idCaja AND h.fechaApertura BETWEEN :desde AND :hasta AND h.estado = false ORDER BY h.horaApertura DESC")})
+	@NamedQuery(name = HistorialCajaEntity.findByHistorialDateRange, query = "SELECT h FROM HistorialCajaEntity h INNER JOIN h.caja c WHERE c.id = :idCaja AND h.fechaApertura BETWEEN :desde AND :hasta AND h.estado = false ORDER BY h.horaApertura DESC"),
+	@NamedQuery(name = HistorialCajaEntity.findByEstado, query = "SELECT s FROM HistorialCajaEntity s WHERE s.estado = :estado")})
 public class HistorialCajaEntity extends HistorialEntity implements Serializable {
-
+	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public final static String base = "org.softgreen.organizacion.entity.HistorialCaja.";
+	public final static String base = "org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.HistorialCajaEntity.";
 	public final static String findByHistorialActivo = base+"findByHistorialActivo";
 	public final static String findByHistorialDateRange = base+"findByHistorialDateRange";
+	public final static String findByEstado = base+"findByEstado";
 	
 	private CajaEntity caja;
 	private Set<TransaccionBovedaCajaEntity> transaccionesBovedaCaja = new HashSet<TransaccionBovedaCajaEntity>();
