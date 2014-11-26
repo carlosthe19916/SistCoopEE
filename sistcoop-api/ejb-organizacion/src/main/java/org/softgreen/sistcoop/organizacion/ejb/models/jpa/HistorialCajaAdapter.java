@@ -1,115 +1,117 @@
 package org.softgreen.sistcoop.organizacion.ejb.models.jpa;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 
-import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
+import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.DetalleHistorialModel;
-import org.softgreen.sistcoop.organizacion.client.models.HistorialBovedaModel;
+import org.softgreen.sistcoop.organizacion.client.models.HistorialCajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.HistorialModel;
-import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.HistorialBovedaEntity;
+import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.DetalleHistorialEntity;
+import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.HistorialCajaEntity;
 
-public class HistorialCajaAdapter implements HistorialBovedaModel {
+public class HistorialCajaAdapter implements HistorialCajaModel {
 
 	private static final long serialVersionUID = 1L;
 
-	protected HistorialBovedaEntity historialBovedaEntity;
+	protected HistorialCajaEntity historialCajaEntity;
 	protected EntityManager em;
 
-	public HistorialCajaAdapter(EntityManager em, HistorialBovedaEntity HistorialBovedaEntity) {
+	public HistorialCajaAdapter(EntityManager em, HistorialCajaEntity HistorialCajaEntity) {
 		this.em = em;
-		this.historialBovedaEntity = HistorialBovedaEntity;
+		this.historialCajaEntity = HistorialCajaEntity;
 	}
 
-	public HistorialBovedaEntity getHistorialBovedaEntity() {
-		return historialBovedaEntity;
+	public HistorialCajaEntity getHistorialCajaEntity() {
+		return historialCajaEntity;
 	}
 
 	@Override
 	public void commit() {
-		em.merge(historialBovedaEntity);
+		em.merge(historialCajaEntity);
 	}
 
 	@Override
 	public Long getId() {
-		// TODO Auto-generated method stub
-		return null;
+		return historialCajaEntity.getId();
 	}
 
 	@Override
 	public boolean getEstado() {
-		// TODO Auto-generated method stub
-		return false;
+		return historialCajaEntity.isEstado();
 	}
 
 	@Override
 	public void setEstado(boolean estado) {
-		// TODO Auto-generated method stub
-
+		historialCajaEntity.setEstado(estado);
 	}
 
 	@Override
 	public Date getFechaApertura() {
-		// TODO Auto-generated method stub
-		return null;
+		return historialCajaEntity.getFechaApertura();
 	}
 
 	@Override
 	public Date getFechaCierre() {
-		// TODO Auto-generated method stub
-		return null;
+		return historialCajaEntity.getFechaCierre();
 	}
 
 	@Override
 	public void setFechaCierre(Date fechaCierre) {
-		// TODO Auto-generated method stub
-
+		historialCajaEntity.setFechaCierre(fechaCierre);
 	}
 
 	@Override
 	public Date getHoraApertura() {
-		// TODO Auto-generated method stub
-		return null;
+		return historialCajaEntity.getHoraApertura();
 	}
 
 	@Override
 	public Date getHoraCierre() {
-		// TODO Auto-generated method stub
-		return null;
+		return historialCajaEntity.getHoraCierre();
 	}
 
 	@Override
 	public void setHoraCierre(Date horaCierre) {
-		// TODO Auto-generated method stub
-
+		historialCajaEntity.setHoraCierre(horaCierre);
 	}
 
 	@Override
 	public BigDecimal getSaldo() {
-		// TODO Auto-generated method stub
-		return null;
+		Set<DetalleHistorialEntity> detalleHistorialEntities = historialCajaEntity.getDetalle();
+		BigDecimal saldo = BigDecimal.ZERO;
+		for (DetalleHistorialEntity detalleHistorialEntity : detalleHistorialEntities) {
+			BigDecimal subtotal = detalleHistorialEntity.getValor().multiply(new BigDecimal(detalleHistorialEntity.getCantidad()));
+			saldo = saldo.add(subtotal);
+		}
+		return saldo;
 	}
 
 	@Override
 	public List<DetalleHistorialModel> getDetalle() {
-		// TODO Auto-generated method stub
-		return null;
+		Set<DetalleHistorialEntity> detalleHistorialEntities = historialCajaEntity.getDetalle();
+		List<DetalleHistorialModel> result = new ArrayList<DetalleHistorialModel>();
+		for (DetalleHistorialEntity detalleHistorialEntity : detalleHistorialEntities) {
+			result.add(new DetalleHistorialAdapter(em, detalleHistorialEntity));
+		}
+		return result;
 	}
 
 	@Override
-	public BovedaModel getBoveda() {
-		// TODO Auto-generated method stub
-		return null;
+	public CajaModel getCaja() {
+		return new CajaAdapter(em, historialCajaEntity.getCaja());
 	}
 
-	public static HistorialBovedaEntity toSucursalEntity(HistorialModel model, EntityManager em) {
+	public static HistorialCajaEntity toSucursalEntity(HistorialModel model, EntityManager em) {
 		if (model instanceof HistorialCajaAdapter) {
-			return ((HistorialCajaAdapter) model).getHistorialBovedaEntity();
+			return ((HistorialCajaAdapter) model).getHistorialCajaEntity();
 		}
-		return em.getReference(HistorialBovedaEntity.class, model.getId());
+		return em.getReference(HistorialCajaEntity.class, model.getId());
 	}
 
 	@Override

@@ -14,9 +14,9 @@ public class TrabajadorCajaAdapter implements TrabajadorCajaModel {
 	protected TrabajadorCajaEntity trabajadorCajaEntity;
 	protected EntityManager em;
 
-	public TrabajadorCajaAdapter(EntityManager em, TrabajadorCajaEntity TrabajadorCajaEntity) {
+	public TrabajadorCajaAdapter(EntityManager em, TrabajadorCajaEntity trabajadorCajaEntity) {
 		this.em = em;
-		this.trabajadorCajaEntity = TrabajadorCajaEntity;
+		this.trabajadorCajaEntity = trabajadorCajaEntity;
 	}
 
 	public TrabajadorCajaEntity getTrabajadorCajaEntity() {
@@ -30,26 +30,17 @@ public class TrabajadorCajaAdapter implements TrabajadorCajaModel {
 
 	@Override
 	public Integer getId() {
-		// TODO Auto-generated method stub
-		return null;
+		return trabajadorCajaEntity.getId();
 	}
 
 	@Override
 	public TrabajadorModel getTrabajador() {
-		// TODO Auto-generated method stub
-		return null;
+		return new TrabajadorAdapter(em, trabajadorCajaEntity.getTrabajador());
 	}
 
 	@Override
 	public CajaModel getCaja() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void setCaja(CajaModel cajaModel) {
-		// TODO Auto-generated method stub
-
+		return new CajaAdapter(em, trabajadorCajaEntity.getCaja());
 	}
 
 	public static TrabajadorCajaEntity toTrabajadorCajaEntity(TrabajadorCajaModel model, EntityManager em) {

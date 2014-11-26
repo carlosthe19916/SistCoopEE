@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorModel;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorProvider;
+import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.AgenciaEntity;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.TrabajadorEntity;
 
 @Named
@@ -29,8 +30,16 @@ public class JpaTrabajadorProvider implements TrabajadorProvider {
 
 	@Override
 	public TrabajadorModel addTrabajador(AgenciaModel agenciaModel, String tipoDocumento, String numeroDocumento) {
-		// TODO Auto-generated method stub
-		return null;
+		TrabajadorEntity trabajadorEntity = new TrabajadorEntity();
+
+		AgenciaEntity agenciaEntity = AgenciaAdapter.toSucursalEntity(agenciaModel, em);
+		trabajadorEntity.setAgencia(agenciaEntity);
+
+		trabajadorEntity.setTipoDocumento(tipoDocumento);
+		trabajadorEntity.setNumeroDocumento(numeroDocumento);
+
+		em.persist(trabajadorEntity);
+		return new TrabajadorAdapter(em, trabajadorEntity);
 	}
 
 	@Override

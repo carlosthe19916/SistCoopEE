@@ -16,9 +16,9 @@ public class BovedaCajaAdapter implements BovedaCajaModel {
 	protected BovedaCajaEntity bovedaCajaEntity;
 	protected EntityManager em;
 
-	public BovedaCajaAdapter(EntityManager em, BovedaCajaEntity BovedaCajaEntity) {
+	public BovedaCajaAdapter(EntityManager em, BovedaCajaEntity bovedaCajaEntity) {
 		this.em = em;
-		this.bovedaCajaEntity = BovedaCajaEntity;
+		this.bovedaCajaEntity = bovedaCajaEntity;
 	}
 
 	public BovedaCajaEntity getBovedaCajaEntity() {
@@ -32,32 +32,27 @@ public class BovedaCajaAdapter implements BovedaCajaModel {
 
 	@Override
 	public Integer getId() {
-		// TODO Auto-generated method stub
-		return null;
+		return bovedaCajaEntity.getId();
 	}
 
 	@Override
 	public BigDecimal getSaldo() {
-		// TODO Auto-generated method stub
-		return null;
+		return bovedaCajaEntity.getSaldo();
 	}
 
 	@Override
 	public void setSaldo(BigDecimal saldo) {
-		// TODO Auto-generated method stub
-
+		bovedaCajaEntity.setSaldo(saldo);
 	}
 
 	@Override
 	public BovedaModel getBoveda() {
-		// TODO Auto-generated method stub
-		return null;
+		return new BovedaAdapter(em, bovedaCajaEntity.getBoveda());
 	}
 
 	@Override
 	public CajaModel getCaja() {
-		// TODO Auto-generated method stub
-		return null;
+		return new CajaAdapter(em, bovedaCajaEntity.getCaja());
 	}
 
 	public static BovedaCajaEntity toBovedaCajaEntity(BovedaCajaModel model, EntityManager em) {

@@ -2,9 +2,6 @@ package org.softgreen.sistcoop.organizacion.client.models;
 
 import java.math.BigDecimal;
 
-/**
- * Tested
- */
 public interface DetalleHistorialModel extends Model {
 
 	Long getId();
@@ -13,7 +10,6 @@ public interface DetalleHistorialModel extends Model {
 
 	int getCantidad();
 
-	void setCantidad(int valor);
+	void setCantidad(int cantidad);
 
-	HistorialModel getHistorial();
 }

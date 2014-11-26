@@ -94,7 +94,8 @@ public class BovedaAdapter implements BovedaModel {
 	@Override
 	public HistorialModel getHistorialActivo() {
 		TypedQuery<HistorialBovedaEntity> query = em.createNamedQuery(HistorialBovedaEntity.findByEstado, HistorialBovedaEntity.class);
-		query.setParameter("estado", true);
+		query.setParameter("idBoveda", getId());
+		query.setParameter("estado", true);		
 		List<HistorialBovedaEntity> list = query.getResultList();
 		if (list.size() > 0)
 			return new HistorialBovedaAdapter(em, list.get(0));

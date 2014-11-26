@@ -1,6 +1,8 @@
 package org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
 import javax.validation.constraints.NotNull;
@@ -38,6 +41,8 @@ public class TrabajadorEntity {
 
 	private Timestamp optlk;
 
+	private Set<TrabajadorCajaEntity> trabajadorCajas = new HashSet<TrabajadorCajaEntity>();
+	
 	public TrabajadorEntity() {
 		// TODO Auto-generated constructor stub
 	}
@@ -109,6 +114,16 @@ public class TrabajadorEntity {
 		this.agencia = agencia;
 	}
 
+	@XmlTransient
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "trabajador")
+	public Set<TrabajadorCajaEntity> getTrabajadorCajas() {
+		return trabajadorCajas;
+	}
+
+	public void setTrabajadorCajas(Set<TrabajadorCajaEntity> trabajadorCajas) {
+		this.trabajadorCajas = trabajadorCajas;
+	}
+	
 	@XmlTransient
 	@Version
 	public Timestamp getOptlk() {

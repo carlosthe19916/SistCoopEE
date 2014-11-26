@@ -6,10 +6,6 @@ import javax.ejb.Local;
 
 import org.softgreen.sistcoop.organizacion.client.providers.Provider;
 
-/**
- * Tested
- */
-
 @Local
 public interface DetalleHistorialProvider extends Provider {
 

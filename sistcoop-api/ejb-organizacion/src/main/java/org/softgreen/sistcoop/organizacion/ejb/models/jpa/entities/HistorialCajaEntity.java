@@ -22,7 +22,7 @@ import org.hibernate.annotations.NamedQuery;
 @NamedQueries({ 
 	@NamedQuery(name = HistorialCajaEntity.findByHistorialActivo, query = "SELECT h FROM HistorialCajaEntity h INNER JOIN h.caja c WHERE c.id = :idCaja AND h.estado = true"), 
 	@NamedQuery(name = HistorialCajaEntity.findByHistorialDateRange, query = "SELECT h FROM HistorialCajaEntity h INNER JOIN h.caja c WHERE c.id = :idCaja AND h.fechaApertura BETWEEN :desde AND :hasta AND h.estado = false ORDER BY h.horaApertura DESC"),
-	@NamedQuery(name = HistorialCajaEntity.findByEstado, query = "SELECT s FROM HistorialCajaEntity s WHERE s.estado = :estado")})
+	@NamedQuery(name = HistorialCajaEntity.findByEstado, query = "SELECT s FROM HistorialCajaEntity s WHERE s.caja.id = :idCaja AND s.estado = :estado")})
 public class HistorialCajaEntity extends HistorialEntity implements Serializable {
 	
 	/**

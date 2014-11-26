@@ -20,7 +20,7 @@ import org.hibernate.annotations.NamedQuery;
 @Entity
 @DiscriminatorValue("boveda")
 @NamedQueries(value = {		
-		@NamedQuery(name = HistorialBovedaEntity.findByEstado, query = "SELECT s FROM HistorialBovedaEntity s WHERE s.estado = :estado") })
+		@NamedQuery(name = HistorialBovedaEntity.findByEstado, query = "SELECT s FROM HistorialBovedaEntity s WHERE s.boveda.id = :idBoveda AND s.estado = :estado") })
 public class HistorialBovedaEntity extends HistorialEntity implements Serializable {
 
 	/**

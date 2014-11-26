@@ -1,6 +1,8 @@
 package org.softgreen.sistcoop.organizacion.ejb.models.jpa;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -10,9 +12,10 @@ import org.softgreen.sistcoop.organizacion.client.models.BovedaCajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.HistorialModel;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorCajaModel;
+import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.BovedaCajaEntity;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.CajaEntity;
-import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.HistorialBovedaEntity;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.HistorialCajaEntity;
+import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.TrabajadorCajaEntity;
 
 public class CajaAdapter implements CajaModel {
 
@@ -72,7 +75,7 @@ public class CajaAdapter implements CajaModel {
 
 	@Override
 	public boolean getEstado() {
-		cajaEntity.isEstado();
+		return cajaEntity.isEstado();
 	}
 
 	@Override
@@ -88,6 +91,7 @@ public class CajaAdapter implements CajaModel {
 	@Override
 	public HistorialModel getHistorialActivo() {
 		TypedQuery<HistorialCajaEntity> query = em.createNamedQuery(HistorialCajaEntity.findByEstado, HistorialCajaEntity.class);
+		query.setParameter("idCaja", getId());
 		query.setParameter("estado", true);
 		List<HistorialCajaEntity> list = query.getResultList();
 		if (list.size() > 0)
@@ -98,14 +102,22 @@ public class CajaAdapter implements CajaModel {
 
 	@Override
 	public List<BovedaCajaModel> getBovedaCajas() {
-		// TODO Auto-generated method stub
-		return null;
+		Set<BovedaCajaEntity> bovedaCajas = cajaEntity.getBovedaCajas();
+		List<BovedaCajaModel> result = new ArrayList<BovedaCajaModel>();
+		for (BovedaCajaEntity bovedaCajaEntity : bovedaCajas) {
+			result.add(new BovedaCajaAdapter(em, bovedaCajaEntity));
+		}
+		return result;
 	}
 
 	@Override
 	public List<TrabajadorCajaModel> getTrabajadorCajas() {
-		// TODO Auto-generated method stub
-		return null;
+		Set<TrabajadorCajaEntity> trabajadorCajas = cajaEntity.getTrabajadorCajas();
+		List<TrabajadorCajaModel> result = new ArrayList<TrabajadorCajaModel>();
+		for (TrabajadorCajaEntity trabajadorCajaEntity : trabajadorCajas) {
+			result.add(new TrabajadorCajaAdapter(em, trabajadorCajaEntity));
+		}
+		return result;
 	}
 
 	public static CajaEntity toCajaEntity(CajaModel model, EntityManager em) {

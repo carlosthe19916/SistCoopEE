@@ -1,8 +1,10 @@
 package org.softgreen.sistcoop.organizacion.ejb.models.jpa;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 
@@ -10,6 +12,7 @@ import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
 import org.softgreen.sistcoop.organizacion.client.models.DetalleHistorialModel;
 import org.softgreen.sistcoop.organizacion.client.models.HistorialBovedaModel;
 import org.softgreen.sistcoop.organizacion.client.models.HistorialModel;
+import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.DetalleHistorialEntity;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.HistorialBovedaEntity;
 
 public class HistorialBovedaAdapter implements HistorialBovedaModel {
@@ -35,74 +38,73 @@ public class HistorialBovedaAdapter implements HistorialBovedaModel {
 
 	@Override
 	public Long getId() {
-		// TODO Auto-generated method stub
-		return null;
+		return historialBovedaEntity.getId();
 	}
 
 	@Override
 	public boolean getEstado() {
-		// TODO Auto-generated method stub
-		return false;
+		return historialBovedaEntity.isEstado();
 	}
 
 	@Override
 	public void setEstado(boolean estado) {
-		// TODO Auto-generated method stub
-
+		historialBovedaEntity.setEstado(estado);
 	}
 
 	@Override
 	public Date getFechaApertura() {
-		// TODO Auto-generated method stub
-		return null;
+		return historialBovedaEntity.getFechaApertura();
 	}
 
 	@Override
 	public Date getFechaCierre() {
-		// TODO Auto-generated method stub
-		return null;
+		return historialBovedaEntity.getFechaCierre();
 	}
 
 	@Override
 	public void setFechaCierre(Date fechaCierre) {
-		// TODO Auto-generated method stub
-
+		historialBovedaEntity.setFechaCierre(fechaCierre);
 	}
 
 	@Override
 	public Date getHoraApertura() {
-		// TODO Auto-generated method stub
-		return null;
+		return historialBovedaEntity.getHoraApertura();
 	}
 
 	@Override
 	public Date getHoraCierre() {
-		// TODO Auto-generated method stub
-		return null;
+		return historialBovedaEntity.getHoraCierre();
 	}
 
 	@Override
 	public void setHoraCierre(Date horaCierre) {
-		// TODO Auto-generated method stub
-
+		historialBovedaEntity.setHoraCierre(horaCierre);
 	}
 
 	@Override
 	public BigDecimal getSaldo() {
-		// TODO Auto-generated method stub
-		return null;
+		Set<DetalleHistorialEntity> detalleHistorialEntities = historialBovedaEntity.getDetalle();
+		BigDecimal saldo = BigDecimal.ZERO;
+		for (DetalleHistorialEntity detalleHistorialEntity : detalleHistorialEntities) {
+			BigDecimal subtotal = detalleHistorialEntity.getValor().multiply(new BigDecimal(detalleHistorialEntity.getCantidad()));
+			saldo = saldo.add(subtotal);
+		}
+		return saldo;
 	}
 
 	@Override
 	public List<DetalleHistorialModel> getDetalle() {
-		// TODO Auto-generated method stub
-		return null;
+		Set<DetalleHistorialEntity> detalleHistorialEntities = historialBovedaEntity.getDetalle();
+		List<DetalleHistorialModel> result = new ArrayList<DetalleHistorialModel>();
+		for (DetalleHistorialEntity detalleHistorialEntity : detalleHistorialEntities) {
+			result.add(new DetalleHistorialAdapter(em, detalleHistorialEntity));
+		}
+		return result;
 	}
 
 	@Override
 	public BovedaModel getBoveda() {
-		// TODO Auto-generated method stub
-		return null;
+		return new BovedaAdapter(em, historialBovedaEntity.getBoveda());
 	}
 
 	public static HistorialBovedaEntity toSucursalEntity(HistorialModel model, EntityManager em) {

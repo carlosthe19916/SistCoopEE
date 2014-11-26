@@ -11,8 +11,6 @@ public interface HistorialProvider extends Provider {
 
 	HistorialModel addHistorial(BovedaModel bovedaModel);
 
-	boolean removeHistorial(HistorialModel HistorialModel);
-
-	HistorialModel getHistorialById(Long id);
+	boolean removeHistorial(HistorialModel HistorialModel);	
 
 }
