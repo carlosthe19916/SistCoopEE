@@ -40,7 +40,7 @@ public class SucursalResource {
 	@Inject
 	protected SucursalProvider sucursalProvider;
 
-	//@Inject
+	// @Inject
 	protected AgenciaProvider agenciaProvider;
 
 	@Inject
@@ -48,7 +48,7 @@ public class SucursalResource {
 
 	@Inject
 	protected SucursalManager sucursalManager;
-	
+
 	@Context
 	protected UriInfo uriInfo;
 
@@ -110,9 +110,7 @@ public class SucursalResource {
 	@Produces({ "application/xml", "application/json" })
 	public void desactivar(@PathParam("id") Integer id) {
 		SucursalModel model = sucursalProvider.getSucursalById(id);
-		boolean result = sucursalManager.desactivarSucursal(model);
-		if(!result)
-			throw new InternalServerErrorException("Internal server error.");
+		sucursalManager.desactivarSucursal(model);
 	}
 
 	/**
@@ -211,9 +209,7 @@ public class SucursalResource {
 		if (agenciaModel == null) {
 			throw new NotFoundException("Agencia not found.");
 		}
-		boolean result = sucursalManager.desactivarAgencia(agenciaModel);
-		if(!result)
-			throw new InternalServerErrorException("Internal server error.");
+		sucursalManager.desactivarAgencia(agenciaModel);
 	}
 
 }

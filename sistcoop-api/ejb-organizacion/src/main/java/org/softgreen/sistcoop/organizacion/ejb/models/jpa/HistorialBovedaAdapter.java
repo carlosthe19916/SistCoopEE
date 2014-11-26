@@ -85,9 +85,8 @@ public class HistorialBovedaAdapter implements HistorialBovedaModel {
 	public BigDecimal getSaldo() {
 		Set<DetalleHistorialEntity> detalleHistorialEntities = historialBovedaEntity.getDetalle();
 		BigDecimal saldo = BigDecimal.ZERO;
-		for (DetalleHistorialEntity detalleHistorialEntity : detalleHistorialEntities) {
-			BigDecimal subtotal = detalleHistorialEntity.getValor().multiply(new BigDecimal(detalleHistorialEntity.getCantidad()));
-			saldo = saldo.add(subtotal);
+		for (DetalleHistorialEntity detalleHistorialEntity : detalleHistorialEntities) {			
+			saldo = saldo.add(detalleHistorialEntity.getSubtotal());
 		}
 		return saldo;
 	}

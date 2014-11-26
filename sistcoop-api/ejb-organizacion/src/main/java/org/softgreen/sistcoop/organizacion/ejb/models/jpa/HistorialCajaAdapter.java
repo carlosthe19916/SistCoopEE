@@ -85,9 +85,8 @@ public class HistorialCajaAdapter implements HistorialCajaModel {
 	public BigDecimal getSaldo() {
 		Set<DetalleHistorialEntity> detalleHistorialEntities = historialCajaEntity.getDetalle();
 		BigDecimal saldo = BigDecimal.ZERO;
-		for (DetalleHistorialEntity detalleHistorialEntity : detalleHistorialEntities) {
-			BigDecimal subtotal = detalleHistorialEntity.getValor().multiply(new BigDecimal(detalleHistorialEntity.getCantidad()));
-			saldo = saldo.add(subtotal);
+		for (DetalleHistorialEntity detalleHistorialEntity : detalleHistorialEntities) {			
+			saldo = saldo.add(detalleHistorialEntity.getSubtotal());
 		}
 		return saldo;
 	}
