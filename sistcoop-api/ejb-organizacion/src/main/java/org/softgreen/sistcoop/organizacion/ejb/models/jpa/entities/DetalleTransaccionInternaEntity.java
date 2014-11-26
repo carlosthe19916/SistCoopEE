@@ -20,7 +20,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlTransient;
 
-@Entity(name="DETALLE_TRANSACCION_INTERNA")
+import org.hibernate.annotations.Formula;
+
+@Entity(name = "DETALLE_TRANSACCION_INTERNA")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
 public abstract class DetalleTransaccionInternaEntity implements Serializable {
@@ -33,6 +35,8 @@ public abstract class DetalleTransaccionInternaEntity implements Serializable {
 	private Long id;
 	private BigDecimal valor;
 	private int cantidad;
+
+	private BigDecimal subtotal;
 
 	private Timestamp optlk;
 
@@ -86,4 +90,13 @@ public abstract class DetalleTransaccionInternaEntity implements Serializable {
 		this.optlk = optlk;
 	}
 
+	@Formula("cantidad * valor ")
+	public BigDecimal getSubtotal() {
+		return subtotal;
+	}
+
+	public void setSubtotal(BigDecimal subtotal) {
+		this.subtotal = subtotal;
+	}
+	
 }

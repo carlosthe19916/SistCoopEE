@@ -25,8 +25,10 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.Formula;
+
 @Entity
-@Table(name="DETALLE_HISTORIAL", indexes = { @Index(columnList = "id") })
+@Table(name = "DETALLE_HISTORIAL", indexes = { @Index(columnList = "id") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class DetalleHistorialEntity implements Serializable {
@@ -39,6 +41,8 @@ public class DetalleHistorialEntity implements Serializable {
 	private Long id;
 	private BigDecimal valor;
 	private int cantidad;
+
+	private BigDecimal subtotal;
 
 	private HistorialEntity historial;
 
@@ -103,6 +107,15 @@ public class DetalleHistorialEntity implements Serializable {
 
 	public void setOptlk(Timestamp optlk) {
 		this.optlk = optlk;
+	}
+
+	@Formula("cantidad * valor ")
+	public BigDecimal getSubtotal() {
+		return subtotal;
+	}
+
+	public void setSubtotal(BigDecimal subtotal) {
+		this.subtotal = subtotal;
 	}
 
 	@Override
