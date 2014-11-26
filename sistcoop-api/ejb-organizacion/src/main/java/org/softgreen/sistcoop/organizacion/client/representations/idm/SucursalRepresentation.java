@@ -18,7 +18,6 @@ public class SucursalRepresentation implements Serializable {
 	private Integer id;
 	private String abreviatura;
 	private String denominacion;
-	private String ubigeo;
 	private boolean estado;
 
 	public SucursalRepresentation() {
@@ -47,14 +46,6 @@ public class SucursalRepresentation implements Serializable {
 
 	public void setDenominacion(String denominacion) {
 		this.denominacion = denominacion;
-	}
-
-	public String getUbigeo() {
-		return ubigeo;
-	}
-
-	public void setUbigeo(String ubigeo) {
-		this.ubigeo = ubigeo;
 	}
 
 	public boolean isEstado() {

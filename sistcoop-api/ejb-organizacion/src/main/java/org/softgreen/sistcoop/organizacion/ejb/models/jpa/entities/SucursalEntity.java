@@ -20,6 +20,8 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 import org.hibernate.annotations.NaturalId;
@@ -28,23 +30,21 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="SUCURSAL", indexes = { @Index(columnList = "id") })
+@Table(name = "SUCURSAL", indexes = { @Index(columnList = "id") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
-@NamedQueries({ 
-		@NamedQuery(name = SucursalEntity.findAll, query = "SELECT s FROM SucursalEntity s"),
-		@NamedQuery(name = SucursalEntity.findByEstado, query = "SELECT s FROM SucursalEntity s WHERE s.estado = :estado")})
-public class SucursalEntity implements Serializable{
+@NamedQueries({ @NamedQuery(name = SucursalEntity.findAll, query = "SELECT s FROM SucursalEntity s"), @NamedQuery(name = SucursalEntity.findByEstado, query = "SELECT s FROM SucursalEntity s WHERE s.estado = :estado") })
+public class SucursalEntity implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	public static final String base = "org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.SucursalEntity.";
 	public static final String findAll = base + "findAll";
 	public static final String findByEstado = base + "findByEstado";
-	
+
 	private Integer id;
 	private String denominacion;
 	private String abreviatura;
@@ -91,7 +91,7 @@ public class SucursalEntity implements Serializable{
 
 	public void setAbreviatura(String abreviatura) {
 		this.abreviatura = abreviatura;
-	}	
+	}
 
 	@NotNull
 	@Type(type = "org.hibernate.type.TrueFalseType")
@@ -104,7 +104,8 @@ public class SucursalEntity implements Serializable{
 	}
 
 	@XmlTransient
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "sucursal")
+	@Fetch(FetchMode.JOIN)
+	@OneToMany(fetch= FetchType.LAZY, mappedBy = "sucursal")
 	public Set<AgenciaEntity> getAgencias() {
 		return agencias;
 	}

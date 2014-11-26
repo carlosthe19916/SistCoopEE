@@ -25,7 +25,7 @@ import org.softgreen.sistcoop.organizacion.client.representations.idm.Trabajador
 public class RepresentationToModel {
 
 	public SucursalModel createSucursal(SucursalRepresentation rep, SucursalProvider provider) {
-		SucursalModel model = provider.addSucursal(rep.getAbreviatura(), rep.getDenominacion(), rep.getUbigeo());
+		SucursalModel model = provider.addSucursal(rep.getAbreviatura(), rep.getDenominacion());
 		return model;
 	}
 

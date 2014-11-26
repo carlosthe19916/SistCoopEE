@@ -31,7 +31,7 @@ public class JpaSucursalProvider implements SucursalProvider {
 	}
 
 	@Override
-	public SucursalModel addSucursal(String abreviatura, String denominacion, String ubigeo) {
+	public SucursalModel addSucursal(String abreviatura, String denominacion) {
 		SucursalEntity sucursalEntity = new SucursalEntity();
 		sucursalEntity.setAbreviatura(abreviatura);
 		sucursalEntity.setDenominacion(denominacion);
