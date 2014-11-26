@@ -104,7 +104,7 @@ public class SucursalEntity implements Serializable {
 	}
 
 	@XmlTransient
-	@Fetch(FetchMode.JOIN)
+	@Fetch(FetchMode.SUBSELECT)
 	@OneToMany(fetch= FetchType.LAZY, mappedBy = "sucursal")
 	public Set<AgenciaEntity> getAgencias() {
 		return agencias;
