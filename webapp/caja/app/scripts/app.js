@@ -220,6 +220,8 @@ module.config(['$provide', function($provide){
             }
             for(var i = 0; i< roles.length; i++){
                 if(operator && operator.toUpperCase() == 'OR'){
+                    console.log(module);
+                    console.log(roles);
                     if(module.roles.assigned.indexOf(roles[i]) >= 0){
                         result = true;
                         break;
@@ -474,37 +476,43 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
                 $scope.params.object = sucursal;
             },
             module: 'ORGANIZACION',
-            roles: ['ADMIN', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR']
+            roles: ['ADMIN', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR'],
+            operator: 'OR'
         })
         .state('app.organizacion.editarSucursal.resumen', {
             url: "/resumen",
             templateUrl: "../../views/sucursal/form-resumen.html",
             module: 'ORGANIZACION',
-            roles: ['ADMIN', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR']
+            roles: ['ADMIN', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR'],
+            operator: 'OR'
         })
         .state('app.organizacion.editarSucursal.datosPrincipales', {
             url: '/principal',
             templateUrl: "../../views/sucursal/form-datosPrincipales.html",
             module: 'ORGANIZACION',
-            roles: ['ADMIN', 'ADMINISTRADOR_GENERAL']
+            roles: ['ADMIN', 'ADMINISTRADOR_GENERAL'],
+            operator: 'OR'
         })
         .state('app.organizacion.editarSucursal.buscarAgencias', {
             url: '/agencias/buscar',
             templateUrl: "../../views/sucursal/agencia/form-buscar-agencia.html",
             module: 'ORGANIZACION',
-            roles: ['ADMIN', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR']
+            roles: ['ADMIN', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR'],
+            operator: 'OR'
         })
         .state('app.organizacion.editarSucursal.crearAgencia', {
             url: '/agencias',
             templateUrl: "../../views/sucursal/agencia/form-crear-agencia.html",
             module: 'ORGANIZACION',
-            roles: ['ADMIN', 'ADMINISTRADOR_GENERAL']
+            roles: ['ADMIN', 'ADMINISTRADOR_GENERAL'],
+            operator: 'OR'
         })
         .state('app.organizacion.editarSucursal.crearAgencia.datosPrincipales', {
             url: '/principal',
             templateUrl: "../../views/sucursal/agencia/form-datosPrincipales.html",
             module: 'ORGANIZACION',
-            roles: ['ADMIN', 'ADMINISTRADOR_GENERAL']
+            roles: ['ADMIN', 'ADMINISTRADOR_GENERAL'],
+            operator: 'OR'
         })
 
         .state('app.administracion.buscarPersonaNatural', {
