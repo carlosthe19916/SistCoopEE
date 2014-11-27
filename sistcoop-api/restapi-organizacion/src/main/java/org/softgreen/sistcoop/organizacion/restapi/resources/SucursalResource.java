@@ -40,7 +40,7 @@ public class SucursalResource {
 	@Inject
 	protected SucursalProvider sucursalProvider;
 
-	// @Inject
+	@Inject
 	protected AgenciaProvider agenciaProvider;
 
 	@Inject
@@ -81,7 +81,7 @@ public class SucursalResource {
 	@POST
 	@Produces({ "application/xml", "application/json" })
 	public Response create(SucursalRepresentation rep) {
-		SucursalModel model = representationToModel.createSucursal(rep, sucursalProvider);
+		SucursalModel model = representationToModel.createSucursal(rep, sucursalProvider);	
 		return Response.created(uriInfo.getAbsolutePathBuilder().path(model.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(model.getId())).build();
 	}
 

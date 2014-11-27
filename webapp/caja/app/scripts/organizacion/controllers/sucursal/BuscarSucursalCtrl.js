@@ -26,7 +26,6 @@
                 columnDefs: [
                     {field: 'abreviatura', displayName: 'Abreviatura'},
                     {field: 'denominacion', displayName: 'Denominacion'},
-                    {field: 'ubigeo', displayName: 'Ubigeo'},
                     {field: 'estado', displayName: 'Estado'},
                     {
                         name: 'edit',
@@ -44,6 +43,8 @@
             $scope.search = function(){
                 $scope.gridOptions.data = Sucursal.$search($scope.filterOptions).$object;
             };
+            $scope.search();
+
         });
 
 

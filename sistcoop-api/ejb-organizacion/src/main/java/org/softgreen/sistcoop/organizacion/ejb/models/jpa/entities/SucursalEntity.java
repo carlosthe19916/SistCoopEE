@@ -72,7 +72,7 @@ public class SucursalEntity implements Serializable {
 	@Size(min = 1, max = 60)
 	@NotBlank
 	@NotEmpty
-	@NaturalId
+	@NaturalId(mutable = true)
 	public String getDenominacion() {
 		return denominacion;
 	}

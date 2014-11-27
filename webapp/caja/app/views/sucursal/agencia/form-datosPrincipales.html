@@ -1,6 +1,28 @@
-<div ng-controller="SucursalDatosPrincipalesCtrl">
+<div ng-controller="AgenciaDatosPrincipalesCtrl">
     <h4><strong>Datos principales</strong> </h4>
     <div class="row">
+        <div class="col-sm-4" ng-class="{ 'has-error' : form.codigo.$invalid && (form.codigo.$touched || form.$submitted)}">
+            <div class="form-group">
+                <label>Codigo</label>
+                <input type="text" name="codigo" ng-model="view.sucursal.codigo" ng-minlength="2" ng-maxlength="2" class="form-control" autofocus required/>
+                <div ng-messages="form.codigo.$error" ng-if="form.codigo.$touched || form.$submitted">
+                    <div class="help-block" ng-message="required">Ingrese abreviatura.</div>
+                    <div class="help-block" ng-message="minlength">Debe tener minimo 2 digitos.</div>
+                    <div class="help-block" ng-message="maxlength">Debe tener maximo 2 digitos.</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4" ng-class="{ 'has-error' : form.denominacion.$invalid && (form.denominacion.$touched || form.$submitted)}">
+            <div class="form-group">
+                <label>Denominacion</label>
+                <input type="text" name="denominacion" ng-model="view.sucursal.denominacion" ng-minlength="1" ng-maxlength="30" class="form-control" required/>
+                <div ng-messages="form.denominacion.$error" ng-if="form.denominacion.$touched || form.$submitted">
+                    <div class="help-block" ng-message="required">Ingrese denominacion.</div>
+                    <div class="help-block" ng-message="minlength">Debe tener minimo 1 digitos.</div>
+                    <div class="help-block" ng-message="maxlength">Debe tener maximo 30 digitos.</div>
+                </div>
+            </div>
+        </div>
         <div class="col-sm-4" ng-class="{ 'has-error' : form.abreviatura.$invalid && (form.abreviatura.$touched || form.$submitted)}">
             <div class="form-group">
                 <label>Abreviatura</label>
@@ -13,19 +35,8 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-4" ng-class="{ 'has-error' : form.denominacion.$invalid && (form.denominacion.$touched || form.$submitted)}">
-            <div class="form-group">
-                <label>Denominacion</label>
-                <input type="text" name="denominacion" ng-model="view.sucursal.denominacion" ng-minlength="1" ng-maxlength="30" class="form-control" required/>
-                <div ng-messages="form.denominacion.$error" ng-if="form.denominacion.$touched || form.$submitted">
-                    <div class="help-block" ng-message="required">Ingrese denominacion.</div>
-                    <div class="help-block" ng-message="minlength">Debe tener minimo 1 digitos.</div>
-                    <div class="help-block" ng-message="maxlength">Debe tener maximo 30 digitos.</div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <sg-ubigeo ng-model="view.sucursal.ubigeo"></sg-ubigeo>
+
     <p ng-if="!view.sucursal.id">
         <button type="submit" class="btn btn-primary" ladda="control.block" data-style="expand-right">Guardar</button>
         <button type="button" class="btn btn-default" ui-sref="app.organizacion.buscarSucursal">Cancelar</button>

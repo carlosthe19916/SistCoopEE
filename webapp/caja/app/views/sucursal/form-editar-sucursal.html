@@ -1,28 +1,22 @@
-<div>
-    <div class="row">
-        <div class="col-sm-12" ng-controller="BuscarSucursalCtrl">
-            <div class="form-group">
-                <form name="ctrl.form" ng-submit="search()" novalidate>
-                    <div class="ui-grid-top-panel" style="padding: 5px; margin-bottom: -1px; margin-right: -2px; border: 1px solid #d4d4d4;">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group" style="margin-bottom: 0px;">
-                                    <div class="input-group">
-                                        <input type="text" name="filterText" class="form-control ng-pristine ng-valid ng-touched" ng-model="filterOptions.filterText" placeholder="Número Documento / Apellidos y Nombres" capitalize autofocus>
-                                        <span class="input-group-btn"><button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6" sg-data-keep="{module: 'PERSONA', permission: 'CREATE'}" style="text-align: right;">
-                                <div class="form-group" style="margin-bottom: 0px;">
-                                    <button type="button" ng-click="nuevo()" class="btn btn-primary">Nuevo</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <div ui-grid="gridOptions" external-scopes="gridActions" ui-grid-selection class="grid"></div>
+<div class="row" ng-controller="EditarSucursalCtrl">
+    <div class="col-sm-12">
+        <div>
+            <div>
+                <ul class="nav nav-tabs">
+                    <li ui-sref-active-eq="active">
+                        <a ui-sref=".resumen">Resumen</a>
+                    </li>
+                    <li ui-sref-active-eq="active" sg-data-keep="{module: 'PERSONA', permission: 'UPDATE'}">
+                        <a ui-sref=".datosPrincipales">Datos principales</a>
+                    </li>
+                    <li ui-sref-active-eq="active" sg-data-keep="{module: 'PERSONA', permission: 'UPDATE'}">
+                        <a ui-sref=".buscarAgencias">Agencias</a>
+                    </li>
+                </ul>
             </div>
+            <form name="form" ng-submit="submit()" novalidate>
+                <div ui-view></div>
+            </form>
         </div>
     </div>
 </div>

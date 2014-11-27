@@ -259,6 +259,9 @@ module.config(function(blockUIConfig) {
 
 module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
+    $urlRouterProvider.when('/app/organizacion/sucursal', '/app/organizacion/sucursal/principal');
+    $urlRouterProvider.when('/app/organizacion/sucursal/{id:[0-9]{1,8}}', '/app/organizacion/sucursal/{id:[0-9]{1,8}}/resumen');
+
     $urlRouterProvider.when('/app/administracion/persona/natural', '/app/administracion/persona/natural/principal');
     $urlRouterProvider.when('/app/administracion/persona/natural/{id:[0-9]{1,8}}', '/app/administracion/persona/natural/{id:[0-9]{1,8}}/resumen');
 
@@ -418,7 +421,7 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
             roles: ['PUBLIC']
         })
         .state('app.organizacion.crearSucursal.datosPrincipales', {
-            url: '/sucursal/principal',
+            url: '/principal',
             templateUrl: "../../views/sucursal/form-datosPrincipales.html",
             controller: function($scope) {
                 $scope.themplate.header = 'Crear sucursal';
@@ -444,12 +447,33 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
             module: 'PERSONA',
             roles: ['PUBLIC']
         })
+        .state('app.organizacion.editarSucursal.resumen', {
+            url: "/resumen",
+            templateUrl: "../../views/sucursal/form-resumen.html",
+            module: 'PERSONA',
+            roles: ['PUBLIC']
+        })
         .state('app.organizacion.editarSucursal.datosPrincipales', {
             url: '/principal',
             templateUrl: "../../views/sucursal/form-datosPrincipales.html",
-            controller: function($scope) {
-                $scope.themplate.header = 'Editar sucursal';
-            },
+            module: 'PERSONA',
+            roles: ['PUBLIC']
+        })
+        .state('app.organizacion.editarSucursal.buscarAgencias', {
+            url: '/agencias/buscar',
+            templateUrl: "../../views/sucursal/agencia/form-buscar-agencia.html",
+            module: 'PERSONA',
+            roles: ['PUBLIC']
+        })
+        .state('app.organizacion.editarSucursal.crearAgencia', {
+            url: '/agencias',
+            templateUrl: "../../views/sucursal/agencia/form-crear-agencia.html",
+            module: 'PERSONA',
+            roles: ['PUBLIC']
+        })
+        .state('app.organizacion.editarSucursal.crearAgencia.datosPrincipales', {
+            url: '/principal',
+            templateUrl: "../../views/sucursal/agencia/form-datosPrincipales.html",
             module: 'PERSONA',
             roles: ['PUBLIC']
         })
