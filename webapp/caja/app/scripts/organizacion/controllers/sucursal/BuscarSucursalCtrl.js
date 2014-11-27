@@ -26,7 +26,7 @@
                 columnDefs: [
                     {field: 'abreviatura', displayName: 'Abreviatura'},
                     {field: 'denominacion', displayName: 'Denominacion'},
-                    {field: 'estado', displayName: 'Estado'},
+                    {field: 'estado', cellFilter: 'si_no : "activo" | uppercase', displayName: 'Estado'},
                     {
                         name: 'edit',
                         displayName: 'Edit',
@@ -36,15 +36,19 @@
             };
             $scope.gridActions = {
                 edit: function(row){
-                    $state.go('app.administracion.editarSucursal', {id: row.id});
+                    $state.go('app.organizacion.editarSucursal', {id: row.id});
                 }
             };
 
             $scope.search = function(){
-                $scope.gridOptions.data = Sucursal.$search($scope.filterOptions).$object;
+                $scope.gridOptions.data = $scope.data;
             };
             $scope.search();
 
+            $scope.loadData = function(){
+                $scope.data = Sucursal.$search($scope.filterOptions).$object;
+            };
+            $scope.loadData();
         });
 
 

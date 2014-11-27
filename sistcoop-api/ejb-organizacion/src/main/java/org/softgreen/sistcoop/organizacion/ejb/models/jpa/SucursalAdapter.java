@@ -74,8 +74,7 @@ public class SucursalAdapter implements SucursalModel {
 
 	@Override
 	public List<AgenciaModel> getAgencias(boolean estado) {
-		Set<AgenciaEntity> list = sucursalEntity.getAgencias();
-		System.out.println(list.size());
+		Set<AgenciaEntity> list = sucursalEntity.getAgencias();		
 		List<AgenciaModel> result = new ArrayList<AgenciaModel>();
 		for (AgenciaEntity entity : list) {
 			if (entity.isEstado() == estado)

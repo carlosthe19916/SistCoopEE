@@ -31,7 +31,7 @@
                                 <p>Estado:&nbsp;</p>
                             </div>
                             <div class="col-sm-3">
-                                <p><strong ng-bind="view.sucursalDB.estado"></strong></p>
+                                <p><strong ng-bind="view.sucursalDB.estado | si_no:'activo' | uppercase"></strong></p>
                             </div>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                                             <span ng-bind="item.ubigeo"></span>
                                         </td>
                                         <td>
-                                            <span ng-bind="item.estado"></span>
+                                            <span ng-bind="item.estado | si_no:'activo'"></span>
                                         </td>
                                         <td style="text-align: center">
                                             <button type="button" ng-click="verAgencia(item)" class="btn btn-info btn-xs">Ver</button>
@@ -91,7 +91,7 @@
                     </div>
                 </div>
                 <div class="card-actions">
-                    <button type="button" ui-sref="^.datosAdicionales" class="btn btn-default">Editar</button>
+                    <button type="button" ui-sref="^.buscarAgencias" class="btn btn-default">Editar</button>
                 </div>
             </div>
         </div>

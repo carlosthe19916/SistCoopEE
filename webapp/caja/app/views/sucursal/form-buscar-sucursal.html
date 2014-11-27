@@ -1,6 +1,6 @@
-<div>
+<div ng-controller="BuscarSucursalCtrl">
     <div class="row">
-        <div class="col-sm-12" ng-controller="BuscarSucursalCtrl">
+        <div class="col-sm-12">
             <div class="form-group">
                 <form name="ctrl.form" ng-submit="search()" novalidate>
                     <div class="ui-grid-top-panel" style="padding: 5px; margin-bottom: -1px; margin-right: -2px; border: 1px solid #d4d4d4;">
@@ -13,7 +13,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6" sg-data-keep="{module: 'PERSONA', permission: 'CREATE'}" style="text-align: right;">
+                            <div class="col-sm-6" sg-data-keep="{module: 'ORGANIZACION', permission: 'CREATE'}" style="text-align: right;">
                                 <div class="form-group" style="margin-bottom: 0px;">
                                     <button type="button" ng-click="nuevo()" class="btn btn-primary">Nuevo</button>
                                 </div>

@@ -3,11 +3,20 @@
 
     angular.module('common.filters', [])
         .filter('si_no', function() {
-            return function(text, length, end) {
-                if (text) {
-                    return 'Si';
+            return function(input, mode) {
+                var defaultResult = ['Si', 'No'];
+                var modeOneResult = ['Activo', 'Inactivo'];
+
+                var result = defaultResult;
+                if(mode){
+                    if(mode.toLowerCase() == 'activo')
+                        result = modeOneResult;
                 }
-                return 'No';
+
+                if (input) {
+                    return result[0];
+                }
+                return [1];
             }
         });
 

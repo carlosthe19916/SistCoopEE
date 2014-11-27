@@ -174,6 +174,20 @@ module.config(['$provide', function($provide){
                 ],
                 assigned: profile.resourceAccess.UBIGEO_RESTAPI === undefined ? [] : profile.resourceAccess.UBIGEO_RESTAPI.roles
             }
+        },
+        {
+            module: 'ORGANIZACION',
+            roles: {
+                available: [
+                    {rol: 'ADMIN', permissions: ['SELECT', 'CREATE', 'UPDATE', 'DELETE']},
+                    {rol: 'ADMINISTRADOR_GENERAL', permissions: ['SELECT', 'CREATE', 'UPDATE', 'DELETE']},
+                    {rol: 'ADMINISTRADOR', permissions: ['SELECT', 'CREATE', 'UPDATE', 'DELETE']},
+                    {rol: 'PLATAFORMA', permissions: ['SELECT', 'CREATE', 'UPDATE']},
+                    {rol: 'JEFE_CAJA', permissions: ['SELECT', 'CREATE', 'UPDATE']},
+                    {rol: 'CAJERO', permissions: ['SELECT', 'CREATE', 'UPDATE']}
+                ],
+                assigned: profile.resourceAccess.ORGANIZACION_RESTAPI === undefined ? [] : profile.resourceAccess.ORGANIZACION_RESTAPI.roles
+            }
         }
     ];
 
@@ -195,14 +209,26 @@ module.config(['$provide', function($provide){
         return result;
     };
 
-    profile.hasRole = function(moduleName, roles){
+    //mode puede ser AND o OR
+    profile.hasRole = function(moduleName, roles, operator){
         var module = getModule(moduleName);
         if(Array.isArray(roles)){
             var result = true;
-            for(var i = 0; i< roles.length; i++){
-                if(module.roles.assigned.indexOf(roles[i]) < 0){
+            if(operator){
+                if(operator.toUpperCase() == 'OR')
                     result = false;
-                    break;
+            }
+            for(var i = 0; i< roles.length; i++){
+                if(operator && operator.toUpperCase() == 'OR'){
+                    if(module.roles.assigned.indexOf(roles[i]) >= 0){
+                        result = true;
+                        break;
+                    }
+                } else {
+                    if(module.roles.assigned.indexOf(roles[i]) < 0){
+                        result = false;
+                        break;
+                    }
                 }
             }
             return result;
@@ -329,13 +355,13 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
                     controller: function($scope){
                         $scope.menus = [
                             {'name':'ESTRUCTURA', 'state': 'app.organizacion', header: true},
-                            {'name':'Sucursales', 'state': 'app.organizacion.buscarSucursal', header: false},
-                            {'name':'Bovedas', 'state': 'app.organizacion.buscarBoveda', header: false},
+                            {'name':'Sucursales', 'state': 'app.organizacion.buscarSucursal', header: false}
+                            /*{'name':'Bovedas', 'state': 'app.organizacion.buscarBoveda', header: false},
                             {'name':'Cajas', 'state': 'app.organizacion.buscarCaja', header: false},
 
                             {'name':'RRHH', 'state': 'app.organizacion', header: true},
                             {'name':'Trabajadores', 'state': 'app.trabajador.buscarTrabajador', header: false},
-                            {'name':'Usuarios', 'state': 'app.trabajador.buscarUsuarios', header: false}
+                            {'name':'Usuarios', 'state': 'app.trabajador.buscarUsuarios', header: false}*/
                         ];
                     }
                 },
@@ -408,8 +434,9 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
             controller: function($scope) {
                 $scope.themplate.header = 'Buscar sucursal';
             },
-            module: 'PERSONA',
-            roles: ['PUBLIC']
+            module: 'ORGANIZACION',
+            roles: ['ADMIN', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR'],
+            operator: 'OR'
         })
         .state('app.organizacion.crearSucursal', {
             url: '/sucursal',
@@ -417,8 +444,9 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
             controller: function($scope) {
                 $scope.themplate.header = 'Crear sucursal';
             },
-            module: 'PERSONA',
-            roles: ['PUBLIC']
+            module: 'ORGANIZACION',
+            roles: ['ADMIN', 'ADMINISTRADOR_GENERAL'],
+            operator: 'OR'
         })
         .state('app.organizacion.crearSucursal.datosPrincipales', {
             url: '/principal',
@@ -426,8 +454,9 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
             controller: function($scope) {
                 $scope.themplate.header = 'Crear sucursal';
             },
-            module: 'PERSONA',
-            roles: ['PUBLIC']
+            module: 'ORGANIZACION',
+            roles: ['ADMIN', 'ADMINISTRADOR_GENERAL'],
+            operator: 'OR'
         })
         .state('app.organizacion.editarSucursal', {
             url: "/sucursal/:id",
@@ -444,38 +473,38 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
                 $scope.params.id = $stateParams.id;
                 $scope.params.object = sucursal;
             },
-            module: 'PERSONA',
-            roles: ['PUBLIC']
+            module: 'ORGANIZACION',
+            roles: ['ADMIN', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR']
         })
         .state('app.organizacion.editarSucursal.resumen', {
             url: "/resumen",
             templateUrl: "../../views/sucursal/form-resumen.html",
-            module: 'PERSONA',
-            roles: ['PUBLIC']
+            module: 'ORGANIZACION',
+            roles: ['ADMIN', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR']
         })
         .state('app.organizacion.editarSucursal.datosPrincipales', {
             url: '/principal',
             templateUrl: "../../views/sucursal/form-datosPrincipales.html",
-            module: 'PERSONA',
-            roles: ['PUBLIC']
+            module: 'ORGANIZACION',
+            roles: ['ADMIN', 'ADMINISTRADOR_GENERAL']
         })
         .state('app.organizacion.editarSucursal.buscarAgencias', {
             url: '/agencias/buscar',
             templateUrl: "../../views/sucursal/agencia/form-buscar-agencia.html",
-            module: 'PERSONA',
-            roles: ['PUBLIC']
+            module: 'ORGANIZACION',
+            roles: ['ADMIN', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR']
         })
         .state('app.organizacion.editarSucursal.crearAgencia', {
             url: '/agencias',
             templateUrl: "../../views/sucursal/agencia/form-crear-agencia.html",
-            module: 'PERSONA',
-            roles: ['PUBLIC']
+            module: 'ORGANIZACION',
+            roles: ['ADMIN', 'ADMINISTRADOR_GENERAL']
         })
         .state('app.organizacion.editarSucursal.crearAgencia.datosPrincipales', {
             url: '/principal',
             templateUrl: "../../views/sucursal/agencia/form-datosPrincipales.html",
-            module: 'PERSONA',
-            roles: ['PUBLIC']
+            module: 'ORGANIZACION',
+            roles: ['ADMIN', 'ADMINISTRADOR_GENERAL']
         })
 
         .state('app.administracion.buscarPersonaNatural', {
@@ -645,11 +674,11 @@ module.run(function(Restangular, Notifications) {
     });
 });
 
-module.run(function($rootScope, activeProfile) {
+module.run(function($rootScope, $state, activeProfile) {
     $rootScope.$on('$stateChangeStart',
         function(event, toState, toParams, fromState, fromParams){
             if(toState.module && toState.roles){
-                if(!activeProfile.hasRole(toState.module, toState.roles)){
+                if(!activeProfile.hasRole(toState.module, toState.roles, toState.operator)){
                     event.preventDefault();
                     alert('State unauthorized.');
                 }
