@@ -15,6 +15,7 @@ angular.element(document).ready(function ($http) {
 
     keycloakAuth.init({ onLoad: 'login-required' }).success(function () {
         auth.authz = keycloakAuth;
+
         module.factory('Auth', function() {
             return auth;
         });

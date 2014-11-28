@@ -6,10 +6,15 @@
 (function(window, angular, undefined) {'use strict';
 
     angular.module('organizacion.controllers')
-        .controller('BuscarAgenciaCtrl', function($scope, $state, Sucursal){
+        .controller('BuscarAgenciaCtrl', function($scope, $state, activeProfile, Sucursal){
 
-            $scope.nuevo = function(){
-                $state.go('app.organizacion.editarSucursal.crearAgencia');
+            //admin, gerente general, administrador general, administrador, jefecaja, cajero
+
+            $scope.combo = {
+                sucursal: activeProfile.hasRole('ORGANIZACION', ['ADMIN', 'GERENTE_GENERAL'], 'OR') ? Sucursal.$search().$object : undefined
+            };
+            $scope.combo.selected = {
+                sucursal: undefined
             };
 
             $scope.filterOptions = {
@@ -41,9 +46,12 @@
                     $state.go('app.administracion.editarSucursal', {id: row.id});
                 }
             };
+            $scope.nuevo = function(){
+                $state.go('app.organizacion.editarSucursal.crearAgencia');
+            };
 
             $scope.search = function(){
-                $scope.gridOptions.data = $scope.view.sucursalDB.agencias;
+                //$scope.gridOptions.data = $scope.view.sucursalDB.agencias;
             };
             $scope.search();
 

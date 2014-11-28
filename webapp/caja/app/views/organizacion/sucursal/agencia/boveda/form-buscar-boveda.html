@@ -13,7 +13,18 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6" sg-data-keep="{module: 'PERSONA', permission: 'CREATE'}" style="text-align: right;">
+                            <div class="col-sm-3">
+                                <div class="form-group" style="margin-bottom: 0px;">
+                                    <ui-select name="pais" ng-model="combo.selected.pais" theme="bootstrap" required>
+                                        <ui-select-match placeholder="Seleccione">{{$select.selected.fullName}}</ui-select-match>
+                                        <ui-select-choices repeat="item in combo.pais | filter: $select.search">
+                                            <div ng-bind-html="item.fullName | highlight: $select.search"></div>
+                                            <small ng-bind-html="item.alpha3Code | highlight: $select.search"></small>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3" sg-data-keep="{module: 'PERSONA', permission: 'CREATE'}" style="text-align: right;">
                                 <div class="form-group" style="margin-bottom: 0px;">
                                     <button type="button" ng-click="nuevo()" class="btn btn-primary">Nuevo</button>
                                 </div>

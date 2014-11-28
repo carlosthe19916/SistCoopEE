@@ -2,7 +2,7 @@
 <html class="no-js">
 <head>
     <meta charset="utf-8">
-    <title>SistCoop</title>
+    <title>SistCoop jefecaja</title>
 
     <link rel="icon" href="../../favicon.ico">
 
@@ -67,11 +67,25 @@
     <script src="../../scripts/ubigeo/directives.js"></script>
     <script src="../../scripts/ubigeo/models.js"></script>
 
+    <script src="../../scripts/organizacion/app.js"></script>
+    <script src="../../scripts/organizacion/controllers.js"></script>
+    <script src="../../scripts/organizacion/directives.js"></script>
+    <script src="../../scripts/organizacion/models.js"></script>
+
     <script src="../../scripts/common/app.js"></script>
     <script src="../../scripts/common/controllers.js"></script>
     <script src="../../scripts/common/directives.js"></script>
     <script src="../../scripts/common/services.js"></script>
     <script src="../../scripts/common/filters.js"></script>
+
+    <script src="../../scripts/organizacion/controllers/sucursal/BuscarSucursalCtrl.js"></script>
+    <script src="../../scripts/organizacion/controllers/sucursal/CrearSucursalCtrl.js"></script>
+    <script src="../../scripts/organizacion/controllers/sucursal/EditarSucursalCtrl.js"></script>
+    <script src="../../scripts/organizacion/controllers/sucursal/SucursalResumenCtrl.js"></script>
+    <script src="../../scripts/organizacion/controllers/sucursal/SucursalDatosPrincipalesCtrl.js"></script>
+    <script src="../../scripts/organizacion/controllers/sucursal/agencia/BuscarAgenciaCtrl.js"></script>
+    <script src="../../scripts/organizacion/controllers/sucursal/agencia/CrearAgenciaCtrl.js"></script>
+    <script src="../../scripts/organizacion/controllers/sucursal/agencia/AgenciaDatosPrincipalesCtrl.js"></script>
 
     <script src="../../scripts/persona/controllers/BuscarCtrl.js"></script>
     <script src="../../scripts/persona/controllers/BuscarPersonaJuridicaCtrl.js"></script>
@@ -103,27 +117,32 @@
     <div class="navbar navbar-inverse navbar-fixed-top" style="min-height: 20px;">
         <div class="navbar-inner">
             <div class="container-fluid">
-                <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <button type="button" class="btn btn-navbar" data-toggle="collapse" ng-click="isCollapsed = !isCollapsed" data-target="#navbar">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="brand" href="#">SistCoop jefe caja</a>
-                <div class="nav-collapse" style="display: inherit;">
-                    <p class="navbar-text pull-right" style="margin-top: 0;">
-                        <a ng-click="logout()" style="cursor: pointer;">Logout</a>
-                    </p>
-                    <p class="navbar-text pull-right" style="margin-top: 0;">
-                        Logged in as
-                        <strong ng-bind="auth.user.username"></strong>
-                    </p>
+                <a class="brand" href="#">SistCoop jefecaja</a>
+                <div id="navbar" collapse="!isCollapsed" class="nav-collapse collapse in" style="display: inherit;">
                     <ul class="nav">
                         <li ui-sref-active="active">
                             <a ui-sref="home">Home</a>
                         </li>
                         <li ui-sref-active="active">
+                            <a ui-sref="app.organizacion">Organizacion</a>
+                        </li>
+                        <li ui-sref-active="active">
                             <a ui-sref="app.administracion">Administracion</a>
                         </li>
+                    </ul>
+                    <ul class="nav navbar-text pull-right">
+                        <p class="navbar-text pull-right" style="margin-top: 0;">
+                            <a ng-click="logout()" style="cursor: pointer;">Logout</a>
+                        </p>
+                        <p class="navbar-text pull-right" style="margin-top: 0;">
+                            Logged in as
+                            <strong ng-bind="auth.user.username"></strong>
+                        </p>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
@@ -151,7 +170,8 @@
     <div ui-view>
         <span>Loading...</span>
     </div>
-
 </div>
+
+
 </body>
 </html>

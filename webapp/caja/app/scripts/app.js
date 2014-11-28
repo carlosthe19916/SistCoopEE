@@ -60,8 +60,8 @@ module.factory('authInterceptor', function($q, Auth) {
 
 module.config(function(RestangularProvider) {
     RestangularProvider.setBaseUrl('http://localhost:8080');
-    //RestangularProvider.setDefaultHttpFields({cache: true});
 
+    //añade @ a los atributos
     RestangularProvider.addFullRequestInterceptor(function(element, operation, route, url, headers, params, httpConfig) {
         if(operation == 'post' || operation == 'put'){
             var newElement;
@@ -86,6 +86,7 @@ module.config(function(RestangularProvider) {
         }
     });
 
+    //saca el primer objeto
     RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
         var extractedData;
         if(data){
@@ -96,6 +97,7 @@ module.config(function(RestangularProvider) {
         }
         return extractedData;
     });
+    //saca los @ de los atributos
     RestangularProvider.setResponseExtractor(function(response) {
         var newResponse = angular.copy(response);
         if (angular.isArray(response)) {
@@ -356,11 +358,11 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
                         $scope.menus = [
                             {'name':'ESTRUCTURA', 'state': 'app.organizacion', header: true},
                             {'name':'Sucursales', 'state': 'app.organizacion.buscarSucursal', header: false},
-                            {'name':'Agencias', 'state': 'app.organizacion.buscarAgencia', header: false}
-                            /*{'name':'Bovedas', 'state': 'app.organizacion.buscarBoveda', header: false},
-                            {'name':'Cajas', 'state': 'app.organizacion.buscarCaja', header: false},
+                            {'name':'Agencias', 'state': 'app.organizacion.buscarAgencia', header: false},
+                            {'name':'Bovedas', 'state': 'app.organizacion.buscarBoveda', header: false},
+                            {'name':'Cajas', 'state': 'app.organizacion.buscarCaja', header: false}
 
-                            {'name':'RRHH', 'state': 'app.organizacion', header: true},
+                            /*{'name':'RRHH', 'state': 'app.organizacion', header: true},
                             {'name':'Trabajadores', 'state': 'app.trabajador.buscarTrabajador', header: false},
                             {'name':'Usuarios', 'state': 'app.trabajador.buscarUsuarios', header: false}*/
                         ];
@@ -427,21 +429,60 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
                     }
                 }
             }
-        })
+        });
+} ]);
 
+module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+
+    $urlRouterProvider.when('/app/organizacion/sucursal', '/app/organizacion/sucursal/principal');
+    $urlRouterProvider.when('/app/organizacion/sucursal/{id:[0-9]{1,8}}', '/app/organizacion/sucursal/{id:[0-9]{1,8}}/resumen');
+
+    $stateProvider
         .state('app.organizacion.buscarSucursal', {
             url: '/sucursal/buscar',
-            templateUrl: "../../views/sucursal/form-buscar-sucursal.html",
+            templateUrl: "../../views/organizacion/sucursal/form-buscar-sucursal.html",
             controller: function($scope) {
                 $scope.themplate.header = 'Buscar sucursal';
             },
             module: 'ORGANIZACION',
-            roles: ['ADMIN', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR'],
+            roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR'],
             operator: 'OR'
         })
+        .state('app.organizacion.buscarAgencia', {
+            url: '/agencia/buscar',
+            templateUrl: "../../views/organizacion/sucursal/agencia/form-buscar-agencia.html",
+            controller: function($scope) {
+                $scope.themplate.header = 'Buscar agencia';
+            },
+            module: 'ORGANIZACION',
+            roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR', 'JEFE_CAJA'],
+            operator: 'OR'
+        })
+        .state('app.organizacion.buscarBoveda', {
+            url: '/boveda/buscar',
+            templateUrl: "../../views/organizacion/sucursal/agencia/boveda/form-buscar-boveda.html",
+            controller: function($scope) {
+                $scope.themplate.header = 'Buscar boveda';
+            },
+            module: 'ORGANIZACION',
+            roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR', 'JEFE_CAJA'],
+            operator: 'OR'
+        })
+        .state('app.organizacion.buscarCaja', {
+            url: '/caja/buscar',
+            templateUrl: "../../views/organizacion/sucursal/agencia/caja/form-buscar-caja.html",
+            controller: function($scope) {
+                $scope.themplate.header = 'Buscar caja';
+            },
+            module: 'ORGANIZACION',
+            roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR', 'JEFE_CAJA'],
+            operator: 'OR'
+        })
+
+
         .state('app.organizacion.crearSucursal', {
             url: '/sucursal',
-            templateUrl: "../../views/sucursal/form-crear-sucursal.html",
+            templateUrl: "../../views/organizacion/sucursal/form-crear-sucursal.html",
             controller: function($scope) {
                 $scope.themplate.header = 'Crear sucursal';
             },
@@ -451,7 +492,7 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
         })
         .state('app.organizacion.crearSucursal.datosPrincipales', {
             url: '/principal',
-            templateUrl: "../../views/sucursal/form-datosPrincipales.html",
+            templateUrl: "../../views/organizacion/sucursal/form-datosPrincipales.html",
             controller: function($scope) {
                 $scope.themplate.header = 'Crear sucursal';
             },
@@ -461,7 +502,7 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
         })
         .state('app.organizacion.editarSucursal', {
             url: "/sucursal/:id",
-            templateUrl: "../../views/sucursal/form-editar-sucursal.html",
+            templateUrl: "../../views/organizacion/sucursal/form-editar-sucursal.html",
             resolve: {
                 sucursal: function($state, $stateParams, Sucursal) {
                     return Sucursal.$find($stateParams.id);
@@ -480,53 +521,53 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
         })
         .state('app.organizacion.editarSucursal.resumen', {
             url: "/resumen",
-            templateUrl: "../../views/sucursal/form-resumen.html",
+            templateUrl: "../../views/organizacion/sucursal/form-resumen.html",
             module: 'ORGANIZACION',
             roles: ['ADMIN', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR'],
             operator: 'OR'
         })
         .state('app.organizacion.editarSucursal.datosPrincipales', {
             url: '/principal',
-            templateUrl: "../../views/sucursal/form-datosPrincipales.html",
+            templateUrl: "../../views/organizacion/sucursal/form-datosPrincipales.html",
             module: 'ORGANIZACION',
             roles: ['ADMIN', 'ADMINISTRADOR_GENERAL'],
             operator: 'OR'
         })
         .state('app.organizacion.editarSucursal.buscarAgencias', {
             url: '/agencias/buscar',
-            templateUrl: "../../views/sucursal/agencia/form-buscar-agencia.html",
+            templateUrl: "../../views/organizacion/sucursal/agencia/form-buscar-agencia.html",
             module: 'ORGANIZACION',
             roles: ['ADMIN', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR'],
             operator: 'OR'
         })
         .state('app.organizacion.editarSucursal.crearAgencia', {
             url: '/agencias',
-            templateUrl: "../../views/sucursal/agencia/form-crear-agencia.html",
+            templateUrl: "../../views/organizacion/sucursal/agencia/form-crear-agencia.html",
             module: 'ORGANIZACION',
             roles: ['ADMIN', 'ADMINISTRADOR_GENERAL'],
             operator: 'OR'
         })
         .state('app.organizacion.editarSucursal.crearAgencia.datosPrincipales', {
             url: '/principal',
-            templateUrl: "../../views/sucursal/agencia/form-datosPrincipales.html",
+            templateUrl: "../../views/organizacion/sucursal/agencia/form-datosPrincipales.html",
             module: 'ORGANIZACION',
             roles: ['ADMIN', 'ADMINISTRADOR_GENERAL'],
             operator: 'OR'
         })
 
 
-        .state('app.organizacion.buscarAgencia', {
-            url: '/agencia/buscar',
-            templateUrl: "../../views/sucursal/agencia/form-buscar-agencia.html",
-            controller: function($scope) {
-                $scope.themplate.header = 'Buscar agencia';
-            },
-            module: 'ORGANIZACION',
-            roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR', 'JEFE_CAJA'],
-            operator: 'OR'
-        })
+        ;
+} ]);
 
+module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
+    $urlRouterProvider.when('/app/administracion/persona/natural', '/app/administracion/persona/natural/principal');
+    $urlRouterProvider.when('/app/administracion/persona/natural/{id:[0-9]{1,8}}', '/app/administracion/persona/natural/{id:[0-9]{1,8}}/resumen');
+
+    $urlRouterProvider.when('/app/administracion/persona/juridica', '/app/administracion/persona/juridica/principal');
+    $urlRouterProvider.when('/app/administracion/persona/juridica/{id:[0-9]{1,8}}', '/app/administracion/persona/juridica/{id:[0-9]{1,8}}/resumen');
+
+    $stateProvider
         .state('app.administracion.buscarPersonaNatural', {
             url: '/persona/natural/buscar',
             templateUrl: "../../views/persona/natural/form-buscar-personaNatural.html",

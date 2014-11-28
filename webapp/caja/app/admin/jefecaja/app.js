@@ -7,6 +7,7 @@ var authUrl = window.location.href;
 authUrl = window.location.href.substring(0,  authUrl.indexOf('/admin/jefecaja'));
 
 angular.element(document).ready(function ($http) {
+
     var keycloakAuth = new Keycloak(configUrl);
 
     keycloakAuth.onAuthLogout = function() {

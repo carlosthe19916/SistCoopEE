@@ -43,7 +43,6 @@
             $scope.search = function(){
                 $scope.gridOptions.data = Sucursal.$search($scope.filterOptions).$object;
             };
-            $scope.search();
 
         });
 

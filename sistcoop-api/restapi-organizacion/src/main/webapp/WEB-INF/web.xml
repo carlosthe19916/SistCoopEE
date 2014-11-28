@@ -20,6 +20,15 @@
 			<url-pattern>/rest/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
+			<role-name>GERENTE_GENERAL</role-name>
+		</auth-constraint>
+	</security-constraint>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Rest services</web-resource-name>
+			<url-pattern>/rest/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
 			<role-name>ADMINISTRADOR_GENERAL</role-name>
 		</auth-constraint>
 	</security-constraint>
@@ -30,6 +39,15 @@
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>ADMINISTRADOR</role-name>
+		</auth-constraint>
+	</security-constraint>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Rest services</web-resource-name>
+			<url-pattern>/rest/*</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>PLATAFORMA</role-name>
 		</auth-constraint>
 	</security-constraint>
 	<security-constraint>
@@ -60,10 +78,16 @@
 		<role-name>ADMIN</role-name>
 	</security-role>
 	<security-role>
+		<role-name>GERENTE_GENERAL</role-name>
+	</security-role>
+	<security-role>
 		<role-name>ADMINISTRADOR_GENERAL</role-name>
 	</security-role>
 	<security-role>
 		<role-name>ADMINISTRADOR</role-name>
+	</security-role>
+	<security-role>
+		<role-name>PLATAFORMA</role-name>
 	</security-role>
 	<security-role>
 		<role-name>JEFE_CAJA</role-name>
