@@ -1,5 +1,7 @@
 package org.softgreen.sistcoop.organizacion.ejb.models.jpa;
 
+import java.util.List;
+
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -7,6 +9,7 @@ import javax.ejb.TransactionAttributeType;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorModel;
@@ -50,6 +53,23 @@ public class JpaTrabajadorProvider implements TrabajadorProvider {
 		else
 			em.remove(em.getReference(TrabajadorEntity.class, TrabajadorEntity.getId()));
 		return true;
+	}
+
+	@Override
+	public TrabajadorModel getTrabajadorByUsuario(String usuario) {
+		TypedQuery<TrabajadorEntity> query = em.createNamedQuery(TrabajadorEntity.findByUsuario, TrabajadorEntity.class);
+		query.setParameter("usuario", usuario);
+		List<TrabajadorEntity> list = query.getResultList();
+		if (list.size() > 0){
+			for (TrabajadorEntity trabajadorEntity : list) {
+				if(trabajadorEntity.isEstado())
+					return new TrabajadorAdapter(em, trabajadorEntity);
+			}			
+			return null;
+		}			
+		else {
+			return null;
+		}
 	}
 
 }

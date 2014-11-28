@@ -151,7 +151,7 @@ module.factory('OrganizacionRestangular', function(Restangular) {
 module.config(['$provide', function($provide){
     var profile = angular.copy(window.auth.authz);
 
-    //modulesNames = ['PERSONA', 'UBIGEO'];
+    //modulesNames = ['PERSONA', 'UBIGEO', 'ORGANIZACION'];
     //operations = ['SELECT', 'CREATE', 'UPDATE', 'DELETE'];
 
     var apiModules = [
@@ -266,6 +266,82 @@ module.config(['$provide', function($provide){
         }
     };
 
+    //carlos
+    profile.getSubmenu = function(menuName){
+        menuName = menuName.toLowerCase();
+        if(menuName == 'administracion'){
+
+        } else if(menuName == 'organizacion'){
+            if(profile.hasRole('ORGANIZACION', 'ADMIN')){
+                return [
+                    {'name':'ESTRUCTURA', 'state': 'app.organizacion', header: true},
+                    {'name':'Sucursales', 'state': 'app.organizacion.buscarSucursal', header: false},
+                    {'name':'Agencias', 'state': 'app.organizacion.buscarAgencia', header: false},
+                    {'name':'Bovedas', 'state': 'app.organizacion.buscarBoveda', header: false},
+                    {'name':'Cajas', 'state': 'app.organizacion.buscarCaja', header: false},
+
+                    {'name':'RRHH', 'state': 'app.organizacion', header: true},
+                    {'name':'Trabajadores', 'state': 'app.trabajador.buscarTrabajador', header: false},
+                    {'name':'Usuarios', 'state': 'app.trabajador.buscarUsuarios', header: false}
+                ];
+            } else if(profile.hasRole('ORGANIZACION', 'GERENTE_GENERAL')){
+                return [
+                    {'name':'ESTRUCTURA', 'state': 'app.organizacion', header: true},
+                    {'name':'Sucursales', 'state': 'app.organizacion.buscarSucursal', header: false},
+                    {'name':'Agencias', 'state': 'app.organizacion.buscarAgencia', header: false},
+                    {'name':'Bovedas', 'state': 'app.organizacion.buscarBoveda', header: false},
+                    {'name':'Cajas', 'state': 'app.organizacion.buscarCaja', header: false},
+
+                    {'name':'RRHH', 'state': 'app.organizacion', header: true},
+                    {'name':'Trabajadores', 'state': 'app.trabajador.buscarTrabajador', header: false},
+                    {'name':'Usuarios', 'state': 'app.trabajador.buscarUsuarios', header: false}
+                ];
+            } else if(profile.hasRole('ORGANIZACION', 'ADMINISTRADOR_GENERAL')){
+                return [
+                    {'name':'ESTRUCTURA', 'state': 'app.organizacion', header: true},
+                    {'name':'Sucursales', 'state': 'app.organizacion.buscarSucursal', header: false},
+                    {'name':'Agencias', 'state': 'app.organizacion.buscarAgencia', header: false},
+                    {'name':'Bovedas', 'state': 'app.organizacion.buscarBoveda', header: false},
+                    {'name':'Cajas', 'state': 'app.organizacion.buscarCaja', header: false},
+
+                    {'name':'RRHH', 'state': 'app.organizacion', header: true},
+                    {'name':'Trabajadores', 'state': 'app.trabajador.buscarTrabajador', header: false},
+                    {'name':'Usuarios', 'state': 'app.trabajador.buscarUsuarios', header: false}
+                ];
+            } else if(profile.hasRole('ORGANIZACION', 'ADMINISTRADOR')){
+                return [
+                    {'name':'ESTRUCTURA', 'state': 'app.organizacion', header: true},
+                    {'name':'Sucursales', 'state': 'app.organizacion.buscarSucursal', header: false},
+                    {'name':'Agencias', 'state': 'app.organizacion.buscarAgencia', header: false},
+                    {'name':'Bovedas', 'state': 'app.organizacion.buscarBoveda', header: false},
+                    {'name':'Cajas', 'state': 'app.organizacion.buscarCaja', header: false},
+
+                    {'name':'RRHH', 'state': 'app.organizacion', header: true},
+                    {'name':'Trabajadores', 'state': 'app.trabajador.buscarTrabajador', header: false},
+                    {'name':'Usuarios', 'state': 'app.trabajador.buscarUsuarios', header: false}
+                ];
+            } else if(profile.hasRole('ORGANIZACION', 'PLATAFORMA')){
+                return undefined;
+            } else if(profile.hasRole('ORGANIZACION', 'JEFE_CAJA')){
+                return [
+                    {'name':'ESTRUCTURA', 'state': 'app.organizacion', header: true},
+                    {'name':'Bovedas', 'state': 'app.organizacion.buscarBoveda', header: false},
+                    {'name':'Cajas', 'state': 'app.organizacion.buscarCaja', header: false}
+                ];
+            } else if(profile.hasRole('ORGANIZACION', 'CAJERO')){
+                return undefined;
+            } else {
+                return undefined;
+            }
+        } else if(menuName == 'transaccion'){
+
+        }  else if(menuName == 'socio'){
+
+        } else {
+            return undefined;
+        }
+    };
+
     $provide.constant('activeProfile', profile);
 }]);
 
@@ -354,18 +430,8 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
             url: "/organizacion",
             views: {
                 "viewMenu":{
-                    controller: function($scope){
-                        $scope.menus = [
-                            {'name':'ESTRUCTURA', 'state': 'app.organizacion', header: true},
-                            {'name':'Sucursales', 'state': 'app.organizacion.buscarSucursal', header: false},
-                            {'name':'Agencias', 'state': 'app.organizacion.buscarAgencia', header: false},
-                            {'name':'Bovedas', 'state': 'app.organizacion.buscarBoveda', header: false},
-                            {'name':'Cajas', 'state': 'app.organizacion.buscarCaja', header: false}
-
-                            /*{'name':'RRHH', 'state': 'app.organizacion', header: true},
-                            {'name':'Trabajadores', 'state': 'app.trabajador.buscarTrabajador', header: false},
-                            {'name':'Usuarios', 'state': 'app.trabajador.buscarUsuarios', header: false}*/
-                        ];
+                    controller: function($scope, activeProfile){
+                        $scope.menus = activeProfile.getSubmenu('organizacion');
                     }
                 },
                 "viewContent":{

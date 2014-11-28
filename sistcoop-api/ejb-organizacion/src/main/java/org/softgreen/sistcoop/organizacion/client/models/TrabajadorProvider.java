@@ -10,5 +10,7 @@ public interface TrabajadorProvider extends Provider {
 	TrabajadorModel addTrabajador(AgenciaModel agenciaModel, String tipoDocumento, String numeroDocumento);
 
 	boolean removeTrabajador(TrabajadorModel trabajadorModel);
+	
+	TrabajadorModel getTrabajadorByUsuario(String usuario);
 
 }
