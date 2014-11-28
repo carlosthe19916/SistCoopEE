@@ -220,8 +220,6 @@ module.config(['$provide', function($provide){
             }
             for(var i = 0; i< roles.length; i++){
                 if(operator && operator.toUpperCase() == 'OR'){
-                    console.log(module);
-                    console.log(roles);
                     if(module.roles.assigned.indexOf(roles[i]) >= 0){
                         result = true;
                         break;
@@ -357,7 +355,8 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
                     controller: function($scope){
                         $scope.menus = [
                             {'name':'ESTRUCTURA', 'state': 'app.organizacion', header: true},
-                            {'name':'Sucursales', 'state': 'app.organizacion.buscarSucursal', header: false}
+                            {'name':'Sucursales', 'state': 'app.organizacion.buscarSucursal', header: false},
+                            {'name':'Agencias', 'state': 'app.organizacion.buscarAgencia', header: false}
                             /*{'name':'Bovedas', 'state': 'app.organizacion.buscarBoveda', header: false},
                             {'name':'Cajas', 'state': 'app.organizacion.buscarCaja', header: false},
 
@@ -514,6 +513,19 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
             roles: ['ADMIN', 'ADMINISTRADOR_GENERAL'],
             operator: 'OR'
         })
+
+
+        .state('app.organizacion.buscarAgencia', {
+            url: '/agencia/buscar',
+            templateUrl: "../../views/sucursal/agencia/form-buscar-agencia.html",
+            controller: function($scope) {
+                $scope.themplate.header = 'Buscar agencia';
+            },
+            module: 'ORGANIZACION',
+            roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR', 'JEFE_CAJA'],
+            operator: 'OR'
+        })
+
 
         .state('app.administracion.buscarPersonaNatural', {
             url: '/persona/natural/buscar',

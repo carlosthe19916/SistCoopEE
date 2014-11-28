@@ -41,14 +41,10 @@
             };
 
             $scope.search = function(){
-                $scope.gridOptions.data = $scope.data;
+                $scope.gridOptions.data = Sucursal.$search($scope.filterOptions).$object;
             };
             $scope.search();
 
-            $scope.loadData = function(){
-                $scope.data = Sucursal.$search($scope.filterOptions).$object;
-            };
-            $scope.loadData();
         });
 
 

@@ -1,3 +1,6 @@
+//{module: 'PERSONA', permission: 'UPDATE'}
+//{module: 'PERSONA', rol: 'ADMIN'}
+//{module: 'PERSONA', rol: ['ADMIN', 'USER']}
 module.directive('sgDataKeep', function(ngIfDirective, activeProfile) {
     var ngIf = ngIfDirective[0];
     return {
@@ -9,7 +12,15 @@ module.directive('sgDataKeep', function(ngIfDirective, activeProfile) {
             var value = $attr['sgDataKeep'];
             var yourCustomValue = $scope.$eval(value);
             $attr.ngIf = function() {
-                return activeProfile.hasPermission(yourCustomValue.module, yourCustomValue.permission);
+                if(angular.isDefined(yourCustomValue.rol)){
+                    return activeProfile.hasRole(yourCustomValue.module, yourCustomValue.rol, 'OR');
+                }
+                else if (angular.isDefined(yourCustomValue.permission)){
+                    return activeProfile.hasPermission(yourCustomValue.module, yourCustomValue.permission);
+                }
+                else {
+                    return false;
+                }
             };
             ngIf.link.apply(ngIf, arguments);
         }

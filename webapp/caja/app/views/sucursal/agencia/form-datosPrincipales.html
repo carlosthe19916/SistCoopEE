@@ -26,7 +26,7 @@
         <div class="col-sm-4" ng-class="{ 'has-error' : form.abreviatura.$invalid && (form.abreviatura.$touched || form.$submitted)}">
             <div class="form-group">
                 <label>Abreviatura</label>
-                <input type="text" name="abreviatura" ng-model="view.sucursal.abreviatura" ng-minlength="2" ng-maxlength="10" class="form-control" autofocus required/>
+                <input type="text" name="abreviatura" ng-model="view.sucursal.abreviatura" ng-minlength="2" ng-maxlength="10" class="form-control" required/>
                 <div ng-messages="form.abreviatura.$error" ng-if="form.abreviatura.$touched || form.$submitted">
                     <div class="help-block" ng-message="required">Ingrese abreviatura.</div>
                     <div class="help-block" ng-message="minlength">Debe tener minimo 2 digitos.</div>
