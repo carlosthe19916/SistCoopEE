@@ -6,7 +6,7 @@
 (function(window, angular, undefined) {'use strict';
 
     angular.module('organizacion.controllers')
-        .controller('SucursalResumenCtrl', function($scope, $state, Sucursal){
+        .controller('AgenciaResumenCtrl', function($scope, $state, Sucursal){
 
         });
 

@@ -6,14 +6,15 @@
 (function(window, angular, undefined) {'use strict';
 
     angular.module('organizacion.controllers')
-        .controller('BuscarAgenciaCtrl', function($scope, $state, activeProfile, Sucursal){
+        .controller('BuscarBovedaCtrl', function($scope, $state, activeProfile, Sucursal){
 
-            //admin, gerente general, administrador general, administrador, jefecaja, cajero
             $scope.combo = {
-                sucursal: undefined
+                sucursal: undefined,
+                agencia: undefined
             };
             $scope.combo.selected = {
-                sucursal: undefined
+                sucursal: undefined,
+                agencia: undefined
             };
             $scope.loadCombo = function(){
                 if(angular.isUndefined($scope.view) && activeProfile.hasRole('ORGANIZACION', ['ADMIN', 'GERENTE_GENERAL'], 'OR')){

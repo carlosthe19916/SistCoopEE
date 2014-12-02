@@ -9,17 +9,16 @@
         .controller('CrearAgenciaCtrl', function($scope, $state, Sucursal, Notifications){
 
             $scope.view = {
-                sucursal: Sucursal.$build()
+                agencia: undefined
             };
 
-            $scope.submit = function(){
-                if ($scope.form.$valid) {
-                    $scope.blockControl();
-                    $scope.view.sucursal.$save().then(
+            $scope.addAgencia = function(){
+                if($scope.form.$valid){
+                    $scope.$parent.view.sucursalDB.$addAgencia($scope.view.agencia).then(
                         function(response){
                             $scope.unblockControl();
-                            Notifications.success("Sucursal creada");
-                            $state.go('app.organizacion.editarSucursal', {id: response.id});
+                            Notifications.success("Agencia creada");
+                            $state.go('app.organizacion.editarSucursal.editarAgencia', {id: response.id});
                         },
                         function error(error){
                             $scope.unblockControl();
@@ -28,6 +27,7 @@
                     );
                 }
             };
+
         });
 
 

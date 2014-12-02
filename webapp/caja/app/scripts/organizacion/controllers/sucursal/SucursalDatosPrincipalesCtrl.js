@@ -8,8 +8,6 @@
     angular.module('organizacion.controllers')
         .controller('SucursalDatosPrincipalesCtrl', function($scope, $state, Sucursal){
 
-
-
         });
 
 

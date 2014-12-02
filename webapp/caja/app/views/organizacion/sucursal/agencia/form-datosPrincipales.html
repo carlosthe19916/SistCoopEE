@@ -4,8 +4,13 @@
         <div class="col-sm-4" ng-class="{ 'has-error' : form.codigo.$invalid && (form.codigo.$touched || form.$submitted)}">
             <div class="form-group">
                 <label>Codigo</label>
-                <input type="text" name="codigo" ng-model="view.sucursal.codigo" ng-minlength="2" ng-maxlength="2" class="form-control" autofocus required/>
+                <input type="text" name="codigo"
+                       ng-model="view.agencia.codigo" sg-codigo-agencia-validate
+                       ng-minlength="2" ng-maxlength="2"
+                       class="form-control" autofocus required/>
+                <span ng-show="form.codigo.$pending">Verificando...</span>
                 <div ng-messages="form.codigo.$error" ng-if="form.codigo.$touched || form.$submitted">
+                    <div class="help-block" ng-message="codigoDisponible">Codigo no disponible.</div>
                     <div class="help-block" ng-message="required">Ingrese abreviatura.</div>
                     <div class="help-block" ng-message="minlength">Debe tener minimo 2 digitos.</div>
                     <div class="help-block" ng-message="maxlength">Debe tener maximo 2 digitos.</div>
@@ -15,7 +20,7 @@
         <div class="col-sm-4" ng-class="{ 'has-error' : form.denominacion.$invalid && (form.denominacion.$touched || form.$submitted)}">
             <div class="form-group">
                 <label>Denominacion</label>
-                <input type="text" name="denominacion" ng-model="view.sucursal.denominacion" ng-minlength="1" ng-maxlength="30" class="form-control" required/>
+                <input type="text" name="denominacion" ng-model="view.agencia.denominacion" ng-minlength="1" ng-maxlength="30" class="form-control" required/>
                 <div ng-messages="form.denominacion.$error" ng-if="form.denominacion.$touched || form.$submitted">
                     <div class="help-block" ng-message="required">Ingrese denominacion.</div>
                     <div class="help-block" ng-message="minlength">Debe tener minimo 1 digitos.</div>
@@ -26,7 +31,7 @@
         <div class="col-sm-4" ng-class="{ 'has-error' : form.abreviatura.$invalid && (form.abreviatura.$touched || form.$submitted)}">
             <div class="form-group">
                 <label>Abreviatura</label>
-                <input type="text" name="abreviatura" ng-model="view.sucursal.abreviatura" ng-minlength="2" ng-maxlength="10" class="form-control" required/>
+                <input type="text" name="abreviatura" ng-model="view.agencia.abreviatura" ng-minlength="2" ng-maxlength="10" class="form-control" required/>
                 <div ng-messages="form.abreviatura.$error" ng-if="form.abreviatura.$touched || form.$submitted">
                     <div class="help-block" ng-message="required">Ingrese abreviatura.</div>
                     <div class="help-block" ng-message="minlength">Debe tener minimo 2 digitos.</div>
@@ -35,14 +40,22 @@
             </div>
         </div>
     </div>
-    <sg-ubigeo ng-model="view.sucursal.ubigeo"></sg-ubigeo>
 
-    <p ng-if="!view.sucursal.id">
-        <button type="submit" class="btn btn-primary" ladda="control.block" data-style="expand-right">Guardar</button>
+    <sg-ubigeo name="ubigeo" ng-model="view.agencia.ubigeo" requerido="true">
+    </sg-ubigeo>
+    <div ng-class="{ 'has-error' : form.ubigeo.$invalid && (form.ubigeo.$dirty || form.$submitted) }">
+        <div ng-messages="form.ubigeo.$error" ng-if="form.ubigeo.$dirty || form.$submitted">
+            <div class="help-block" ng-message="sgubigeo">Ingrese ubigeo.</div>
+        </div>
+    </div>
+
+
+    <p ng-if="!view.agencia.id">
+        <button type="button" class="btn btn-primary" ng-click="addAgencia()" ladda="control.block" data-style="expand-right">Guardar</button>
         <button type="button" class="btn btn-default" ui-sref="app.organizacion.buscarSucursal">Cancelar</button>
     </p>
-    <p ng-if="view.sucursal.id">
-        <button type="submit" class="btn btn-primary" ladda="control.block" data-style="expand-right">Guardar</button>
+    <p ng-if="view.agencia.id">
+        <button type="button" class="btn btn-primary" ladda="control.block" data-style="expand-right">Guardar</button>
         <button type="button" class="btn btn-default" ui-sref="^.resumen">Cancelar</button>
     </p>
 </div>

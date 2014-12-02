@@ -11,10 +11,10 @@
                                 </div>
                             </div>
                             <div class="col-sm-3">
-                                <div class="form-group" style="margin-bottom: 0px;">
+                                <div class="form-group" ng-if="!view" style="margin-bottom: 0px;">
                                     <div class="input-group">
                                         <ui-select name="sucursal" ng-model="combo.selected.sucursal" theme="bootstrap" required>
-                                            <ui-select-match placeholder="Seleccione sucursal">{{$select.selected.denominacion}}</ui-select-match>
+                                            <ui-select-match placeholder="Sucursal">{{$select.selected.denominacion}}</ui-select-match>
                                             <ui-select-choices repeat="item in combo.sucursal | filter: $select.search">
                                                 <div ng-bind-html="item.denominacion | highlight: $select.search"></div>
                                             </ui-select-choices>

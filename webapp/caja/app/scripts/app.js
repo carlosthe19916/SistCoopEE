@@ -363,16 +363,6 @@ module.config(function(blockUIConfig) {
 
 module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.when('/app/organizacion/sucursal', '/app/organizacion/sucursal/principal');
-    $urlRouterProvider.when('/app/organizacion/sucursal/{id:[0-9]{1,8}}', '/app/organizacion/sucursal/{id:[0-9]{1,8}}/resumen');
-
-    $urlRouterProvider.when('/app/administracion/persona/natural', '/app/administracion/persona/natural/principal');
-    $urlRouterProvider.when('/app/administracion/persona/natural/{id:[0-9]{1,8}}', '/app/administracion/persona/natural/{id:[0-9]{1,8}}/resumen');
-
-    $urlRouterProvider.when('/app/administracion/persona/juridica', '/app/administracion/persona/juridica/principal');
-    $urlRouterProvider.when('/app/administracion/persona/juridica/{id:[0-9]{1,8}}', '/app/administracion/persona/juridica/{id:[0-9]{1,8}}/resumen');
-
-
     $urlRouterProvider.otherwise('/home');
 
     $stateProvider
@@ -503,6 +493,8 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
     $urlRouterProvider.when('/app/organizacion/sucursal', '/app/organizacion/sucursal/principal');
     $urlRouterProvider.when('/app/organizacion/sucursal/{id:[0-9]{1,8}}', '/app/organizacion/sucursal/{id:[0-9]{1,8}}/resumen');
 
+    $urlRouterProvider.when('/app/organizacion/sucursal/{id:[0-9]{1,8}}/agencias', '/app/organizacion/sucursal/{id:[0-9]{1,8}}/principal');
+
     $stateProvider
         .state('app.organizacion.buscarSucursal', {
             url: '/sucursal/buscar',
@@ -553,17 +545,14 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
                 $scope.themplate.header = 'Crear sucursal';
             },
             module: 'ORGANIZACION',
-            roles: ['ADMIN', 'ADMINISTRADOR_GENERAL'],
+            roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL'],
             operator: 'OR'
         })
         .state('app.organizacion.crearSucursal.datosPrincipales', {
             url: '/principal',
             templateUrl: "../../views/organizacion/sucursal/form-datosPrincipales.html",
-            controller: function($scope) {
-                $scope.themplate.header = 'Crear sucursal';
-            },
             module: 'ORGANIZACION',
-            roles: ['ADMIN', 'ADMINISTRADOR_GENERAL'],
+            roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL'],
             operator: 'OR'
         })
         .state('app.organizacion.editarSucursal', {
@@ -589,7 +578,7 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
             url: "/resumen",
             templateUrl: "../../views/organizacion/sucursal/form-resumen.html",
             module: 'ORGANIZACION',
-            roles: ['ADMIN', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR'],
+            roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR'],
             operator: 'OR'
         })
         .state('app.organizacion.editarSucursal.datosPrincipales', {
@@ -620,9 +609,27 @@ module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider,
             roles: ['ADMIN', 'ADMINISTRADOR_GENERAL'],
             operator: 'OR'
         })
-
-
-        ;
+        .state('app.organizacion.editarSucursal.editarAgencia', {
+            url: '/agencias/:id',
+            templateUrl: "../../views/organizacion/sucursal/agencia/form-editar-agencia.html",
+            module: 'ORGANIZACION',
+            roles: ['ADMIN', 'ADMINISTRADOR_GENERAL'],
+            operator: 'OR'
+        })
+        .state('app.organizacion.editarSucursal.editarAgencia.resumen', {
+            url: '/resumen',
+            templateUrl: "../../views/organizacion/sucursal/agencia/form-resumen.html",
+            module: 'ORGANIZACION',
+            roles: ['ADMIN', 'ADMINISTRADOR_GENERAL'],
+            operator: 'OR'
+        })
+        .state('app.organizacion.editarSucursal.editarAgencia.datosPrincipales', {
+            url: '/principal',
+            templateUrl: "../../views/organizacion/sucursal/agencia/form-datosPrincipales.html",
+            module: 'ORGANIZACION',
+            roles: ['ADMIN', 'ADMINISTRADOR_GENERAL'],
+            operator: 'OR'
+        });
 } ]);
 
 module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {

@@ -1,4 +1,4 @@
-<div ng-controller="SucursalResumenCtrl">
+<div ng-controller="AgenciaResumenCtrl">
     <div class="row">
         <div class="col-sm-6">
             <div class="card" style="border-top-width: 1px;">
@@ -12,10 +12,18 @@
                     <div style="border-bottom: 1px solid #e5e5e5;margin-bottom: 20px;">
                         <div class="row">
                             <div class="col-sm-3">
+                                <p>Codigo:&nbsp;</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p><strong ng-bind="view.agenciaDB.codigo"></strong></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
                                 <p>Denominacion:&nbsp;</p>
                             </div>
                             <div class="col-sm-9">
-                                <p><strong ng-bind="view.sucursalDB.denominacion"></strong></p>
+                                <p><strong ng-bind="view.agenciaDB.denominacion"></strong></p>
                             </div>
                         </div>
                         <div class="row">
@@ -23,7 +31,15 @@
                                 <p>Abreviatura:&nbsp;</p>
                             </div>
                             <div class="col-sm-3">
-                                <p><strong ng-bind="view.sucursalDB.abreviatura"></strong></p>
+                                <p><strong ng-bind="view.agenciaDB.abreviatura"></strong></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p>Ubigeo:&nbsp;</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p><strong ng-bind="view.agenciaDB.ubigeo"></strong></p>
                             </div>
                         </div>
                         <div class="row">
@@ -31,7 +47,7 @@
                                 <p>Estado:&nbsp;</p>
                             </div>
                             <div class="col-sm-3">
-                                <p><strong ng-bind="view.sucursalDB.estado | si_no:'activo' | uppercase"></strong></p>
+                                <p><strong ng-bind="view.agenciaDB.estado | si_no:'activo' | uppercase"></strong></p>
                             </div>
                         </div>
                     </div>

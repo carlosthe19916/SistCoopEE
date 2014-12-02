@@ -85,6 +85,8 @@
     <script src="../../scripts/organizacion/controllers/sucursal/SucursalDatosPrincipalesCtrl.js"></script>
     <script src="../../scripts/organizacion/controllers/sucursal/agencia/BuscarAgenciaCtrl.js"></script>
     <script src="../../scripts/organizacion/controllers/sucursal/agencia/CrearAgenciaCtrl.js"></script>
+    <script src="../../scripts/organizacion/controllers/sucursal/agencia/EditarAgenciaCtrl.js"></script>
+    <script src="../../scripts/organizacion/controllers/sucursal/agencia/AgenciaResumenCtrl.js"></script>
     <script src="../../scripts/organizacion/controllers/sucursal/agencia/AgenciaDatosPrincipalesCtrl.js"></script>
 
     <script src="../../scripts/persona/controllers/BuscarCtrl.js"></script>
@@ -144,7 +146,8 @@
                             <strong ng-bind="auth.user.username"></strong>
                         </p>
                         <p class="navbar-text pull-right" style="margin-top: 0;">
-                            <strong ng-bind="auth.user.sucursal.denominacion"></strong>-
+                            <strong ng-bind="auth.user.sucursal.denominacion"></strong>
+                            <span ng-show="auth.user.agencia.denominacion">-</span>
                             <strong ng-bind="auth.user.agencia.denominacion"></strong>
                         </p>
                     </ul>

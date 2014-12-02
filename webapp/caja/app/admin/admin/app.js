@@ -16,11 +16,16 @@ angular.element(document).ready(function ($http) {
 
     keycloakAuth.init({ onLoad: 'login-required' }).success(function () {
         auth.authz = keycloakAuth;
-        module.factory('Auth', function() {
-            return auth;
-        });
-        angular.bootstrap(document, ["sistcoop"]);
+        if(keycloakAuth.realmAccess){
+            module.factory('Auth', function() {
+                return auth;
+            });
+            angular.bootstrap(document, ["sistcoop"]);
+        } else {
+            keycloakAuth.logout();
+        }
     }).error(function () {
         window.location.reload();
     });
+
 });

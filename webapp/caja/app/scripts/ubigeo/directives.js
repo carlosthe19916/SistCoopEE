@@ -12,7 +12,10 @@
                         var value = modelValue || viewValue;
                         value = value ? value : '';
                         //false representa error y true represeta exito
-                        return (value.length == 6  || value.length == 0);
+                        if($scope.requerido)
+                            return (value.length == 6);
+                        else
+                            return (value.length == 6  || value.length == 0);
                     };
 
                     Departamento.$search().then(function(data){
@@ -31,6 +34,7 @@
                     $scope.$watch('ubigeo.departamento', function(){
                         if(!angular.isUndefined($scope.ubigeo.departamento) && $scope.ubigeo.departamento){
                             $scope.provincias = $scope.ubigeo.departamento.provincias.$fetch().$object;
+                            ngModel[1].$setDirty();
                         } else {
                             $scope.ubigeo.provincia = undefined;
                             $scope.ubigeo.distrito = undefined;

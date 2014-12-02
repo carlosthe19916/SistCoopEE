@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "agencia")
@@ -26,6 +27,7 @@ public class AgenciaRepresentation implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
+	@XmlAttribute
 	public Integer getId() {
 		return id;
 	}
@@ -34,6 +36,7 @@ public class AgenciaRepresentation implements Serializable {
 		this.id = id;
 	}
 
+	@XmlAttribute
 	public String getCodigo() {
 		return codigo;
 	}
@@ -42,6 +45,7 @@ public class AgenciaRepresentation implements Serializable {
 		this.codigo = codigo;
 	}
 
+	@XmlAttribute
 	public String getAbreviatura() {
 		return abreviatura;
 	}
@@ -50,6 +54,7 @@ public class AgenciaRepresentation implements Serializable {
 		this.abreviatura = abreviatura;
 	}
 
+	@XmlAttribute
 	public String getDenominacion() {
 		return denominacion;
 	}
@@ -58,6 +63,7 @@ public class AgenciaRepresentation implements Serializable {
 		this.denominacion = denominacion;
 	}
 
+	@XmlAttribute
 	public String getUbigeo() {
 		return ubigeo;
 	}
@@ -66,6 +72,7 @@ public class AgenciaRepresentation implements Serializable {
 		this.ubigeo = ubigeo;
 	}
 
+	@XmlAttribute
 	public boolean isEstado() {
 		return estado;
 	}

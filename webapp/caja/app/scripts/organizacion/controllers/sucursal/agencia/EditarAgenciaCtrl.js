@@ -8,7 +8,7 @@
 
     angular.module('organizacion.controllers')
 
-        .controller('EditarSucursalCtrl', function($scope, $state, Notifications){
+        .controller('EditarAgenciaCtrl', function($scope, $state, Notifications){
 
             $scope.view = {
                 sucursal: undefined,
