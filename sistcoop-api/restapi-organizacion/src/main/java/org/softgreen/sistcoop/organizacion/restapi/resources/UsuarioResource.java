@@ -22,7 +22,7 @@ import org.softgreen.sistcoop.organizacion.client.representations.idm.CajaRepres
 import org.softgreen.sistcoop.organizacion.client.representations.idm.SucursalRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.TrabajadorRepresentation;
 
-@Path("/usuario")
+@Path("/usuarios")
 @Stateless
 public class UsuarioResource {
 
@@ -35,6 +35,9 @@ public class UsuarioResource {
 	@Produces({ "application/xml", "application/json" })
 	public SucursalRepresentation getSucursal(@PathParam("username") String username) {
 		TrabajadorModel trabajadorModel = trabajadorProvider.getTrabajadorByUsuario(username);
+		if(trabajadorModel == null)
+			return null;
+		
 		AgenciaModel agenciaModel = trabajadorModel.getAgencia();
 		SucursalModel sucursalModel = agenciaModel.getSucursal();
 		return ModelToRepresentation.toRepresentation(sucursalModel);
@@ -46,6 +49,9 @@ public class UsuarioResource {
 	@Produces({ "application/xml", "application/json" })
 	public AgenciaRepresentation getAgencia(@PathParam("username") String username) {
 		TrabajadorModel trabajadorModel = trabajadorProvider.getTrabajadorByUsuario(username);
+		if(trabajadorModel == null)
+			return null;
+		
 		AgenciaModel agenciaModel = trabajadorModel.getAgencia();
 		return ModelToRepresentation.toRepresentation(agenciaModel);
 	}
@@ -65,6 +71,9 @@ public class UsuarioResource {
 	@Produces({ "application/xml", "application/json" })
 	public CajaRepresentation getCaja(@PathParam("username") String username) {
 		TrabajadorModel trabajadorModel = trabajadorProvider.getTrabajadorByUsuario(username);
+		if(trabajadorModel == null)
+			return null;
+		
 		List<TrabajadorCajaModel> trabajadorCajas = trabajadorModel.getTrabajadorCajas();
 		TrabajadorCajaModel trabajadorCajaModel = null;
 		for (TrabajadorCajaModel trabCajModel : trabajadorCajas) {

@@ -143,6 +143,10 @@
                             Logged in as
                             <strong ng-bind="auth.user.username"></strong>
                         </p>
+                        <p class="navbar-text pull-right" style="margin-top: 0;">
+                            <strong ng-bind="auth.user.sucursal.denominacion"></strong>-
+                            <strong ng-bind="auth.user.agencia.denominacion"></strong>
+                        </p>
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
