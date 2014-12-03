@@ -69,6 +69,9 @@ require.config({
 require([
     'angular',
     'app',
+    'controllers',
+    'directives',
+    'services',
     'angular-sanitize',
     'angular-messages',
     'angular-animate',

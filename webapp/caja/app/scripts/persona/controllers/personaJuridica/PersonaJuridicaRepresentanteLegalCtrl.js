@@ -1,4 +1,4 @@
-define(['module'], function (module) {
+define(['../module'], function (module) {
     'use strict';
 
     module.controller('PersonaJuridicaRepresentanteLegalCtrl', function($scope, $state, TipoDocumento, PersonaNatural, Notifications, Navigation){

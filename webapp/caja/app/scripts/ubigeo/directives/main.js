@@ -1,5 +1,6 @@
 define([
-    'angular'
+    'angular',
+    './sgUbigeo'
 
 ], function () {
 

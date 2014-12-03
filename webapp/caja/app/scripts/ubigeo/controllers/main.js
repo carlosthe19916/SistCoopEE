@@ -1,5 +1,6 @@
 define([
-    'angular'
+    'angular',
+    './BuscarCtrl'
 
 ], function () {
 

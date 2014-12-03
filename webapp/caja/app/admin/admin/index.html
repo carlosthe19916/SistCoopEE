@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="../../xenon/assets/css/xenon-skins.css">
     <link rel="stylesheet" href="../../xenon/assets/css/custom.css">
 
+    <link rel="stylesheet" href="../../styles/main.css">
+
     <link rel="stylesheet" href="../../bower_components/angular-ui-select/dist/select.css">
     <link rel="stylesheet" href="../../bower_components/angular-ui-grid/ui-grid.css">
     <link rel="stylesheet" href="../../bower_components/angular-block-ui/dist/angular-block-ui.css">
@@ -45,7 +47,7 @@
 </head>
 <body ng-controller="GlobalCtrl" ng-cloak class="page-body skin-white">
 
-<div class="settings-pane">
+<div class="settings-pane" collapse="isCollapsedSettingsPane" style="display: inherit;">
 
     <a href="#" data-toggle="settings-pane" data-animate="true">
         &times;
@@ -60,7 +62,7 @@
                 <div class="user-info">
 
                     <div class="user-image">
-                        <a href="extra-profile.html">
+                        <a href="#">
                             <img src="../../xenon/assets/images/user-2.png" class="img-responsive img-circle" />
                         </a>
                     </div>
@@ -68,7 +70,7 @@
                     <div class="user-details">
 
                         <h3>
-                            <a href="extra-profile.html">John Smith</a>
+                            <a href="#">John Smith</a>
 
                             <!-- Available statuses: is-online, is-idle, is-busy and is-offline -->
                             <span class="user-status is-online"></span>
@@ -77,8 +79,8 @@
                         <p class="user-title">Web Developer</p>
 
                         <div class="user-links">
-                            <a href="extra-profile.html" class="btn btn-primary">Edit Profile</a>
-                            <a href="extra-profile.html" class="btn btn-success">Upgrade</a>
+                            <a href="#" class="btn btn-primary">Edit Profile</a>
+                            <a href="#" class="btn btn-success">Upgrade</a>
                         </div>
 
                     </div>
@@ -152,7 +154,7 @@
 
 </div>
 
-<nav class="navbar horizontal-menu navbar-fixed-top navbar-minimal"><!-- set fixed position by adding class "navbar-fixed-top" -->
+<nav class="navbar horizontal-menu navbar-minimal" ng-class="{ 'navbar-fixed-top' : isCollapsedSettingsPane == true}"><!-- set fixed position by adding class "navbar-fixed-top" -->
 
 <div class="navbar-inner">
 
@@ -162,7 +164,7 @@
         <img src="../../xenon/assets/images/logo-white-bg@2x.png" width="80" alt="" class="hidden-xs" />
         <img src="../../xenon/assets/images/logo@2x.png" width="80" alt="" class="visible-xs" />
     </a>
-    <a href="#" data-toggle="settings-pane" data-animate="true">
+    <a href data-toggle="settings-pane" data-animate="true" ng-click="isCollapsedSettingsPane = !isCollapsedSettingsPane">
         <i class="linecons-cog"></i>
     </a>
 </div>
@@ -173,7 +175,7 @@
     <!-- This will toggle the mobile menu and will be visible only on mobile devices -->
     <div class="mobile-menu-toggle">
         <!-- This will open the popup with user profile settings, you can use for any purpose, just be creative -->
-        <a href="#" data-toggle="settings-pane" data-animate="true">
+        <a href data-toggle="settings-pane" data-animate="true" ng-click="isCollapsedSettingsPane = !isCollapsedSettingsPane">
             <i class="linecons-cog"></i>
         </a>
 
@@ -199,13 +201,13 @@
 <!-- main menu -->
 
 <ul class="navbar-nav">
-    <li>
-        <a href="#">
+    <li ui-sref-active="active">
+        <a ui-sref="app.organizacion">
             <span class="title">Organizacion</span>
         </a>
     </li>
-    <li>
-        <a href="#">
+    <li ui-sref-active="active">
+        <a ui-sref="app.administracion">
             <span class="title">Administracion</span>
         </a>
     </li>
@@ -501,151 +503,83 @@
 
 </nav>
 
-<div class="page-container"><!-- add class "sidebar-collapsed" to close sidebar by default, "chat-visible" to make chat appear always -->
+<div class="page-container">
 
-<!-- Add "fixed" class to make the sidebar fixed always to the browser viewport. -->
-<!-- Adding class "toggle-others" will keep only one menu item open at a time. -->
-<!-- Adding class "collapsed" collapse sidebar root elements and show only icons. -->
-<div class="sidebar-menu toggle-others fixed">
+    <div ui-view>
+        <span>Loading...</span>
+    </div>
 
-<div class="sidebar-menu-inner">
+    <!-- start: Chat Section -->
+    <div id="chat" class="fixed">
 
-
-
-<ul id="main-menu" class="main-menu">
-<!-- add class "multiple-expanded" to allow multiple submenus to open -->
-<!-- class "auto-inherit-active-class" will automatically add "active" class for parent elements who are marked already with class "active" -->
-<li>
-    <a href="#">
-        <i class="linecons-cog"></i>
-        <span class="title">Sucursal</span>
-    </a>
-    <ul>
-        <li>
-            <a href="#">
-                <span class="title">Skin Generator</span>
-            </a>
-        </li>
-    </ul>
-</li>
-<li>
-    <a href="#">
-        <i class="linecons-star"></i>
-        <span class="title">Widgets</span>
-    </a>
-</li>
-</ul>
-
-</div>
-
-</div>
-
-<div class="main-content">
-
-    <h3>Here starts everything&hellip;</h3>
-    <!-- Main Footer -->
-    <!-- Choose between footer styles: "footer-type-1" or "footer-type-2" -->
-    <!-- Add class "sticky" to  always stick the footer to the end of page (if page contents is small) -->
-    <!-- Or class "fixed" to  always fix the footer to the end of page -->
-    <footer class="main-footer sticky footer-type-1">
-
-        <div class="footer-inner">
-
-            <!-- Add your copyright text here -->
-            <div class="footer-text">
-                &copy; 2014
-                <strong>Xenon</strong>
-                theme by <a href="http://laborator.co" target="_blank">Laborator</a>
-            </div>
+        <div class="chat-inner">
 
 
-            <!-- Go to Top Link, just add rel="go-top" to any link to add this functionality -->
-            <div class="go-up">
-
-                <a href="#" rel="go-top">
-                    <i class="fa-angle-up"></i>
+            <h2 class="chat-header">
+                <a href="#" class="chat-close" data-toggle="chat">
+                    <i class="fa-plus-circle rotate-45deg"></i>
                 </a>
 
+                Chat
+                <span class="badge badge-success is-hidden">0</span>
+            </h2>
+
+            <div class="chat-group">
+                <strong>Favorites</strong>
+
+                <a href="#"><span class="user-status is-online"></span> <em>Catherine J. Watkins</em></a>
+                <a href="#"><span class="user-status is-online"></span> <em>Nicholas R. Walker</em></a>
+                <a href="#"><span class="user-status is-busy"></span> <em>Susan J. Best</em></a>
+                <a href="#"><span class="user-status is-idle"></span> <em>Fernando G. Olson</em></a>
+                <a href="#"><span class="user-status is-offline"></span> <em>Brandon S. Young</em></a>
             </div>
 
         </div>
 
-    </footer>
-</div>
+        <!-- conversation template -->
+        <div class="chat-conversation">
 
+            <div class="conversation-header">
+                <a href="#" class="conversation-close">
+                    &times;
+                </a>
 
-<!-- start: Chat Section -->
-<div id="chat" class="fixed">
+                <span class="user-status is-online"></span>
+                <span class="display-name">Arlind Nushi</span>
+                <small>Online</small>
+            </div>
 
-    <div class="chat-inner">
+            <ul class="conversation-body">
+                <li>
+                    <span class="user">Arlind Nushi</span>
+                    <span class="time">09:00</span>
+                    <p>Are you here?</p>
+                </li>
+                <li class="odd">
+                    <span class="user">Brandon S. Young</span>
+                    <span class="time">09:25</span>
+                    <p>This message is pre-queued.</p>
+                </li>
+                <li>
+                    <span class="user">Brandon S. Young</span>
+                    <span class="time">09:26</span>
+                    <p>Whohoo!</p>
+                </li>
+                <li class="odd">
+                    <span class="user">Arlind Nushi</span>
+                    <span class="time">09:27</span>
+                    <p>Do you like it?</p>
+                </li>
+            </ul>
 
+            <div class="chat-textarea">
+                <textarea class="form-control autogrow" placeholder="Type your message"></textarea>
+            </div>
 
-        <h2 class="chat-header">
-            <a href="#" class="chat-close" data-toggle="chat">
-                <i class="fa-plus-circle rotate-45deg"></i>
-            </a>
-
-            Chat
-            <span class="badge badge-success is-hidden">0</span>
-        </h2>
-
-        <div class="chat-group">
-            <strong>Favorites</strong>
-
-            <a href="#"><span class="user-status is-online"></span> <em>Catherine J. Watkins</em></a>
-            <a href="#"><span class="user-status is-online"></span> <em>Nicholas R. Walker</em></a>
-            <a href="#"><span class="user-status is-busy"></span> <em>Susan J. Best</em></a>
-            <a href="#"><span class="user-status is-idle"></span> <em>Fernando G. Olson</em></a>
-            <a href="#"><span class="user-status is-offline"></span> <em>Brandon S. Young</em></a>
         </div>
 
     </div>
-
-    <!-- conversation template -->
-    <div class="chat-conversation">
-
-        <div class="conversation-header">
-            <a href="#" class="conversation-close">
-                &times;
-            </a>
-
-            <span class="user-status is-online"></span>
-            <span class="display-name">Arlind Nushi</span>
-            <small>Online</small>
-        </div>
-
-        <ul class="conversation-body">
-            <li>
-                <span class="user">Arlind Nushi</span>
-                <span class="time">09:00</span>
-                <p>Are you here?</p>
-            </li>
-            <li class="odd">
-                <span class="user">Brandon S. Young</span>
-                <span class="time">09:25</span>
-                <p>This message is pre-queued.</p>
-            </li>
-            <li>
-                <span class="user">Brandon S. Young</span>
-                <span class="time">09:26</span>
-                <p>Whohoo!</p>
-            </li>
-            <li class="odd">
-                <span class="user">Arlind Nushi</span>
-                <span class="time">09:27</span>
-                <p>Do you like it?</p>
-            </li>
-        </ul>
-
-        <div class="chat-textarea">
-            <textarea class="form-control autogrow" placeholder="Type your message"></textarea>
-        </div>
-
-    </div>
-
-</div>
-<!-- end: Chat Section -->
-
+    <!-- end: Chat Section -->
 
 </div>
 

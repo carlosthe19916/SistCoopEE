@@ -1,7 +1,11 @@
-module
-    .controller('GlobalCtrl', function($scope, $timeout, $http, $location, Auth, Usuario, Notifications, activeProfile) {
+define(['./app'], function(app) {
+    'use strict';
+    return app.controller('GlobalCtrl', function($scope, $timeout, $http, $location, Auth, Usuario, Notifications, activeProfile) {
 
-        $scope.authUrl = authUrl;
+        $scope.isCollapsedSettingsPane = true;
+        $scope.themplate = {};
+        $scope.themplate.header = "";
+
         $scope.auth = Auth;
 
         $scope.$watch(function() {
@@ -41,3 +45,5 @@ module
         $scope.auth.user.agencia = Usuario.$getAgencia($scope.auth.user.username).$object;
 
     });
+
+});

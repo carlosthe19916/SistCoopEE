@@ -1,4 +1,4 @@
-define(['module'], function (module) {
+define(['../../module'], function (module) {
     'use strict';
 
     module.controller('BuscarAgenciaCtrl', function($scope, $state, activeProfile, Sucursal){

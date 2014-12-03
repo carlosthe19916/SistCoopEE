@@ -1,7 +1,7 @@
 define(['./module'], function (module) {
     'use strict';
 
-    module.controller('BuscarCtrl', function($scope){
+    module.controller('BuscarUbigeoCtrl', function($scope){
         $scope.filterOptions = {
             filterText: undefined,
             offset: 0,

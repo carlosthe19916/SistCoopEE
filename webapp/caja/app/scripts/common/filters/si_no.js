@@ -1,4 +1,4 @@
-define(['module'], function (module) {
+define(['./module'], function (module) {
     'use strict';
 
     module.filter('si_no', function() {

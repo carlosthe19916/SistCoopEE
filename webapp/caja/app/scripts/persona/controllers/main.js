@@ -15,7 +15,7 @@ define([
     './personaNatural/CrearPersonaNaturalCtrl',
     './personaNatural/EditarPersonaNaturalCtrl',
     './personaNatural/PersonaNaturalDatosPrincipalesCtrl',
-    './personaNatural/PersonaNaturalDatosAdicionalesCtrl.js',
+    './personaNatural/PersonaNaturalDatosAdicionalesCtrl',
     './personaNatural/PersonaNaturalResumenCtrl'
 
 ], function () {

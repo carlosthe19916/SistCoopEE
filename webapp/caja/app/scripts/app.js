@@ -183,7 +183,7 @@ define([
         });
 
         module.config(['$provide', function($provide){
-            var profile = angular.copy(window.auth.authz);
+            var profile = angular.copy(auth.authz);
 
             //modulesNames = ['PERSONA', 'UBIGEO', 'ORGANIZACION'];
             //operations = ['SELECT', 'CREATE', 'UPDATE', 'DELETE'];
@@ -308,59 +308,110 @@ define([
                 } else if(menuName == 'organizacion'){
                     if(profile.hasRole('ORGANIZACION', 'ADMIN')){
                         return [
-                            {'name':'ESTRUCTURA', 'state': 'app.organizacion', header: true},
-                            {'name':'Sucursales', 'state': 'app.organizacion.buscarSucursal', header: false},
-                            {'name':'Agencias', 'state': 'app.organizacion.buscarAgencia', header: false},
-                            {'name':'Bovedas', 'state': 'app.organizacion.buscarBoveda', header: false},
-                            {'name':'Cajas', 'state': 'app.organizacion.buscarCaja', header: false},
-
-                            {'name':'RRHH', 'state': 'app.organizacion', header: true},
-                            {'name':'Trabajadores', 'state': 'app.trabajador.buscarTrabajador', header: false},
-                            {'name':'Usuarios', 'state': 'app.trabajador.buscarUsuarios', header: false}
+                            {
+                                name:'ESTRUCTURA',
+                                state: 'app.organizacion',
+                                header: true,
+                                submenu: [
+                                    {'name':'Sucursales', 'state': 'app.organizacion.buscarSucursal', header: false},
+                                    {'name':'Agencias', 'state': 'app.organizacion.buscarAgencia', header: false},
+                                    {'name':'Bovedas', 'state': 'app.organizacion.buscarBoveda', header: false},
+                                    {'name':'Cajas', 'state': 'app.organizacion.buscarCaja', header: false}
+                                ]
+                            },
+                            {
+                                name:'RRHH',
+                                state: 'app.organizacion',
+                                header: true,
+                                submenu: [
+                                    {'name':'Trabajadores', 'state': 'app.trabajador.buscarTrabajador', header: false},
+                                    {'name':'Usuarios', 'state': 'app.trabajador.buscarUsuarios', header: false}
+                                ]
+                            }
                         ];
                     } else if(profile.hasRole('ORGANIZACION', 'GERENTE_GENERAL')){
                         return [
-                            {'name':'ESTRUCTURA', 'state': 'app.organizacion', header: true},
-                            {'name':'Sucursales', 'state': 'app.organizacion.buscarSucursal', header: false},
-                            {'name':'Agencias', 'state': 'app.organizacion.buscarAgencia', header: false},
-                            {'name':'Bovedas', 'state': 'app.organizacion.buscarBoveda', header: false},
-                            {'name':'Cajas', 'state': 'app.organizacion.buscarCaja', header: false},
+                            {
+                                name:'ESTRUCTURA',
+                                state: 'app.organizacion',
+                                header: true,
+                                submenu: [
+                                    {'name':'Sucursales', 'state': 'app.organizacion.buscarSucursal', header: false},
+                                    {'name':'Agencias', 'state': 'app.organizacion.buscarAgencia', header: false},
+                                    {'name':'Bovedas', 'state': 'app.organizacion.buscarBoveda', header: false},
+                                    {'name':'Cajas', 'state': 'app.organizacion.buscarCaja', header: false}
+                                ]
+                            },
 
-                            {'name':'RRHH', 'state': 'app.organizacion', header: true},
-                            {'name':'Trabajadores', 'state': 'app.trabajador.buscarTrabajador', header: false},
-                            {'name':'Usuarios', 'state': 'app.trabajador.buscarUsuarios', header: false}
+                            {
+                                name:'RRHH',
+                                state: 'app.organizacion',
+                                header: true,
+                                submenu: [
+                                    {'name':'Trabajadores', 'state': 'app.trabajador.buscarTrabajador', header: false},
+                                    {'name':'Usuarios', 'state': 'app.trabajador.buscarUsuarios', header: false}
+                                ]
+                            }
                         ];
                     } else if(profile.hasRole('ORGANIZACION', 'ADMINISTRADOR_GENERAL')){
                         return [
-                            {'name':'ESTRUCTURA', 'state': 'app.organizacion', header: true},
-                            {'name':'Sucursales', 'state': 'app.organizacion.buscarSucursal', header: false},
-                            {'name':'Agencias', 'state': 'app.organizacion.buscarAgencia', header: false},
-                            {'name':'Bovedas', 'state': 'app.organizacion.buscarBoveda', header: false},
-                            {'name':'Cajas', 'state': 'app.organizacion.buscarCaja', header: false},
-
-                            {'name':'RRHH', 'state': 'app.organizacion', header: true},
-                            {'name':'Trabajadores', 'state': 'app.trabajador.buscarTrabajador', header: false},
-                            {'name':'Usuarios', 'state': 'app.trabajador.buscarUsuarios', header: false}
+                            {
+                                name:'ESTRUCTURA',
+                                state: 'app.organizacion',
+                                header: true,
+                                submenu: [
+                                    {'name':'Sucursales', 'state': 'app.organizacion.buscarSucursal', header: false},
+                                    {'name':'Agencias', 'state': 'app.organizacion.buscarAgencia', header: false},
+                                    {'name':'Bovedas', 'state': 'app.organizacion.buscarBoveda', header: false},
+                                    {'name':'Cajas', 'state': 'app.organizacion.buscarCaja', header: false}
+                                ]
+                            },
+                            {
+                                name:'RRHH',
+                                state: 'app.organizacion',
+                                header: true,
+                                submenu: [
+                                    {'name':'Trabajadores', 'state': 'app.trabajador.buscarTrabajador', header: false},
+                                    {'name':'Usuarios', 'state': 'app.trabajador.buscarUsuarios', header: false}
+                                ]
+                            }
                         ];
                     } else if(profile.hasRole('ORGANIZACION', 'ADMINISTRADOR')){
                         return [
-                            {'name':'ESTRUCTURA', 'state': 'app.organizacion', header: true},
-                            {'name':'Sucursales', 'state': 'app.organizacion.buscarSucursal', header: false},
-                            {'name':'Agencias', 'state': 'app.organizacion.buscarAgencia', header: false},
-                            {'name':'Bovedas', 'state': 'app.organizacion.buscarBoveda', header: false},
-                            {'name':'Cajas', 'state': 'app.organizacion.buscarCaja', header: false},
-
-                            {'name':'RRHH', 'state': 'app.organizacion', header: true},
-                            {'name':'Trabajadores', 'state': 'app.trabajador.buscarTrabajador', header: false},
-                            {'name':'Usuarios', 'state': 'app.trabajador.buscarUsuarios', header: false}
+                            {
+                                name:'ESTRUCTURA',
+                                state: 'app.organizacion',
+                                header: true,
+                                submenu: [
+                                    {'name':'Sucursales', 'state': 'app.organizacion.buscarSucursal', header: false},
+                                    {'name':'Agencias', 'state': 'app.organizacion.buscarAgencia', header: false},
+                                    {'name':'Bovedas', 'state': 'app.organizacion.buscarBoveda', header: false},
+                                    {'name':'Cajas', 'state': 'app.organizacion.buscarCaja', header: false}
+                                ]
+                            },
+                            {
+                                name:'RRHH',
+                                state: 'app.organizacion',
+                                header: true,
+                                submenu: [
+                                    {'name':'Trabajadores', 'state': 'app.trabajador.buscarTrabajador', header: false},
+                                    {'name':'Usuarios', 'state': 'app.trabajador.buscarUsuarios', header: false}
+                                ]
+                            }
                         ];
                     } else if(profile.hasRole('ORGANIZACION', 'PLATAFORMA')){
                         return undefined;
                     } else if(profile.hasRole('ORGANIZACION', 'JEFE_CAJA')){
                         return [
-                            {'name':'ESTRUCTURA', 'state': 'app.organizacion', header: true},
-                            {'name':'Bovedas', 'state': 'app.organizacion.buscarBoveda', header: false},
-                            {'name':'Cajas', 'state': 'app.organizacion.buscarCaja', header: false}
+                            {
+                                name:'ESTRUCTURA',
+                                state: 'app.organizacion',
+                                header: true,
+                                submenu: [
+                                    {'name':'Bovedas', 'state': 'app.organizacion.buscarBoveda', header: false},
+                                    {'name':'Cajas', 'state': 'app.organizacion.buscarCaja', header: false}
+                                ]
+                            }
                         ];
                     } else if(profile.hasRole('ORGANIZACION', 'CAJERO')){
                         return undefined;
@@ -444,7 +495,6 @@ define([
                         "viewContent":{
                             templateUrl: '../../views/themplate/themplate02-content.html',
                             controller: function($scope){
-                                $scope.themplate = {};
                                 $scope.themplate.header = 'Administracion';
                             }
                         }
@@ -461,7 +511,6 @@ define([
                         "viewContent":{
                             templateUrl: '../../views/themplate/themplate02-content.html',
                             controller: function($scope){
-                                $scope.themplate = {};
                                 $scope.themplate.header = 'Organizacion';
                             }
                         }
@@ -489,7 +538,6 @@ define([
                         "viewContent":{
                             templateUrl: '../../views/themplate/themplate02-content.html',
                             controller: function($scope){
-                                $scope.themplate = {};
                                 $scope.themplate.header = 'Administracion';
                             }
                         }
@@ -514,7 +562,6 @@ define([
                         "viewContent":{
                             templateUrl: '../../views/themplate/themplate02-content.html',
                             controller: function($scope){
-                                $scope.themplate = {};
                                 $scope.themplate.header = 'Administracion';
                             }
                         }
@@ -860,7 +907,7 @@ define([
             var spinnerFunction = function(data, headersGetter) {
                 if (resourceRequests == 0) {
                     loadingTimer = window.setTimeout(function() {
-                        $('#loading').show();
+                        //$('#loading').show();
                         loadingTimer = -1;
                     }, 500);
                 }
@@ -907,7 +954,7 @@ define([
                             window.clearTimeout(loadingTimer);
                             loadingTimer = -1;
                         }
-                        $('#loading').hide();
+                        //$('#loading').hide();
                     }
                     return response;
                 }, function(response) {
@@ -917,7 +964,7 @@ define([
                             window.clearTimeout(loadingTimer);
                             loadingTimer = -1;
                         }
-                        $('#loading').hide();
+                        //$('#loading').hide();
                     }
 
                     return $q.reject(response);

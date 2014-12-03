@@ -1,4 +1,4 @@
-define(['module'], function (module) {
+define(['./module'], function (module) {
     'use strict';
 
     module.directive('sgDocumentoIdentidad',function(TipoDocumento, PersonaNatural, personaConfig, Notifications){
