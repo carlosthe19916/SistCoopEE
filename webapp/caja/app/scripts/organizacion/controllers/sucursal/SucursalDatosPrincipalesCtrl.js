@@ -1,14 +1,7 @@
-/**
- * @license AngularJS v1.3.1-build.3436+sha.47e15aa
- * (c) 2010-2014 Google, Inc. http://angularjs.org
- * License: MIT
- */
-(function(window, angular, undefined) {'use strict';
+define(['module'], function (module) {
+    'use strict';
 
-    angular.module('organizacion.controllers')
-        .controller('SucursalDatosPrincipalesCtrl', function($scope, $state, Sucursal){
+    module.controller('SucursalDatosPrincipalesCtrl', function($scope, $state, Notifications){
 
-        });
-
-
-})(window, window.angular);
+    });
+});
