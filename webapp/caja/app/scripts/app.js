@@ -88,8 +88,9 @@ define([
             $rootScope.$on('$viewContentLoading', function(event, viewConfig){
                 $timeout(function(){
                     public_vars.$pageLoadingOverlay.addClass('loaded');
-                }, 1000);
+                }, 200);
             });
+
         });
 
         app.factory('authInterceptor', function($q, Auth) {
@@ -453,6 +454,7 @@ define([
             uiSelectConfig.theme = 'bootstrap';
         });
 
+        /*
         app.config(function(blockUIConfig) {
             blockUIConfig.message = 'Cargando...';
             blockUIConfig.template = '' +
@@ -463,7 +465,7 @@ define([
                 '</div>' +
                 '</div>' +
                 '</div>';
-        });
+        });*/
 
         app.config(function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, ASSETS) {
             $urlRouterProvider.otherwise('/app/home');
@@ -620,8 +622,7 @@ define([
                 });
             };
         });
-
-        app.factory('spinnerInterceptor', function($q, $window, $rootScope, $location) {
+       app.factory('spinnerInterceptor', function($q, $window, $rootScope, $location) {
             return function(promise) {
                 return promise.then(function(response) {
                     resourceRequests--;
