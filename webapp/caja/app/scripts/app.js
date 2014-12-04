@@ -25,9 +25,7 @@ define([
         authUrl = window.location.href.substring(0,  authUrl.indexOf('/admin/admin'));
 
         angular.element(document).ready(function ($http) {
-
             var keycloakAuth = new Keycloak(configUrl);
-
             keycloakAuth.onAuthLogout = function() {
                 location.reload();
             };
@@ -35,45 +33,66 @@ define([
             keycloakAuth.init({ onLoad: 'login-required' }).success(function () {
                 auth.authz = keycloakAuth;
                 if(keycloakAuth.realmAccess){
-                    module.factory('Auth', function() {
+                    app.factory('Auth', function() {
                         return auth;
                     });
-                    angular.bootstrap(document, ["sistcoop"]);
+                    angular.bootstrap(document, ["sistcoop-app"]);
+
                 } else {
                     keycloakAuth.logout();
                 }
             }).error(function () {
                 window.location.reload();
             });
-
         });
 
-        var module = angular.module('sistcoop', [
-            'ngSanitize',
-            'ngMessages',
-            //'ngAnimate',
+        var app = angular.module('sistcoop-app',
+            [
+                /*xenon*/
+                'ngCookies',
+                'ui.router',
+                'ui.bootstrap',
+                'oc.lazyLoad',
+                'xenon.controllers',
+                'xenon.directives',
+                'xenon.factory',
+                'xenon.services',
 
-            'persona',
-            'ubigeo',
-            'organizacion',
-            'common',
-
-            'restangular',
-            'ui.bootstrap',
-            'ui.router',
-            'ui.select',
-            'ui.utils',
-            'ui.grid',
-            'ui.grid.edit',
-            'ui.grid.selection',
-            'blockUI',
-            'angular-ladda'
-        ]);
+                /*sistcoop*/
+                'ngSanitize',
+                'ngMessages',
+                //'ngAnimate',
+                'persona',
+                'ubigeo',
+                'organizacion',
+                'common',
+                'restangular',
+                'ui.select',
+                'ui.utils',
+                'ui.grid',
+                'ui.grid.edit',
+                'ui.grid.selection',
+                'blockUI',
+                'angular-ladda'
+            ]);
 
         var resourceRequests = 0;
         var loadingTimer = -1;
 
-        module.factory('authInterceptor', function($q, Auth) {
+        app.run(function($rootScope, $timeout) {
+            public_vars.$pageLoadingOverlay = jQuery('.page-loading-overlay');
+
+            /*jQuery(window).load(function() {
+                public_vars.$pageLoadingOverlay.addClass('loaded');
+            });*/
+            $rootScope.$on('$viewContentLoading', function(event, viewConfig){
+                $timeout(function(){
+                    public_vars.$pageLoadingOverlay.addClass('loaded');
+                }, 1000);
+            });
+        });
+
+        app.factory('authInterceptor', function($q, Auth) {
             return {
                 request: function (config) {
                     var deferred = $q.defer();
@@ -92,7 +111,7 @@ define([
             };
         });
 
-        module.config(function(RestangularProvider) {
+        app.config(function(RestangularProvider) {
             RestangularProvider.setBaseUrl('http://localhost:8080');
 
             //añade @ a los atributos
@@ -164,25 +183,25 @@ define([
             });
         });
 
-        module.factory('PersonaRestangular', function(Restangular) {
+        app.factory('PersonaRestangular', function(Restangular) {
             return Restangular.withConfig(function(RestangularConfigurer) {
                 RestangularConfigurer.setBaseUrl('http://localhost:8080/restapi-persona/rest/v1');
             });
         });
 
-        module.factory('UbigeoRestangular', function(Restangular) {
+        app.factory('UbigeoRestangular', function(Restangular) {
             return Restangular.withConfig(function(RestangularConfigurer) {
                 RestangularConfigurer.setBaseUrl('http://localhost:8080/restapi-ubigeo/rest/v1');
             });
         });
 
-        module.factory('OrganizacionRestangular', function(Restangular) {
+        app.factory('OrganizacionRestangular', function(Restangular) {
             return Restangular.withConfig(function(RestangularConfigurer) {
                 RestangularConfigurer.setBaseUrl('http://localhost:8080/restapi-organizacion/rest/v1');
             });
         });
 
-        module.config(['$provide', function($provide){
+        app.config(['$provide', function($provide){
             var profile = angular.copy(auth.authz);
 
             //modulesNames = ['PERSONA', 'UBIGEO', 'ORGANIZACION'];
@@ -430,11 +449,11 @@ define([
             $provide.constant('activeProfile', profile);
         }]);
 
-        module.config(function(uiSelectConfig) {
+        app.config(function(uiSelectConfig) {
             uiSelectConfig.theme = 'bootstrap';
         });
 
-        module.config(function(blockUIConfig) {
+        app.config(function(blockUIConfig) {
             blockUIConfig.message = 'Cargando...';
             blockUIConfig.template = '' +
                 '<div class="row">' +
@@ -446,434 +465,92 @@ define([
                 '</div>';
         });
 
-        module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-
-            $urlRouterProvider.otherwise('/home');
-
-            $stateProvider
-                .state('home', {
-                    url: '/home',
-                    templateUrl: '../../views/themplate/themplate01.html'
-                })
-                .state('app', {
-                    abstract: true,
-                    url: '/app',
-                    templateUrl: '../../views/themplate/themplate02.html'
-                })
-
-                .state('app.transaccion', {
-                    url: "/transaccion",
-                    views: {
-                        "viewMenu":{
-                            controller: function($scope){
-                                $scope.menus = [
-                                    {'name':'Cuenta aporte', 'state': 'app.transaccion', header: true},
-                                    {'name':'Aporte', 'state': 'app.transaccion.aporte', header: false},
-
-                                    {'name':'Cuenta bancaria', 'state': 'app.transaccion', header: true},
-                                    {'name':'Deposito/retiro', 'state': 'app.transaccion.transaccionBancaria', header: false},
-                                    {'name':'Transferencia', 'state': 'app.transaccion.transferenciaBancaria', header: false},
-
-                                    {'name':'Otros', 'state': 'app.transaccion', header: true},
-                                    {'name':'Compra/venta', 'state': 'app.transaccion.compraVenta', header: false},
-
-                                    {'name':'Transacciones del dia', 'state': 'app.transaccion', header: true},
-                                    {'name':'Transacciones', 'state': 'app.transaccion.buscarTransaccion', header: false},
-
-                                    {'name':'Interno', 'state': 'app.transaccion', header: true},
-                                    {'name':'Pendiente', 'state': 'app.transaccion.buscarPendientes', header: false},
-                                    {'name':'Boveda/boveda', 'state': 'app.transaccion.buscarTransaccionBovedaBoveda', header: false},
-                                    {'name':'Boveda/caja', 'state': 'app.transaccion.buscarTransaccionBovedaCaja', header: false},
-                                    {'name':'Caja/caja', 'state': 'app.transaccion.buscarTransaccionCajaCaja', header: false},
-
-
-                                    {'name':'Externo', 'state': 'app.transaccion', header: true},
-                                    {'name':'Entidad/boveda', 'state': 'app.transaccion.buscarTransaccionEntidadBoveda', header: false}
-                                ];
-                            }
-                        },
-                        "viewContent":{
-                            templateUrl: '../../views/themplate/themplate02-content.html',
-                            controller: function($scope){
-                                $scope.themplate.header = 'Administracion';
-                            }
-                        }
+        app.config(function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider, ASSETS) {
+            $urlRouterProvider.otherwise('/app/home');
+            $stateProvider.state('app', {
+                abstract: true,
+                url: '/app',
+                templateUrl: appHelper.templatePath('layout/app-body'),
+                controller: function($rootScope) {
+                    $rootScope.isLoginPage = false;
+                    $rootScope.isLightLoginPage = false;
+                    $rootScope.isLockscreenPage = false;
+                    $rootScope.isMainPage = true;
+                }
+            }).state('app.home', {
+                url: '/home',
+                templateUrl: appHelper.templatePath('dashboards/home'),
+                resolve: {
+                    resources: function($ocLazyLoad) {
+                        return $ocLazyLoad.load([ASSETS.charts.dxGlobalize, ASSETS.extra.toastr]);
+                    },
+                    dxCharts: function($ocLazyLoad) {
+                        return $ocLazyLoad.load([ASSETS.charts.dxCharts]);
                     }
-                })
-                .state('app.organizacion', {
-                    url: "/organizacion",
-                    views: {
-                        "viewMenu":{
-                            controller: function($scope, activeProfile){
-                                $scope.menus = activeProfile.getSubmenu('organizacion');
-                            }
-                        },
-                        "viewContent":{
-                            templateUrl: '../../views/themplate/themplate02-content.html',
-                            controller: function($scope){
-                                $scope.themplate.header = 'Organizacion';
-                            }
-                        }
-                    }
-                })
-                .state('app.socio', {
-                    url: "/socio",
-                    views: {
-                        "viewMenu":{
-                            controller: function($scope){
-                                $scope.menus = [
-                                    {'name':'Socio', 'state': 'app.socio', header: true},
-                                    {'name':'Buscar', 'state': 'app.socio.buscarSocio', header: false},
-
-                                    {'name':'Cuenta aporte', 'state': 'app.socio', header: true},
-                                    {'name':'Nuevo', 'state': 'app.socio.crearCuentaAporte', header: false},
-                                    {'name':'Buscar', 'state': 'app.socio.buscarCuentaAporte', header: false},
-
-                                    {'name':'Cuenta bancaria', 'state': 'app.socio', header: true},
-                                    {'name':'Nuevo', 'state': 'app.socio.crearCuentaBancaria', header: false},
-                                    {'name':'Buscar', 'state': 'app.socio.buscarCuentaBancaria', header: false}
-                                ];
-                            }
-                        },
-                        "viewContent":{
-                            templateUrl: '../../views/themplate/themplate02-content.html',
-                            controller: function($scope){
-                                $scope.themplate.header = 'Administracion';
-                            }
-                        }
-                    }
-                })
-                .state('app.administracion', {
-                    url: "/administracion",
-                    views: {
-                        "viewMenu":{
-                            controller: function($scope){
-                                $scope.menus = [
-                                    {'name':'Persona Natural', 'state': 'app.administracion', header: true},
-                                    {'name':'Nuevo', 'state': 'app.administracion.crearPersonaNatural', header: false},
-                                    {'name':'Buscar', 'state': 'app.administracion.buscarPersonaNatural', header: false},
-
-                                    {'name':'Persona Jurídica', 'state': 'app.administracion', header: true},
-                                    {'name':'Nuevo', 'state': 'app.administracion.crearPersonaJuridica', header: false},
-                                    {'name':'Buscar', 'state': 'app.administracion.buscarPersonaJuridica', header: false}
-                                ];
-                            }
-                        },
-                        "viewContent":{
-                            templateUrl: '../../views/themplate/themplate02-content.html',
-                            controller: function($scope){
-                                $scope.themplate.header = 'Administracion';
-                            }
-                        }
-                    }
-                });
-        } ]);
-
-        module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-
-            $urlRouterProvider.when('/app/organizacion/sucursal', '/app/organizacion/sucursal/principal');
-            $urlRouterProvider.when('/app/organizacion/sucursal/{id:[0-9]{1,8}}', '/app/organizacion/sucursal/{id:[0-9]{1,8}}/resumen');
-
-            $urlRouterProvider.when('/app/organizacion/sucursal/{id:[0-9]{1,8}}/agencias', '/app/organizacion/sucursal/{id:[0-9]{1,8}}/principal');
-
-            $stateProvider
-                .state('app.organizacion.buscarSucursal', {
-                    url: '/sucursal/buscar',
-                    templateUrl: "../../views/organizacion/sucursal/form-buscar-sucursal.html",
-                    controller: function($scope) {
-                        $scope.themplate.header = 'Buscar sucursal';
-                    },
-                    module: 'ORGANIZACION',
-                    roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR'],
-                    operator: 'OR'
-                })
-                .state('app.organizacion.buscarAgencia', {
-                    url: '/agencia/buscar',
-                    templateUrl: "../../views/organizacion/sucursal/agencia/form-buscar-agencia.html",
-                    controller: function($scope) {
-                        $scope.themplate.header = 'Buscar agencia';
-                    },
-                    module: 'ORGANIZACION',
-                    roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR', 'JEFE_CAJA'],
-                    operator: 'OR'
-                })
-                .state('app.organizacion.buscarBoveda', {
-                    url: '/boveda/buscar',
-                    templateUrl: "../../views/organizacion/sucursal/agencia/boveda/form-buscar-boveda.html",
-                    controller: function($scope) {
-                        $scope.themplate.header = 'Buscar boveda';
-                    },
-                    module: 'ORGANIZACION',
-                    roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR', 'JEFE_CAJA'],
-                    operator: 'OR'
-                })
-                .state('app.organizacion.buscarCaja', {
-                    url: '/caja/buscar',
-                    templateUrl: "../../views/organizacion/sucursal/agencia/caja/form-buscar-caja.html",
-                    controller: function($scope) {
-                        $scope.themplate.header = 'Buscar caja';
-                    },
-                    module: 'ORGANIZACION',
-                    roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR', 'JEFE_CAJA'],
-                    operator: 'OR'
-                })
+                }
+            });
+        });
+        app.constant('ASSETS', {
+            'core': {
+                'bootstrap': appHelper.assetPath('js/bootstrap.min.js'),
+                'jQueryUI': [appHelper.assetPath('js/jquery-ui/jquery-ui.min.js'), appHelper.assetPath('js/jquery-ui/jquery-ui.structure.min.css')],
+                'moment': appHelper.assetPath('js/moment.min.js'),
+                'googleMapsLoader': appHelper.assetPath('app/js/angular-google-maps/load-google-maps.js')
+            },
+            'charts': {
+                'dxGlobalize': appHelper.assetPath('js/devexpress-web-14.1/js/globalize.min.js'),
+                'dxCharts': appHelper.assetPath('js/devexpress-web-14.1/js/dx.chartjs.js'),
+                'dxVMWorld': appHelper.assetPath('js/devexpress-web-14.1/js/vectormap-data/world.js')
+            },
+            'xenonLib': {
+                notes: appHelper.assetPath('js/xenon-notes.js')
+            },
+            'maps': {
+                'vectorMaps': [appHelper.assetPath('js/jvectormap/jquery-jvectormap-1.2.2.min.js'), appHelper.assetPath('js/jvectormap/regions/jquery-jvectormap-world-mill-en.js'), appHelper.assetPath('js/jvectormap/regions/jquery-jvectormap-it-mill-en.js')]
+            },
+            'icons': {
+                'meteocons': appHelper.assetPath('css/fonts/meteocons/css/meteocons.css'),
+                'elusive': appHelper.assetPath('css/fonts/elusive/css/elusive.css')
+            },
+            'tables': {
+                'rwd': appHelper.assetPath('js/rwd-table/js/rwd-table.min.js'),
+                'datatables': [appHelper.assetPath('js/datatables/dataTables.bootstrap.css'), appHelper.assetPath('js/datatables/datatables-angular.js')]
+            },
+            'forms': {
+                'select2': [appHelper.assetPath('js/select2/select2.css'), appHelper.assetPath('js/select2/select2-bootstrap.css'), appHelper.assetPath('js/select2/select2.min.js')],
+                'daterangepicker': [appHelper.assetPath('js/daterangepicker/daterangepicker-bs3.css'), appHelper.assetPath('js/daterangepicker/daterangepicker.js')],
+                'colorpicker': appHelper.assetPath('js/colorpicker/bootstrap-colorpicker.min.js'),
+                'selectboxit': appHelper.assetPath('js/selectboxit/jquery.selectBoxIt.js'),
+                'tagsinput': appHelper.assetPath('js/tagsinput/bootstrap-tagsinput.min.js'),
+                'datepicker': appHelper.assetPath('js/datepicker/bootstrap-datepicker.js'),
+                'timepicker': appHelper.assetPath('js/timepicker/bootstrap-timepicker.min.js'),
+                'inputmask': appHelper.assetPath('js/inputmask/jquery.inputmask.bundle.js'),
+                'formWizard': appHelper.assetPath('js/formwizard/jquery.bootstrap.wizard.min.js'),
+                'jQueryValidate': appHelper.assetPath('js/jquery-validate/jquery.validate.min.js'),
+                'dropzone': [appHelper.assetPath('js/dropzone/css/dropzone.css'), appHelper.assetPath('js/dropzone/dropzone.min.js')],
+                'typeahead': [appHelper.assetPath('js/typeahead.bundle.js'), appHelper.assetPath('js/handlebars.min.js')],
+                'multiSelect': [appHelper.assetPath('js/multiselect/css/multi-select.css'), appHelper.assetPath('js/multiselect/js/jquery.multi-select.js')],
+                'icheck': [appHelper.assetPath('js/icheck/skins/all.css'), appHelper.assetPath('js/icheck/icheck.min.js')],
+                'bootstrapWysihtml5': [appHelper.assetPath('js/wysihtml5/src/bootstrap-wysihtml5.css'), appHelper.assetPath('js/wysihtml5/wysihtml5-angular.js')]
+            },
+            'uikit': {
+                'base': [appHelper.assetPath('js/uikit/uikit.css'), appHelper.assetPath('js/uikit/css/addons/uikit.almost-flat.addons.min.css'), appHelper.assetPath('js/uikit/js/uikit.min.js')],
+                'codemirror': [appHelper.assetPath('js/uikit/vendor/codemirror/codemirror.js'), appHelper.assetPath('js/uikit/vendor/codemirror/codemirror.css')],
+                'marked': appHelper.assetPath('js/uikit/vendor/marked.js'),
+                'htmleditor': appHelper.assetPath('js/uikit/js/addons/htmleditor.min.js'),
+                'nestable': appHelper.assetPath('js/uikit/js/addons/nestable.min.js')
+            },
+            'extra': {
+                'tocify': appHelper.assetPath('js/tocify/jquery.tocify.min.js'),
+                'toastr': appHelper.assetPath('js/toastr/toastr.min.js'),
+                'fullCalendar': [appHelper.assetPath('js/fullcalendar/fullcalendar.min.css'), appHelper.assetPath('js/fullcalendar/fullcalendar.min.js')],
+                'cropper': [appHelper.assetPath('js/cropper/cropper.min.js'), appHelper.assetPath('js/cropper/cropper.min.css')]
+            }
+        });
 
 
-                .state('app.organizacion.crearSucursal', {
-                    url: '/sucursal',
-                    templateUrl: "../../views/organizacion/sucursal/form-crear-sucursal.html",
-                    controller: function($scope) {
-                        $scope.themplate.header = 'Crear sucursal';
-                    },
-                    module: 'ORGANIZACION',
-                    roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL'],
-                    operator: 'OR'
-                })
-                .state('app.organizacion.crearSucursal.datosPrincipales', {
-                    url: '/principal',
-                    templateUrl: "../../views/organizacion/sucursal/form-datosPrincipales.html",
-                    module: 'ORGANIZACION',
-                    roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL'],
-                    operator: 'OR'
-                })
-                .state('app.organizacion.editarSucursal', {
-                    url: "/sucursal/:id",
-                    templateUrl: "../../views/organizacion/sucursal/form-editar-sucursal.html",
-                    resolve: {
-                        sucursal: function($state, $stateParams, Sucursal) {
-                            return Sucursal.$find($stateParams.id);
-                        }
-                    },
-                    controller: function($scope, $stateParams, sucursal) {
-                        $scope.themplate.header = 'Editar sucursal';
-
-                        $scope.params = {};
-                        $scope.params.id = $stateParams.id;
-                        $scope.params.object = sucursal;
-                    },
-                    module: 'ORGANIZACION',
-                    roles: ['ADMIN', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR'],
-                    operator: 'OR'
-                })
-                .state('app.organizacion.editarSucursal.resumen', {
-                    url: "/resumen",
-                    templateUrl: "../../views/organizacion/sucursal/form-resumen.html",
-                    module: 'ORGANIZACION',
-                    roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR'],
-                    operator: 'OR'
-                })
-                .state('app.organizacion.editarSucursal.datosPrincipales', {
-                    url: '/principal',
-                    templateUrl: "../../views/organizacion/sucursal/form-datosPrincipales.html",
-                    module: 'ORGANIZACION',
-                    roles: ['ADMIN', 'ADMINISTRADOR_GENERAL'],
-                    operator: 'OR'
-                })
-                .state('app.organizacion.editarSucursal.buscarAgencias', {
-                    url: '/agencias/buscar',
-                    templateUrl: "../../views/organizacion/sucursal/agencia/form-buscar-agencia.html",
-                    module: 'ORGANIZACION',
-                    roles: ['ADMIN', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR'],
-                    operator: 'OR'
-                })
-                .state('app.organizacion.editarSucursal.crearAgencia', {
-                    url: '/agencias',
-                    templateUrl: "../../views/organizacion/sucursal/agencia/form-crear-agencia.html",
-                    module: 'ORGANIZACION',
-                    roles: ['ADMIN', 'ADMINISTRADOR_GENERAL'],
-                    operator: 'OR'
-                })
-                .state('app.organizacion.editarSucursal.crearAgencia.datosPrincipales', {
-                    url: '/principal',
-                    templateUrl: "../../views/organizacion/sucursal/agencia/form-datosPrincipales.html",
-                    module: 'ORGANIZACION',
-                    roles: ['ADMIN', 'ADMINISTRADOR_GENERAL'],
-                    operator: 'OR'
-                })
-                .state('app.organizacion.editarSucursal.editarAgencia', {
-                    url: '/agencias/:id',
-                    templateUrl: "../../views/organizacion/sucursal/agencia/form-editar-agencia.html",
-                    module: 'ORGANIZACION',
-                    roles: ['ADMIN', 'ADMINISTRADOR_GENERAL'],
-                    operator: 'OR'
-                })
-                .state('app.organizacion.editarSucursal.editarAgencia.resumen', {
-                    url: '/resumen',
-                    templateUrl: "../../views/organizacion/sucursal/agencia/form-resumen.html",
-                    module: 'ORGANIZACION',
-                    roles: ['ADMIN', 'ADMINISTRADOR_GENERAL'],
-                    operator: 'OR'
-                })
-                .state('app.organizacion.editarSucursal.editarAgencia.datosPrincipales', {
-                    url: '/principal',
-                    templateUrl: "../../views/organizacion/sucursal/agencia/form-datosPrincipales.html",
-                    module: 'ORGANIZACION',
-                    roles: ['ADMIN', 'ADMINISTRADOR_GENERAL'],
-                    operator: 'OR'
-                });
-        } ]);
-
-        module.config([ '$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
-
-            $urlRouterProvider.when('/app/administracion/persona/natural', '/app/administracion/persona/natural/principal');
-            $urlRouterProvider.when('/app/administracion/persona/natural/{id:[0-9]{1,8}}', '/app/administracion/persona/natural/{id:[0-9]{1,8}}/resumen');
-
-            $urlRouterProvider.when('/app/administracion/persona/juridica', '/app/administracion/persona/juridica/principal');
-            $urlRouterProvider.when('/app/administracion/persona/juridica/{id:[0-9]{1,8}}', '/app/administracion/persona/juridica/{id:[0-9]{1,8}}/resumen');
-
-            $stateProvider
-                .state('app.administracion.buscarPersonaNatural', {
-                    url: '/persona/natural/buscar',
-                    templateUrl: "../../views/persona/natural/form-buscar-personaNatural.html",
-                    controller: function($scope) {
-                        $scope.themplate.header = 'Buscar persona natural';
-                    },
-                    module: 'PERSONA',
-                    roles: ['PUBLIC']
-                })
-                .state('app.administracion.crearPersonaNatural', {
-                    url: "/persona/natural?documento&numero",
-                    templateUrl: "../../views/persona/natural/form-crear-personaNatural.html",
-                    controller: function($scope, $stateParams) {
-                        $scope.themplate.header = 'Crear persona natural';
-
-                        $scope.params = {};
-                        $scope.params.tipoDocumento = $stateParams.documento;
-                        $scope.params.numeroDocumento = $stateParams.numero;
-                    },
-                    module: 'PERSONA',
-                    roles: ['USER']
-                })
-                .state('app.administracion.crearPersonaNatural.datosPrincipales', {
-                    url: "/principal",
-                    templateUrl: "../../views/persona/natural/form-datosPrincipales.html",
-                    module: 'PERSONA',
-                    roles: ['USER']
-                })
-                .state('app.administracion.editarPersonaNatural', {
-                    url: "/persona/natural/:id",
-                    templateUrl: "../../views/persona/natural/form-editar-personaNatural.html",
-                    resolve: {
-                        persona: function($state, $stateParams, PersonaNatural) {
-                            return PersonaNatural.$find($stateParams.id);
-                        }
-                    },
-                    controller: function($scope, $stateParams, persona) {
-                        $scope.themplate.header = 'Editar persona natural';
-
-                        $scope.params = {};
-                        $scope.params.id = $stateParams.id;
-                        $scope.params.object = persona;
-                    },
-                    module: 'PERSONA',
-                    roles: ['PUBLIC']
-                })
-                .state('app.administracion.editarPersonaNatural.resumen', {
-                    url: "/resumen",
-                    templateUrl: "../../views/persona/natural/form-resumen.html",
-                    module: 'PERSONA',
-                    roles: ['PUBLIC']
-                })
-                .state('app.administracion.editarPersonaNatural.datosPrincipales', {
-                    url: "/principal",
-                    templateUrl: "../../views/persona/natural/form-datosPrincipales.html",
-                    module: 'PERSONA',
-                    roles: ['ADMIN']
-                })
-                .state('app.administracion.editarPersonaNatural.datosAdicionales', {
-                    url: "/adicionales",
-                    templateUrl: "../../views/persona/natural/form-datosAdicionales.html",
-                    module: 'PERSONA',
-                    roles: ['ADMIN']
-                })
-
-                .state('app.administracion.buscarPersonaJuridica', {
-                    url: '/persona/juridica/buscar',
-                    templateUrl: "../../views/persona/juridica/form-buscar-personaJuridica.html",
-                    controller: function($scope) {
-                        $scope.themplate.header = 'Buscar persona juridica';
-                    },
-                    module: 'PERSONA',
-                    roles: ['PUBLIC']
-                })
-                .state('app.administracion.crearPersonaJuridica', {
-                    url: "/persona/juridica?documento&numero",
-                    templateUrl: "../../views/persona/juridica/form-crear-personaJuridica.html",
-                    controller: function($scope, $stateParams) {
-                        $scope.themplate.header = 'Crear persona juridica';
-
-                        $scope.params = {};
-                        $scope.params.tipoDocumento = $stateParams.documento;
-                        $scope.params.numeroDocumento = $stateParams.numero;
-                    },
-                    module: 'PERSONA',
-                    roles: ['USER']
-                })
-                .state('app.administracion.crearPersonaJuridica.datosPrincipales', {
-                    url: "/principal",
-                    templateUrl: "../../views/persona/juridica/form-datosPrincipales.html",
-                    module: 'PERSONA',
-                    roles: ['USER']
-                })
-                .state('app.administracion.crearPersonaJuridica.representante', {
-                    url: "/representante",
-                    templateUrl: "../../views/persona/juridica/form-representante.html",
-                    module: 'PERSONA',
-                    roles: ['USER']
-                })
-                .state('app.administracion.editarPersonaJuridica', {
-                    url: "/persona/juridica/:id",
-                    templateUrl: "../../views/persona/juridica/form-editar-personaJuridica.html",
-                    resolve: {
-                        persona: function($state, $stateParams, PersonaJuridica) {
-                            return PersonaJuridica.$find($stateParams.id);
-                        }
-                    },
-                    controller: function($scope, $stateParams, persona) {
-                        $scope.themplate.header = 'Editar persona juridica';
-
-                        $scope.params = {};
-                        $scope.params.id = $stateParams.id;
-                        $scope.params.object = persona;
-                    },
-                    module: 'PERSONA',
-                    roles: ['PUBLIC']
-                })
-                .state('app.administracion.editarPersonaJuridica.resumen', {
-                    url: "/resumen",
-                    templateUrl: "../../views/persona/juridica/form-resumen.html",
-                    module: 'PERSONA',
-                    roles: ['PUBLIC']
-                })
-                .state('app.administracion.editarPersonaJuridica.datosPrincipales', {
-                    url: "/principal",
-                    templateUrl: "../../views/persona/juridica/form-datosPrincipales.html",
-                    module: 'PERSONA',
-                    roles: ['ADMIN']
-                })
-                .state('app.administracion.editarPersonaJuridica.datosAdicionales', {
-                    url: "/adicionales",
-                    templateUrl: "../../views/persona/juridica/form-datosAdicionales.html",
-                    module: 'PERSONA',
-                    roles: ['ADMIN']
-                })
-                .state('app.administracion.editarPersonaJuridica.representante', {
-                    url: "/representante",
-                    templateUrl: "../../views/persona/juridica/form-representante.html",
-                    module: 'PERSONA',
-                    roles: ['ADMIN']
-                })
-                .state('app.administracion.editarPersonaJuridica.accionista', {
-                    url: "/accionistas",
-                    templateUrl: "../../views/persona/juridica/form-accionista.html",
-                    module: 'PERSONA',
-                    roles: ['ADMIN']
-                });
-        } ]);
-
-        module.run(function(Restangular, Notifications) {
+        app.run(function(Restangular, Notifications) {
             Restangular.setErrorInterceptor(function(response, deferred, responseHandler) {
-
                 if(response.status === 0) {
                     Notifications.error('Al parecer no se pudo realizar la conexion al sistema, actualice la pagina presionando F5.');
                     return false; // error handled
@@ -889,7 +566,7 @@ define([
             });
         });
 
-        module.run(function($rootScope, $state, activeProfile) {
+        app.run(function($rootScope, $state, activeProfile) {
             $rootScope.$on('$stateChangeStart',
                 function(event, toState, toParams, fromState, fromParams){
                     if(toState.module && toState.roles){
@@ -901,7 +578,7 @@ define([
                 })
         });
 
-        module.config(function($httpProvider) {
+        app.config(function($httpProvider) {
             $httpProvider.interceptors.push('errorInterceptor');
 
             var spinnerFunction = function(data, headersGetter) {
@@ -918,10 +595,9 @@ define([
 
             $httpProvider.interceptors.push('spinnerInterceptor');
             $httpProvider.interceptors.push('authInterceptor');
-
         });
 
-        module.factory('errorInterceptor', function($q, $window, $rootScope, $location,Notifications) {
+        app.factory('errorInterceptor', function($q, $window, $rootScope, $location,Notifications) {
             return function(promise) {
                 return promise.then(function(response) {
                     return response;
@@ -945,7 +621,7 @@ define([
             };
         });
 
-        module.factory('spinnerInterceptor', function($q, $window, $rootScope, $location) {
+        app.factory('spinnerInterceptor', function($q, $window, $rootScope, $location) {
             return function(promise) {
                 return promise.then(function(response) {
                     resourceRequests--;
@@ -972,7 +648,7 @@ define([
             };
         });
 
-        return module;
+        return app;
     }
 );
 
