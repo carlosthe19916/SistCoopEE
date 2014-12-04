@@ -2,6 +2,7 @@ require.config({
     paths: {
         'angular': '../bower_components/angular/angular',
         'angular-sanitize': '../bower_components/angular-sanitize/angular-sanitize',
+        'angular-cookies': '../bower_components/angular-cookies/angular-cookies',
         'angular-messages': '../bower_components/angular-messages/angular-messages',
         'angular-animate': '../bower_components/angular-animate/angular-animate',
         'angular-ui-router': '../bower_components/angular-ui-router/release/angular-ui-router',
@@ -19,6 +20,9 @@ require.config({
             exports: 'angular'
         },
         'angular-sanitize':{
+            deps: ['angular']
+        },
+        'angular-cookies':{
             deps: ['angular']
         },
         'angular-messages':{
@@ -73,6 +77,7 @@ require([
     'directives',
     'services',
     'angular-sanitize',
+    'angular-cookies',
     'angular-messages',
     'angular-animate',
     'angular-ui-router',
