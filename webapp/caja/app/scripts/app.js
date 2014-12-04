@@ -61,7 +61,7 @@ define([
                 /*sistcoop*/
                 'ngSanitize',
                 'ngMessages',
-                //'ngAnimate',
+                'ngAnimate',
                 'persona',
                 'ubigeo',
                 'organizacion',

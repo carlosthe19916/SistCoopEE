@@ -7,7 +7,6 @@
 <script type="text/ng-template" id="menu-items-tpl">
     <li ng-repeat="item in menuItems" ng-class="{'opened': item.isOpen, 'active': item.isActive, 'has-sub': item.menuItems.length}">
         <a href="#{{item.link}}" ng-include="'menu-item-link-tpl'"></a>
-
         <ul ng-if="item.menuItems.length" ng-init="subItems = item.menuItems" ng-include="'menu-items-recursive-tpl'"></ul>
     </li>
 </script>
@@ -20,5 +19,6 @@
 </script>
 
 
-<ul id="main-menu" class="main-menu" ng-class="{'mobile-is-visible': layoutOptions.sidebar.isMenuOpenMobile}" ng-include="'menu-items-tpl'">
+<ul id="main-menu" class="main-menu"
+    ng-class="{'mobile-is-visible': layoutOptions.sidebar.isMenuOpenMobile}" ng-include="'menu-items-tpl'">
 </ul>

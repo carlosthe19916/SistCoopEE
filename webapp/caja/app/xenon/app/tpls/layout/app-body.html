@@ -1,4 +1,9 @@
-<div class="sidebar-menu" ng-if="layoutOptions.sidebar.isVisible" ng-class="{'collapsed': layoutOptions.sidebar.isCollapsed, 'toggle-others': layoutOptions.sidebar.toggleOthers, 'fixed': layoutOptions.sidebar.isFixed && layoutOptions.container.isBoxed == false}">
+<div class="sidebar-menu"
+     ng-if="layoutOptions.sidebar.isVisible"
+     ng-class="{
+         'collapsed': layoutOptions.sidebar.isCollapsed,
+         'toggle-others': layoutOptions.sidebar.toggleOthers,
+         'fixed': layoutOptions.sidebar.isFixed && layoutOptions.container.isBoxed == false}">
 
     <div class="sidebar-menu-inner">
 
