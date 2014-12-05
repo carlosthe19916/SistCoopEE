@@ -1,0 +1,26 @@
+<div id="rootwizard" class="form-wizard ng-scope">
+
+    <ul class="tabs" style="width: 30%;">
+        <li class="ms-hover active">
+            <a ui-sref=".datosPrincipales" data-toggle="tab">
+                Datos principales
+                <span>1</span>
+            </a>
+        </li>
+    </ul>
+
+    <div class="progress-indicator" style="width: 30%;">
+        <span></span>
+    </div>
+
+    <div class="tab-content">
+        <div class="row" ng-controller="CrearSucursalCtrl">
+            <div class="col-sm-12">
+                <form name="form" ng-submit="submit()" novalidate>
+                    <div ui-view></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

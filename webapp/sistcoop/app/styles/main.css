@@ -1,0 +1,20 @@
+form .form-group.validate-has-error .form-control + div {
+    display: block;
+    padding-top: 5px;
+    font-size: 12px;
+    color: #cc3f44;
+}
+
+
+.navbar.horizontal-menu.navbar-fixed-top+.page-container>div>.sidebar-menu.fixed .sidebar-menu-inner {
+    top: 0;
+}
+.settings-pane-open .navbar.horizontal-menu.navbar-fixed-top+.page-container>div>.sidebar-menu.fixed .sidebar-menu-inner {
+    top: 0;
+}
+.navbar.horizontal-menu.navbar-fixed-top+.page-container>div>.sidebar-menu.fixed .sidebar-menu-inner {
+    top: 85px;
+}
+.settings-pane-open .navbar.horizontal-menu.navbar-fixed-top+.page-container>div>.sidebar-menu.fixed .sidebar-menu-inner {
+    top: 0;
+}

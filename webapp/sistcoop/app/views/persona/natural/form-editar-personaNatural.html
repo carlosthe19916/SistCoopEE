@@ -1,0 +1,26 @@
+<div class="row" ng-controller="EditarPersonaNaturalCtrl">
+    <div class="col-sm-12">
+        <div>
+            <div>
+                <ul class="nav nav-tabs">
+                    <li ui-sref-active-eq="active">
+                        <a ui-sref=".resumen">Resumen</a>
+                    </li>
+                    <li ui-sref-active-eq="active" sg-data-keep="{module: 'PERSONA', permission: 'UPDATE'}">
+                        <a ui-sref=".datosPrincipales">Datos principales</a>
+                    </li>
+                    <li ui-sref-active-eq="active" sg-data-keep="{module: 'PERSONA', permission: 'UPDATE'}">
+                        <a ui-sref=".datosAdicionales">Datos adicionales</a>
+                    </li>
+
+                    <li class="pull-right" sg-data-keep="{module: 'PERSONA', permission: 'DELETE'}">
+                        <button type="button" class="btn btn-danger">Eliminar</button>
+                    </li>
+                </ul>
+            </div>
+            <form name="form" ng-submit="submit()" novalidate>
+                <div ui-view></div>
+            </form>
+        </div>
+    </div>
+</div>
