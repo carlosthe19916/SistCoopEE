@@ -1,0 +1,29 @@
+<div class="row" ng-controller="EditarSucursalCtrl">
+    <div class="col-sm-12">
+        <div>
+            <div>
+                <ul class="nav nav-tabs">
+                    <li ui-sref-active-eq="active">
+                        <a ui-sref=".resumen">Resumen</a>
+                    </li>
+                    <li ui-sref-active-eq="active" sg-data-keep="{module: 'ORGANIZACION', rol: ['ADMIN', 'GERENTE_GENERAL']}">
+                        <a ui-sref=".datosPrincipales">Datos principales</a>
+                    </li>
+                    <li ui-sref-active="active" class="dropdown" dropdown>
+                        <a class="dropdown-toggle" href="#" dropdown-toggle>
+                            Agencias <span class="caret"></span>
+                        </a>
+                        <ul ui-sref-active="active" class="dropdown-menu" role="menu">
+                            <li ui-sref-active-eq="active"><a ui-sref=".crearAgencia">Nuevo</a></li>
+                            <li ui-sref-active-eq="active"><a ui-sref=".buscarAgencias">Listar</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+            <form name="form" ng-submit="submit()" novalidate>
+                <div ui-view></div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+define([
+    'angular',
+    './sgDocumentoIdentidad'
+
+], function () {
+
+});
+

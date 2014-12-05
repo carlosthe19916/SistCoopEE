@@ -1,0 +1,141 @@
+<div ng-controller="PersonaNaturalDatosPrincipalesCtrl">
+    <form name="form" ng-submit="submit()" novalidate>
+        <h4><strong>Datos personales</strong> </h4>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group" ng-class="{ 'has-error' : form.pais.$invalid && (form.pais.$touched || form.$submitted)}">
+                    <label>Nacionalidad </label>
+                    <div class="input-group">
+                        <span ng-bind="combo.selected.pais ? combo.selected.pais.alpha3Code : 'NA'" class="input-group-addon"></span>
+                        <ui-select name="pais" ng-model="combo.selected.pais" theme="bootstrap" ui-autofocus required>
+                            <ui-select-autoload pk-name="alpha3Code" comparator="view.persona.codigoPais" ignore-case="true"></ui-select-autoload>
+                            <ui-select-match placeholder="Seleccione">{{$select.selected.fullName}}</ui-select-match>
+                            <ui-select-choices repeat="item in combo.pais | filter: $select.search">
+                                <div ng-bind-html="item.fullName | highlight: $select.search"></div>
+                                <small ng-bind-html="item.alpha3Code | highlight: $select.search"></small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div ng-messages="form.pais.$error" ng-if="form.pais.$touched || form.$submitted">
+                        <div class="help-block" ng-message="required">Ingrese nacionalidad.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group" ng-class="{ 'has-error' : form.tipoDocumento.$invalid && (form.tipoDocumento.$touched || form.$submitted)}">
+                    <label>Tipo documento</label>
+                    <ui-select name="tipoDocumento" ng-model="combo.selected.tipoDocumento" theme="bootstrap" required>
+                        <ui-select-autoload pk-name="abreviatura" comparator="view.persona.tipoDocumento" ignore-case="true"></ui-select-autoload>
+                        <ui-select-match placeholder="Seleccione">{{$select.selected.abreviatura}}</ui-select-match>
+                        <ui-select-choices repeat="item in combo.tipoDocumento | filter: $select.search">
+                            <div ng-bind-html="item.abreviatura | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                    <div ng-messages="form.tipoDocumento.$error" ng-if="form.tipoDocumento.$touched || form.$submitted">
+                        <div class="help-block" ng-message="required">Ingrese documento.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4" ng-class="{ 'has-error' : form.numeroDocumento.$invalid && (form.numeroDocumento.$dirty || form.numeroDocumento.$touched || form.$submitted)}">
+                <div class="form-group">
+                    <label>N&uacute;mero documento</label>
+                    <div class="input-group">
+                        <input type="text" name="numeroDocumento" ng-model="view.persona.numeroDocumento" ui-keypress="{13:'check($event)'}" ng-pattern="/^[0-9]+$/" ng-minlength="combo.selected.tipoDocumento.cantidadCaracteres" ng-maxlength="combo.selected.tipoDocumento.cantidadCaracteres" class="form-control" required/>
+                        <span class="input-group-btn"><button type="button" ng-click="check()" tooltip="Check" tooltip-trigger="mouseenter" tooltip-placement="bottom" class="btn btn-default"><span class="glyphicon glyphicon-check"></span></button></span>
+                    </div>
+                    <div ng-messages="form.numeroDocumento.$error" ng-if="form.numeroDocumento.$dirty || form.numeroDocumento.$touched || form.$submitted">
+                        <div class="help-block" ng-message="required">Ingrese numero documento.</div>
+                        <div class="help-block" ng-message="minlength">Debe tener <span ng-bind="combo.selected.tipoDocumento.cantidadCaracteres"></span> digitos.</div>
+                        <div class="help-block" ng-message="maxlength">Debe tener <span ng-bind="combo.selected.tipoDocumento.cantidadCaracteres"></span> digitos.</div>
+                        <div class="help-block" ng-message="pattern">Numero invalido.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group" ng-class="{ 'has-error' : form.apellidoPaterno.$invalid && (form.apellidoPaterno.$touched || form.$submitted)}">
+                    <label>Apellido Paterno</label>
+                    <input name="apellidoPaterno" type="text" ng-model="view.persona.apellidoPaterno" ng-minlength="1" ng-maxlength="60" class="form-control" capitalize required/>
+                    <div ng-messages="form.apellidoPaterno.$error" ng-if="form.apellidoPaterno.$touched || form.$submitted">
+                        <div class="help-block" ng-message="required">Ingrese apellido paterno.</div>
+                        <div class="help-block" ng-message="minlength">Ingrese apellido paterno.</div>
+                        <div class="help-block" ng-message="maxlength">Apellido muy extenso, maximo 60 caracteres.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group" ng-class="{ 'has-error' : form.apellidoMaterno.$invalid && (form.apellidoMaterno.$touched || form.$submitted)}">
+                    <label>Apellido Materno</label>
+                    <input name="apellidoMaterno" type="text" ng-model="view.persona.apellidoMaterno" ng-minlength="1" ng-maxlength="60" class="form-control" capitalize required/>
+                    <div ng-messages="form.apellidoMaterno.$error" ng-if="form.apellidoMaterno.$touched || form.$submitted">
+                        <div class="help-block" ng-message="required">Ingrese apellido materno.</div>
+                        <div class="help-block" ng-message="minlength">Ingrese apellido materno.</div>
+                        <div class="help-block" ng-message="maxlength">Apellido muy extenso, maximo 60 caracteres.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group" ng-class="{ 'has-error' : form.nombres.$invalid && (form.nombres.$touched || form.$submitted)}">
+                    <label>Nombres</label>
+                    <input name="nombres" type="text" ng-model="view.persona.nombres" ng-minlength="1" ng-maxlength="70" class="form-control" capitalize required  />
+                    <div ng-messages="form.nombres.$error" ng-if="form.nombres.$touched || form.$submitted">
+                        <div class="help-block" ng-message="required">Ingrese nombres.</div>
+                        <div class="help-block" ng-message="minlength">Ingrese nombres.</div>
+                        <div class="help-block" ng-message="maxlength">Nombre muy extenso, maximo 70 caracteres.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4" ng-controller="DateController">
+                <div class="form-group" ng-class="{ 'has-error' : form.fechanacimiento.$invalid && (form.fechanacimiento.$touched || form.$submitted)}">
+                    <label>Fecha Nacimiento</label>
+                    <div class="input-group">
+                        <input type="text" name="fechanacimiento" class="form-control" sg-max-date="maxDate" ng-model="view.persona.fechaNacimiento" datepicker-popup="dd/MM/yyyy" is-open="opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" ng-required="true" close-text="Close" placeholder="dd/mm/yyyy" required>
+                        <span class="input-group-btn"><button class="btn btn-default" type="button" ng-click="open($event)"><span class="glyphicon glyphicon-calendar"></span></button></span>
+                    </div>
+                    <div ng-messages="form.fechanacimiento.$error" ng-if="form.fechanacimiento.$touched || form.$submitted">
+                        <div class="help-block" ng-message="required">Ingrese fecha nacimiento.</div>
+                        <div class="help-block" ng-message="sgmaxdate">Fecha no valida.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group" ng-class="{ 'has-error' : form.sexo.$invalid && (form.sexo.$touched || form.$submitted)}">
+                    <label>Sexo</label>
+                    <ui-select name="sexo" ng-model="combo.selected.sexo" theme="bootstrap" required>
+                        <ui-select-match placeholder="Seleccione">{{$select.selected.denominacion}}</ui-select-match>
+                        <ui-select-autoload pk-name="denominacion" comparator="view.persona.sexo" ignore-case="true"></ui-select-autoload>
+                        <ui-select-choices repeat="item in combo.sexo | filter: $select.search">
+                            <div ng-bind-html="item.denominacion | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                    <div ng-messages="form.sexo.$error" ng-if="form.sexo.$touched || form.$submitted">
+                        <div class="help-block" ng-message="required">Ingrese sexo.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label>Estado Civil</label>
+                    <ui-select ng-model="combo.selected.estadoCivil" theme="bootstrap">
+                        <ui-select-autoload pk-name="denominacion" comparator="view.persona.estadoCivil" ignore-case="true"></ui-select-autoload>
+                        <ui-select-match placeholder="Seleccione">{{$select.selected.denominacion}}</ui-select-match>
+                        <ui-select-choices repeat="item in combo.estadoCivil | filter: $select.search">
+                            <div ng-bind-html="item.denominacion | highlight: $select.search"></div>
+                        </ui-select-choices>
+                    </ui-select>
+                </div>
+            </div>
+        </div>
+        <p ng-if="!view.persona.id">
+            <button type="submit" class="btn btn-primary" ladda="control.block" data-style="expand-right">Guardar</button>
+            <button type="button" class="btn btn-default" ui-sref="app.administracion.buscarPersonaNatural">Cancelar</button>
+        </p>
+        <p ng-if="view.persona.id">
+            <button type="submit" class="btn btn-primary" ladda="control.block" data-style="expand-right">Guardar</button>
+            <button type="button" class="btn btn-default" ui-sref="^.resumen">Cancelar</button>
+        </p>
+    </form>
+</div>

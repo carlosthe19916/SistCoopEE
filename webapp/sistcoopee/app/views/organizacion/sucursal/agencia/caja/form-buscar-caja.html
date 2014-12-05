@@ -1,0 +1,39 @@
+<div ng-controller="BuscarAgenciaCtrl">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <form name="ctrl.form" ng-submit="search()" novalidate>
+                    <div class="ui-grid-top-panel" style="padding: 5px; margin-bottom: -1px; margin-right: -2px; border: 1px solid #d4d4d4;">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group" style="margin-bottom: 0px;">
+                                    <div class="input-group">
+                                        <input type="text" name="filterText" class="form-control ng-pristine ng-valid ng-touched" ng-model="filterOptions.filterText" placeholder="Número Documento / Apellidos y Nombres" capitalize autofocus>
+                                        <span class="input-group-btn"><button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group" style="margin-bottom: 0px;">
+                                    <ui-select name="pais" ng-model="combo.selected.pais" theme="bootstrap" required>
+                                        <ui-select-match placeholder="Seleccione">{{$select.selected.fullName}}</ui-select-match>
+                                        <ui-select-choices repeat="item in combo.pais | filter: $select.search">
+                                            <div ng-bind-html="item.fullName | highlight: $select.search"></div>
+                                            <small ng-bind-html="item.alpha3Code | highlight: $select.search"></small>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3" sg-data-keep="{module: 'PERSONA', permission: 'CREATE'}" style="text-align: right;">
+                                <div class="form-group" style="margin-bottom: 0px;">
+                                    <button type="button" ng-click="nuevo()" class="btn btn-primary">Nuevo</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div ui-grid="gridOptions" external-scopes="gridActions" ui-grid-selection class="grid"></div>
+            </div>
+        </div>
+    </div>
+</div>

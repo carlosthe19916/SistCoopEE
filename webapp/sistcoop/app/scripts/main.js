@@ -73,7 +73,6 @@ require.config({
     },
     deps: ['./boot'],
     priority: [
-        'jquery',
         'angular'
     ]
 });
