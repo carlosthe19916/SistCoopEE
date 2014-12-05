@@ -96,12 +96,12 @@ define([
             return this;
         };
         this.prepareHorizontalMenu = function() {
-            var dashboard = this.addItem('Organizacion', '/app/organizacion', 'linecons-cog');
+            var organizacion = this.addItem('Organizacion', '/app/organizacion', 'linecons-cog');
             var ui_elements = this.addItem('Transacciones', '/app/transaccion', 'linecons-note');
             var forms = this.addItem('Socio', '/app/socio', 'linecons-params');
             var layouts = this.addItem('Administracion', '/app/administracion', 'linecons-desktop');
 
-            dashboard.addItem('Usuarios', '-/variant-4');
+            organizacion.addItem('Usuarios', '-/variant-4');
             return this;
         };
         this.instantiate = function() {

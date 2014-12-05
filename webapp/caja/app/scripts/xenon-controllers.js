@@ -86,12 +86,18 @@ define([
         .controller('HorizontalMenuCtrl', function($scope, $rootScope, $menuItems, $timeout, $location, $state) {
             var $horizontalMenuItems = $menuItems.instantiate();
             $scope.menuItems = $horizontalMenuItems.prepareHorizontalMenu().getAll();
-            $horizontalMenuItems.setActive($location.path());
-            $rootScope.$on('$stateChangeSuccess', function() {
-                $horizontalMenuItems.setActive($state.current.name);
-                $(".navbar.horizontal-menu .navbar-nav .hover").removeClass('hover');
-            });
-            //$timeout(setup_horizontal_menu, 1);
+
+            $scope.notificationsIsOpen = false;
+            $scope.changeNotificationsIsOpen = function(){
+                $scope.userProfileIsOpen = false;
+                $scope.notificationsIsOpen = !$scope.notificationsIsOpen;
+            };
+
+            $scope.userProfileIsOpen = false;
+            $scope.changeUserProfileIsOpen = function(){
+                $scope.notificationsIsOpen = false;
+                $scope.userProfileIsOpen = !$scope.userProfileIsOpen;
+            };
         })
         .controller('SettingsPaneCtrl', function($rootScope) {
             //public_vars.$settingsPane = public_vars.$body.find('.settings-pane');
