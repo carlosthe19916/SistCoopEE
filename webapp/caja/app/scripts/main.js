@@ -106,7 +106,7 @@ require.config({
 });
 
 require([
-    'jquery',
+    //'jquery',
     'angular',
     'app',
     'controllers',
@@ -129,13 +129,13 @@ require([
     'angular-ladda',
     'restangular',
     'underscore',
-    'ocLazyLoad',
+    'ocLazyLoad'
 
-    'TweenMax',
+    /*'TweenMax',
     'perfect-scrollbar',
     'joinable',
     'resizeable',
-    'xenon-custom'
+    'xenon-custom'*/
 
 ], function(jquery, angular, app) {
 

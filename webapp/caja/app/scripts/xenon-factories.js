@@ -1,7 +1,6 @@
 define([
     'angular'
 ], function(app) {
-    'use strict';
 
     'use strict';
     angular.module('xenon.factory', []).factory('$layoutToggles', function($rootScope, $layout) {
@@ -11,7 +10,7 @@ define([
                     $layout.setOptions('sidebar.isCollapsed', !$rootScope.layoutOptions.sidebar.isCollapsed);
                 };
                 $rootScope.settingsPaneToggle = function() {
-                    var use_animation = $rootScope.layoutOptions.settingsPane.useAnimation && !isxs();
+                    /*var use_animation = $rootScope.layoutOptions.settingsPane.useAnimation && !isxs();
                     var scroll = {
                         top: jQuery(document).scrollTop(),
                         toTop: 0
@@ -71,7 +70,7 @@ define([
                                 $layout.setOptions('settingsPane.isOpen', !$rootScope.layoutOptions.settingsPane.isOpen);
                             }
                         }
-                    });
+                    });*/
                 };
                 $rootScope.chatToggle = function() {
                     $layout.setOptions('chat.isOpen', !$rootScope.layoutOptions.chat.isOpen);
@@ -132,13 +131,13 @@ define([
                     $loading_bar = $(".xenon-loading-bar");
                 if ($loading_bar.length == 0) {
                     $loading_bar = $('<div class="xenon-loading-bar progress-is-hidden"><span data-pct="0"></span></div>');
-                    public_vars.$body.append($loading_bar);
+                    //public_vars.$body.append($loading_bar);
                 }
                 var $pct = $loading_bar.find('span'),
                     current_pct = $pct.data('pct'),
                     is_regress = current_pct > defaults.pct;
                 defaults.before(current_pct);
-                TweenMax.to($pct, defaults.delay, {
+                /*TweenMax.to($pct, defaults.delay, {
                     css: {
                         width: defaults.pct + '%'
                     },
@@ -157,7 +156,7 @@ define([
                     onUpdate: function() {
                         $pct.data('pct', parseInt($pct.get(0).style.width, 10));
                     }
-                });
+                });*/
             },
             hideLoadingBar: function() {
                 var $ = jQuery,

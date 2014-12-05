@@ -1,10 +1,11 @@
-<div class="settings-pane">
+<div class="settings-pane" collapse="changeCollapsedSettingsPane">
 
-    <a href="" data-toggle="settings-pane" ng-click="settingsPaneToggle()">
+    <a href="" data-toggle="settings-pane" ng-click="changeSettingsPaneIsOpen()">
         &times;
     </a>
 
-    <div class="settings-pane-inner">
+    <div class="settings-pane-inner with-animation" ng-class="{
+      'visible': layoutOptions.settingsPane.isOpen}">
 
         <div class="row">
 

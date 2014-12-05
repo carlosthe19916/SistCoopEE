@@ -58,97 +58,50 @@ define([
         this.getAll = function() {
             return this.menuItems;
         };
-        this.prepareSidebarMenu = function() {
-            var dashboard = this.addItem('Dashboard', '/app/dashboard', 'linecons-cog');
-            var layouts = this.addItem('Layout & Skins', '/app/layout-and-skins', 'linecons-desktop');
-            var ui_elements = this.addItem('UI Elements', '/app/ui', 'linecons-note');
-            var widgets = this.addItem('Widgets', '/app/widgets', 'linecons-star');
-            var mailbox = this.addItem('Mailbox', '/app/mailbox', 'linecons-mail').setLabel('5', 'secondary', false);
-            var tables = this.addItem('Tables', '/app/tables', 'linecons-database');
-            var forms = this.addItem('Forms', '/app/forms', 'linecons-params');
-            var extra = this.addItem('Extra', '/app/extra', 'linecons-beaker').setLabel('New Items', 'purple');
-            var charts = this.addItem('Charts', '/app/charts', 'linecons-globe');
-            var menu_lvls = this.addItem('Menu Levels', '', 'linecons-cloud');
-            dashboard.addItem('Dashboard 1', '-/variant-1');
-            dashboard.addItem('Dashboard 2', '-/variant-2');
-            dashboard.addItem('Dashboard 3', '-/variant-3');
-            dashboard.addItem('Dashboard 4', '-/variant-4');
-            ui_elements.addItem('Panels', '-/panels');
-            ui_elements.addItem('Buttons', '-/buttons');
-            ui_elements.addItem('Tabs & Accordions', '-/tabs-accordions');
-            ui_elements.addItem('Modals', '-/modals');
-            ui_elements.addItem('Breadcrumbs', '-/breadcrumbs');
-            ui_elements.addItem('Blockquotes', '-/blockquotes');
-            ui_elements.addItem('Progress Bars', '-/progress-bars');
-            ui_elements.addItem('Navbars', '-/navbars');
-            ui_elements.addItem('Alerts', '-/alerts');
-            ui_elements.addItem('Pagination', '-/pagination');
-            ui_elements.addItem('Typography', '-/typography');
-            ui_elements.addItem('Other Elements', '-/other-elements');
-            mailbox.addItem('Inbox', '-/inbox');
-            mailbox.addItem('Compose Message', '-/compose');
-            mailbox.addItem('View Message', '-/message');
-            tables.addItem('Basic Tables', '-/basic');
-            tables.addItem('Responsive Tables', '-/responsive');
-            tables.addItem('Data Tables', '-/datatables');
-            forms.addItem('Native Elements', '-/native');
-            forms.addItem('Advanced Plugins', '-/advanced');
-            forms.addItem('Form Wizard', '-/wizard');
-            forms.addItem('Form Validation', '-/validation');
-            forms.addItem('Input Masks', '-/input-masks');
-            forms.addItem('File Upload', '-/file-upload');
-            forms.addItem('Editors', '-/wysiwyg');
-            forms.addItem('Sliders', '-/sliders');
-            var extra_icons = extra.addItem('Icons', '-/icons').setLabel(4, 'warning');
-            var extra_maps = extra.addItem('Maps', '-/maps');
-            extra.addItem('Gallery', '-/gallery');
-            extra.addItem('Calendar', '-/calendar');
-            extra.addItem('Profile', '-/profile');
-            extra.addItem('Login', '/login');
-            extra.addItem('Lockscreen', '/lockscreen');
-            extra.addItem('Login Light', '/login-light');
-            extra.addItem('Timeline', '-/timeline');
-            extra.addItem('Timeline Centered', '-/timeline-centered');
-            extra.addItem('Notes', '-/notes');
-            extra.addItem('Image Crop', '-/image-crop');
-            extra.addItem('Portlets', '-/portlets');
-            extra.addItem('Blank Page', '-/blank-page');
-            extra.addItem('Search', '-/search');
-            extra.addItem('Invoice', '-/invoice');
-            extra.addItem('404 Page', '-/page-404');
-            extra.addItem('Tocify', '-/tocify');
-            extra.addItem('Loading Progress', '-/loading-progress');
-            extra.addItem('Notifications', '-/notifications');
-            extra.addItem('Nestable Lists', '-/nestable-lists');
-            extra.addItem('Scrollable', '-/scrollable');
-            extra_icons.addItem('Font Awesome', '-/font-awesome');
-            extra_icons.addItem('Linecons', '-/linecons');
-            extra_icons.addItem('Elusive', '-/elusive');
-            extra_icons.addItem('Meteocons', '-/meteocons');
-            extra_maps.addItem('Google Maps', '-/google');
-            extra_maps.addItem('Advanced Map', '-/advanced');
-            extra_maps.addItem('Vector Map', '-/vector');
-            charts.addItem('Chart Variants', '-/variants');
-            charts.addItem('Range Selector', '-/range-selector');
-            charts.addItem('Sparklines', '-/sparklines');
-            charts.addItem('Map Charts', '-/map-charts');
-            charts.addItem('Circular Gauges', '-/gauges');
-            charts.addItem('Bar Gauges', '-/bar-gauges');
-            var menu_lvl1 = menu_lvls.addItem('Menu Item 1.1');
-            menu_lvls.addItem('Menu Item 1.2');
-            menu_lvls.addItem('Menu Item 1.3');
-            menu_lvl1.addItem('Menu Item 2.1');
-            var menu_lvl2 = menu_lvl1.addItem('Menu Item 2.2');
-            menu_lvl1.addItem('Menu Item 2.3');
-            menu_lvl2.addItem('Menu Item 3.1');
-            menu_lvl2.addItem('Menu Item 3.2');
+        this.prepareSidebarMenu = function(stateName, roles) {
+            if(roles.indexOf('ADMIN') != -1){
+                if(stateName.indexOf('app.organizacion') > -1){
+                    var estructura = this.addItem('Estructura', '/app/organizacion', 'linecons-cog');
+                    var rrhh = this.addItem('RRHH', '/app/organizacion', 'linecons-desktop');
+
+                    estructura.addItem('Sucursales', '-/variant-1');
+                    estructura.addItem('Agencias', '-/variant-2');
+                    estructura.addItem('Bovedas', '-/variant-3');
+                    estructura.addItem('Cajas', '-/variant-4');
+                    rrhh.addItem('Trabajadores', '-/variant-4');
+                    rrhh.addItem('Usuarios', '-/variant-4');
+
+                } else if(stateName.indexOf('app.administracion')>-1){
+                    var dashboard = this.addItem('Dashboard', '/app/dashboard', 'linecons-cog');
+                } else {
+                    return [];
+                }
+            } else if(roles.indexOf('GERENTE_GENERAL') != -1){
+
+            } else if(roles.indexOf('ADMINISTRADOR_GENERAL') != -1){
+
+            } else if(roles.indexOf('ADMINISTRADOR') != -1){
+
+            } else if(roles.indexOf('PLATAFORMA') != -1){
+
+            } else if(roles.indexOf('JEFE_CAJA') != -1){
+
+            } else if(roles.indexOf('CAJERO') != -1){
+
+            } else {
+                return undefined;
+            }
+
+
             return this;
         };
         this.prepareHorizontalMenu = function() {
-            var dashboard = this.addItem('Organizacion', '/app/dashboard', 'linecons-cog');
-            var ui_elements = this.addItem('Transacciones', '/app/ui', 'linecons-note');
-            var forms = this.addItem('Socio', '/app/forms', 'linecons-params');
-            var layouts = this.addItem('Administracion', '/app/layout-and-skins', 'linecons-desktop');
+            var dashboard = this.addItem('Organizacion', '/app/organizacion', 'linecons-cog');
+            var ui_elements = this.addItem('Transacciones', '/app/transaccion', 'linecons-note');
+            var forms = this.addItem('Socio', '/app/socio', 'linecons-params');
+            var layouts = this.addItem('Administracion', '/app/administracion', 'linecons-desktop');
+
+            dashboard.addItem('Usuarios', '-/variant-4');
             return this;
         };
         this.instantiate = function() {
