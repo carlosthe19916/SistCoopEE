@@ -140,7 +140,7 @@ require([
     'restangular',
     'underscore',
     'ocLazyLoad'
-], function(jquery, angular, app) {
+], function() {
 
 });
 

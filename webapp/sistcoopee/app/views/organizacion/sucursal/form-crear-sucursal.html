@@ -1,19 +1,23 @@
-<div id="rootwizard" class="form-wizard ng-scope">
-
-    <ul class="tabs" style="width: 30%;">
-        <li class="ms-hover active">
-            <a ui-sref=".datosPrincipales" data-toggle="tab">
-                Datos principales
-                <span>1</span>
-            </a>
-        </li>
-    </ul>
-
-    <div class="progress-indicator" style="width: 30%;">
-        <span></span>
+<div class="page-title full-width" ng-if="layoutOptions.pageTitles" title="DataTable" description="Dynamic table variants with pagination and other controls">
+    <div class="title-env">
+        <h1 class="title ng-binding">Crear sucursal</h1>
+        <p class="description ng-binding">Crea una sucursal para despues crear agencias</p>
     </div>
-
-    <div class="tab-content">
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title" ui-sref=".datosPrincipales">Ingrese los datos</h3>
+        <div class="panel-options">
+            <a href="" data-toggle="panel">
+                <span class="collapse-icon">–</span>
+                <span class="expand-icon">+</span>
+            </a>
+            <a href="" data-toggle="remove">
+                ×
+            </a>
+        </div>
+    </div>
+    <div class="panel-body">
         <div class="row" ng-controller="CrearSucursalCtrl">
             <div class="col-sm-12">
                 <form name="form" ng-submit="submit()" novalidate>
@@ -22,5 +26,4 @@
             </div>
         </div>
     </div>
-
 </div>

@@ -14,13 +14,15 @@ define(['../module'], function (module) {
                     function(response){
                         $scope.unblockControl();
                         Notifications.success("Sucursal creada");
-                        $state.go('app.organizacion.editarSucursal', {id: response.id});
+                        $state.go('app.organizacion.estructura.editarSucursal.resumen', {id: response.id});
                     },
                     function error(error){
                         $scope.unblockControl();
                         Notifications.error(error.data+".");
                     }
                 );
+            } else {
+                console.log("form error");
             }
         };
     });

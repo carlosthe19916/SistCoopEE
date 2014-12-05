@@ -64,10 +64,10 @@ define([
                     var estructura = this.addItem('Estructura', '', 'linecons-cog');
                     var rrhh = this.addItem('RRHH', '', 'linecons-desktop');
 
-                    estructura.addItem('Sucursales', 'app.organizacion.buscarSucursal');
-                    estructura.addItem('Agencias', '-/variant-2');
-                    estructura.addItem('Bovedas', '-/variant-3');
-                    estructura.addItem('Cajas', '-/variant-4');
+                    estructura.addItem('Sucursales', 'app.organizacion.estructura.buscarSucursal');
+                    estructura.addItem('Agencias', 'app.organizacion.estructura.buscarAgencia');
+                    estructura.addItem('Bovedas', 'app.organizacion.estructura.buscarBoveda');
+                    estructura.addItem('Cajas', 'app.organizacion.estructura.buscarCaja');
                     rrhh.addItem('Trabajadores', '-/variant-4');
                     rrhh.addItem('Usuarios', '-/variant-4');
 

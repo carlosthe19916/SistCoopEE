@@ -462,7 +462,10 @@ define([
         });*/
 
         app.config(function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
+            $urlRouterProvider.when('/app/organizacion/estructura/sucursal', '/app/organizacion/estructura/sucursal/principal');
+            $urlRouterProvider.when('/app/organizacion/estructura/sucursal/{id:[0-9]{1,8}}', '/app/organizacion/estructura/sucursal/{id:[0-9]{1,8}}/resumen');
             $urlRouterProvider.otherwise('/app/home');
+
             $stateProvider.state('app', {
                 abstract: true,
                 url: '/app',
@@ -482,9 +485,46 @@ define([
             }).state('app.administracion', {
                 url: '/administracion',
                 templateUrl: appHelper.templatePath('layout/app-body')
-            }).state('app.organizacion.buscarSucursal', {
+            }).state('app.organizacion.estructura', {
+                url: '/estructura',
+                template: '<div ui-view></div>'
+            }).state('app.organizacion.estructura.buscarSucursal', {
                 url: '/sucursal/buscar',
                 templateUrl: appHelper.viewsPath('organizacion/sucursal/form-buscar-sucursal')
+            }).state('app.organizacion.estructura.buscarAgencia', {
+                url: '/agencia/buscar',
+                templateUrl: appHelper.viewsPath('organizacion/sucursal/agencia/form-buscar-agencia')
+            }).state('app.organizacion.estructura.buscarBoveda', {
+                url: '/agencia/buscar',
+                templateUrl: appHelper.viewsPath('organizacion/sucursal/boveda/form-buscar-boveda')
+            }).state('app.organizacion.estructura.buscarCaja', {
+                url: '/agencia/buscar',
+                templateUrl: appHelper.viewsPath('organizacion/sucursal/caja/form-buscar-caja')
+            }).state('app.organizacion.estructura.crearSucursal', {
+                url: '/sucursal',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/form-crear-sucursal")
+            }).state('app.organizacion.estructura.editarSucursal', {
+                url: '/sucursal/:id',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/form-editar-sucursal"),
+                resolve: {
+                    sucursal: function($state, $stateParams, Sucursal) {
+                        return Sucursal.$find($stateParams.id);
+                    }
+                },
+                controller: function($scope, $stateParams, sucursal) {
+                    $scope.params = {};
+                    $scope.params.id = $stateParams.id;
+                    $scope.params.object = sucursal;
+                }
+            }).state('app.organizacion.estructura.crearSucursal.datosPrincipales', {
+                url: '/principal',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/form-datosPrincipales")
+            }).state('app.organizacion.estructura.editarSucursal.resumen', {
+                url: "/resumen",
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/form-resumen")
+            }).state('app.organizacion.estructura.editarSucursal.datosPrincipales', {
+                url: "/principal",
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/form-datosPrincipales")
             });
         });
 

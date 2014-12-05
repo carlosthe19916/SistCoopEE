@@ -4,7 +4,7 @@ define(['../module'], function (module) {
     module.controller('BuscarSucursalCtrl', function($scope, $state, Sucursal){
 
         $scope.nuevo = function(){
-            $state.go('app.organizacion.crearSucursal');
+            $state.go('app.organizacion.estructura.crearSucursal.datosPrincipales');
         };
 
         $scope.filterOptions = {
@@ -31,7 +31,7 @@ define(['../module'], function (module) {
         };
         $scope.gridActions = {
             edit: function(row){
-                $state.go('app.organizacion.editarSucursal', {id: row.id});
+                $state.go('app.organizacion.estructura.editarSucursal.resumen', {id: row.id});
             }
         };
 
