@@ -6,6 +6,7 @@ define([
     'use strict';
 
     require(['domReady!'], function (document) {
+
     });
 
 });

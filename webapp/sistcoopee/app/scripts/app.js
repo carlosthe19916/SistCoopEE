@@ -80,16 +80,11 @@ define([
         var loadingTimer = -1;
 
         app.run(function($rootScope, $timeout) {
-            //public_vars.$pageLoadingOverlay = jQuery('.page-loading-overlay');
-
-            /*jQuery(window).load(function() {
-                public_vars.$pageLoadingOverlay.addClass('loaded');
-            });*/
-            /*$rootScope.$on('$viewContentLoading', function(event, viewConfig){
+            $rootScope.$on('$viewContentLoading', function(event, viewConfig){
                 $timeout(function(){
-                    public_vars.$pageLoadingOverlay.addClass('loaded');
+                    $rootScope.pageLoadingOverlay = true;
                 }, 200);
-            });*/
+            });
         });
 
         app.factory('authInterceptor', function($q, Auth) {
@@ -516,7 +511,7 @@ define([
                     if(toState.module && toState.roles){
                         if(!activeProfile.hasRole(toState.module, toState.roles, toState.operator)){
                             event.preventDefault();
-                            alert('State unauthorized.');
+                                alert('State unauthorized.');
                         }
                     }
                 })

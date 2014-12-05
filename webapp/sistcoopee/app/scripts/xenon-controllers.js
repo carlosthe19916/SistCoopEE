@@ -59,7 +59,7 @@ define([
             $pageLoadingBar.init();
             $scope.showLoadingBar = showLoadingBar;
             $scope.hideLoadingBar = hideLoadingBar;
-            /*$rootScope.$on('$stateChangeStart', function() {
+            $rootScope.$on('$stateChangeStart', function() {
                 var obj = {
                     pos: jQuery(window).scrollTop()
                 };
@@ -70,7 +70,7 @@ define([
                         $(window).scrollTop(obj.pos);
                     }
                 });
-            });*/
+            });
         })
         .controller('SidebarMenuCtrl', function($scope, $rootScope, $menuItems, $timeout, $location, $state, activeProfile) {
             var $sidebarMenuItems = $menuItems.instantiate();
@@ -84,14 +84,6 @@ define([
                     $scope.itemSelected = $index;
                 }
             };
-
-            /*$sidebarMenuItems.setActive($location.path());
-            $rootScope.$on('$stateChangeSuccess', function() {
-                $sidebarMenuItems.setActive($state.current.name);
-            });*/
-            //public_vars.$sidebarMenu = public_vars.$body.find('.sidebar-menu');
-            //$timeout(setup_sidebar_menu, 1);
-            //ps_init();
         })
         .controller('HorizontalMenuCtrl', function($scope, $rootScope, $menuItems, $timeout, $location, $state) {
             var $horizontalMenuItems = $menuItems.instantiate();
@@ -119,28 +111,9 @@ define([
             };
         })
         .controller('SettingsPaneCtrl', function($rootScope) {
-            //public_vars.$settingsPane = public_vars.$body.find('.settings-pane');
-            //public_vars.$settingsPaneIn = public_vars.$settingsPane.find('.settings-pane-inner');
             $rootScope.changeSettingsPaneIsOpen = function(){
                 $rootScope.layoutOptions.settingsPane.isOpen = !$rootScope.layoutOptions.settingsPane.isOpen;
             };
-        })
-        .controller('ChatCtrl', function($scope, $element) {
-            /*var $chat = jQuery($element),
-                $chat_conv = $chat.find('.chat-conversation');
-            $chat.find('.chat-inner').perfectScrollbar();
-            $chat.on('click', '.chat-group a', function(ev) {
-                ev.preventDefault();
-                $chat_conv.toggleClass('is-open');
-                if ($chat_conv.is(':visible')) {
-                    $chat.find('.chat-inner').perfectScrollbar('update');
-                    $chat_conv.find('textarea').autosize();
-                }
-            });
-            $chat_conv.on('click', '.conversation-close', function(ev) {
-                ev.preventDefault();
-                $chat_conv.removeClass('is-open');
-            });*/
         });
 
 });

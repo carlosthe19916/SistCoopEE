@@ -2,10 +2,6 @@ define(['./app'], function(app) {
     'use strict';
     return app.controller('GlobalCtrl', function($scope, $timeout, $http, $location, Auth, Usuario, Notifications, activeProfile) {
 
-        $scope.isCollapsedSettingsPane = true;
-        $scope.themplate = {};
-        $scope.themplate.header = "";
-
         $scope.auth = Auth;
 
         $scope.$watch(function() {

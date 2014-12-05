@@ -80,11 +80,9 @@
 
 <div class="page-container" ui-view></div>
 
-<!--
-<div class="page-loading-overlay" style="background-color: #B4E28B;">
+<div class="page-loading-overlay" ng-class="{'loaded': pageLoadingOverlay !== undefined}" style="background-color: #B4E28B;">
     <div class="loader-2"></div>
 </div>
--->
 
 <script src="../../bower_components/requirejs/require.js" data-main="../../scripts/main.js"></script>
 
