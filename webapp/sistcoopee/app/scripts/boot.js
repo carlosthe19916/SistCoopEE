@@ -1,4 +1,4 @@
-define([
+/*define([
     'require',
     'angular',
     'app'
@@ -9,4 +9,4 @@ define([
 
     });
 
-});
+});*/

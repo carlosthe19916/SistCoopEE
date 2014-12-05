@@ -9,8 +9,9 @@ define([
                 $rootScope.sidebarToggle = function() {
                     $layout.setOptions('sidebar.isCollapsed', !$rootScope.layoutOptions.sidebar.isCollapsed);
                 };
+                //animacion para setting page, pagina de arriba
                 $rootScope.settingsPaneToggle = function() {
-                    /*var use_animation = $rootScope.layoutOptions.settingsPane.useAnimation && !isxs();
+                    var use_animation = $rootScope.layoutOptions.settingsPane.useAnimation && !isxs();
                     var scroll = {
                         top: jQuery(document).scrollTop(),
                         toTop: 0
@@ -70,7 +71,7 @@ define([
                                 $layout.setOptions('settingsPane.isOpen', !$rootScope.layoutOptions.settingsPane.isOpen);
                             }
                         }
-                    });*/
+                    });
                 };
                 $rootScope.chatToggle = function() {
                     $layout.setOptions('chat.isOpen', !$rootScope.layoutOptions.chat.isOpen);

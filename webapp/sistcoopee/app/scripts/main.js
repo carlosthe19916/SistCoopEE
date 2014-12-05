@@ -1,11 +1,15 @@
 require.config({
     paths: {
-        domReady: '../bower_components/requirejs-domready/domReady',
         angular: '../../bower_components/angular/angular',
         'angular-sanitize': '../../bower_components/angular-sanitize/angular-sanitize',
         'angular-cookies': '../../bower_components/angular-cookies/angular-cookies',
         'angular-messages': '../../bower_components/angular-messages/angular-messages',
         'angular-animate': '../../bower_components/angular-animate/angular-animate',
+        'angular-aria': '../../bower_components/angular-aria/angular-aria',
+        'angular-mocks': '../../bower_components/angular-mocks/angular-mocks',
+        'angular-resource': '../../bower_components/angular-resource/angular-resource',
+        'angular-scenario': '../../bower_components/angular-scenario/angular-scenario',
+        'angular-touch': '../../bower_components/angular-touch/angular-touch',
         'angular-ui-router': '../../bower_components/angular-ui-router/release/angular-ui-router',
         'angular-bootstrap': '../../bower_components/angular-bootstrap/ui-bootstrap-tpls',
         'angular-ui-select': '../../bower_components/angular-ui-select/dist/select',
@@ -16,15 +20,9 @@ require.config({
         restangular: '../../bower_components/restangular/dist/restangular',
         underscore: '../../bower_components/underscore/underscore',
         ocLazyLoad: '../../bower_components/ocLazyLoad/dist/ocLazyLoad',
-        'angular-aria': '../../bower_components/angular-aria/angular-aria',
-        'angular-mocks': '../../bower_components/angular-mocks/angular-mocks',
-        'angular-resource': '../../bower_components/angular-resource/angular-resource',
-        'angular-route': '../../bower_components/angular-route/angular-route',
-        'angular-scenario': '../../bower_components/angular-scenario/angular-scenario',
-        'angular-touch': '../../bower_components/angular-touch/angular-touch',
         bootstrap: '../../bower_components/bootstrap/dist/js/bootstrap',
-        domready: '../../bower_components/domready/ready',
         oclazyload: '../../bower_components/oclazyload/dist/ocLazyLoad.min',
+        domready: '../../bower_components/domready/ready',
         'requirejs-domready': '../../bower_components/requirejs-domready/domReady'
     },
     shim: {

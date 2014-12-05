@@ -44,33 +44,9 @@ define([
                 userInfoNavVisible: false
             };
             $layout.loadOptionsFromCookies();
-            $scope.updatePsScrollbars = function() {
-                var $scrollbars = jQuery(".ps-scrollbar:visible");
-                $scrollbars.each(function(i, el) {
-                    if (typeof jQuery(el).data('perfectScrollbar') == 'undefined') {
-                        jQuery(el).perfectScrollbar();
-                    } else {
-                        jQuery(el).perfectScrollbar('update');
-                    }
-                })
-            };
             $layoutToggles.initToggles();
 
             $pageLoadingBar.init();
-            $scope.showLoadingBar = showLoadingBar;
-            $scope.hideLoadingBar = hideLoadingBar;
-            $rootScope.$on('$stateChangeStart', function() {
-                var obj = {
-                    pos: jQuery(window).scrollTop()
-                };
-                TweenLite.to(obj, .25, {
-                    pos: 0,
-                    ease: Power4.easeOut,
-                    onUpdate: function() {
-                        $(window).scrollTop(obj.pos);
-                    }
-                });
-            });
         })
         .controller('SidebarMenuCtrl', function($scope, $rootScope, $menuItems, $timeout, $location, $state, activeProfile) {
             var $sidebarMenuItems = $menuItems.instantiate();
