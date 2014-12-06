@@ -13,7 +13,7 @@ define(['../module'], function (module) {
                 $scope.view.sucursal.$save().then(
                     function(response){
                         $scope.unblockControl();
-                        Notifications.success("Sucursal creada");
+                        Notifications.success("Sucursal creada.");
                         $state.go('app.organizacion.estructura.editarSucursal.resumen', {id: response.id});
                     },
                     function error(error){
@@ -21,8 +21,6 @@ define(['../module'], function (module) {
                         Notifications.error(error.data+".");
                     }
                 );
-            } else {
-                console.log("form error");
             }
         };
     });

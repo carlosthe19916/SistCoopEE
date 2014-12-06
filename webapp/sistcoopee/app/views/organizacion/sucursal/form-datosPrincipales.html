@@ -1,5 +1,5 @@
 <div ng-controller="SucursalDatosPrincipalesCtrl">
-    <h4><strong>Datos principales</strong> </h4>
+    <h4><strong>Datos principales</strong></h4>
     <div class="row">
         <div class="col-sm-4">
             <div class="form-group" ng-class="{ 'validate-has-error' : form.abreviatura.$invalid && (form.abreviatura.$touched || form.$submitted)}">
@@ -28,10 +28,10 @@
     </div>
     <p ng-if="!view.sucursal.id">
         <button type="submit" class="btn btn-primary" ladda="control.block" data-style="expand-right">Guardar</button>
-        <button type="button" class="btn btn-default" ui-sref="app.organizacion.estructura.buscarSucursal">Cancelar</button>
+        <button type="button" class="btn btn-white" ui-sref="app.organizacion.estructura.buscarSucursal">Cancelar</button>
     </p>
     <p ng-if="view.sucursal.id">
         <button type="submit" class="btn btn-primary" ladda="control.block" data-style="expand-right">Guardar</button>
-        <button type="button" class="btn btn-default" ui-sref="^.resumen">Cancelar</button>
+        <button type="button" class="btn btn-white" ui-sref="^.resumen">Cancelar</button>
     </p>
 </div>

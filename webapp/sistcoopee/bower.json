@@ -17,7 +17,7 @@
         "angular-bootstrap": "~0.12",
         "angular-ui-router": "~0.2.13",
         "angular-ui-utils": "~0.1.1",
-        "angular-ui-grid": "~3.0.0-rc.15",
+        "angular-ui-grid": "~3.0.0-rc.16",
         "angular-ui-select": "~0.8.3",
         "angular-ladda": "~0.1.7",
         "restangular": "~1.4.0",

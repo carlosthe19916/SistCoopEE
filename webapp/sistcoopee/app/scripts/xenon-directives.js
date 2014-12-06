@@ -493,7 +493,7 @@ define([
                 /*if (!jQuery.isFunction(jQuery.fn.inputmask))
                     return false;
                 var $this = angular.element(el),
-                    mask = $this.data('mask').toString(),
+                    mask = attr.mask.toString(),
                     opts = {
                         numericInput: attrDefault($this, 'numeric', false),
                         radixPoint: attrDefault($this, 'radixPoint', ''),
@@ -510,7 +510,7 @@ define([
                         break;
                     case "currency":
                     case "rcurrency":
-                        var sign = attrDefault($this, 'sign', '$');;
+                        var sign = attrDefault($this, 'sign', '$');
                         mask = "999,999,999.99";
                         if ($this.data('mask').toLowerCase() == 'rcurrency') {
                             mask += ' ' + sign;

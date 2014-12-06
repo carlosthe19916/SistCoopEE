@@ -1,21 +1,32 @@
-<div class="panel-heading">
-    <h3 class="panel-title">Resultado</h3>
+<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title ng-binding">Crear agencia</h1>
+        <p class="description ng-binding">Crea una agencia para despues crear bovedas y cajas.</p>
+    </div>
 </div>
-<div class="panel-body">
-    <div class="row" ng-controller="CrearAgenciaCtrl">
-        <div class="col-sm-12">
-            <div>
-                <div>
-                    <ul class="nav nav-tabs">
-                        <li ui-sref-active-eq="active"><a ui-sref=".datosPrincipales">Datos principales</a></li>
-                    </ul>
-                </div>
-                <ng-form name="form">
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title" ui-sref=".datosPrincipales">Ingrese los datos</h3>
+        <div class="panel-options">
+            <a href="" data-toggle="panel">
+                <span class="collapse-icon">–</span>
+                <span class="expand-icon">+</span>
+            </a>
+            <a href="" data-toggle="remove">
+                ×
+            </a>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row" ng-controller="CrearAgenciaCtrl">
+            <div class="col-sm-12">
+                <form name="form" ng-submit="submit()" novalidate>
                     <div ui-view></div>
-                </ng-form>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
 
 

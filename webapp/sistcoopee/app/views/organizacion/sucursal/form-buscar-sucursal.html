@@ -1,9 +1,10 @@
 <div class="page-title full-width">
     <div class="title-env">
         <h1 class="title ng-binding">Sucursales</h1>
-        <p class="description ng-binding">Sucursales activas en el sistema</p>
+        <p class="description ng-binding">Sucursales activas en el sistema.</p>
     </div>
 </div>
+
 <div ng-controller="BuscarSucursalCtrl" class="panel panel-default ng-scope">
     <div class="panel-heading">
         <h3 class="panel-title">Resultado de busqueda</h3>
@@ -19,27 +20,25 @@
         </div>
     </div>
     <div class="panel-body">
-        <div class="dataTables_wrapper form-inline dt-bootstrap">
-            <form name="ctrl.form" ng-submit="search()" novalidate>
-                <div class="ui-grid-top-panel" style="padding: 5px; margin-bottom: -1px; border: 1px solid #d4d4d4;">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <input type="text" name="filterText" class="form-control" ng-model="filterOptions.filterText" placeholder="Denominacion" autofocus>
-                                    <span class="input-group-btn"><button class="btn btn-white" type="submit"><i class="fa-search"></i></button></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6" sg-data-keep="{module: 'ORGANIZACION', permission: 'CREATE'}" style="text-align: right;">
-                            <div class="form-group" style="margin-bottom: 0px;">
-                                <button type="button" ng-click="nuevo()" class="btn btn-primary" style="margin-bottom: 0px;">Nuevo</button>
+        <form name="ctrl.form" ng-submit="search()" novalidate>
+            <div class="sg-grid-top-panel">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" name="filterText" class="form-control" ng-model="filterOptions.filterText" placeholder="Denominacion" autofocus>
+                                <span class="input-group-btn"><button class="btn btn-white" type="submit"><i class="fa-search"></i></button></span>
                             </div>
                         </div>
                     </div>
+                    <div class="col-sm-6">
+                        <div class="form-group pull-right">
+                            <button type="button" ng-click="nuevo()" class="btn btn-primary">Nuevo</button>
+                        </div>
+                    </div>
                 </div>
-            </form>
-            <div ui-grid="gridOptions" external-scopes="gridActions" ui-grid-selection class="grid"></div>
-        </div>
+            </div>
+        </form>
+        <div ui-grid="gridOptions" external-scopes="gridActions" ui-grid-selection class="grid"></div>
     </div>
 </div>

@@ -462,8 +462,7 @@ define([
         });*/
 
         app.config(function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
-            $urlRouterProvider.when('/app/organizacion/estructura/sucursal', '/app/organizacion/estructura/sucursal/principal');
-            $urlRouterProvider.when('/app/organizacion/estructura/sucursal/{id:[0-9]{1,8}}', '/app/organizacion/estructura/sucursal/{id:[0-9]{1,8}}/resumen');
+
             $urlRouterProvider.otherwise('/app/home');
 
             $stateProvider.state('app', {
@@ -504,7 +503,7 @@ define([
                 url: '/sucursal',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/form-crear-sucursal")
             }).state('app.organizacion.estructura.editarSucursal', {
-                url: '/sucursal/:id',
+                url: '/sucursal/{id:[0-9]{1,8}}',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/form-editar-sucursal"),
                 resolve: {
                     sucursal: function($state, $stateParams, Sucursal) {
@@ -525,6 +524,12 @@ define([
             }).state('app.organizacion.estructura.editarSucursal.datosPrincipales', {
                 url: "/principal",
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/form-datosPrincipales")
+            }).state('app.organizacion.estructura.crearAgencia', {
+                url: '/agencia',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-crear-agencia")
+            }).state('app.organizacion.estructura.crearAgencia.datosPrincipales', {
+                url: '/principal',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-datosPrincipales")
             });
         });
 

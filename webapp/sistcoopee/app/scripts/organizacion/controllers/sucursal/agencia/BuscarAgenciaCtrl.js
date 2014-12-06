@@ -46,7 +46,7 @@ define(['../../module'], function (module) {
             }
         };
         $scope.nuevo = function(){
-            $state.go('app.organizacion.editarSucursal.crearAgencia');
+            $state.go('app.organizacion.estructura.crearAgencia.datosPrincipales');
         };
         $scope.search = function(){
             if($scope.view){
