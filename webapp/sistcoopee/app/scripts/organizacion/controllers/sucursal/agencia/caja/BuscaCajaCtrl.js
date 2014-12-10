@@ -1,15 +1,21 @@
-define(['../../module'], function (module) {
+define(['../../../module'], function (module) {
     'use strict';
 
-    module.controller('BuscarAgenciaCtrl', function($scope, $state, activeProfile, Sucursal){
+    module.controller('BuscarCajaCtrl', function($scope, $state, activeProfile, Sucursal, Agencia){
 
-        //admin, gerente general, administrador general, administrador, jefecaja, cajero
         $scope.combo = {
-            sucursal: undefined
+            sucursal: undefined,
+            agencia: undefined
         };
         $scope.combo.selected = {
-            sucursal: undefined
+            sucursal: undefined,
+            agencia: undefined
         };
+        $scope.$watch('combo.selected.sucursal', function(){
+            if(angular.isDefined($scope.combo.selected.sucursal)){
+                $scope.combo.agencia = $scope.combo.selected.sucursal.$getAgencias().$object;
+            }
+        }, true);
         $scope.loadCombo = function(){
             if(angular.isUndefined($scope.view) && activeProfile.hasRole('ORGANIZACION', ['ADMIN', 'GERENTE_GENERAL'], 'OR')){
                 $scope.combo.sucursal = Sucursal.$search().$object;
@@ -32,7 +38,7 @@ define(['../../module'], function (module) {
                 {field: 'denominacion', displayName: 'Denominacion'},
                 {field: 'abreviatura', displayName: 'Abreviatura'},
                 {field: 'ubigeo', displayName: 'Ubigeo'},
-                {field: 'estado', cellFilter: 'si_no : "activo" | uppercase', displayName: 'Estado'},
+                {field: 'estado', displayName: 'Estado'},
                 {
                     name: 'edit',
                     displayName: 'Edit',
@@ -46,14 +52,15 @@ define(['../../module'], function (module) {
             }
         };
         $scope.nuevo = function(){
-            $state.go('app.organizacion.estructura.crearAgencia.datosPrincipales');
+            $state.go('app.organizacion.editarSucursal.crearAgencia');
         };
         $scope.search = function(){
             if($scope.view){
                 $scope.gridOptions.data = $scope.view.sucursalDB.$getAgencias().$object;
             } else {
-                if($scope.combo.selected.sucursal)
-                    $scope.gridOptions.data = $scope.combo.selected.sucursal.$getAgencias().$object;
+                if($scope.combo.selected.sucursal && $scope.combo.selected.agencia){
+                    $scope.gridOptions.data = Agencia.$new($scope.combo.selected.agencia.id).$getCajas().$object;
+                }
             }
         };
         $scope.search();

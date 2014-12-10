@@ -501,7 +501,8 @@ define([
                 controller: 'BuscarBovedaCtrl'
             }).state('app.organizacion.estructura.buscarCaja', {
                 url: '/caja/buscar',
-                templateUrl: appHelper.viewsPath('organizacion/sucursal/agencia/caja/form-buscar-caja')
+                templateUrl: appHelper.viewsPath('organizacion/sucursal/agencia/caja/form-buscar-caja'),
+                controller: 'BuscarCajaCtrl'
             }).state('app.organizacion.estructura.crearSucursal', {
                 url: '/sucursal',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/form-crear-sucursal")

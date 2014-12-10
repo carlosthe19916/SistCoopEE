@@ -58,8 +58,9 @@ define(['../../../module'], function (module) {
             if($scope.view){
                 $scope.gridOptions.data = $scope.view.sucursalDB.$getAgencias().$object;
             } else {
-                if($scope.combo.selected.sucursal && $scope.combo.selected.agencia)
-                    $scope.gridOptions.data = Agencia.$getBovedas($scope.combo.selected.sucursal).$object;
+                if($scope.combo.selected.sucursal && $scope.combo.selected.agencia){
+                    $scope.gridOptions.data = Agencia.$new($scope.combo.selected.agencia.id).$getBovedas().$object;
+                }
             }
         };
         $scope.search();

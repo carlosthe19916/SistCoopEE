@@ -12,7 +12,8 @@ define([
     './sucursal/agencia/CrearAgenciaCtrl',
     './sucursal/agencia/EditarAgenciaCtrl',
 
-    './sucursal/agencia/boveda/BuscaBovedaCtrl'
+    './sucursal/agencia/boveda/BuscaBovedaCtrl',
+    './sucursal/agencia/caja/BuscaCajaCtrl'
 ], function () {
 
 });
