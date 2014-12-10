@@ -489,16 +489,19 @@ define([
                 template: '<div ui-view></div>'
             }).state('app.organizacion.estructura.buscarSucursal', {
                 url: '/sucursal/buscar',
-                templateUrl: appHelper.viewsPath('organizacion/sucursal/form-buscar-sucursal')
+                templateUrl: appHelper.viewsPath('organizacion/sucursal/form-buscar-sucursal'),
+                controller: 'BuscarSucursalCtrl'
             }).state('app.organizacion.estructura.buscarAgencia', {
                 url: '/agencia/buscar',
-                templateUrl: appHelper.viewsPath('organizacion/sucursal/agencia/form-buscar-agencia')
+                templateUrl: appHelper.viewsPath('organizacion/sucursal/agencia/form-buscar-agencia'),
+                controller: 'BuscarAgenciaCtrl'
             }).state('app.organizacion.estructura.buscarBoveda', {
-                url: '/agencia/buscar',
-                templateUrl: appHelper.viewsPath('organizacion/sucursal/boveda/form-buscar-boveda')
+                url: '/boveda/buscar',
+                templateUrl: appHelper.viewsPath('organizacion/sucursal/agencia/boveda/form-buscar-boveda'),
+                controller: 'BuscarBovedaCtrl'
             }).state('app.organizacion.estructura.buscarCaja', {
-                url: '/agencia/buscar',
-                templateUrl: appHelper.viewsPath('organizacion/sucursal/caja/form-buscar-caja')
+                url: '/caja/buscar',
+                templateUrl: appHelper.viewsPath('organizacion/sucursal/agencia/caja/form-buscar-caja')
             }).state('app.organizacion.estructura.crearSucursal', {
                 url: '/sucursal',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/form-crear-sucursal")
@@ -527,7 +530,16 @@ define([
             }).state('app.organizacion.estructura.crearAgencia', {
                 url: '/agencia',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-crear-agencia")
+            }).state('app.organizacion.estructura.editarAgencia', {
+                url: '/agencia/{id:[0-9]{1,8}}',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-editar-agencia")
             }).state('app.organizacion.estructura.crearAgencia.datosPrincipales', {
+                url: '/principal',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-datosPrincipales")
+            }).state('app.organizacion.estructura.editarAgencia.resumen', {
+                url: '/resumen',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-resumen")
+            }).state('app.organizacion.estructura.editarAgencia.datosPrincipales', {
                 url: '/principal',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-datosPrincipales")
             });

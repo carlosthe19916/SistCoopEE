@@ -1,7 +1,7 @@
 define(['../../../module'], function (module) {
     'use strict';
 
-    module.controller('BuscarBovedaCtrl', function($scope, $state, activeProfile, Sucursal){
+    module.controller('BuscarBovedaCtrl', function($scope, $state, activeProfile, Sucursal, Agencia){
 
         $scope.combo = {
             sucursal: undefined,
@@ -11,6 +11,11 @@ define(['../../../module'], function (module) {
             sucursal: undefined,
             agencia: undefined
         };
+        $scope.$watch('combo.selected.sucursal', function(){
+            if(angular.isDefined($scope.combo.selected.sucursal)){
+                $scope.combo.agencia = $scope.combo.selected.sucursal.$getAgencias().$object;
+            }
+        }, true);
         $scope.loadCombo = function(){
             if(angular.isUndefined($scope.view) && activeProfile.hasRole('ORGANIZACION', ['ADMIN', 'GERENTE_GENERAL'], 'OR')){
                 $scope.combo.sucursal = Sucursal.$search().$object;
@@ -53,8 +58,8 @@ define(['../../../module'], function (module) {
             if($scope.view){
                 $scope.gridOptions.data = $scope.view.sucursalDB.$getAgencias().$object;
             } else {
-                if($scope.combo.selected.sucursal)
-                    $scope.gridOptions.data = $scope.combo.selected.sucursal.$getAgencias().$object;
+                if($scope.combo.selected.sucursal && $scope.combo.selected.agencia)
+                    $scope.gridOptions.data = Agencia.$getBovedas($scope.combo.selected.sucursal).$object;
             }
         };
         $scope.search();

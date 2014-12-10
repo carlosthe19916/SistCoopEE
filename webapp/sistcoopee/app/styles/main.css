@@ -18,3 +18,47 @@ form .form-group.validate-has-error .form-control + div {
 .settings-pane-open .navbar.horizontal-menu.navbar-fixed-top+.page-container>div>.sidebar-menu.fixed .sidebar-menu-inner {
     top: 0;
 }
+
+.sg-grid-top-panel{
+    overflow: inherit;
+    padding: 5px;
+    margin-bottom: -1px;
+    border: 1px solid #d4d4d4;
+
+    position: relative;
+    font-weight: bold;
+    background: #f3f3f3;
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #eeeeee), color-stop(1, #ffffff));
+    background: -ms-linear-gradient(bottom, #eeeeee, #ffffff);
+    background: -moz-linear-gradient(center bottom, #eeeeee 0%, #ffffff 100%);
+    background: -o-linear-gradient(#ffffff, #eeeeee);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#eeeeee', GradientType=0);
+    -webkit-border-top-right-radius: -1px;
+    -webkit-border-bottom-right-radius: 0;
+    -webkit-border-bottom-left-radius: 0;
+    -webkit-border-top-left-radius: -1px;
+    -moz-border-radius-topright: -1px;
+    -moz-border-radius-bottomright: 0;
+    -moz-border-radius-bottomleft: 0;
+    -moz-border-radius-topleft: -1px;
+    border-top-right-radius: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: -1px;
+    -moz-background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+}
+
+.sg-grid-top-panel .form-group{
+    margin-bottom: 0px;
+}
+.sg-grid-top-panel .form-group button{
+    margin-bottom: 0px;
+}
+
+.ui-select-bootstrap button{
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}

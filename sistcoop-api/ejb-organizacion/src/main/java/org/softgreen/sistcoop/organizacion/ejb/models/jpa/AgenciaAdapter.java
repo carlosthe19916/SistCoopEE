@@ -148,4 +148,16 @@ public class AgenciaAdapter implements AgenciaModel {
 		return getId().hashCode();
 	}
 
+	@Override
+	public List<BovedaModel> getBovedas(boolean estado) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<CajaModel> getCajas(boolean estado) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -1,5 +1,6 @@
 require.config({
     paths: {
+        jquery: '../../bower_components/jquery/dist/jquery',
         angular: '../../bower_components/angular/angular',
         'angular-sanitize': '../../bower_components/angular-sanitize/angular-sanitize',
         'angular-cookies': '../../bower_components/angular-cookies/angular-cookies',
@@ -28,6 +29,9 @@ require.config({
     shim: {
         angular: {
             exports: 'angular'
+        },
+        jquery: {
+            exports: 'jquery'
         },
         'angular-sanitize': {
             deps: [
@@ -117,6 +121,7 @@ require.config({
 });
 
 require([
+    'jquery',
     'angular',
     'app',
     'controllers',
