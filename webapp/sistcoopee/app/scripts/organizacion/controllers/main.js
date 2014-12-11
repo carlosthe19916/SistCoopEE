@@ -13,7 +13,9 @@ define([
     './sucursal/agencia/EditarAgenciaCtrl',
 
     './sucursal/agencia/boveda/BuscaBovedaCtrl',
-    './sucursal/agencia/caja/BuscaCajaCtrl'
+    './sucursal/agencia/caja/BuscarCajaCtrl',
+    './sucursal/agencia/trabajador/BuscarTrabajadorCtrl',
+    './usuario/BuscarUsuarioCtrl'
 ], function () {
 
 });

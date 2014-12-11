@@ -68,8 +68,8 @@ define([
                     estructura.addItem('Agencias', 'app.organizacion.estructura.buscarAgencia');
                     estructura.addItem('Bovedas', 'app.organizacion.estructura.buscarBoveda');
                     estructura.addItem('Cajas', 'app.organizacion.estructura.buscarCaja');
-                    rrhh.addItem('Trabajadores', '-/variant-4');
-                    rrhh.addItem('Usuarios', '-/variant-4');
+                    rrhh.addItem('Trabajadores', 'app.organizacion.rrhh.buscarTrabajador');
+                    rrhh.addItem('Usuarios', 'app.organizacion.rrhh.buscarUsuario');
 
                 } else if(stateName.indexOf('app.administracion')>-1){
                     var dashboard = this.addItem('Dashboard', '/app/dashboard', 'linecons-cog');

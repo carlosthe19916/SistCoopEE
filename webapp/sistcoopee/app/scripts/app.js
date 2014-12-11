@@ -10,42 +10,6 @@ define([
 
         'use strict';
 
-        var consoleBaseUrl = window.location.href;
-        consoleBaseUrl = consoleBaseUrl.substring(0, consoleBaseUrl.indexOf("/admin"));
-        consoleBaseUrl = consoleBaseUrl + "/admin/admin";
-        var configUrl = consoleBaseUrl + "/config";
-        var logoutUrl = consoleBaseUrl + "/logout";
-        var auth = {};
-        var logout = function(){
-            console.log('*** LOGOUT');
-            window.location = logoutUrl;
-        };
-
-        var authUrl = window.location.href;
-        authUrl = window.location.href.substring(0,  authUrl.indexOf('/admin/admin'));
-
-        angular.element(document).ready(function ($http) {
-            var keycloakAuth = new Keycloak(configUrl);
-            keycloakAuth.onAuthLogout = function() {
-                location.reload();
-            };
-
-            keycloakAuth.init({ onLoad: 'login-required' }).success(function () {
-                auth.authz = keycloakAuth;
-                if(keycloakAuth.realmAccess){
-                    app.factory('Auth', function() {
-                        return auth;
-                    });
-                    angular.bootstrap(document, ["sistcoop-app"]);
-
-                } else {
-                    keycloakAuth.logout();
-                }
-            }).error(function () {
-                window.location.reload();
-            });
-        });
-
         var app = angular.module('sistcoop-app',
             [
                 /*xenon*/
@@ -197,7 +161,7 @@ define([
         });
 
         app.config(['$provide', function($provide){
-            var profile = angular.copy(auth.authz);
+            var profile = angular.copy(window.auth.authz);
 
             //modulesNames = ['PERSONA', 'UBIGEO', 'ORGANIZACION'];
             //operations = ['SELECT', 'CREATE', 'UPDATE', 'DELETE'];
@@ -487,6 +451,9 @@ define([
             }).state('app.organizacion.estructura', {
                 url: '/estructura',
                 template: '<div ui-view></div>'
+            }).state('app.organizacion.rrhh', {
+                url: '/rrhh',
+                template: '<div ui-view></div>'
             }).state('app.organizacion.estructura.buscarSucursal', {
                 url: '/sucursal/buscar',
                 templateUrl: appHelper.viewsPath('organizacion/sucursal/form-buscar-sucursal'),
@@ -543,7 +510,17 @@ define([
             }).state('app.organizacion.estructura.editarAgencia.datosPrincipales', {
                 url: '/principal',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-datosPrincipales")
-            });
+            })
+
+                .state('app.organizacion.rrhh.buscarTrabajador', {
+                    url: '/trabajador/buscar',
+                    templateUrl: appHelper.viewsPath('organizacion/sucursal/agencia/trabajador/form-buscar-trabajador'),
+                    controller: 'BuscarTrabajadorCtrl'
+                }).state('app.organizacion.rrhh.buscarUsuario', {
+                    url: '/usuario/buscar',
+                    templateUrl: appHelper.viewsPath('organizacion/usuario/form-buscar-usuario'),
+                    controller: 'BuscarUsuarioCtrl'
+                });
         });
 
         app.run(function(Restangular, Notifications) {
