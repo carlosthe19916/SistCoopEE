@@ -63,10 +63,16 @@ public class SucursalResource {
 
 	@GET
 	@Produces({ "application/xml", "application/json" })
-	public SucursalList findAll(@QueryParam("estado") Boolean estado) {
+	public SucursalList findAll(@QueryParam("estado") Boolean estado, @QueryParam("filterText") String filterText, @QueryParam("limit") Integer limit, @QueryParam("offset") Integer offset) {
 		List<SucursalModel> list = null;
 		if (estado == null) {
-			list = sucursalProvider.getSucursales();
+			if (limit == null) {
+				limit = -1;
+			}
+			if (offset == null) {
+				offset = -1;
+			}
+			list = sucursalProvider.getSucursales(filterText, limit, offset);
 		} else {
 			list = sucursalProvider.getSucursales(estado);
 		}

@@ -20,8 +20,6 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 import org.hibernate.annotations.NaturalId;
@@ -33,7 +31,10 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "SUCURSAL", indexes = { @Index(columnList = "id") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
-@NamedQueries({ @NamedQuery(name = SucursalEntity.findAll, query = "SELECT s FROM SucursalEntity s"), @NamedQuery(name = SucursalEntity.findByEstado, query = "SELECT s FROM SucursalEntity s WHERE s.estado = :estado") })
+@NamedQueries({ 
+	@NamedQuery(name = SucursalEntity.findAll, query = "SELECT s FROM SucursalEntity s"), 
+	@NamedQuery(name = SucursalEntity.findByEstado, query = "SELECT s FROM SucursalEntity s WHERE s.estado = :estado"),
+	@NamedQuery(name = SucursalEntity.findByFilterText, query = "SELECT s FROM SucursalEntity s WHERE (s.denominacion LIKE :filterText OR s.abreviatura LIKE :filterText) AND s.estado = TRUE")})
 public class SucursalEntity implements Serializable {
 
 	/**
@@ -44,6 +45,7 @@ public class SucursalEntity implements Serializable {
 	public static final String base = "org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.SucursalEntity.";
 	public static final String findAll = base + "findAll";
 	public static final String findByEstado = base + "findByEstado";
+	public static final String findByFilterText = base + "findByFilterText";//por defecto solo busca activos
 
 	private Integer id;
 	private String denominacion;

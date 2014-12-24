@@ -17,6 +17,7 @@ public interface SucursalProvider extends Provider {
 
 	List<SucursalModel> getSucursales();
 
-	List<SucursalModel> getSucursales(boolean estado);
-
+	List<SucursalModel> getSucursales(boolean estado);	
+	
+	List<SucursalModel> getSucursales(String filterText, int limit, int offset);
 }
