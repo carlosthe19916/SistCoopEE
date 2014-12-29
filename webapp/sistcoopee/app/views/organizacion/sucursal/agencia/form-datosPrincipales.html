@@ -1,7 +1,19 @@
-<div ng-controller="AgenciaDatosPrincipalesCtrl">
+<div>
     <h4><strong>Datos principales</strong> </h4>
 
-    <div class="row">
+    <!--Si se crea dentro de sucursal definida-->
+    <div class="row" ng-if="view.sucursal.id">
+        <div class="col-sm-4">
+            <div class="form-group" ng-class="{ 'validate-has-error' : form.sucursal.$invalid && (form.sucursal.$touched || form.$submitted)}">
+                <label>Sucursal</label>
+                <h4><span ng-bind="view.sucursal.denominacion"></span></h4>
+            </div>
+        </div>
+    </div>
+    <!--end-->
+
+    <!--Si se crea sin sucursal definida-->
+    <div class="row" ng-if="!view.sucursal.id">
         <div class="col-sm-4">
             <div class="form-group" ng-class="{ 'validate-has-error' : form.sucursal.$invalid && (form.sucursal.$touched || form.$submitted)}">
                 <label>Sucursal</label>
@@ -17,8 +29,29 @@
             </div>
         </div>
     </div>
+    <!--end-->
     <div class="row">
-        <div class="col-sm-4">
+        <!--Si se crea dentro de sucursal definida-->
+        <div class="col-sm-4" ng-if="view.sucursal.id">
+            <div class="form-group" ng-class="{ 'validate-has-error' : form.codigo.$invalid && (form.codigo.$touched || form.$submitted)}">
+                <label>Codigo</label>
+                <input type="text"
+                       name="codigo"
+                       ng-model="view.agencia.codigo"
+                       sg-codigo-agencia-validate
+                       ui-mask="99"
+                       class="form-control" autofocus required/>
+                <div ng-messages="form.codigo.$error" ng-if="form.codigo.$touched || form.$submitted">
+                    <div class="validate-has-error" ng-message="codigoDisponible">Codigo no disponible.</div>
+                    <div class="validate-has-error" ng-message="required">Ingrese abreviatura.</div>
+                </div>
+                <span ng-show="form.codigo.$pending">Verificando...</span>
+            </div>
+        </div>
+        <!--end-->
+
+        <!--Si se crea sin sucursal definida-->
+        <div class="col-sm-4" ng-if="!view.sucursal.id">
             <div class="form-group" ng-class="{ 'validate-has-error' : form.codigo.$invalid && (form.codigo.$touched || form.$submitted)}">
                 <label>Codigo</label>
                 <input type="text"
@@ -34,6 +67,7 @@
                 <span ng-show="form.codigo.$pending">Verificando...</span>
             </div>
         </div>
+        <!--end-->
         <div class="col-sm-4">
             <div class="form-group" ng-class="{ 'validate-has-error' : form.denominacion.$invalid && (form.denominacion.$touched || form.$submitted)}">
                 <label>Denominacion</label>
@@ -73,8 +107,8 @@
     </p>
     <!--Crear desde una sucursal-->
     <p ng-if="!view.agencia.id && view.sucursal">
-        <button type="button" class="btn btn-primary" ng-click="addAgenciaFromSucursal()" ladda="control.block" data-style="expand-right">Guardar</button>
-        <button type="button" class="btn btn-white" ui-sref="app.organizacion.buscarSucursal">Cancelar</button>
+        <button type="button" class="btn btn-primary" ng-click="addAgencia()" ladda="control.block" data-style="expand-right">Guardar</button>
+        <button type="button" class="btn btn-white" ui-sref="^.^.resumen">Cancelar</button>
     </p>
     <!--Crear sin sucursal por defecto-->
     <p ng-if="!view.agencia.id && !view.sucursal">

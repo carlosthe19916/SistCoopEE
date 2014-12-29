@@ -55,5 +55,28 @@ define(['../../module'], function (module) {
             }
         };
 
+    }).controller('CrearAgenciaFromSucursalCtrl', function($scope, $state, Sucursal, activeProfile, Notifications){
+
+        $scope.view = {
+            sucursal: $scope.$parent.view.sucursalDB,
+            agencia: undefined
+        };
+
+        $scope.addAgencia = function(){
+            if($scope.form.$valid){
+                $scope.view.sucursal.$addAgencia($scope.view.agencia).then(
+                    function(response){
+                        $scope.unblockControl();
+                        Notifications.success("Agencia creada");
+                        $state.go('^.^.resumen');
+                    },
+                    function error(error){
+                        $scope.unblockControl();
+                        Notifications.error(error.data+".");
+                    }
+                );
+            }
+        };
+
     });
 });

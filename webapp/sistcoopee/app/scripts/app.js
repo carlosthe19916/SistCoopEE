@@ -472,7 +472,12 @@ define([
                 controller: 'BuscarCajaCtrl'
             }).state('app.organizacion.estructura.crearSucursal', {
                 url: '/sucursal',
-                templateUrl: appHelper.viewsPath("organizacion/sucursal/form-crear-sucursal")
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/form-crear-sucursal"),
+                controller: 'CrearSucursalCtrl'
+            }).state('app.organizacion.estructura.crearSucursal.datosPrincipales', {
+                url: '/principal',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/form-datosPrincipales"),
+                controller: 'SucursalDatosPrincipalesCtrl'
             }).state('app.organizacion.estructura.editarSucursal', {
                 url: '/sucursal/{id:[0-9]{1,8}}',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/form-editar-sucursal"),
@@ -486,15 +491,22 @@ define([
                     $scope.params.id = $stateParams.id;
                     $scope.params.object = sucursal;
                 }
-            }).state('app.organizacion.estructura.crearSucursal.datosPrincipales', {
-                url: '/principal',
-                templateUrl: appHelper.viewsPath("organizacion/sucursal/form-datosPrincipales")
             }).state('app.organizacion.estructura.editarSucursal.resumen', {
                 url: "/resumen",
-                templateUrl: appHelper.viewsPath("organizacion/sucursal/form-resumen")
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/form-resumen"),
+                controller: 'SucursalDatosPrincipalesCtrl'
             }).state('app.organizacion.estructura.editarSucursal.datosPrincipales', {
                 url: "/principal",
-                templateUrl: appHelper.viewsPath("organizacion/sucursal/form-datosPrincipales")
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/form-datosPrincipales"),
+                controller: 'SucursalDatosPrincipalesCtrl'
+            }).state('app.organizacion.estructura.editarSucursal.crearAgencia', {
+                url: "/agencia",
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-crear-agencia-from-sucursal"),
+                controller: 'CrearAgenciaFromSucursalCtrl'
+            }).state('app.organizacion.estructura.editarSucursal.crearAgencia.datosPrincipales', {
+                url: '/principal',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-datosPrincipales"),
+                controller: 'AgenciaDatosPrincipalesCtrl'
             }).state('app.organizacion.estructura.crearAgencia', {
                 url: '/agencia',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-crear-agencia")

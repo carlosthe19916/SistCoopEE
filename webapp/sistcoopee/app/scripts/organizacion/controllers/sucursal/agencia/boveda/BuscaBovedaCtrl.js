@@ -55,6 +55,15 @@ define(['../../../module'], function (module) {
             $state.go('app.organizacion.editarSucursal.crearAgencia');
         };
         $scope.search = function(){
+            if($scope.combo.selected.sucursal && $scope.combo.selected.agencia){
+                $scope.gridOptions.data = Agencia.$new($scope.combo.selected.agencia.id).$getBovedas().$object;
+            }
+        };
+        $scope.search();
+
+    }).controller('BuscarBovedaFromAgenciaCtrl', function($scope, $state){
+
+        $scope.search = function(){
             if($scope.view){
                 $scope.gridOptions.data = $scope.view.sucursalDB.$getAgencias().$object;
             } else {
