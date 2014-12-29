@@ -6,7 +6,7 @@ define(['./module'], function (module) {
 
         OrganizacionRestangular.extendModel(url, function(obj) {
             obj.$save = function() {
-                return OrganizacionRestangular.one(url, this.id).customPUT({'sucursal': OrganizacionRestangular.copy(this)},'',{},{});
+                return OrganizacionRestangular.one(url, this.id).customPUT({'agencia': OrganizacionRestangular.copy(this)},'',{},{});
             };
             obj.$getBovedas = function(){
                 return OrganizacionRestangular.all(url+'/'+this.id+'/bovedas').getList();
@@ -31,6 +31,9 @@ define(['./module'], function (module) {
             },
             $getByCodigo: function(codigo){
                 return OrganizacionRestangular.one(url+'/codigo/'+codigo).get();
+            },
+            $find: function(id){
+                return OrganizacionRestangular.one(url, id).get();
             }
         };
     });

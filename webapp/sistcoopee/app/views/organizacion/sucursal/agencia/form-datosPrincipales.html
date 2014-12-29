@@ -1,8 +1,17 @@
 <div>
     <h4><strong>Datos principales</strong> </h4>
 
-    <!--Si se crea dentro de sucursal definida-->
-    <div class="row" ng-if="view.sucursal.id">
+    <!--Editar-->
+    <div class="row" ng-if="view.agencia.id">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label>Sucursal</label>
+                <h4><span ng-bind="view.agenciaDB.sucursal.denominacion"></span></h4>
+            </div>
+        </div>
+    </div>
+    <!--Crear desde una sucursal-->
+    <div class="row" ng-if="!view.agencia.id && view.sucursal.id">
         <div class="col-sm-4">
             <div class="form-group" ng-class="{ 'validate-has-error' : form.sucursal.$invalid && (form.sucursal.$touched || form.$submitted)}">
                 <label>Sucursal</label>
@@ -10,10 +19,8 @@
             </div>
         </div>
     </div>
-    <!--end-->
-
-    <!--Si se crea sin sucursal definida-->
-    <div class="row" ng-if="!view.sucursal.id">
+    <!--Crear sin sucursal por defecto-->
+    <div class="row" ng-if="!view.sucursal.id && !view.agencia.id">
         <div class="col-sm-4">
             <div class="form-group" ng-class="{ 'validate-has-error' : form.sucursal.$invalid && (form.sucursal.$touched || form.$submitted)}">
                 <label>Sucursal</label>
@@ -30,9 +37,17 @@
         </div>
     </div>
     <!--end-->
+
     <div class="row">
-        <!--Si se crea dentro de sucursal definida-->
-        <div class="col-sm-4" ng-if="view.sucursal.id">
+        <!-- editar-->
+        <div class="col-sm-4" ng-if="view.agencia.id">
+            <div class="form-group">
+                <label>Codigo</label>
+                <h4><span ng-bind="view.agenciaDB.codigo"></span></h4>
+            </div>
+        </div>
+        <!-- Crear desde una sucursal-->
+        <div class="col-sm-4" ng-if="!view.agencia.id && view.sucursal.id">
             <div class="form-group" ng-class="{ 'validate-has-error' : form.codigo.$invalid && (form.codigo.$touched || form.$submitted)}">
                 <label>Codigo</label>
                 <input type="text"
@@ -48,10 +63,8 @@
                 <span ng-show="form.codigo.$pending">Verificando...</span>
             </div>
         </div>
-        <!--end-->
-
-        <!--Si se crea sin sucursal definida-->
-        <div class="col-sm-4" ng-if="!view.sucursal.id">
+        <!--Crear sin sucursal por defecto-->
+        <div class="col-sm-4" ng-if="!view.sucursal.id && !view.agencia.id">
             <div class="form-group" ng-class="{ 'validate-has-error' : form.codigo.$invalid && (form.codigo.$touched || form.$submitted)}">
                 <label>Codigo</label>
                 <input type="text"
@@ -68,6 +81,7 @@
             </div>
         </div>
         <!--end-->
+
         <div class="col-sm-4">
             <div class="form-group" ng-class="{ 'validate-has-error' : form.denominacion.$invalid && (form.denominacion.$touched || form.$submitted)}">
                 <label>Denominacion</label>
@@ -102,7 +116,7 @@
 
     <!--Editar-->
     <p ng-if="view.agencia.id">
-        <button type="button" class="btn btn-primary" ng-click="updateAgencia()" ladda="control.block" data-style="expand-right">Guardar</button>
+        <button type="submit" class="btn btn-primary" ladda="control.block" data-style="expand-right">Guardar</button>
         <button type="button" class="btn btn-white" ui-sref="^.resumen">Cancelar</button>
     </p>
     <!--Crear desde una sucursal-->
@@ -113,6 +127,6 @@
     <!--Crear sin sucursal por defecto-->
     <p ng-if="!view.agencia.id && !view.sucursal">
         <button type="button" class="btn btn-primary" ng-click="addAgencia()" ladda="control.block" data-style="expand-right">Guardar</button>
-        <button type="button" class="btn btn-white" ui-sref="^.resumen">Cancelar</button>
+        <button type="button" class="btn btn-white" ui-sref="app.organizacion.estructura.buscarAgencia">Cancelar</button>
     </p>
 </div>

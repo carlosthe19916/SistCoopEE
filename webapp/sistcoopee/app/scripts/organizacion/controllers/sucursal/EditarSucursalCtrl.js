@@ -1,7 +1,7 @@
 define(['../module'], function (module) {
     'use strict';
 
-    module.controller('EditarSucursalCtrl', function($scope, $state, Notifications){
+    module.controller('EditarSucursalCtrl', function($scope, $state, Dialog, Notifications){
 
         $scope.view = {
             sucursal: undefined,
@@ -29,6 +29,23 @@ define(['../module'], function (module) {
                     }
                 );
             }
+        };
+
+        $scope.desactivar = function(){
+            Dialog.confirmDelete($scope.view.sucursalDB.denominacion, 'sucursal', function() {
+                $scope.blockControl();
+                $scope.view.sucursalDB.$desactivar().then(
+                    function(response){
+                        $scope.unblockControl();
+                        Notifications.success("Sucursal desactivada");
+                        $state.go('app.organizacion.estructura.buscarSucursal');
+                    },
+                    function error(error){
+                        $scope.unblockControl();
+                        Notifications.error(error.data+".");
+                    }
+                );
+            });
         };
 
     });

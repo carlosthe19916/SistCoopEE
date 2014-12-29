@@ -45,6 +45,10 @@ public class ModelToRepresentation {
 		rep.setCodigo(model.getCodigo());
 		rep.setEstado(model.getEstado());
 		rep.setUbigeo(model.getUbigeo());
+		
+		SucursalModel sucursalModel = model.getSucursal();
+		SucursalRepresentation sucursalRepresentation = toRepresentation(sucursalModel);
+		rep.setSucursal(sucursalRepresentation);
 		return rep;
 	}
 

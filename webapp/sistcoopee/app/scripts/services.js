@@ -19,7 +19,7 @@ define(['./app'], function(app) {
             };
 
             return $modal.open({
-                templateUrl: 'templates/kc-modal.html',
+                templateUrl: appHelper.viewsPath("themplate/sg-modal"),
                 controller: controller,
                 resolve: {
                     title: function() {
@@ -42,16 +42,16 @@ define(['./app'], function(app) {
         };
 
         dialog.confirmDelete = function(name, type, success) {
-            var title = 'Delete ' + escapeHtml(type.charAt(0).toUpperCase() + type.slice(1));
-            var msg = 'Are you sure you want to permanently delete the ' + type + ' ' + name + '?';
+            var title = 'Eliminar ' + escapeHtml(type.charAt(0).toUpperCase() + type.slice(1));
+            var msg = '¿Estas seguro de querer eliminar permanentemente el/la ' + type + ' ' + name + '?';
             var btns = {
                 ok: {
-                    label: 'Delete',
+                    label: 'Eliminar',
                     cssClass: 'btn btn-danger'
                 },
                 cancel: {
-                    label: 'Cancel',
-                    cssClass: 'btn btn-default'
+                    label: 'Cancelar',
+                    cssClass: 'btn btn-white'
                 }
             };
 

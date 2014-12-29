@@ -12,7 +12,7 @@ define([
     './sucursal/agencia/CrearAgenciaCtrl',
     './sucursal/agencia/EditarAgenciaCtrl',
 
-    './sucursal/agencia/boveda/BuscaBovedaCtrl',
+    './sucursal/agencia/boveda/BuscarBovedaCtrl',
     './sucursal/agencia/caja/BuscarCajaCtrl',
     './sucursal/agencia/trabajador/BuscarTrabajadorCtrl',
     './usuario/BuscarUsuarioCtrl'

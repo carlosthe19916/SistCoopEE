@@ -509,19 +509,33 @@ define([
                 controller: 'AgenciaDatosPrincipalesCtrl'
             }).state('app.organizacion.estructura.crearAgencia', {
                 url: '/agencia',
-                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-crear-agencia")
-            }).state('app.organizacion.estructura.editarAgencia', {
-                url: '/agencia/{id:[0-9]{1,8}}',
-                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-editar-agencia")
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-crear-agencia"),
+                controller: 'CrearAgenciaCtrl'
             }).state('app.organizacion.estructura.crearAgencia.datosPrincipales', {
                 url: '/principal',
-                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-datosPrincipales")
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-datosPrincipales"),
+                controller: 'AgenciaDatosPrincipalesCtrl'
+            }).state('app.organizacion.estructura.editarAgencia', {
+                url: '/agencia/{id:[0-9]{1,8}}',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-editar-agencia"),
+                resolve: {
+                    agencia: function($state, $stateParams, Agencia) {
+                        return Agencia.$find($stateParams.id);
+                    }
+                },
+                controller: function($scope, $stateParams, agencia) {
+                    $scope.params = {};
+                    $scope.params.id = $stateParams.id;
+                    $scope.params.object = agencia;
+                }
             }).state('app.organizacion.estructura.editarAgencia.resumen', {
                 url: '/resumen',
-                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-resumen")
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-resumen"),
+                controller: 'AgenciaResumenCtrl'
             }).state('app.organizacion.estructura.editarAgencia.datosPrincipales', {
                 url: '/principal',
-                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-datosPrincipales")
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-datosPrincipales"),
+                controller: 'AgenciaDatosPrincipalesCtrl'
             })
 
                 .state('app.organizacion.rrhh.buscarTrabajador', {

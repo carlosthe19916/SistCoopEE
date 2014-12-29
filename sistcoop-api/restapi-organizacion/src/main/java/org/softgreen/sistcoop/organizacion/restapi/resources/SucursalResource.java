@@ -111,7 +111,7 @@ public class SucursalResource {
 	}
 
 	@POST
-	@Path("/{id}")
+	@Path("/{id}/desactivar")
 	@Produces({ "application/xml", "application/json" })
 	public void desactivar(@PathParam("id") Integer id) {
 		SucursalModel model = sucursalProvider.getSucursalById(id);

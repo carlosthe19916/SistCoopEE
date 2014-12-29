@@ -14,6 +14,9 @@ define(['./module'], function (module) {
             obj.$getAgencias = function(){
                 return OrganizacionRestangular.all(url+'/'+this.id+'/agencias').getList();
             };
+            obj.$desactivar = function(){
+                return OrganizacionRestangular.all(url+'/'+this.id+'/desactivar').post();
+            };
             return obj;
         });
 

@@ -42,7 +42,7 @@ define(['../../module'], function (module) {
         };
         $scope.gridActions = {
             edit: function(row){
-                $state.go('app.organizacion.editarSucursal.editarAgencia', {id: row.id});
+                $state.go('app.organizacion.estructura.editarAgencia.resumen', {id: row.id});
             }
         };
         $scope.nuevo = function(){
@@ -81,7 +81,7 @@ define(['../../module'], function (module) {
         };
         $scope.gridActions = {
             edit: function(row){
-                $state.go('app.organizacion.estructura.editarAgencia', {id: row.id});
+                $state.go('app.organizacion.estructura.editarAgencia.resumen', {id: row.id});
             }
         };
         $scope.nuevo = function(){
