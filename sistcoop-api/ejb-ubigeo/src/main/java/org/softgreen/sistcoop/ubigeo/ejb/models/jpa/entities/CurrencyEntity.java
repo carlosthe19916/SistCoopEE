@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -20,19 +21,24 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.NamedQuery;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table
+@Table(name="CURRENCY", indexes = { @Index(columnList = "code") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
+@NamedQuery(name = CurrencyEntity.findAll, query = "Select c from CurrencyEntity c")
 public class CurrencyEntity implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	public final static String base = "org.softgreen.sistcoop.ubigeo.ejb.models.jpa.entities.CurrencyEntity";
+	public final static String findAll = base + "findAll";
 	
 	private String code;
 	private String denomination;

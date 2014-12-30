@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -23,7 +24,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table
+@Table(name="DISTRITO", indexes = { @Index(columnList = "id") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @NamedQueries({ @NamedQuery(name = DistritoEntity.findByCodDepartamentoProvincia, query = "SELECT d FROM DistritoEntity d INNER JOIN d.provincia p INNER JOIN p.departamento dep WHERE dep.codigo = :codigoDepartamento AND p.codigo = :codigoProvincia Order By d.denominacion") })
@@ -36,6 +37,8 @@ public class DistritoEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public final static String base = "org.softgreen.sistcoop.ubigeo.ejb.models.jpa.entities.DistritoEntity";
+	
 	private Integer id;
 	private String codigo;
 	private String denominacion;

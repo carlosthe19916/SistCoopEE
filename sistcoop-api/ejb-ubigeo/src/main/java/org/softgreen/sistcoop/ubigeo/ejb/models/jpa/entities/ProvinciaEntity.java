@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -27,19 +28,20 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table
+@Table(name="PROVINCIA", indexes = { @Index(columnList = "id") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @NamedQueries({ @NamedQuery(name = ProvinciaEntity.findByCodDepartamento, query = "SELECT p FROM ProvinciaEntity p INNER JOIN p.departamento d WHERE d.codigo = :codigoDepartamento order by p.denominacion") })
-public class ProvinciaEntity implements Serializable {
-
-	public final static String findByCodDepartamento = "org.softgreen.ubigeo.entity.Provincia.findByCodDepartamento";
+public class ProvinciaEntity implements Serializable {	
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
+	public final static String base = "org.softgreen.sistcoop.ubigeo.ejb.models.jpa.entities.ProvinciaEntity";
+	public final static String findByCodDepartamento = base + "findByCodDepartamento";
+	
 	private Integer id;
 	private String codigo;
 	private String denominacion;

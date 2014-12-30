@@ -13,6 +13,9 @@ define([
     './sucursal/agencia/EditarAgenciaCtrl',
 
     './sucursal/agencia/boveda/BuscarBovedaCtrl',
+    './sucursal/agencia/boveda/CrearBovedaCtrl',
+    './sucursal/agencia/boveda/BovedaDatosPrincipalesCtrl',
+
     './sucursal/agencia/caja/BuscarCajaCtrl',
     './sucursal/agencia/trabajador/BuscarTrabajadorCtrl',
     './usuario/BuscarUsuarioCtrl'

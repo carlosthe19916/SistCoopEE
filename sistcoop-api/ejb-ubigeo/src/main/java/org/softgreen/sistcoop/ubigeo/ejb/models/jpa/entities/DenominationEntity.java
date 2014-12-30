@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -27,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.hibernate.annotations.NaturalId;
 
 @Entity
-@Table
+@Table(name="DENOMINATION", indexes = { @Index(columnList = "id") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class DenominationEntity implements Serializable{
@@ -36,6 +37,8 @@ public class DenominationEntity implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	public final static String base = "org.softgreen.sistcoop.ubigeo.ejb.models.jpa.entities.DenominationEntity";
 	
 	private Integer id;
 	private CurrencyEntity currency;

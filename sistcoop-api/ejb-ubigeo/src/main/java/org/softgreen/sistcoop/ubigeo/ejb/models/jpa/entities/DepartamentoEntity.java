@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -24,7 +25,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table
+@Table(name="DEPARTAMENTO", indexes = { @Index(columnList = "id") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @NamedQuery(name = DepartamentoEntity.findAll, query = "Select d from DepartamentoEntity d")
@@ -35,7 +36,7 @@ public class DepartamentoEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public final static String base = "org.softgreen.sistcoop.ubigeo.ejb.models.jpa.entities";
+	public final static String base = "org.softgreen.sistcoop.ubigeo.ejb.models.jpa.entities.DepartamentoEntity";
 	public final static String findAll = base + "findAll";
 	
 	private Integer id;

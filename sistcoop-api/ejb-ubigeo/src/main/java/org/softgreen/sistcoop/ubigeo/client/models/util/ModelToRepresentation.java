@@ -1,10 +1,12 @@
 package org.softgreen.sistcoop.ubigeo.client.models.util;
 
 import org.softgreen.sistcoop.ubigeo.client.models.CountryModel;
+import org.softgreen.sistcoop.ubigeo.client.models.CurrencyModel;
 import org.softgreen.sistcoop.ubigeo.client.models.DepartamentoModel;
 import org.softgreen.sistcoop.ubigeo.client.models.DistritoModel;
 import org.softgreen.sistcoop.ubigeo.client.models.ProvinciaModel;
 import org.softgreen.sistcoop.ubigeo.client.representations.idm.CountryRepresentation;
+import org.softgreen.sistcoop.ubigeo.client.representations.idm.CurrencyRepresentation;
 import org.softgreen.sistcoop.ubigeo.client.representations.idm.DepartamentoRepresentation;
 import org.softgreen.sistcoop.ubigeo.client.representations.idm.DistritoRepresentation;
 import org.softgreen.sistcoop.ubigeo.client.representations.idm.ProvinciaRepresentation;
@@ -70,6 +72,18 @@ public class ModelToRepresentation {
 		rep.setDenominacion(model.getDenominacion());
 
 		rep.setProvincia(model.getProvincia().getCodigo());
+		return rep;
+	}
+	
+	public static CurrencyRepresentation toRepresentation(CurrencyModel model) {
+		if (model == null)
+			return null;
+		CurrencyRepresentation rep = new CurrencyRepresentation();
+
+		rep.setCode(model.getCode());	
+		rep.setDenomination(model.getDenomination());
+		rep.setSimbol(model.getSimbol());
+		
 		return rep;
 	}
 

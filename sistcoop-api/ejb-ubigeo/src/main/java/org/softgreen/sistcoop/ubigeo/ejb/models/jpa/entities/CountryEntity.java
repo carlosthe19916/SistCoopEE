@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -26,7 +27,7 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table
+@Table(name="COUNTRY", indexes = { @Index(columnList = "id") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @NamedQuery(name = CountryEntity.findAll, query = "Select p from CountryEntity p")
@@ -41,7 +42,7 @@ public class CountryEntity implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public final static String base = "org.softgreen.ubigeo.entity.Pais";
+	public final static String base = "org.softgreen.sistcoop.ubigeo.ejb.models.jpa.entities.CountryEntity";
 	public final static String findAll = base + "findAll";
 	public final static String findByAlpha2Code = base + "findByAlpha2Code";
 	public final static String findByAlpha3Code = base + "findByAlpha3Code";
