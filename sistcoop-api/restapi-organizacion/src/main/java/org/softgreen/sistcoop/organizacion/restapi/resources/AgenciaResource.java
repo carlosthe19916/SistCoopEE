@@ -13,29 +13,48 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 import org.jboss.resteasy.annotations.providers.jaxb.json.BadgerFish;
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaProvider;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
+import org.softgreen.sistcoop.organizacion.client.models.BovedaProvider;
 import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
+import org.softgreen.sistcoop.organizacion.client.models.CajaProvider;
 import org.softgreen.sistcoop.organizacion.client.models.util.ModelToRepresentation;
+import org.softgreen.sistcoop.organizacion.client.models.util.RepresentationToModel;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.AgenciaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.BovedaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.CajaRepresentation;
 import org.softgreen.sistcoop.organizacion.managers.SucursalManager;
+import org.softgreen.sistcoop.organizacion.restapi.config.Jsend;
 import org.softgreen.sistcoop.organizacion.restapi.representation.BovedaList;
 import org.softgreen.sistcoop.organizacion.restapi.representation.CajaList;
 
 @Path("/agencias")
 @Stateless
 public class AgenciaResource {
+	
+	@Inject
+	protected BovedaProvider bovedaProvider;
+
+	@Inject
+	protected CajaProvider cajaProvider;
 
 	@Inject
 	protected AgenciaProvider agenciaProvider;
 
 	@Inject
 	protected SucursalManager sucursalManager;
+
+	@Inject
+	protected RepresentationToModel representationToModel;
+
+	@Context
+	protected UriInfo uriInfo;
 
 	@BadgerFish
 	@GET
@@ -120,6 +139,32 @@ public class AgenciaResource {
 			throw new NotFoundException("Agencia not found.");
 		}
 		sucursalManager.desactivarAgencia(agenciaModel);
+	}
+
+	@POST
+	@Path("/{id}/bovedas")
+	@Produces({ "application/xml", "application/json" })
+	public Response addBoveda(@PathParam("id") Integer id, BovedaRepresentation bovedaRepresentation) {
+		AgenciaModel agenciaModel = agenciaProvider.getAgenciaById(id);
+		if (agenciaModel == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+
+		BovedaModel bovedaModel = representationToModel.createBoveda(agenciaModel, bovedaRepresentation, bovedaProvider);
+		return Response.created(uriInfo.getAbsolutePathBuilder().path(bovedaModel.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(bovedaModel.getId())).build();
+	}
+	
+	@POST
+	@Path("/{id}/cajas")
+	@Produces({ "application/xml", "application/json" })
+	public Response addCaja(@PathParam("id") Integer id, CajaRepresentation cajaRepresentation) {
+		AgenciaModel agenciaModel = agenciaProvider.getAgenciaById(id);
+		if (agenciaModel == null) {
+			return Response.status(Response.Status.NOT_FOUND).build();
+		}
+
+		CajaModel cajaModel = representationToModel.createCaja(agenciaModel, cajaRepresentation, cajaProvider);
+		return Response.created(uriInfo.getAbsolutePathBuilder().path(cajaModel.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(cajaModel.getId())).build();
 	}
 
 }

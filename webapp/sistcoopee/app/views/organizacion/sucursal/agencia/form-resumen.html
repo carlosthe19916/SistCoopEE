@@ -79,9 +79,9 @@
                             <thead ng-show="gridOptions.data.length">
                             <tr>
                                 <th>#</th>
-                                <th>Codigo</th>
+                                <th>Moneda</th>
                                 <th>Denominacion</th>
-                                <th>Ubigeo</th>
+                                <th>Saldo</th>
                                 <th>Estado</th>
                                 <th>Edit</th>
                             </tr>
@@ -90,13 +90,13 @@
                             <tr ng-repeat="item in gridOptions.data">
                                 <td><span ng-bind="$index+1"></span></td>
                                 <td>
-                                    <span ng-bind="item.codigo"></span>
+                                    <span ng-bind="item.moneda"></span>
                                 </td>
                                 <td>
                                     <span ng-bind="item.denominacion"></span>
                                 </td>
                                 <td>
-                                    <span ng-bind="item.ubigeo"></span>
+                                    <span ng-bind="item.saldo | currency: ''"></span>
                                 </td>
                                 <td>
                                     <span ng-bind="item.estado | si_no:'activo'"></span>

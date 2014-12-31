@@ -1,7 +1,7 @@
 define(['../../../module'], function (module) {
     'use strict';
 
-    module.controller('CrearBovedaCtrl', function($scope, $state, Sucursal, activeProfile, Notifications){
+    module.controller('CrearCajaCtrl', function($scope, $state, Sucursal, activeProfile, Notifications){
 
         $scope.view = {
             sucursal: undefined,
@@ -39,7 +39,7 @@ define(['../../../module'], function (module) {
             }
         };
 
-    }).controller('CrearBovedaFromAgenciaCtrl', function($scope, $state, Currency, Sucursal, Notifications){
+    }).controller('CrearCajaFromAgenciaCtrl', function($scope, $state, Currency, Sucursal, Notifications){
 
         $scope.view = {
             agencia: $scope.$parent.view.agenciaDB,

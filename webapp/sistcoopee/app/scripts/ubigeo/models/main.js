@@ -3,7 +3,8 @@ define([
     './Departamento',
     './Distrito',
     './Pais',
-    './Provincia'
+    './Provincia',
+    './Currency'
 
 ], function () {
 

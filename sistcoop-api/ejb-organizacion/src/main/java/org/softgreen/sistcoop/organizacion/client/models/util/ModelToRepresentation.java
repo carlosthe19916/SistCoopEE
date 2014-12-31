@@ -64,7 +64,7 @@ public class ModelToRepresentation {
 		rep.setEstado(model.getEstado());
 	
 		HistorialModel historialModel = model.getHistorialActivo();				
-		rep.setSaldo(historialModel.getSaldo());
+		rep.setSaldo((historialModel != null ? historialModel.getSaldo() : BigDecimal.ZERO));
 		return rep;
 	}
 

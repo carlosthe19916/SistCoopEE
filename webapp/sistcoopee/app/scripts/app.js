@@ -79,6 +79,7 @@ define([
                     var newElement;
                     if(element){
                         newElement = element[Object.keys(element)[0]];
+                        newElement = angular.copy(newElement);
                         angular.forEach(newElement, function(value, key) {
                             if(angular.isObject(value) && !angular.isDate(value) && !angular.isArray(value)){
                                 var obj = angular.copy(value);
@@ -544,6 +545,14 @@ define([
                 url: '/principal',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/boveda/form-datosPrincipales"),
                 controller: 'BovedaDatosPrincipalesCtrl'
+            }).state('app.organizacion.estructura.editarAgencia.crearCaja', {
+                url: "/caja",
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/caja/form-crear-caja-from-agencia"),
+                controller: 'CrearCajaFromAgenciaCtrl'
+            }).state('app.organizacion.estructura.editarAgencia.crearCaja.datosPrincipales', {
+                url: '/principal',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/caja/form-datosPrincipales"),
+                controller: 'CajaDatosPrincipalesCtrl'
             })
 
                 .state('app.organizacion.rrhh.buscarTrabajador', {
