@@ -43,28 +43,28 @@ define(['../../../module'], function (module) {
 
         $scope.view = {
             agencia: $scope.$parent.view.agenciaDB,
-            boveda: undefined
+            caja: undefined
         };
 
         $scope.combo = {
-            moneda: undefined
+            boveda: undefined
         };
         $scope.combo.selected = {
-            moneda: undefined
+            boveda: undefined
         };
         $scope.loadCombo = function(){
-            $scope.combo.moneda = Currency.$search().$object;
+            $scope.combo.boveda = $scope.view.agencia.$getBovedas().$object;
         };
         $scope.loadCombo();
 
-        $scope.addBoveda = function(){
+        $scope.addCaja = function(){
             if($scope.form.$valid){
-                $scope.view.boveda.moneda = $scope.combo.selected.moneda.code;
+                $scope.view.caja.bovedas = $scope.combo.selected.boveda;
                 $scope.blockControl();
-                $scope.view.agencia.$addBoveda($scope.view.boveda).then(
+                $scope.view.agencia.$addCaja($scope.view.caja).then(
                     function(response){
                         $scope.unblockControl();
-                        Notifications.success("Boveda creada");
+                        Notifications.success("Caja creada");
                         $state.go('^.^.resumen');
                     },
                     function error(error){

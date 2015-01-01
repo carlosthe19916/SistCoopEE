@@ -78,12 +78,19 @@ public class ModelToRepresentation {
 		rep.setEstadoMovimiento(model.getEstadoMovimiento());
 		rep.setEstado(model.getEstado());
 		
-		Map<String, BigDecimal> bovedasAsignadas = new LinkedHashMap<String, BigDecimal>();
+		List<BovedaRepresentation> bovedasAsignadas = new ArrayList<BovedaRepresentation>();
 		List<BovedaCajaModel> bovedasCajas = model.getBovedaCajas();
 		for (BovedaCajaModel bovedaCajaModel : bovedasCajas) {
 			BovedaModel bovedaModel = bovedaCajaModel.getBoveda();
 			HistorialModel historialActivo = bovedaModel.getHistorialActivo();
-			bovedasAsignadas.put(bovedaModel.getDenominacion(), historialActivo.getSaldo());
+			BovedaRepresentation bovedaRepresentation = new BovedaRepresentation();
+			bovedaRepresentation.setId(bovedaModel.getId());
+			bovedaRepresentation.setMoneda(bovedaModel.getMoneda());
+			bovedaRepresentation.setAbierto(bovedaModel.isAbierto());
+			bovedaRepresentation.setEstadoMovimiento(bovedaModel.getEstadoMovimiento());
+			bovedaRepresentation.setEstado(bovedaModel.getEstado());
+			bovedaRepresentation.setSaldo(historialActivo != null ? historialActivo.getSaldo() : BigDecimal.ZERO);
+			bovedasAsignadas.add(bovedaRepresentation);
 		}		
 		rep.setBovedas(bovedasAsignadas);
 		

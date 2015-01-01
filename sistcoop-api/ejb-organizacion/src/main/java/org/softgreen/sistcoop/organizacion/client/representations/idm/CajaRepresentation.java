@@ -24,7 +24,7 @@ public class CajaRepresentation implements Serializable {
 	private boolean estadoMovimiento;
 	private boolean estado;
 
-	private Map<String, BigDecimal> bovedas;
+	private List<BovedaRepresentation> bovedas;
 	private List<TrabajadorRepresentation> trabajadores;
 
 	public Integer getId() {
@@ -67,11 +67,11 @@ public class CajaRepresentation implements Serializable {
 		this.estado = estado;
 	}
 
-	public Map<String, BigDecimal> getBovedas() {
+	public List<BovedaRepresentation> getBovedas() {
 		return bovedas;
 	}
 
-	public void setBovedas(Map<String, BigDecimal> bovedas) {
+	public void setBovedas(List<BovedaRepresentation> bovedas) {
 		this.bovedas = bovedas;
 	}
 

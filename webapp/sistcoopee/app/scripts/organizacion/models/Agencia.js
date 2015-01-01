@@ -18,7 +18,7 @@ define(['./module'], function (module) {
                 return OrganizacionRestangular.all(url+'/'+this.id+'/bovedas').customPOST({'boveda': boveda},'',{},{});
             };
             obj.$addCaja = function(caja){
-                return OrganizacionRestangular.all(url+'/'+this.id+'/cajas').post(caja);
+                return OrganizacionRestangular.all(url+'/'+this.id+'/cajas').customPOST({'caja': caja},'',{},{});
             };
             return obj;
         });
