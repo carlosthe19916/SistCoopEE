@@ -1,11 +1,15 @@
 package org.softgreen.sistcoop.organizacion.client.models.util;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaProvider;
+import org.softgreen.sistcoop.organizacion.client.models.BovedaCajaModel;
+import org.softgreen.sistcoop.organizacion.client.models.BovedaCajaProvider;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaProvider;
 import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
@@ -46,6 +50,16 @@ public class RepresentationToModel {
 	
 	public CajaModel createCaja(AgenciaModel agenciaModel, CajaRepresentation rep, CajaProvider cajaProvider) {
 		CajaModel cajaModel = cajaProvider.addCaja(agenciaModel, rep.getDenominacion());			
+		return cajaModel;
+	}
+	
+	public CajaModel createCaja(AgenciaModel agenciaModel, CajaRepresentation rep, BovedaProvider bovedaProvider, CajaProvider cajaProvider, BovedaCajaProvider bovedaCajaProvider) {
+		CajaModel cajaModel = cajaProvider.addCaja(agenciaModel, rep.getDenominacion());
+		List<BovedaRepresentation> bovedasRep = rep.getBovedas();
+		for (BovedaRepresentation bovedaRepresentation : bovedasRep) {
+			BovedaModel bovedaModel = bovedaProvider.getBovedaById(bovedaRepresentation.getId());
+			bovedaCajaProvider.addBovedaCaja(bovedaModel, cajaModel);
+		}
 		return cajaModel;
 	}
 	

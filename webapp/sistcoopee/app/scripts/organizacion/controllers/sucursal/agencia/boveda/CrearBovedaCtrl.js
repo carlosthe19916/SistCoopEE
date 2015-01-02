@@ -1,33 +1,41 @@
 define(['../../../module'], function (module) {
     'use strict';
 
-    module.controller('CrearBovedaCtrl', function($scope, $state, Sucursal, activeProfile, Notifications){
+    module.controller('CrearBovedaCtrl', function($scope, $state, Sucursal, Agencia, Currency, activeProfile, Notifications){
 
         $scope.view = {
-            sucursal: undefined,
-            agencia: undefined
+            boveda: undefined
         };
 
         $scope.combo = {
-            sucursal: undefined
+            sucursal: undefined,
+            agencia: undefined,
+            moneda: undefined
         };
         $scope.combo.selected = {
-            sucursal: undefined
+            sucursal: undefined,
+            agencia: undefined,
+            moneda: undefined
         };
-        $scope.loadCombo = function(){
-            if(angular.isUndefined($scope.view.sucursal)){
-                $scope.combo.sucursal = Sucursal.$search().$object;
+        $scope.$watch('combo.selected.sucursal', function(){
+            if(angular.isDefined($scope.combo.selected.sucursal)){
+                $scope.combo.agencia = $scope.combo.selected.sucursal.$getAgencias().$object;
             }
+        }, true);
+        $scope.loadCombo = function(){
+            $scope.combo.sucursal = Sucursal.$search().$object;
+            $scope.combo.moneda = Currency.$search().$object;
         };
         $scope.loadCombo();
 
-        $scope.addAgencia = function(){
+        $scope.addBoveda = function(){
             if($scope.form.$valid){
-                $scope.combo.selected.sucursal.$addAgencia($scope.view.agencia).then(
+                $scope.view.boveda.moneda = $scope.combo.selected.moneda.code;
+                Agencia.$new($scope.combo.selected.agencia.id).$addBoveda($scope.view.boveda).then(
                     function(response){
                         $scope.unblockControl();
-                        Notifications.success("Agencia creada");
-                        $state.go('app.organizacion.estructura.editarAgencia.resumen', {id: response.id});
+                        Notifications.success("Boveda creada");
+                        $state.go('app.organizacion.estructura.editarBoveda.resumen', {id: response.id});
                     },
                     function error(error){
                         $scope.unblockControl();

@@ -32,6 +32,12 @@ define(['./module'], function (module) {
                     },
                     $getCajas:function() {
                         return OrganizacionRestangular.all(url + '/' + this.id + '/cajas').getList();
+                    },
+                    $addBoveda: function(boveda){
+                        return OrganizacionRestangular.all(url+'/'+this.id+'/bovedas').customPOST({'boveda': boveda},'',{},{});
+                    },
+                    $addCaja: function(caja){
+                        return OrganizacionRestangular.all(url+'/'+this.id+'/cajas').customPOST({'caja': caja},'',{},{});
                     }
                 }
             },

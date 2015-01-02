@@ -11,6 +11,8 @@ import javax.persistence.PersistenceContext;
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
 import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.CajaProvider;
+import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.AgenciaEntity;
+import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.BovedaEntity;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.CajaEntity;
 
 @Named
@@ -29,8 +31,18 @@ public class JpaCajaProvider implements CajaProvider {
 
 	@Override
 	public CajaModel addCaja(AgenciaModel agenciaModel, String denominacion) {
-		// TODO Auto-generated method stub
-		return null;
+		CajaEntity cajaEntity = new CajaEntity();
+
+		AgenciaEntity agenciaEntity = AgenciaAdapter.toSucursalEntity(agenciaModel, em);
+		cajaEntity.setAgencia(agenciaEntity);
+
+		cajaEntity.setDenominacion(denominacion);		
+		cajaEntity.setAbierto(false);
+		cajaEntity.setEstadoMovimiento(false);
+		cajaEntity.setEstado(true);
+
+		em.persist(cajaEntity);
+		return new CajaAdapter(em, cajaEntity);
 	}
 
 	@Override

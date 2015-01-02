@@ -11,6 +11,7 @@ import javax.inject.Inject;
 
 import org.softgreen.sistcoop.organizacion.client.models.BovedaCajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaCajaProvider;
+import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
 import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorCajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorCajaProvider;
@@ -24,6 +25,15 @@ public class CajaManager {
 
 	@Inject
 	protected TrabajadorCajaProvider trabajadorCajaProvider;
+	
+	public BovedaCajaModel addBovedaCaja(BovedaModel bovedaModel, CajaModel cajaModel){
+		BovedaCajaModel bovedaCajaModel = bovedaCajaProvider.addBovedaCaja(bovedaModel, cajaModel);
+		return bovedaCajaModel;
+	}
+	
+	public void removeBovedaCaja(BovedaCajaModel bovedaCajaModel){
+		bovedaCajaProvider.removeBovedaCaja(bovedaCajaModel);		
+	}
 	
 	public void desactivarCaja(CajaModel model) {
 		if (model.isAbierto())

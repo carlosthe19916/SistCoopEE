@@ -553,6 +553,35 @@ define([
                 url: '/principal',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/caja/form-datosPrincipales"),
                 controller: 'CajaDatosPrincipalesCtrl'
+            }).state('app.organizacion.estructura.crearBoveda', {
+                url: '/boveda',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/boveda/form-crear-boveda"),
+                controller: 'CrearBovedaCtrl'
+            }).state('app.organizacion.estructura.crearBoveda.datosPrincipales', {
+                url: '/principal',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/boveda/form-datosPrincipales"),
+                controller: 'BovedaDatosPrincipalesCtrl'
+            }).state('app.organizacion.estructura.editarBoveda', {
+                url: '/boveda/{id:[0-9]{1,8}}',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/boveda/form-editar-boveda"),
+                resolve: {
+                    boveda: function($state, $stateParams, Boveda) {
+                        return Boveda.$find($stateParams.id);
+                    }
+                },
+                controller: function($scope, $stateParams, boveda) {
+                    $scope.params = {};
+                    $scope.params.id = $stateParams.id;
+                    $scope.params.object = boveda;
+                }
+            }).state('app.organizacion.estructura.editarBoveda.resumen', {
+                url: '/resumen',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/boveda/form-resumen"),
+                controller: 'BovedaResumenCtrl'
+            }).state('app.organizacion.estructura.editarBoveda.datosPrincipales', {
+                url: '/principal',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/boveda/form-datosPrincipales"),
+                controller: 'BovedaDatosPrincipalesCtrl'
             })
 
                 .state('app.organizacion.rrhh.buscarTrabajador', {

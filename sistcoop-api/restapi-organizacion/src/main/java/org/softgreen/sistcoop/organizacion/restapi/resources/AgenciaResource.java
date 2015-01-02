@@ -20,6 +20,7 @@ import javax.ws.rs.core.UriInfo;
 import org.jboss.resteasy.annotations.providers.jaxb.json.BadgerFish;
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaProvider;
+import org.softgreen.sistcoop.organizacion.client.models.BovedaCajaProvider;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaProvider;
 import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
@@ -41,6 +42,9 @@ public class AgenciaResource {
 	@Inject
 	protected BovedaProvider bovedaProvider;
 
+	@Inject
+	protected BovedaCajaProvider bovedaCajaProvider;
+	
 	@Inject
 	protected CajaProvider cajaProvider;
 
@@ -163,7 +167,7 @@ public class AgenciaResource {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		}
 
-		CajaModel cajaModel = representationToModel.createCaja(agenciaModel, cajaRepresentation, cajaProvider);
+		CajaModel cajaModel = representationToModel.createCaja(agenciaModel, cajaRepresentation, bovedaProvider, cajaProvider, bovedaCajaProvider);
 		return Response.created(uriInfo.getAbsolutePathBuilder().path(cajaModel.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(cajaModel.getId())).build();
 	}
 
