@@ -5,6 +5,8 @@ import java.math.BigDecimal;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "boveda")
@@ -24,7 +26,10 @@ public class BovedaRepresentation implements Serializable {
 	private boolean estado;
 
 	private BigDecimal saldo;
+	
+	private AgenciaRepresentation agencia;
 
+	@XmlAttribute
 	public Integer getId() {
 		return id;
 	}
@@ -33,6 +38,7 @@ public class BovedaRepresentation implements Serializable {
 		this.id = id;
 	}
 
+	@XmlAttribute
 	public String getMoneda() {
 		return moneda;
 	}
@@ -41,6 +47,7 @@ public class BovedaRepresentation implements Serializable {
 		this.moneda = moneda;
 	}
 
+	@XmlAttribute
 	public String getDenominacion() {
 		return denominacion;
 	}
@@ -49,6 +56,7 @@ public class BovedaRepresentation implements Serializable {
 		this.denominacion = denominacion;
 	}
 
+	@XmlAttribute
 	public boolean isAbierto() {
 		return abierto;
 	}
@@ -57,6 +65,7 @@ public class BovedaRepresentation implements Serializable {
 		this.abierto = abierto;
 	}
 
+	@XmlAttribute
 	public boolean isEstadoMovimiento() {
 		return estadoMovimiento;
 	}
@@ -65,6 +74,7 @@ public class BovedaRepresentation implements Serializable {
 		this.estadoMovimiento = estadoMovimiento;
 	}
 
+	@XmlAttribute
 	public boolean isEstado() {
 		return estado;
 	}
@@ -73,12 +83,22 @@ public class BovedaRepresentation implements Serializable {
 		this.estado = estado;
 	}
 
+	@XmlAttribute
 	public BigDecimal getSaldo() {
 		return saldo;
 	}
 
 	public void setSaldo(BigDecimal saldo) {
 		this.saldo = saldo;
+	}
+
+	@XmlElement	
+	public AgenciaRepresentation getAgencia() {
+		return agencia;
+	}
+
+	public void setAgencia(AgenciaRepresentation agencia) {
+		this.agencia = agencia;
 	}
 
 }

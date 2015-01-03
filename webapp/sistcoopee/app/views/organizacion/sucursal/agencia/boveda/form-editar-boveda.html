@@ -18,10 +18,15 @@
                 Datos principales
             </a>
         </li>
-        <li>
-            <div class="btn-group ">
-                <button type="button" ng-click="desactivar()" class="btn btn-white" style="margin-bottom: 0px;">Abrir</button>
-            </div>
+        <li ui-sref-active="active">
+            <a href ui-sref=".abrirBoveda">
+                Abrir boveda
+            </a>
+        </li>
+        <li ui-sref-active="active">
+            <a href ui-sref=".cerrarBoveda">
+                Cerrar boveda
+            </a>
         </li>
         <li>
             <div class="btn-group ">

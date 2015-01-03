@@ -4,13 +4,14 @@ define(['../../../module'], function (module) {
     module.controller('EditarBovedaCtrl', function($scope, $state, Notifications){
 
         $scope.view = {
-            agencia: undefined,
-            agenciaDB: undefined
+            boveda: undefined,
+            bovedaDB: undefined
         };
 
         $scope.loadParams = function(){
-            $scope.view.agenciaDB = $scope.params.object;
-            $scope.view.agencia = angular.copy($scope.view.agenciaDB);
+            $scope.view.bovedaDB = $scope.params.object;
+            $scope.view.bovedaDB.cajas = $scope.view.bovedaDB.$getCajas().$object;
+            $scope.view.boveda = angular.copy($scope.view.bovedaDB);
         };
         $scope.loadParams();
 

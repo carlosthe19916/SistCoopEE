@@ -65,6 +65,13 @@ public class ModelToRepresentation {
 	
 		HistorialModel historialModel = model.getHistorialActivo();				
 		rep.setSaldo((historialModel != null ? historialModel.getSaldo() : BigDecimal.ZERO));
+		
+		AgenciaModel agenciaModel = model.getAgencia();
+		AgenciaRepresentation agenciaRepresentation = new AgenciaRepresentation();
+		agenciaRepresentation.setId(agenciaModel.getId());
+		agenciaRepresentation.setDenominacion(agenciaModel.getDenominacion());		
+		rep.setAgencia(agenciaRepresentation);
+		
 		return rep;
 	}
 
