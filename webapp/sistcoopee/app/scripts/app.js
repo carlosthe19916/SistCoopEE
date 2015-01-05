@@ -79,7 +79,6 @@ define([
                     var newElement;
                     if(element){
                         newElement = element[Object.keys(element)[0]];
-                        newElement = angular.copy(newElement);
                         angular.forEach(newElement, function(value, key) {
                             if(angular.isObject(value) && !angular.isDate(value) && !angular.isArray(value)){
                                 var obj = angular.copy(value);
@@ -477,7 +476,7 @@ define([
                 controller: 'CrearSucursalCtrl'
             }).state('app.organizacion.estructura.crearSucursal.datosPrincipales', {
                 url: '/principal',
-                templateUrl: appHelper.viewsPath("organizacion/sucursal/form-datosPrincipales"),
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/form-datosPrincipales-crear"),
                 controller: 'SucursalDatosPrincipalesCtrl'
             }).state('app.organizacion.estructura.editarSucursal', {
                 url: '/sucursal/{id:[0-9]{1,8}}',
@@ -498,7 +497,7 @@ define([
                 controller: 'SucursalDatosPrincipalesCtrl'
             }).state('app.organizacion.estructura.editarSucursal.datosPrincipales', {
                 url: "/principal",
-                templateUrl: appHelper.viewsPath("organizacion/sucursal/form-datosPrincipales"),
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/form-datosPrincipales-editar"),
                 controller: 'SucursalDatosPrincipalesCtrl'
             }).state('app.organizacion.estructura.editarSucursal.crearAgencia', {
                 url: "/agencia",
@@ -506,7 +505,7 @@ define([
                 controller: 'CrearAgenciaFromSucursalCtrl'
             }).state('app.organizacion.estructura.editarSucursal.crearAgencia.datosPrincipales', {
                 url: '/principal',
-                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-datosPrincipales"),
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-datosPrincipales-from-sucursal"),
                 controller: 'AgenciaDatosPrincipalesCtrl'
             }).state('app.organizacion.estructura.crearAgencia', {
                 url: '/agencia',
@@ -514,7 +513,7 @@ define([
                 controller: 'CrearAgenciaCtrl'
             }).state('app.organizacion.estructura.crearAgencia.datosPrincipales', {
                 url: '/principal',
-                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-datosPrincipales"),
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-datosPrincipales-crear"),
                 controller: 'AgenciaDatosPrincipalesCtrl'
             }).state('app.organizacion.estructura.editarAgencia', {
                 url: '/agencia/{id:[0-9]{1,8}}',
@@ -535,7 +534,7 @@ define([
                 controller: 'AgenciaResumenCtrl'
             }).state('app.organizacion.estructura.editarAgencia.datosPrincipales', {
                 url: '/principal',
-                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-datosPrincipales"),
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-datosPrincipales-editar"),
                 controller: 'AgenciaDatosPrincipalesCtrl'
             }).state('app.organizacion.estructura.editarAgencia.crearBoveda', {
                 url: "/boveda",
@@ -543,7 +542,7 @@ define([
                 controller: 'CrearBovedaFromAgenciaCtrl'
             }).state('app.organizacion.estructura.editarAgencia.crearBoveda.datosPrincipales', {
                 url: '/principal',
-                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/boveda/form-datosPrincipales"),
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/boveda/form-datosPrincipales-from-agencia"),
                 controller: 'BovedaDatosPrincipalesCtrl'
             }).state('app.organizacion.estructura.editarAgencia.crearCaja', {
                 url: "/caja",
@@ -559,7 +558,7 @@ define([
                 controller: 'CrearBovedaCtrl'
             }).state('app.organizacion.estructura.crearBoveda.datosPrincipales', {
                 url: '/principal',
-                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/boveda/form-datosPrincipales"),
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/boveda/form-datosPrincipales-crear"),
                 controller: 'BovedaDatosPrincipalesCtrl'
             }).state('app.organizacion.estructura.editarBoveda', {
                 url: '/boveda/{id:[0-9]{1,8}}',
@@ -580,7 +579,7 @@ define([
                 controller: 'BovedaResumenCtrl'
             }).state('app.organizacion.estructura.editarBoveda.datosPrincipales', {
                 url: '/principal',
-                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/boveda/form-datosPrincipales"),
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/boveda/form-datosPrincipales-editar"),
                 controller: 'BovedaDatosPrincipalesCtrl'
             })
 

@@ -17,13 +17,28 @@
 
 <div class="row">
     <div class="col-sm-4">
-        <div class="form-group" ng-class="{ 'validate-has-error' : form.denominacion.$invalid && (form.denominacion.$touched || form.$submitted)}">
-            <label>Denominacion</label>
-            <input type="text" name="denominacion" ng-model="view.caja.denominacion" ng-minlength="1" ng-maxlength="30" class="form-control" required/>
-            <div ng-messages="form.denominacion.$error" ng-if="form.denominacion.$touched || form.$submitted">
-                <div class="validate-has-error" ng-message="required">Ingrese denominacion.</div>
-                <div class="validate-has-error" ng-message="minlength">Debe tener minimo 1 digitos.</div>
-                <div class="validate-has-error" ng-message="maxlength">Debe tener maximo 30 digitos.</div>
+        <!--Editar boveda-->
+        <div class="col-sm-4" ng-if="!view.agencia.id && view.caja.id">
+            <div class="form-group" ng-class="{ 'validate-has-error' : form.denominacion.$invalid && (form.denominacion.$touched || form.$submitted)}">
+                <label>Denominacion</label>
+                <input type="text" name="denominacion" ng-model="view.caja.denominacion" ng-minlength="1" ng-maxlength="30" class="form-control" required/>
+                <div ng-messages="form.denominacion.$error" ng-if="form.denominacion.$touched || form.$submitted">
+                    <div class="validate-has-error" ng-message="required">Ingrese denominacion.</div>
+                    <div class="validate-has-error" ng-message="minlength">Debe tener minimo 1 digitos.</div>
+                    <div class="validate-has-error" ng-message="maxlength">Debe tener maximo 30 digitos.</div>
+                </div>
+            </div>
+        </div>
+        <!--Crear desde agencia-->
+        <div class="col-sm-4" ng-if="(view.agencia.id)">
+            <div class="form-group" ng-class="{ 'validate-has-error' : form.denominacion.$invalid && (form.denominacion.$touched || form.$submitted)}">
+                <label>Denominacion</label>
+                <input type="text" name="denominacion" ng-model="view.caja.denominacion" ng-minlength="1" ng-maxlength="30" class="form-control" autofocus required/>
+                <div ng-messages="form.denominacion.$error" ng-if="form.denominacion.$touched || form.$submitted">
+                    <div class="validate-has-error" ng-message="required">Ingrese denominacion.</div>
+                    <div class="validate-has-error" ng-message="minlength">Debe tener minimo 1 digitos.</div>
+                    <div class="validate-has-error" ng-message="maxlength">Debe tener maximo 30 digitos.</div>
+                </div>
             </div>
         </div>
     </div>

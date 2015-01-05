@@ -1,31 +1,6 @@
 <h4><strong>Datos principales</strong> </h4>
 
-<!--Editar-->
-<div class="row" ng-if="!view.agencia.id && view.boveda.id">
-    <div class="col-sm-4">
-        <div class="form-group">
-            <label>Agencia</label>
-            <h4><span ng-bind="view.boveda.agencia.denominacion"></span></h4>
-        </div>
-    </div>
-</div>
-<!--Crear desde una agencia-->
-<div class="row" ng-if="view.agencia.id">
-    <div class="col-sm-4">
-        <div class="form-group">
-            <label>Sucursal</label>
-            <h4><span ng-bind="view.agencia.sucursal.denominacion"></span></h4>
-        </div>
-    </div>
-    <div class="col-sm-4">
-        <div class="form-group">
-            <label>Agencia</label>
-            <h4><span ng-bind="view.agencia.denominacion"></span></h4>
-        </div>
-    </div>
-</div>
-<!--Crear sin agencia por defecto-->
-<div class="row" ng-if="!view.agencia.id && !view.boveda.id">
+<div class="row">
     <div class="col-sm-4">
         <div class="form-group" ng-class="{ 'validate-has-error' : form.sucursal.$invalid && (form.sucursal.$touched || form.$submitted)}">
             <label>Sucursal</label>
@@ -57,18 +32,10 @@
 </div>
 
 <div class="row">
-    <!--Editar-->
-    <div class="col-sm-4" ng-if="!view.agencia.id && view.boveda.id">
+    <div class="col-sm-4">
         <div class="form-group" ng-class="{ 'validate-has-error' : form.moneda.$invalid && (form.moneda.$touched || form.$submitted)}">
             <label>Moneda</label>
-            <h4><span ng-bind="view.bovedaDB.moneda"></span></h4>
-        </div>
-    </div>
-    <!--Crear-->
-    <div class="col-sm-4" ng-if="(view.agencia.id) || (!view.agencia.id && !view.boveda.id)">
-        <div class="form-group" ng-class="{ 'validate-has-error' : form.moneda.$invalid && (form.moneda.$touched || form.$submitted)}">
-            <label>Moneda</label>
-            <ui-select name="moneda" ng-model="combo.selected.moneda" theme="bootstrap" ui-autofocus required>
+            <ui-select name="moneda" ng-model="combo.selected.moneda" theme="bootstrap" required>
                 <ui-select-match placeholder="Moneda">{{$select.selected.denomination}} ({{$select.selected.simbol}})</ui-select-match>
                 <ui-select-choices repeat="item in combo.moneda | filter: $select.search">
                     <div ng-bind-html="item.denomination | highlight: $select.search"></div>
@@ -96,18 +63,7 @@
     </div>
 </div>
 
-<!--Editar-->
-<p ng-if="view.agencia.id">
-    <button type="button" class="btn btn-primary" ng-click="addBoveda()" ladda="control.block" data-style="expand-right">Guardar</button>
-    <button type="button" class="btn btn-white" ui-sref="^.^.resumen">Cancelar</button>
-</p>
-<!--Crear desde una agencia-->
-<p ng-if="!view.agencia.id && view.sucursal">
-    <button type="button" class="btn btn-primary" ng-click="addBoveda()" ladda="control.block" data-style="expand-right">Guardar</button>
-    <button type="button" class="btn btn-white" ui-sref="^.^.resumen">Cancelar</button>
-</p>
-<!--Crear sin agencia por defecto-->
-<p ng-if="!view.agencia.id && !view.sucursal">
+<p>
     <button type="button" class="btn btn-primary" ng-click="addBoveda()" ladda="control.block" data-style="expand-right">Guardar</button>
     <button type="button" class="btn btn-white" ui-sref="app.organizacion.estructura.buscarBoveda">Cancelar</button>
 </p>
