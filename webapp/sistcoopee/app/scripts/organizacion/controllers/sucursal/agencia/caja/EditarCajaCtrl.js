@@ -1,7 +1,7 @@
 define(['../../../module'], function (module) {
     'use strict';
 
-    module.controller('EditarBovedaCtrl', function($scope, $state, Notifications, Dialog){
+    module.controller('EditarCajaCtrl', function($scope, $state, Notifications, Dialog){
 
         $scope.view = {
             boveda: undefined,

@@ -73,27 +73,37 @@ define([
         app.config(function(RestangularProvider) {
             RestangularProvider.setBaseUrl('http://localhost:8080');
 
+            //funcion que pone los @ correspondientes antes de enviar al servidor
+            var wrapper = function(obj){
+                angular.forEach(obj, function(value, key) {
+                    if(angular.isDate(value)){
+                        this['@' + key.toString()] = (value !== null ? value: undefined);
+                        delete this[key];
+                    } else if (angular.isArray(value)){
+                        this[key.toString()] = [];
+                        for(var i = 0; i< value.length; i++){
+                            this[key.toString()][i] = wrapper(value[i]);
+                        }
+                    } else if (angular.isObject(value)){
+                        this[key.toString()] = wrapper(value);
+                    } else {
+                        this['@' + key.toString()] = (value !== null ? value: undefined);
+                        delete this[key];
+                    }
+                }, obj);
+                return obj;
+            };
+
+            var unWrapper = function(){
+
+            };
+
             //añade @ a los atributos
             RestangularProvider.addFullRequestInterceptor(function(element, operation, route, url, headers, params, httpConfig) {
                 if(operation == 'post' || operation == 'put'){
                     var newElement;
                     if(element){
-                        newElement = element[Object.keys(element)[0]];
-                        angular.forEach(newElement, function(value, key) {
-                            if(angular.isObject(value) && !angular.isDate(value) && !angular.isArray(value)){
-                                var obj = angular.copy(value);
-                                angular.forEach(value, function(val, k) {
-                                    if(angular.isObject(value)){
-                                        this['@' + k.toString()] = val !== null ? val: undefined;
-                                        delete this[k];
-                                    }
-                                }, obj);
-                                this[key.toString()] = obj;
-                            } else {
-                                this['@' + key.toString()] = value !== null ? value: undefined;
-                                delete this[key];
-                            }
-                        }, newElement);
+                        newElement = wrapper(element[Object.keys(element)[0]]);
                     }
                 }
             });
@@ -550,7 +560,7 @@ define([
                 controller: 'CrearCajaFromAgenciaCtrl'
             }).state('app.organizacion.estructura.editarAgencia.crearCaja.datosPrincipales', {
                 url: '/principal',
-                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/caja/form-datosPrincipales"),
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/caja/form-datosPrincipales-from-agencia"),
                 controller: 'CajaDatosPrincipalesCtrl'
             }).state('app.organizacion.estructura.crearBoveda', {
                 url: '/boveda',
@@ -589,7 +599,46 @@ define([
                 url: '/cerrar',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/boveda/form-cerrar"),
                 controller: 'BovedaCerrarCtrl'
+            }).state('app.organizacion.estructura.crearCaja', {
+                url: '/caja',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/caja/form-crear-caja"),
+                controller: 'CrearCajaCtrl'
+            }).state('app.organizacion.estructura.crearCaja.datosPrincipales', {
+                url: '/principal',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/caja/form-datosPrincipales-crear"),
+                controller: 'CajaDatosPrincipalesCtrl'
+            }).state('app.organizacion.estructura.editarCaja', {
+                url: '/caja/{id:[0-9]{1,8}}',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/caja/form-editar-caja"),
+                resolve: {
+                    caja: function($state, $stateParams, Caja) {
+                        return Caja.$find($stateParams.id);
+                    }
+                },
+                controller: function($scope, $stateParams, caja) {
+                    $scope.params = {};
+                    $scope.params.id = $stateParams.id;
+                    $scope.params.object = caja;
+                }
+            }).state('app.organizacion.estructura.editarCaja.resumen', {
+                url: '/resumen',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/caja/form-resumen"),
+                controller: 'CajaResumenCtrl'
+            }).state('app.organizacion.estructura.editarCaja.datosPrincipales', {
+                url: '/principal',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/caja/form-datosPrincipales-editar"),
+                controller: 'CajaDatosPrincipalesCtrl'
+            }).state('app.organizacion.estructura.editarCaja.abrir', {
+                url: '/abrir',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/caja/form-abrir"),
+                controller: 'CajaAbrirCtrl'
+            }).state('app.organizacion.estructura.editarCaja.cerrar', {
+                url: '/cerrar',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/caja/form-cerrar"),
+                controller: 'CajaCerrarCtrl'
             })
+
+
 
                 .state('app.organizacion.rrhh.buscarTrabajador', {
                     url: '/trabajador/buscar',

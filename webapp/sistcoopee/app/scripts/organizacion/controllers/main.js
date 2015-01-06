@@ -22,7 +22,11 @@ define([
 
     './sucursal/agencia/caja/BuscarCajaCtrl',
     './sucursal/agencia/caja/CrearCajaCtrl',
+    './sucursal/agencia/caja/EditarCajaCtrl',
+    './sucursal/agencia/caja/CajaResumenCtrl',
     './sucursal/agencia/caja/CajaDatosPrincipalesCtrl',
+    './sucursal/agencia/caja/CajaAbrirCtrl',
+    './sucursal/agencia/caja/CajaCerrarCtrl',
 
     './sucursal/agencia/trabajador/BuscarTrabajadorCtrl',
     './usuario/BuscarUsuarioCtrl'

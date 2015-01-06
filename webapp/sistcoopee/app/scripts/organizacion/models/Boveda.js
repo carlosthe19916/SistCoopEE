@@ -20,6 +20,9 @@ define(['./module'], function (module) {
             obj.$getDetalle = function() {
                 return OrganizacionRestangular.all(url+'/'+this.id+'/detalle').getList();
             };
+            obj.$desactivar = function(){
+                return OrganizacionRestangular.all(url+'/'+this.id+'/desactivar').post();
+            };
             return obj;
         });
 

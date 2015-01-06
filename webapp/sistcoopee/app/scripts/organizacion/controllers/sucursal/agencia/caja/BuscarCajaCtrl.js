@@ -34,11 +34,10 @@ define(['../../../module'], function (module) {
             enableRowHeaderSelection: false,
             multiSelect: false,
             columnDefs: [
-                {field: 'codigo', displayName: 'Codigo'},
                 {field: 'denominacion', displayName: 'Denominacion'},
-                {field: 'abreviatura', displayName: 'Abreviatura'},
-                {field: 'ubigeo', displayName: 'Ubigeo'},
-                {field: 'estado', displayName: 'Estado'},
+                {field: 'abierto', displayName: 'Abierto', cellFilter: 'si_no: "Abierto"'},
+                {field: 'estadoMovimiento', displayName: 'Movimiento', cellFilter: 'si_no: "Congelado"'},
+                {field: 'estado', displayName: 'Estado', cellFilter: 'si_no: "Activo"'},
                 {
                     name: 'edit',
                     displayName: 'Edit',
@@ -52,7 +51,7 @@ define(['../../../module'], function (module) {
             }
         };
         $scope.nuevo = function(){
-            $state.go('app.organizacion.editarSucursal.crearAgencia');
+            $state.go('app.organizacion.estructura.crearCaja.datosPrincipales');
         };
         $scope.search = function(){
             if($scope.combo.selected.sucursal && $scope.combo.selected.agencia){
@@ -75,9 +74,9 @@ define(['../../../module'], function (module) {
             multiSelect: false,
             columnDefs: [
                 {field: 'denominacion', displayName: 'Denominacion'},
-                {field: 'abierto', displayName: 'Abierto', cellFilter: 'si_no'},
-                {field: 'estadoMovimiento', displayName: 'Movimiento'},
-                {field: 'estado', displayName: 'Estado'},
+                {field: 'abierto', displayName: 'Abierto', cellFilter: 'si_no: "Abierto"'},
+                {field: 'estadoMovimiento', displayName: 'Movimiento', cellFilter: 'si_no: "Congelado"'},
+                {field: 'estado', displayName: 'Estado', cellFilter: 'si_no: "Activo"'},
                 {
                     name: 'edit',
                     displayName: 'Edit',

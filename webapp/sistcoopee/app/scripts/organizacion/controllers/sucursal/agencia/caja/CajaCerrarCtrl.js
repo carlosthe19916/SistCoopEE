@@ -1,7 +1,7 @@
 define(['../../../module'], function (module) {
     'use strict';
 
-    module.controller('BovedaCerrarCtrl', function($scope, $state, Sucursal, Agencia, Currency, activeProfile, Notifications){
+    module.controller('CajaCerrarCtrl', function($scope, $state, Sucursal, Agencia, Currency, activeProfile, Notifications){
 
         $scope.loadParams = function(){
             $scope.view.boveda = $scope.params.object;

@@ -1,7 +1,7 @@
 define(['../../../module'], function (module) {
     'use strict';
 
-    module.controller('BovedaCerrarCtrl', function($scope, $state, Sucursal, Agencia, Currency, activeProfile, Notifications){
+    module.controller('CajaAbrirCtrl', function($scope, $state, Sucursal, Agencia, Currency, activeProfile, Notifications){
 
         $scope.loadParams = function(){
             $scope.view.boveda = $scope.params.object;
@@ -12,10 +12,10 @@ define(['../../../module'], function (module) {
         $scope.abrir = function(){
             if ($scope.form.$valid) {
                 $scope.blockControl();
-                $scope.view.boveda.$cerrar().then(
+                $scope.view.boveda.$abrir().then(
                     function(response){
                         $scope.unblockControl();
-                        Notifications.success('Boveda cerrada');
+                        Notifications.success('Boveda abierta');
                         $state.go('^.resumen');
                     },
                     function error(error){

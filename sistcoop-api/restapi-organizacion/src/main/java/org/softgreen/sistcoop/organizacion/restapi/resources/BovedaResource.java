@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -18,13 +19,12 @@ import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaProvider;
 import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.DetalleHistorialModel;
-import org.softgreen.sistcoop.organizacion.client.models.HistorialBovedaModel;
 import org.softgreen.sistcoop.organizacion.client.models.HistorialModel;
 import org.softgreen.sistcoop.organizacion.client.models.util.ModelToRepresentation;
-import org.softgreen.sistcoop.organizacion.client.models.util.RepresentationToModel;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.BovedaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.CajaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.DetalleHistorialRepresentation;
+import org.softgreen.sistcoop.organizacion.managers.BovedaManager;
 import org.softgreen.sistcoop.organizacion.restapi.representation.CajaList;
 import org.softgreen.sistcoop.organizacion.restapi.representation.DetalleHistorialList;
 
@@ -34,6 +34,9 @@ public class BovedaResource {
 
 	@Inject
 	protected BovedaProvider bovedaProvider;
+	
+	@Inject
+	protected BovedaManager bovedaManager;
 	
 	@BadgerFish
 	@GET
@@ -95,16 +98,35 @@ public class BovedaResource {
 	}
 	
 	@POST
+	@Path("/{id}/desactivar")
+	@Produces({ "application/xml", "application/json" })
+	public void desactivar(@PathParam("id") Integer id) {
+		BovedaModel model = bovedaProvider.getBovedaById(id);
+		if (model == null) {
+			throw new NotFoundException("Boveda not found.");
+		}
+		bovedaManager.desactivarBoveda(model);
+	}
+	
+	@POST
 	@Path("/{id}/abrir")
 	@Produces({ "application/xml", "application/json" })
 	public void abrir(@PathParam("id") Integer id) {
-		
+		BovedaModel model = bovedaProvider.getBovedaById(id);
+		if (model == null) {
+			throw new NotFoundException("Boveda not found.");
+		}
+		bovedaManager.abrir(model);
 	}
 	
 	@POST
 	@Path("/{id}/cerrar")
 	@Produces({ "application/xml", "application/json" })
 	public void cerrar(@PathParam("id") Integer id) {
-		
+		BovedaModel model = bovedaProvider.getBovedaById(id);
+		if (model == null) {
+			throw new NotFoundException("Boveda not found.");
+		}
+		bovedaManager.cerrar(model);
 	}
 }

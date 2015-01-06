@@ -1,0 +1,49 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title" ui-sref=".datosPrincipales">Ingrese los datos</h3>
+        <div class="panel-options">
+            <a href="" data-toggle="panel">
+                <span class="collapse-icon">–</span>
+                <span class="expand-icon">+</span>
+            </a>
+            <a href="" data-toggle="remove">
+                ×
+            </a>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <form name="form" ng-submit="submit()" novalidate>
+                    <strong ng-if="!view.boveda.detalle.length">No se encontró detalle de boveda, si es la primera vez que abre la boveda haga click en GUARDAR, sino pongase en contacto con su administrador.</strong>
+                    <table ng-if="view.boveda.detalle.length" class="table table-bordered table-striped table-condensed table-hover">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Valor</th>
+                            <th>Cantidad</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in view.boveda.detalle">
+                            <td><span ng-bind="$index+1"></span></td>
+                            <td><span ng-bind="item.valor | currency: ''"></span></td>
+                            <td><span ng-bind="item.cantidad"></span></td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td>Total:</td>
+                            <td>Nada</td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                    <p>
+                        <button type="button" class="btn btn-primary" ng-click="abrir()" ladda="control.block" data-style="expand-right">Guardar</button>
+                        <button type="button" class="btn btn-white" ui-sref="^.resumen">Cancelar</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

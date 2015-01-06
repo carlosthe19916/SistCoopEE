@@ -25,7 +25,6 @@ import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaProvider;
 import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.CajaProvider;
-import org.softgreen.sistcoop.organizacion.client.models.SucursalModel;
 import org.softgreen.sistcoop.organizacion.client.models.util.ModelToRepresentation;
 import org.softgreen.sistcoop.organizacion.client.models.util.RepresentationToModel;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.AgenciaRepresentation;

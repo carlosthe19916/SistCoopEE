@@ -15,10 +15,10 @@ define(['./module'], function (module) {
                 return OrganizacionRestangular.all(url+'/'+this.id+'/cajas').getList();
             };
             obj.$addBoveda = function(boveda){
-                return OrganizacionRestangular.all(url+'/'+this.id+'/bovedas').customPOST({'boveda': boveda},'',{},{});
+                return OrganizacionRestangular.all(url+'/'+this.id+'/bovedas').customPOST({'boveda': OrganizacionRestangular.copy(boveda)},'',{},{});
             };
             obj.$addCaja = function(caja){
-                return OrganizacionRestangular.all(url+'/'+this.id+'/cajas').customPOST({'caja': caja},'',{},{});
+                return OrganizacionRestangular.all(url+'/'+this.id+'/cajas').customPOST({'caja': OrganizacionRestangular.copy(caja)},'',{},{});
             };
             obj.$desactivar = function(){
                 return OrganizacionRestangular.all(url+'/'+this.id+'/desactivar').post();
@@ -37,10 +37,10 @@ define(['./module'], function (module) {
                         return OrganizacionRestangular.all(url + '/' + this.id + '/cajas').getList();
                     },
                     $addBoveda: function(boveda){
-                        return OrganizacionRestangular.all(url+'/'+this.id+'/bovedas').customPOST({'boveda': boveda},'',{},{});
+                        return OrganizacionRestangular.all(url+'/'+this.id+'/bovedas').customPOST({'boveda': OrganizacionRestangular.copy(boveda)},'',{},{});
                     },
                     $addCaja: function(caja){
-                        return OrganizacionRestangular.all(url+'/'+this.id+'/cajas').customPOST({'caja': caja},'',{},{});
+                        return OrganizacionRestangular.all(url+'/'+this.id+'/cajas').customPOST({'caja': OrganizacionRestangular.copy(caja)},'',{},{});
                     }
                 }
             },
