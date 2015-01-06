@@ -2,14 +2,13 @@ package org.softgreen.sistcoop.organizacion.client.models.util;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaCajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
 import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
+import org.softgreen.sistcoop.organizacion.client.models.DetalleHistorialModel;
 import org.softgreen.sistcoop.organizacion.client.models.HistorialModel;
 import org.softgreen.sistcoop.organizacion.client.models.SucursalModel;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorCajaModel;
@@ -17,6 +16,7 @@ import org.softgreen.sistcoop.organizacion.client.models.TrabajadorModel;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.AgenciaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.BovedaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.CajaRepresentation;
+import org.softgreen.sistcoop.organizacion.client.representations.idm.DetalleHistorialRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.SucursalRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.TrabajadorRepresentation;
 
@@ -120,6 +120,17 @@ public class ModelToRepresentation {
 		rep.setNumeroDocumento(model.getNumeroDocumento());
 		rep.setUsuario(model.getUsuario());
 		rep.setEstado(model.getEstado());
+		return rep;
+	}
+	
+	public static DetalleHistorialRepresentation toRepresentation(DetalleHistorialModel model) {
+		if (model == null)
+			return null;
+		DetalleHistorialRepresentation rep = new DetalleHistorialRepresentation();
+
+		rep.setId(model.getId());
+		rep.setValor(model.getValor());
+		rep.setCantidad(model.getCantidad());
 		return rep;
 	}
 
