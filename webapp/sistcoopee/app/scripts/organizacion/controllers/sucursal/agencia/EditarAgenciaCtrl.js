@@ -1,7 +1,7 @@
 define(['../../module'], function (module) {
     'use strict';
 
-    module.controller('EditarAgenciaCtrl', function($scope, $state, Notifications){
+    module.controller('EditarAgenciaCtrl', function($scope, $state, Notifications, Dialog){
 
         $scope.view = {
             agencia: undefined,
@@ -29,6 +29,23 @@ define(['../../module'], function (module) {
                     }
                 );
             }
+        };
+
+        $scope.desactivar = function(){
+            Dialog.confirmDelete($scope.view.agenciaDB.denominacion, 'agencia', function() {
+                $scope.blockControl();
+                $scope.view.agenciaDB.$desactivar().then(
+                    function(response){
+                        $scope.unblockControl();
+                        Notifications.success("Agencia desactivada");
+                        $state.go('app.organizacion.estructura.buscarAgencia');
+                    },
+                    function error(error){
+                        $scope.unblockControl();
+                        Notifications.error(error.data+".");
+                    }
+                );
+            });
         };
 
     });

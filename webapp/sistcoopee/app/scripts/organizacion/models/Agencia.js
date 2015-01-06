@@ -20,6 +20,9 @@ define(['./module'], function (module) {
             obj.$addCaja = function(caja){
                 return OrganizacionRestangular.all(url+'/'+this.id+'/cajas').customPOST({'caja': caja},'',{},{});
             };
+            obj.$desactivar = function(){
+                return OrganizacionRestangular.all(url+'/'+this.id+'/desactivar').post();
+            };
             return obj;
         });
 

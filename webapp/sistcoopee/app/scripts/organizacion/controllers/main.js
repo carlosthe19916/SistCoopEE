@@ -17,6 +17,8 @@ define([
     './sucursal/agencia/boveda/EditarBovedaCtrl',
     './sucursal/agencia/boveda/BovedaResumenCtrl',
     './sucursal/agencia/boveda/BovedaDatosPrincipalesCtrl',
+    './sucursal/agencia/boveda/BovedaAbrirCtrl',
+    './sucursal/agencia/boveda/BovedaCerrarCtrl',
 
     './sucursal/agencia/caja/BuscarCajaCtrl',
     './sucursal/agencia/caja/CrearCajaCtrl',

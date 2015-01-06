@@ -581,6 +581,14 @@ define([
                 url: '/principal',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/boveda/form-datosPrincipales-editar"),
                 controller: 'BovedaDatosPrincipalesCtrl'
+            }).state('app.organizacion.estructura.editarBoveda.abrir', {
+                url: '/abrir',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/boveda/form-abrir"),
+                controller: 'BovedaAbrirCtrl'
+            }).state('app.organizacion.estructura.editarBoveda.cerrar', {
+                url: '/cerrar',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/boveda/form-cerrar"),
+                controller: 'BovedaCerrarCtrl'
             })
 
                 .state('app.organizacion.rrhh.buscarTrabajador', {
