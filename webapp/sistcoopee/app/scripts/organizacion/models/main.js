@@ -1,9 +1,10 @@
 define([
     'angular',
     './Boveda',
+    './Caja',
     './Agencia',
     './Sucursal',
-    './Usuario',
+    './Usuario'
 ], function () {
 
 });

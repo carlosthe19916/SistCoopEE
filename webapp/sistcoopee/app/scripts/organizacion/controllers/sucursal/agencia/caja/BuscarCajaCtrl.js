@@ -47,7 +47,7 @@ define(['../../../module'], function (module) {
         };
         $scope.gridActions = {
             edit: function(row){
-                $state.go('app.organizacion.editarSucursal.editarAgencia', {id: row.id});
+                $state.go('app.organizacion.estructura.editarCaja.resumen', {id: row.id});
             }
         };
         $scope.nuevo = function(){

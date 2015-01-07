@@ -57,5 +57,21 @@ public class CajaManager {
 			trabajadorCajaProvider.removeTrabajadorCaja(trabCajModel);
 		}
 	}
+	
+	public void abrir(CajaModel cajaModel) {
+
+	}
+
+	public void cerrar(CajaModel cajaModel) {
+
+	}
+
+	public void congelar(CajaModel cajaModel) {
+
+	}
+
+	public void descongelar(CajaModel cajaModel) {
+
+	}
 
 }
