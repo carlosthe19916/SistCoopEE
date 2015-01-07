@@ -24,6 +24,8 @@ public class CajaRepresentation implements Serializable {
 	private boolean estadoMovimiento;
 	private boolean estado;
 
+	private AgenciaRepresentation agencia;
+
 	private List<BovedaRepresentation> bovedas;
 	private List<TrabajadorRepresentation> trabajadores;
 
@@ -70,6 +72,15 @@ public class CajaRepresentation implements Serializable {
 
 	public void setEstado(boolean estado) {
 		this.estado = estado;
+	}
+
+	@XmlElement
+	public AgenciaRepresentation getAgencia() {
+		return agencia;
+	}
+
+	public void setAgencia(AgenciaRepresentation agencia) {
+		this.agencia = agencia;
 	}
 
 	@XmlElement

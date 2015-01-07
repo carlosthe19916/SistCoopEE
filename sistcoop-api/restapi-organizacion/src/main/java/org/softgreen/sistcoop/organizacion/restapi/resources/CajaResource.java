@@ -20,13 +20,17 @@ import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.CajaProvider;
 import org.softgreen.sistcoop.organizacion.client.models.DetalleHistorialModel;
 import org.softgreen.sistcoop.organizacion.client.models.HistorialModel;
+import org.softgreen.sistcoop.organizacion.client.models.TrabajadorCajaModel;
+import org.softgreen.sistcoop.organizacion.client.models.TrabajadorModel;
 import org.softgreen.sistcoop.organizacion.client.models.util.ModelToRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.BovedaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.CajaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.DetalleHistorialRepresentation;
+import org.softgreen.sistcoop.organizacion.client.representations.idm.TrabajadorRepresentation;
 import org.softgreen.sistcoop.organizacion.managers.CajaManager;
 import org.softgreen.sistcoop.organizacion.restapi.representation.BovedaList;
 import org.softgreen.sistcoop.organizacion.restapi.representation.DetalleHistorialList;
+import org.softgreen.sistcoop.organizacion.restapi.representation.TrabajadorList;
 
 @Path("/cajas")
 @Stateless
@@ -69,6 +73,27 @@ public class CajaResource {
 		return new BovedaList(list);
 	}
 
+	@GET
+	@Path("/{id}/trabajadores")
+	@Produces({ "application/xml", "application/json" })
+	public TrabajadorList getTrabajadoresAsignados(@PathParam("id") Integer id) {
+		CajaModel model = cajaProvider.getCajaById(id);	
+		List<TrabajadorCajaModel> trabajadorCajaList = model.getTrabajadorCajas();
+		List<TrabajadorRepresentation> list = new ArrayList<TrabajadorRepresentation>();
+		for (TrabajadorCajaModel trabajadorCajaModel : trabajadorCajaList) {
+			TrabajadorModel trabajadorModel = trabajadorCajaModel.getTrabajador();
+			TrabajadorRepresentation trabajadorRepresentation = new TrabajadorRepresentation();
+			trabajadorRepresentation.setId(trabajadorModel.getId());
+			trabajadorRepresentation.setTipoDocumento(trabajadorModel.getTipoDocumento());
+			trabajadorRepresentation.setNumeroDocumento(trabajadorModel.getNumeroDocumento());
+			trabajadorRepresentation.setUsuario(trabajadorModel.getUsuario());
+			trabajadorRepresentation.setEstado(trabajadorModel.getEstado());
+
+			list.add(trabajadorRepresentation);
+		}
+		return new TrabajadorList(list);
+	}
+	
 	@GET
 	@Path("/{id}/detalle")
 	@Produces({ "application/xml", "application/json" })

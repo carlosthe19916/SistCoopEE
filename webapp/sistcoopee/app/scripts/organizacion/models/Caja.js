@@ -17,6 +17,9 @@ define(['./module'], function (module) {
             obj.$getBovedas = function() {
                 return OrganizacionRestangular.all(url+'/'+this.id+'/bovedas').getList();
             };
+            obj.$getTrabajadores = function() {
+                return OrganizacionRestangular.all(url+'/'+this.id+'/trabajadores').getList();
+            };
             obj.$getDetalle = function() {
                 return OrganizacionRestangular.all(url+'/'+this.id+'/detalle').getList();
             };

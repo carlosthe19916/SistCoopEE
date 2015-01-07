@@ -85,6 +85,10 @@ public class ModelToRepresentation {
 		rep.setEstadoMovimiento(model.getEstadoMovimiento());
 		rep.setEstado(model.getEstado());
 		
+		AgenciaModel agenciaModel = model.getAgencia();
+		AgenciaRepresentation agenciaRepresentation = ModelToRepresentation.toRepresentation(agenciaModel);
+		rep.setAgencia(agenciaRepresentation);
+		
 		List<BovedaRepresentation> bovedasAsignadas = new ArrayList<BovedaRepresentation>();
 		List<BovedaCajaModel> bovedasCajas = model.getBovedaCajas();
 		for (BovedaCajaModel bovedaCajaModel : bovedasCajas) {

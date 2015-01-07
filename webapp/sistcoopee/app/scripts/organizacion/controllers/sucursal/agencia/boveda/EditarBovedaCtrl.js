@@ -18,7 +18,7 @@ define(['../../../module'], function (module) {
         $scope.submit = function(){
             if ($scope.form.$valid) {
                 $scope.blockControl();
-                $scope.view.boveda.$abrir().then(
+                $scope.view.boveda.$save().then(
                     function(response){
                         $scope.unblockControl();
                         Notifications.success("Boveda actualizada");

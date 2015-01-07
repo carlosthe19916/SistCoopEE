@@ -1,28 +1,40 @@
 define(['../../../module'], function (module) {
     'use strict';
 
-    module.controller('EditarCajaCtrl', function($scope, $state, Notifications, Dialog){
+    module.controller('EditarCajaCtrl', function($scope, $state, Agencia, Notifications, Dialog){
 
         $scope.view = {
-            boveda: undefined,
-            bovedaDB: undefined
+            caja: undefined,
+            cajaDB: undefined
         };
 
         $scope.loadParams = function(){
-            $scope.view.bovedaDB = $scope.params.object;
-            $scope.view.bovedaDB.cajas = $scope.view.bovedaDB.$getCajas().$object;
-            $scope.view.boveda = angular.copy($scope.view.bovedaDB);
+            $scope.view.cajaDB = $scope.params.object;
+            $scope.view.cajaDB.bovedas = $scope.view.cajaDB.$getBovedas().$object;
+            $scope.view.cajaDB.trabajadores = $scope.view.cajaDB.$getTrabajadores().$object;
+            $scope.view.caja = angular.copy($scope.view.cajaDB);
         };
         $scope.loadParams();
+
+        $scope.combo = {
+            boveda: undefined
+        };
+        $scope.combo.selected = {
+            boveda: []
+        };
+        $scope.loadCombo = function() {
+            $scope.combo.boveda = Agencia.$new($scope.view.cajaDB.agencia.id).$getBovedas().$object;
+        };
+        $scope.loadCombo();
 
         $scope.submit = function(){
             if ($scope.form.$valid) {
                 $scope.blockControl();
-                $scope.view.boveda.$abrir().then(
+                $scope.view.caja.$save().then(
                     function(response){
                         $scope.unblockControl();
-                        Notifications.success("Boveda actualizada");
-                        $scope.view.bovedaDB = angular.copy($scope.view.boveda);
+                        Notifications.success("Caja actualizada");
+                        $scope.view.cajaDB = angular.copy($scope.view.caja);
                     },
                     function error(error){
                         $scope.unblockControl();
@@ -33,13 +45,13 @@ define(['../../../module'], function (module) {
         };
 
         $scope.desactivar = function(){
-            Dialog.confirmDelete($scope.view.bovedaDB.denominacion, 'boveda', function() {
+            Dialog.confirmDelete($scope.view.cajaDB.denominacion, 'caja', function() {
                 $scope.blockControl();
-                $scope.view.bovedaDB.$desactivar().then(
+                $scope.view.cajaDB.$desactivar().then(
                     function(response){
                         $scope.unblockControl();
-                        Notifications.success("Boveda desactivada");
-                        $state.go('app.organizacion.estructura.buscarBoveda');
+                        Notifications.success("Caja desactivada");
+                        $state.go('app.organizacion.estructura.buscarCaja');
                     },
                     function error(error){
                         $scope.unblockControl();
