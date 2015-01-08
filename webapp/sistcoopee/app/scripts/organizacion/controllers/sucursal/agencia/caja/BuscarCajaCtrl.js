@@ -11,13 +11,27 @@ define(['../../../module'], function (module) {
             sucursal: undefined,
             agencia: undefined
         };
-        $scope.$watch('combo.selected.sucursal', function(){
+        var comboSucursalListener = $scope.$watch('combo.selected.sucursal', function(){
             if(angular.isDefined($scope.combo.selected.sucursal)){
                 $scope.combo.agencia = $scope.combo.selected.sucursal.$getAgencias().$object;
             }
         }, true);
         $scope.loadCombo = function(){
-            $scope.combo.sucursal = Sucursal.$search().$object;
+            if(activeProfile.hasRole('ORGANIZACION', ['ADMIN', 'GERENTE_GENERAL'], 'OR')){
+                $scope.combo.sucursal = Sucursal.$search().$object;
+            } else if(activeProfile.hasRole('ORGANIZACION', ['ADMINISTRADOR_GENERAL'], 'OR')){
+                $scope.combo.sucursal = [];
+                $scope.combo.sucursal[0] = $scope.auth.user.sucursal;
+                $scope.combo.selected.sucursal = $scope.combo.sucursal[0];
+            } else if(activeProfile.hasRole('ORGANIZACION', ['ADMINISTRADOR', 'JEFE_CAJA'], 'OR')){
+                comboSucursalListener();
+                $scope.combo.sucursal = [];
+                $scope.combo.sucursal[0] = $scope.auth.user.sucursal;
+                $scope.combo.agencia = [];
+                $scope.combo.agencia[0] = $scope.auth.user.agencia;
+                $scope.combo.selected.sucursal = $scope.combo.sucursal[0];
+                $scope.combo.selected.agencia = $scope.combo.agencia[0];
+            }
         };
         $scope.loadCombo();
 
@@ -45,6 +59,7 @@ define(['../../../module'], function (module) {
         };
         $scope.gridActions = {
             edit: function(row){
+                console.log("ss");
                 $state.go('app.organizacion.estructura.editarCaja.resumen', {id: row.id});
             }
         };
@@ -56,7 +71,6 @@ define(['../../../module'], function (module) {
                 $scope.gridOptions.data = Agencia.$new($scope.combo.selected.agencia.id).$getCajas().$object;
             }
         };
-        $scope.search();
 
     }).controller('BuscarCajaFromAgenciaCtrl', function($scope, $state){
 

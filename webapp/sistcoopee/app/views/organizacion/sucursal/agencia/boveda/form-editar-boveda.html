@@ -18,17 +18,17 @@
                 Datos principales
             </a>
         </li>
-        <li ui-sref-active="active">
+        <li ui-sref-active="active" sg-data-keep="{module: 'ORGANIZACION', rol: ['JEFE_CAJA']}">
             <a href ui-sref=".abrir">
                 Abrir boveda
             </a>
         </li>
-        <li ui-sref-active="active">
+        <li ui-sref-active="active" sg-data-keep="{module: 'ORGANIZACION', rol: ['JEFE_CAJA']}">
             <a href ui-sref=".cerrar">
                 Cerrar boveda
             </a>
         </li>
-        <li>
+        <li sg-data-keep="{module: 'ORGANIZACION', rol: ['ADMIN']}">
             <div class="btn-group ">
                 <button type="button" ng-click="desactivar()" class="btn btn-danger" style="margin-bottom: 0px;">Desactivar</button>
             </div>

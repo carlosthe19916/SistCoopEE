@@ -40,6 +40,26 @@ define(['./app'], function(app) {
         $scope.auth.user.sucursal = Usuario.$getSucursal($scope.auth.user.username).$object;
         $scope.auth.user.agencia = Usuario.$getAgencia($scope.auth.user.username).$object;
 
+        //var myBlock = blockUI.instances.get('myBlock');
+        //myBlock.start();
+
+       /* if(activeProfile.realmAccess.roles.indexOf('ADMIN') != -1){
+
+        } else if(activeProfile.realmAccess.roles.indexOf('GERENTE_GENERAL') != -1){
+
+        } else if(activeProfile.realmAccess.roles.indexOf('ADMINISTRADOR_GENERAL') != -1){
+
+        } else if(activeProfile.realmAccess.roles.indexOf('ADMINISTRADOR') != -1){
+
+        } else if(activeProfile.realmAccess.roles.indexOf('PLATAFORMA') != -1){
+
+        } else if(activeProfile.realmAccess.roles.indexOf('JEFE_CAJA') != -1){
+
+        } else if(activeProfile.realmAccess.roles.indexOf('CAJERO') != -1){
+
+        } else {
+
+        }*/
     });
 
 });

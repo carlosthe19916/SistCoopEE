@@ -4,6 +4,13 @@ define(['./module'], function (module) {
     module.factory('Usuario', function(OrganizacionRestangular) {
         var url = "usuarios";
 
+        OrganizacionRestangular.extendModel(url, function(obj) {
+            obj.$getAgencias = function(){
+                return OrganizacionRestangular.all('sucursales/'+this.id+'/agencias').getList();
+            };
+            return obj;
+        });
+
         return {
             $getSucursal: function(username){
                 return OrganizacionRestangular.one(url+'/'+username+'/sucursal').get();

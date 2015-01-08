@@ -4,7 +4,7 @@ define([
     'use strict';
 
     angular.module('xenon.controllers', [])
-        .controller('MainCtrl', function($scope, $rootScope, $location, $layout, $layoutToggles, $pageLoadingBar, $timeout, $http, Auth, Usuario, Notifications, activeProfile) {
+        .controller('MainCtrl', function($scope, $rootScope, $location, $layout, $layoutToggles, $pageLoadingBar, $timeout, $http, blockUI, Auth, Usuario, Notifications, activeProfile) {
             $rootScope.isLoginPage = false;
             $rootScope.isLightLoginPage = false;
             $rootScope.isLockscreenPage = false;
@@ -49,7 +49,7 @@ define([
             $pageLoadingBar.init();
 
 
-
+            /******************/
             $scope.auth = Auth;
 
             $scope.$watch(function() {
@@ -66,11 +66,11 @@ define([
             $scope.logout = function(){
                 $scope.auth.authz.logout();
             };
-            /*$scope.auth.authz.loadUserProfile().success(function(profile) {
-             $scope.auth.user = profile;
-             }).error(function() {
-             Notifications.error("Usuario no pudo ser cargado");
-             });*/
+            $scope.logoutTime = function(time){
+                $timeout(function() {
+                    $scope.logout();
+                }, (time ? time : 7000));
+            };
 
             $scope.control = {
                 block: false
@@ -82,12 +82,57 @@ define([
                 $scope.control.block = false;
             };
 
-
             $scope.auth.user.trabajador = Usuario.$getTrabajador($scope.auth.user.username).$object;
             $scope.auth.user.caja = Usuario.$getCaja($scope.auth.user.username).$object;
             $scope.auth.user.sucursal = Usuario.$getSucursal($scope.auth.user.username).$object;
             $scope.auth.user.agencia = Usuario.$getAgencia($scope.auth.user.username).$object;
 
+             if(activeProfile.realmAccess.roles.indexOf('ADMIN') != -1){
+
+             } else if(activeProfile.realmAccess.roles.indexOf('GERENTE_GENERAL') != -1){
+                 if(angular.isUndefined($scope.auth.user.sucursal.id) ||
+                     angular.isUndefined($scope.auth.user.trabajador.id)){
+                     blockUI.start("El usuario no tiene un trabajador y/o sucursal asignada, no puede continuar. En 5 segundos se cerrará la session.");
+                     $scope.logoutTime();
+                 }
+             } else if(activeProfile.realmAccess.roles.indexOf('ADMINISTRADOR_GENERAL') != -1){
+                 if(angular.isUndefined($scope.auth.user.sucursal.id) ||
+                     angular.isUndefined($scope.auth.user.trabajador.id)){
+                     blockUI.start("El usuario no tiene un trabajador y/o sucursal asignada, no puede continuar. En 5 segundos se cerrará la session.");
+                     $scope.logoutTime();
+                 }
+             } else if(activeProfile.realmAccess.roles.indexOf('ADMINISTRADOR') != -1){
+                 if(angular.isUndefined($scope.auth.user.sucursal.id) ||
+                     angular.isUndefined($scope.auth.user.agencia.id) ||
+                     angular.isUndefined($scope.auth.user.trabajador.id)){
+                     blockUI.start("El usuario no tiene un sucursal, agencia y/o trabajador asignado, no puede continuar. En 5 segundos se cerrará la session.");
+                     $scope.logoutTime();
+                 }
+             } else if(activeProfile.realmAccess.roles.indexOf('PLATAFORMA') != -1){
+                 if(angular.isUndefined($scope.auth.user.sucursal.id) ||
+                     angular.isUndefined($scope.auth.user.agencia.id) ||
+                     angular.isUndefined($scope.auth.user.trabajador.id)){
+                     blockUI.start("El usuario no tiene un sucursal, agencia y/o trabajador asignado, no puede continuar. En 5 segundos se cerrará la session.");
+                     $scope.logoutTime();
+                 }
+             } else if(activeProfile.realmAccess.roles.indexOf('JEFE_CAJA') != -1){
+                 if(angular.isUndefined($scope.auth.user.sucursal.id) ||
+                     angular.isUndefined($scope.auth.user.agencia.id) ||
+                     angular.isUndefined($scope.auth.user.trabajador.id)){
+                     blockUI.start("El usuario no tiene un sucursal, agencia y/o trabajador asignado, no puede continuar. En 5 segundos se cerrará la session.");
+                     $scope.logoutTime();
+                 }
+             } else if(activeProfile.realmAccess.roles.indexOf('CAJERO') != -1){
+                 if(angular.isUndefined($scope.auth.user.sucursal.id) ||
+                     angular.isUndefined($scope.auth.user.agencia.id) ||
+                     angular.isUndefined($scope.auth.user.trabajador.id) ||
+                     angular.isUndefined($scope.auth.user.caja.id)){
+                     blockUI.start("El usuario no tiene un sucursal, agencia, trabajador y/o caja asignada, no puede continuar. En 5 segundos se cerrará la session.");
+                     $scope.logoutTime();
+                 }
+             } else {
+                 $scope.logout();
+             }
         })
         .controller('SidebarMenuCtrl', function($scope, $rootScope, $menuItems, $timeout, $location, $state, activeProfile) {
             var $sidebarMenuItems = $menuItems.instantiate();

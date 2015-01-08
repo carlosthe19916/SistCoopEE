@@ -62,7 +62,7 @@ define([
             if(roles.indexOf('ADMIN') != -1){
                 if(stateName.indexOf('app.organizacion') > -1){
                     var estructura = this.addItem('Estructura', '', 'linecons-inbox');
-                    var rrhh = this.addItem('RRHH', '', 'linecons-desktop');
+                    var rrhh = this.addItem('RRHH', '', 'linecons-t-shirt');
 
                     estructura.addItem('Sucursales', 'app.organizacion.estructura.buscarSucursal');
                     estructura.addItem('Agencias', 'app.organizacion.estructura.buscarAgencia');
@@ -116,6 +116,7 @@ define([
                 if(stateName.indexOf('app.organizacion') > -1){
                     var estructura = this.addItem('Estructura', '', 'linecons-inbox');
 
+                    estructura.addItem('Bovedas', 'app.organizacion.estructura.buscarBoveda');
                     estructura.addItem('Cajas', 'app.organizacion.estructura.buscarCaja');
                 } else if(stateName.indexOf('app.administracion')>-1){
                     var dashboard = this.addItem('Dashboard', '/app/dashboard', 'linecons-cog');

@@ -21,6 +21,14 @@ define(['./module'], function (module) {
         });
 
         return {
+            $new: function(id){
+                return {
+                    id: id,
+                    $getAgencias: function(){
+                        return OrganizacionRestangular.all(url+'/'+this.id+'/agencias').getList();
+                    }
+                }
+            },
             $build: function(){
                 return {
                     id: undefined,

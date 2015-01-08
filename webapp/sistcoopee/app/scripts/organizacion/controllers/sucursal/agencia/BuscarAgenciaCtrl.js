@@ -3,7 +3,6 @@ define(['../../module'], function (module) {
 
     module.controller('BuscarAgenciaCtrl', function($scope, $state, activeProfile, Sucursal){
 
-        //admin, gerente general, administrador general, administrador, jefecaja, cajero
         $scope.combo = {
             sucursal: undefined
         };
@@ -11,8 +10,18 @@ define(['../../module'], function (module) {
             sucursal: undefined
         };
         $scope.loadCombo = function(){
+            $scope.combo.sucursal = Sucursal.$search().$object;
+        };
+        $scope.loadCombo();
+
+
+        $scope.loadCombo = function(){
             if(activeProfile.hasRole('ORGANIZACION', ['ADMIN', 'GERENTE_GENERAL'], 'OR')){
                 $scope.combo.sucursal = Sucursal.$search().$object;
+            } else if(activeProfile.hasRole('ORGANIZACION', ['ADMINISTRADOR_GENERAL'], 'OR')){
+                $scope.combo.sucursal = [];
+                $scope.combo.sucursal[0] = $scope.auth.user.sucursal;
+                $scope.combo.selected.sucursal = $scope.combo.sucursal[0];
             }
         };
         $scope.loadCombo();
@@ -52,7 +61,6 @@ define(['../../module'], function (module) {
             if($scope.combo.selected.sucursal)
                 $scope.gridOptions.data = $scope.combo.selected.sucursal.$getAgencias().$object;
         };
-        $scope.search();
 
     }).controller('BuscarAgenciaFromSucursalCtrl', function($scope, $state){
 
