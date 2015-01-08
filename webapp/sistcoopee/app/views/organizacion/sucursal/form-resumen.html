@@ -46,7 +46,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" ui-sref="^.datosPrincipales" class="btn btn-white">Editar</button>
+                    <button type="button" ui-sref="^.datosPrincipales" sg-data-keep="{module: 'ORGANIZACION', rol: ['ADMIN', 'GENRENTE_GENERAL', 'ADMINISTRADOR_GENERAL']}" class="btn btn-white">Editar</button>
                 </div>
             </div>
 
@@ -101,7 +101,7 @@
                             </table>
                         </div>
                     </div>
-                    <button type="button" ui-sref="^.crearAgencia.datosPrincipales" class="btn btn-primary">Nuevo</button>
+                    <button type="button" ui-sref="^.crearAgencia.datosPrincipales" sg-data-keep="{module: 'ORGANIZACION', rol: ['ADMIN', 'GERENTE_GENERAL']}" class="btn btn-primary">Nuevo</button>
                 </div>
             </div>
         </div>

@@ -102,9 +102,9 @@ define([
                 }
             };
         })
-        .controller('HorizontalMenuCtrl', function($scope, $rootScope, $menuItems) {
+        .controller('HorizontalMenuCtrl', function($scope, $rootScope, $menuItems, activeProfile) {
             var $horizontalMenuItems = $menuItems.instantiate();
-            $scope.menuItems = $horizontalMenuItems.prepareHorizontalMenu().getAll();
+            $scope.menuItems = $horizontalMenuItems.prepareHorizontalMenu(activeProfile.realmAccess.roles).getAll();
 
             $scope.notificationsIsOpen = false;
             $scope.changeNotificationsIsOpen = function(){

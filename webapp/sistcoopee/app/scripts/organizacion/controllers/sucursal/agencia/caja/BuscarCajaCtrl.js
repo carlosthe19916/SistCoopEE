@@ -17,9 +17,7 @@ define(['../../../module'], function (module) {
             }
         }, true);
         $scope.loadCombo = function(){
-            if(angular.isUndefined($scope.view) && activeProfile.hasRole('ORGANIZACION', ['ADMIN', 'GERENTE_GENERAL'], 'OR')){
-                $scope.combo.sucursal = Sucursal.$search().$object;
-            }
+            $scope.combo.sucursal = Sucursal.$search().$object;
         };
         $scope.loadCombo();
 

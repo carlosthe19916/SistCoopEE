@@ -467,27 +467,45 @@ define([
             }).state('app.organizacion.estructura.buscarSucursal', {
                 url: '/sucursal/buscar',
                 templateUrl: appHelper.viewsPath('organizacion/sucursal/form-buscar-sucursal'),
-                controller: 'BuscarSucursalCtrl'
+                controller: 'BuscarSucursalCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.buscarAgencia', {
                 url: '/agencia/buscar',
                 templateUrl: appHelper.viewsPath('organizacion/sucursal/agencia/form-buscar-agencia'),
-                controller: 'BuscarAgenciaCtrl'
+                controller: 'BuscarAgenciaCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.buscarBoveda', {
                 url: '/boveda/buscar',
                 templateUrl: appHelper.viewsPath('organizacion/sucursal/agencia/boveda/form-buscar-boveda'),
-                controller: 'BuscarBovedaCtrl'
+                controller: 'BuscarBovedaCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR', 'JEFE_CAJA'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.buscarCaja', {
                 url: '/caja/buscar',
                 templateUrl: appHelper.viewsPath('organizacion/sucursal/agencia/caja/form-buscar-caja'),
-                controller: 'BuscarCajaCtrl'
+                controller: 'BuscarCajaCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR', 'JEFE_CAJA'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.crearSucursal', {
                 url: '/sucursal',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/form-crear-sucursal"),
-                controller: 'CrearSucursalCtrl'
+                controller: 'CrearSucursalCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.crearSucursal.datosPrincipales', {
                 url: '/principal',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/form-datosPrincipales-crear"),
-                controller: 'SucursalDatosPrincipalesCtrl'
+                controller: 'SucursalDatosPrincipalesCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.editarSucursal', {
                 url: '/sucursal/{id:[0-9]{1,8}}',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/form-editar-sucursal"),
@@ -500,31 +518,52 @@ define([
                     $scope.params = {};
                     $scope.params.id = $stateParams.id;
                     $scope.params.object = sucursal;
-                }
+                },
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.editarSucursal.resumen', {
                 url: "/resumen",
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/form-resumen"),
-                controller: 'SucursalDatosPrincipalesCtrl'
+                controller: 'SucursalDatosPrincipalesCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.editarSucursal.datosPrincipales', {
                 url: "/principal",
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/form-datosPrincipales-editar"),
-                controller: 'SucursalDatosPrincipalesCtrl'
+                controller: 'SucursalDatosPrincipalesCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.editarSucursal.crearAgencia', {
                 url: "/agencia",
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-crear-agencia-from-sucursal"),
-                controller: 'CrearAgenciaFromSucursalCtrl'
+                controller: 'CrearAgenciaFromSucursalCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.editarSucursal.crearAgencia.datosPrincipales', {
                 url: '/principal',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-datosPrincipales-from-sucursal"),
-                controller: 'AgenciaDatosPrincipalesCtrl'
+                controller: 'AgenciaDatosPrincipalesCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.crearAgencia', {
                 url: '/agencia',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-crear-agencia"),
-                controller: 'CrearAgenciaCtrl'
+                controller: 'CrearAgenciaCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.crearAgencia.datosPrincipales', {
                 url: '/principal',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-datosPrincipales-crear"),
-                controller: 'AgenciaDatosPrincipalesCtrl'
+                controller: 'AgenciaDatosPrincipalesCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.editarAgencia', {
                 url: '/agencia/{id:[0-9]{1,8}}',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-editar-agencia"),
@@ -537,39 +576,66 @@ define([
                     $scope.params = {};
                     $scope.params.id = $stateParams.id;
                     $scope.params.object = agencia;
-                }
+                },
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.editarAgencia.resumen', {
                 url: '/resumen',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-resumen"),
-                controller: 'AgenciaResumenCtrl'
+                controller: 'AgenciaResumenCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.editarAgencia.datosPrincipales', {
                 url: '/principal',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/form-datosPrincipales-editar"),
-                controller: 'AgenciaDatosPrincipalesCtrl'
+                controller: 'AgenciaDatosPrincipalesCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.editarAgencia.crearBoveda', {
                 url: "/boveda",
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/boveda/form-crear-boveda-from-agencia"),
-                controller: 'CrearBovedaFromAgenciaCtrl'
+                controller: 'CrearBovedaFromAgenciaCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.editarAgencia.crearBoveda.datosPrincipales', {
                 url: '/principal',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/boveda/form-datosPrincipales-from-agencia"),
-                controller: 'BovedaDatosPrincipalesCtrl'
+                controller: 'BovedaDatosPrincipalesCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.editarAgencia.crearCaja', {
                 url: "/caja",
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/caja/form-crear-caja-from-agencia"),
-                controller: 'CrearCajaFromAgenciaCtrl'
+                controller: 'CrearCajaFromAgenciaCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.editarAgencia.crearCaja.datosPrincipales', {
                 url: '/principal',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/caja/form-datosPrincipales-from-agencia"),
-                controller: 'CajaDatosPrincipalesCtrl'
+                controller: 'CajaDatosPrincipalesCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.crearBoveda', {
                 url: '/boveda',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/boveda/form-crear-boveda"),
-                controller: 'CrearBovedaCtrl'
+                controller: 'CrearBovedaCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR', 'JEFE_CAJA'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.crearBoveda.datosPrincipales', {
                 url: '/principal',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/boveda/form-datosPrincipales-crear"),
-                controller: 'BovedaDatosPrincipalesCtrl'
+                controller: 'BovedaDatosPrincipalesCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR', 'JEFE_CAJA'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.editarBoveda', {
                 url: '/boveda/{id:[0-9]{1,8}}',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/boveda/form-editar-boveda"),
@@ -582,31 +648,52 @@ define([
                     $scope.params = {};
                     $scope.params.id = $stateParams.id;
                     $scope.params.object = boveda;
-                }
+                },
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR', 'JEFE_CAJA'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.editarBoveda.resumen', {
                 url: '/resumen',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/boveda/form-resumen"),
-                controller: 'BovedaResumenCtrl'
+                controller: 'BovedaResumenCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR', 'JEFE_CAJA'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.editarBoveda.datosPrincipales', {
                 url: '/principal',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/boveda/form-datosPrincipales-editar"),
-                controller: 'BovedaDatosPrincipalesCtrl'
+                controller: 'BovedaDatosPrincipalesCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR', 'JEFE_CAJA'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.editarBoveda.abrir', {
                 url: '/abrir',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/boveda/form-abrir"),
-                controller: 'BovedaAbrirCtrl'
+                controller: 'BovedaAbrirCtrl',
+                module: 'ORGANIZACION',
+                roles: ['JEFE_CAJA'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.editarBoveda.cerrar', {
                 url: '/cerrar',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/boveda/form-cerrar"),
-                controller: 'BovedaCerrarCtrl'
+                controller: 'BovedaCerrarCtrl',
+                module: 'ORGANIZACION',
+                roles: ['JEFE_CAJA'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.crearCaja', {
                 url: '/caja',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/caja/form-crear-caja"),
-                controller: 'CrearCajaCtrl'
+                controller: 'CrearCajaCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR', 'JEFE_CAJA'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.crearCaja.datosPrincipales', {
                 url: '/principal',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/caja/form-datosPrincipales-crear"),
-                controller: 'CajaDatosPrincipalesCtrl'
+                controller: 'CajaDatosPrincipalesCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR', 'JEFE_CAJA'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.editarCaja', {
                 url: '/caja/{id:[0-9]{1,8}}',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/caja/form-editar-caja"),
@@ -619,25 +706,38 @@ define([
                     $scope.params = {};
                     $scope.params.id = $stateParams.id;
                     $scope.params.object = caja;
-                }
+                },
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR', 'JEFE_CAJA', 'CAJERO'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.editarCaja.resumen', {
                 url: '/resumen',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/caja/form-resumen"),
-                controller: 'CajaResumenCtrl'
+                controller: 'CajaResumenCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR', 'JEFE_CAJA', 'CAJERO'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.editarCaja.datosPrincipales', {
                 url: '/principal',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/caja/form-datosPrincipales-editar"),
-                controller: 'CajaDatosPrincipalesCtrl'
+                controller: 'CajaDatosPrincipalesCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR', 'JEFE_CAJA'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.editarCaja.abrir', {
                 url: '/abrir',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/caja/form-abrir"),
-                controller: 'CajaAbrirCtrl'
+                controller: 'CajaAbrirCtrl',
+                module: 'ORGANIZACION',
+                roles: ['JEFE_CAJA'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.editarCaja.cerrar', {
                 url: '/cerrar',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/caja/form-cerrar"),
-                controller: 'CajaCerrarCtrl'
+                controller: 'CajaCerrarCtrl',
+                roles: ['CAJERO'],
+                operator: 'OR'
             })
-
 
 
                 .state('app.organizacion.rrhh.buscarTrabajador', {

@@ -61,7 +61,7 @@ define([
         this.prepareSidebarMenu = function(stateName, roles) {
             if(roles.indexOf('ADMIN') != -1){
                 if(stateName.indexOf('app.organizacion') > -1){
-                    var estructura = this.addItem('Estructura', '', 'linecons-cog');
+                    var estructura = this.addItem('Estructura', '', 'linecons-inbox');
                     var rrhh = this.addItem('RRHH', '', 'linecons-desktop');
 
                     estructura.addItem('Sucursales', 'app.organizacion.estructura.buscarSucursal');
@@ -77,31 +77,93 @@ define([
                     return [];
                 }
             } else if(roles.indexOf('GERENTE_GENERAL') != -1){
+                if(stateName.indexOf('app.organizacion') > -1){
+                    var estructura = this.addItem('Estructura', '', 'linecons-inbox');
 
+                    estructura.addItem('Sucursales', 'app.organizacion.estructura.buscarSucursal');
+                    estructura.addItem('Agencias', 'app.organizacion.estructura.buscarAgencia');
+                    estructura.addItem('Bovedas', 'app.organizacion.estructura.buscarBoveda');
+                    estructura.addItem('Cajas', 'app.organizacion.estructura.buscarCaja');
+                } else {
+                    return [];
+                }
             } else if(roles.indexOf('ADMINISTRADOR_GENERAL') != -1){
+                if(stateName.indexOf('app.organizacion') > -1){
+                    var estructura = this.addItem('Estructura', '', 'linecons-inbox');
 
+                    estructura.addItem('Agencias', 'app.organizacion.estructura.buscarAgencia');
+                    estructura.addItem('Bovedas', 'app.organizacion.estructura.buscarBoveda');
+                    estructura.addItem('Cajas', 'app.organizacion.estructura.buscarCaja');
+                } else {
+                    return [];
+                }
             } else if(roles.indexOf('ADMINISTRADOR') != -1){
+                if(stateName.indexOf('app.organizacion') > -1){
+                    var estructura = this.addItem('Estructura', '', 'linecons-inbox');
 
+                    estructura.addItem('Bovedas', 'app.organizacion.estructura.buscarBoveda');
+                    estructura.addItem('Cajas', 'app.organizacion.estructura.buscarCaja');
+                } else {
+                    return [];
+                }
             } else if(roles.indexOf('PLATAFORMA') != -1){
+                if(stateName.indexOf('app.organizacion') > -1){
 
+                } else {
+                    return [];
+                }
             } else if(roles.indexOf('JEFE_CAJA') != -1){
+                if(stateName.indexOf('app.organizacion') > -1){
+                    var estructura = this.addItem('Estructura', '', 'linecons-inbox');
 
+                    estructura.addItem('Cajas', 'app.organizacion.estructura.buscarCaja');
+                } else if(stateName.indexOf('app.administracion')>-1){
+                    var dashboard = this.addItem('Dashboard', '/app/dashboard', 'linecons-cog');
+                } else {
+                    return [];
+                }
             } else if(roles.indexOf('CAJERO') != -1){
+                if(stateName.indexOf('app.organizacion') > -1){
 
+                } else {
+                    return [];
+                }
             } else {
                 return undefined;
             }
 
-
             return this;
         };
-        this.prepareHorizontalMenu = function() {
-            var organizacion = this.addItem('Organizacion', 'app.organizacion', 'linecons-cog');
+        this.prepareHorizontalMenu = function(roles) {
+            if(roles.indexOf('ADMIN') != -1){
+                var organizacion = this.addItem('Organizacion', 'app.organizacion', 'linecons-desktop');
+                var configuracion = this.addItem('Configuracion', 'app.configuracion', 'linecons-cog');
+            } else if(roles.indexOf('GERENTE_GENERAL') != -1){
+                var organizacion = this.addItem('Organizacion', 'app.organizacion', 'linecons-desktop');
+                var configuracion = this.addItem('Configuracion', 'app.configuracion', 'linecons-cog');
+            } else if(roles.indexOf('ADMINISTRADOR_GENERAL') != -1){
+                var organizacion = this.addItem('Organizacion', 'app.organizacion', 'linecons-desktop');
+                var configuracion = this.addItem('Configuracion', 'app.configuracion', 'linecons-cog');
+            } else if(roles.indexOf('ADMINISTRADOR') != -1){
+                var organizacion = this.addItem('Organizacion', 'app.organizacion', 'linecons-desktop');
+                var configuracion = this.addItem('Configuracion', 'app.configuracion', 'linecons-cog');
+            } else if(roles.indexOf('PLATAFORMA') != -1){
+                var configuracion = this.addItem('Configuracion', 'app.configuracion', 'linecons-cog');
+            } else if(roles.indexOf('JEFE_CAJA') != -1){
+                var organizacion = this.addItem('Organizacion', 'app.organizacion', 'linecons-desktop');
+                var configuracion = this.addItem('Configuracion', 'app.configuracion', 'linecons-cog');
+            } else if(roles.indexOf('CAJERO') != -1){
+                var configuracion = this.addItem('Configuracion', 'app.configuracion', 'linecons-cog');
+            } else {
+                return undefined;
+            }
+
+            //var organizacion = this.addItem('Organizacion', 'app.organizacion', 'linecons-cog');
             //var transacciones = this.addItem('Transacciones', '', 'linecons-note');
            // var socio = this.addItem('Socio', '', 'linecons-params');
-            var administracion = this.addItem('Administracion', '', 'linecons-desktop');
+            //var administracion = this.addItem('Administracion', '', 'linecons-desktop');
 
-            administracion.addItem('Personas', 'app.administracion');
+            //administracion.addItem('Personas', 'app.administracion');
 
             return this;
         };
