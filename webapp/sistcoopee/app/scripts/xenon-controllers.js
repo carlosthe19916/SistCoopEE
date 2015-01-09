@@ -92,34 +92,34 @@ define([
              } else if(activeProfile.realmAccess.roles.indexOf('GERENTE_GENERAL') != -1){
                  if(angular.isUndefined($scope.auth.user.sucursal.id) ||
                      angular.isUndefined($scope.auth.user.trabajador.id)){
-                     blockUI.start("El usuario no tiene un trabajador y/o sucursal asignada, no puede continuar. En 5 segundos se cerrará la session.");
+                     $scope.blockMessage = "El usuario no tiene un trabajador y/o sucursal asignada, no puede continuar. En 5 segundos se cerrará la session.";
                      $scope.logoutTime();
                  }
              } else if(activeProfile.realmAccess.roles.indexOf('ADMINISTRADOR_GENERAL') != -1){
                  if(angular.isUndefined($scope.auth.user.sucursal.id) ||
                      angular.isUndefined($scope.auth.user.trabajador.id)){
-                     blockUI.start("El usuario no tiene un trabajador y/o sucursal asignada, no puede continuar. En 5 segundos se cerrará la session.");
+                     $scope.blockMessage = "El usuario no tiene un trabajador y/o sucursal asignada, no puede continuar. En 5 segundos se cerrará la session.";
                      $scope.logoutTime();
                  }
              } else if(activeProfile.realmAccess.roles.indexOf('ADMINISTRADOR') != -1){
                  if(angular.isUndefined($scope.auth.user.sucursal.id) ||
                      angular.isUndefined($scope.auth.user.agencia.id) ||
                      angular.isUndefined($scope.auth.user.trabajador.id)){
-                     blockUI.start("El usuario no tiene un sucursal, agencia y/o trabajador asignado, no puede continuar. En 5 segundos se cerrará la session.");
+                     $scope.blockMessage = "El usuario no tiene un sucursal, agencia y/o trabajador asignado, no puede continuar. En 5 segundos se cerrará la session.";
                      $scope.logoutTime();
                  }
              } else if(activeProfile.realmAccess.roles.indexOf('PLATAFORMA') != -1){
                  if(angular.isUndefined($scope.auth.user.sucursal.id) ||
                      angular.isUndefined($scope.auth.user.agencia.id) ||
                      angular.isUndefined($scope.auth.user.trabajador.id)){
-                     blockUI.start("El usuario no tiene un sucursal, agencia y/o trabajador asignado, no puede continuar. En 5 segundos se cerrará la session.");
+                     $scope.blockMessage = "El usuario no tiene un sucursal, agencia y/o trabajador asignado, no puede continuar. En 5 segundos se cerrará la session.";
                      $scope.logoutTime();
                  }
              } else if(activeProfile.realmAccess.roles.indexOf('JEFE_CAJA') != -1){
                  if(angular.isUndefined($scope.auth.user.sucursal.id) ||
                      angular.isUndefined($scope.auth.user.agencia.id) ||
                      angular.isUndefined($scope.auth.user.trabajador.id)){
-                     blockUI.start("El usuario no tiene un sucursal, agencia y/o trabajador asignado, no puede continuar. En 5 segundos se cerrará la session.");
+                     $scope.blockMessage = "El usuario no tiene un sucursal, agencia y/o trabajador asignado, no puede continuar. En 5 segundos se cerrará la session.";
                      $scope.logoutTime();
                  }
              } else if(activeProfile.realmAccess.roles.indexOf('CAJERO') != -1){
@@ -127,7 +127,7 @@ define([
                      angular.isUndefined($scope.auth.user.agencia.id) ||
                      angular.isUndefined($scope.auth.user.trabajador.id) ||
                      angular.isUndefined($scope.auth.user.caja.id)){
-                     blockUI.start("El usuario no tiene un sucursal, agencia, trabajador y/o caja asignada, no puede continuar. En 5 segundos se cerrará la session.");
+                     $scope.blockMessage = "El usuario no tiene un sucursal, agencia, trabajador y/o caja asignada, no puede continuar. En 5 segundos se cerrará la session.";
                      $scope.logoutTime();
                  }
              } else {
