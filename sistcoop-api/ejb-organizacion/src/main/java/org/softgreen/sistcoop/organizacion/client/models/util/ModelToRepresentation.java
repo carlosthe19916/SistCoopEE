@@ -22,6 +22,11 @@ import org.softgreen.sistcoop.organizacion.client.representations.idm.Trabajador
 
 public class ModelToRepresentation {
 
+	/**
+	 * Devuelve un objeto SucursalRepresentation a partir de un model.
+	 * 
+	 * @param model
+	 */
 	public static SucursalRepresentation toRepresentation(SucursalModel model) {
 		if (model == null)
 			return null;
@@ -35,6 +40,11 @@ public class ModelToRepresentation {
 		return rep;
 	}
 
+	/**
+	 * Devuelve un objeto AgenciaRepresentation a partir de un model.
+	 * 
+	 * @param model
+	 */
 	public static AgenciaRepresentation toRepresentation(AgenciaModel model) {
 		if (model == null)
 			return null;
@@ -45,13 +55,18 @@ public class ModelToRepresentation {
 		rep.setCodigo(model.getCodigo());
 		rep.setEstado(model.getEstado());
 		rep.setUbigeo(model.getUbigeo());
-		
+
 		SucursalModel sucursalModel = model.getSucursal();
 		SucursalRepresentation sucursalRepresentation = toRepresentation(sucursalModel);
 		rep.setSucursal(sucursalRepresentation);
 		return rep;
 	}
 
+	/**
+	 * Devuelve un objeto BovedaRepresentation a partir de un model.
+	 * 
+	 * @param model
+	 */
 	public static BovedaRepresentation toRepresentation(BovedaModel model) {
 		if (model == null)
 			return null;
@@ -62,19 +77,24 @@ public class ModelToRepresentation {
 		rep.setAbierto(model.isAbierto());
 		rep.setEstadoMovimiento(model.getEstadoMovimiento());
 		rep.setEstado(model.getEstado());
-	
-		HistorialModel historialModel = model.getHistorialActivo();				
+
+		HistorialModel historialModel = model.getHistorialActivo();
 		rep.setSaldo((historialModel != null ? historialModel.getSaldo() : BigDecimal.ZERO));
-		
+
 		AgenciaModel agenciaModel = model.getAgencia();
 		AgenciaRepresentation agenciaRepresentation = new AgenciaRepresentation();
 		agenciaRepresentation.setId(agenciaModel.getId());
-		agenciaRepresentation.setDenominacion(agenciaModel.getDenominacion());		
+		agenciaRepresentation.setDenominacion(agenciaModel.getDenominacion());
 		rep.setAgencia(agenciaRepresentation);
-		
+
 		return rep;
 	}
 
+	/**
+	 * Devuelve un objeto CajaRepresentation a partir de un model.
+	 * 
+	 * @param model
+	 */
 	public static CajaRepresentation toRepresentation(CajaModel model) {
 		if (model == null)
 			return null;
@@ -84,11 +104,11 @@ public class ModelToRepresentation {
 		rep.setAbierto(model.isAbierto());
 		rep.setEstadoMovimiento(model.getEstadoMovimiento());
 		rep.setEstado(model.getEstado());
-		
+
 		AgenciaModel agenciaModel = model.getAgencia();
 		AgenciaRepresentation agenciaRepresentation = ModelToRepresentation.toRepresentation(agenciaModel);
 		rep.setAgencia(agenciaRepresentation);
-		
+
 		List<BovedaRepresentation> bovedasAsignadas = new ArrayList<BovedaRepresentation>();
 		List<BovedaCajaModel> bovedasCajas = model.getBovedaCajas();
 		for (BovedaCajaModel bovedaCajaModel : bovedasCajas) {
@@ -102,9 +122,9 @@ public class ModelToRepresentation {
 			bovedaRepresentation.setEstado(bovedaModel.getEstado());
 			bovedaRepresentation.setSaldo(historialActivo != null ? historialActivo.getSaldo() : BigDecimal.ZERO);
 			bovedasAsignadas.add(bovedaRepresentation);
-		}		
+		}
 		rep.setBovedas(bovedasAsignadas);
-		
+
 		List<TrabajadorRepresentation> trabajadoresAsignados = new ArrayList<TrabajadorRepresentation>();
 		List<TrabajadorCajaModel> trabajadorCajas = model.getTrabajadorCajas();
 		for (TrabajadorCajaModel trabajadorCajaModel : trabajadorCajas) {
@@ -115,6 +135,11 @@ public class ModelToRepresentation {
 		return rep;
 	}
 
+	/**
+	 * Devuelve un objeto TrabajadorRepresentation a partir de un model.
+	 * 
+	 * @param model
+	 */
 	public static TrabajadorRepresentation toRepresentation(TrabajadorModel model) {
 		if (model == null)
 			return null;
@@ -126,7 +151,12 @@ public class ModelToRepresentation {
 		rep.setEstado(model.getEstado());
 		return rep;
 	}
-	
+
+	/**
+	 * Devuelve un objeto DetalleHistorialRepresentation a partir de un model.
+	 * 
+	 * @param model
+	 */
 	public static DetalleHistorialRepresentation toRepresentation(DetalleHistorialModel model) {
 		if (model == null)
 			return null;

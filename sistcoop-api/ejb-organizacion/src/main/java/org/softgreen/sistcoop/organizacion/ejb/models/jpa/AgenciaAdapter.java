@@ -33,7 +33,7 @@ public class AgenciaAdapter implements AgenciaModel {
 	}
 
 	@Override
-	public void commit() {
+	public void commit() {		
 		em.merge(agenciaEntity);
 	}
 

@@ -27,11 +27,25 @@ import org.softgreen.sistcoop.organizacion.client.representations.idm.Trabajador
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class RepresentationToModel {
 
+	/**
+	 * Crear una sucursal a partir de un objeto SucursalRepresentation.
+	 * 
+	 * @param representation
+	 * @param sucursalProvider
+	 */
 	public SucursalModel createSucursal(SucursalRepresentation rep, SucursalProvider provider) {
 		SucursalModel model = provider.addSucursal(rep.getAbreviatura(), rep.getDenominacion());
 		return model;
 	}
 
+
+	/**
+	 * Crear una agencia a partir de un objeto AgenciaRepresentation.
+	 * 
+	 * @param sucursalModel
+	 * @param representation
+	 * @param agenciaProvider
+	 */
 	public AgenciaModel createAgencia(SucursalModel sucursalModel, AgenciaRepresentation rep, AgenciaProvider agenciaProvider) {
 		AgenciaModel agenciaModel = agenciaProvider.addAgencia(sucursalModel, 
 				rep.getCodigo(), 
@@ -41,17 +55,40 @@ public class RepresentationToModel {
 		return agenciaModel;
 	}
 	
+	/**
+	 * Crear una boveda a partir de un objeto BovedaRepresentation.
+	 * 
+	 * @param agenciaModel
+	 * @param representation
+	 * @param bovedaProvider
+	 */
 	public BovedaModel createBoveda(AgenciaModel agenciaModel, BovedaRepresentation rep, BovedaProvider bovedaProvider) {
 		BovedaModel bovedaModel = bovedaProvider.addBoveda(agenciaModel, 
 				rep.getMoneda(), rep.getDenominacion());		
 		return bovedaModel;
 	}
 	
+	/**
+	 * Crear una caja a partir de un objeto CajaRepresentation.
+	 * 
+	 * @param agenciaModel
+	 * @param representation
+	 * @param cajaProvider
+	 */
 	public CajaModel createCaja(AgenciaModel agenciaModel, CajaRepresentation rep, CajaProvider cajaProvider) {
 		CajaModel cajaModel = cajaProvider.addCaja(agenciaModel, rep.getDenominacion());			
 		return cajaModel;
 	}
 	
+	/**
+	 * Crear una caja y asigna bovedas a la misma a partir de un objeto CajaRepresentation.
+	 * 
+	 * @param agenciaModel
+	 * @param representation
+	 * @param bovedaProvider
+	 * @param cajaProvider
+	 * @param bovedaCajaProvider
+	 */
 	public CajaModel createCaja(AgenciaModel agenciaModel, CajaRepresentation rep, BovedaProvider bovedaProvider, CajaProvider cajaProvider, BovedaCajaProvider bovedaCajaProvider) {
 		CajaModel cajaModel = cajaProvider.addCaja(agenciaModel, rep.getDenominacion());
 		List<BovedaRepresentation> bovedasRep = rep.getBovedas();
@@ -62,6 +99,13 @@ public class RepresentationToModel {
 		return cajaModel;
 	}
 	
+	/**
+	 * Crear un trabajador a partir de un objeto TrabajadorRepresentation.
+	 * 
+	 * @param agenciaModel
+	 * @param representation
+	 * @param trabajadorProvider	
+	 */
 	public TrabajadorModel createTrabajador(AgenciaModel agenciaModel, TrabajadorRepresentation rep, TrabajadorProvider trabajadorProvider) {
 		TrabajadorModel trabajadorModel = trabajadorProvider.addTrabajador(agenciaModel, 
 				rep.getTipoDocumento(), 
