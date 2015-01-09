@@ -1,26 +1,46 @@
-<div class="row" ng-controller="EditarPersonaNaturalCtrl">
-    <div class="col-sm-12">
-        <div>
-            <div>
-                <ul class="nav nav-tabs">
-                    <li ui-sref-active-eq="active">
-                        <a ui-sref=".resumen">Resumen</a>
-                    </li>
-                    <li ui-sref-active-eq="active" sg-data-keep="{module: 'PERSONA', permission: 'UPDATE'}">
-                        <a ui-sref=".datosPrincipales">Datos principales</a>
-                    </li>
-                    <li ui-sref-active-eq="active" sg-data-keep="{module: 'PERSONA', permission: 'UPDATE'}">
-                        <a ui-sref=".datosAdicionales">Datos adicionales</a>
-                    </li>
-
-                    <li class="pull-right" sg-data-keep="{module: 'PERSONA', permission: 'DELETE'}">
-                        <button type="button" class="btn btn-danger">Eliminar</button>
-                    </li>
-                </ul>
-            </div>
-            <form name="form" ng-submit="submit()" novalidate>
-                <div ui-view></div>
-            </form>
+<div ng-controller="EditarPersonaNaturalCtrl">
+    <div class="page-title full-width">
+        <div class="title-env">
+            <h1 class="title ng-binding">Editar sucursal</h1>
+            <p class="description ng-binding">Puede editar los datos de la sucursal.</p>
         </div>
     </div>
+
+    <div class="form-wizard" ng-controller="EditarSucursalCtrl">
+
+        <ul class="tabs">
+            <li ui-sref-active="active">
+                <a href ui-sref=".resumen">
+                    Resumen
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a href ui-sref=".datosPrincipales">
+                    Datos principales
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a href ui-sref=".datosAdicionales">
+                    Datos adicionales
+                </a>
+            </li>
+            <li sg-data-keep="{module: 'PERSONA', rol: ['ADMIN']}">
+                <div class="btn-group ">
+                    <button type="button" ng-click="desactivar()" class="btn btn-danger" style="margin-bottom: 0px;">Desactivar</button>
+                </div>
+            </li>
+        </ul>
+
+        <div class="tab-content no-margin">
+            <div class="tab-pane with-bg active" >
+
+                <form name="form" ng-submit="submit()" novalidate>
+                    <div ui-view></div>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
 </div>
+

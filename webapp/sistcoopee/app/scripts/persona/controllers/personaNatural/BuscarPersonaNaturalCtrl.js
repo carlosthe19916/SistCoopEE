@@ -4,7 +4,13 @@ define(['../module'], function (module) {
     module.controller('BuscarPersonaNaturalCtrl', function($scope, $state, Storage, PersonaNatural){
 
         $scope.nuevo = function(){
-            $state.go('app.administracion.crearPersonaNatural');
+            $state.go('app.administracion.personas.crearPersonaNatural.datosPrincipales');
+        };
+
+        $scope.filterOptions = {
+            filterText: undefined,
+            offset: 0,
+            limit: 10
         };
 
         $scope.gridOptions = {
@@ -29,7 +35,7 @@ define(['../module'], function (module) {
         $scope.gridActions = {
             edit: function(row){
                 Storage.setObject(row);
-                $state.go('app.administracion.editarPersonaNatural', {id: row.id});
+                $state.go('app.administracion.personas.editarPersonaNatural.resumen', {id: row.id});
             }
         };
 

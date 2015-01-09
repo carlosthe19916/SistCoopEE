@@ -71,8 +71,11 @@ define([
                     rrhh.addItem('Trabajadores', 'app.organizacion.rrhh.buscarTrabajador');
                     rrhh.addItem('Usuarios', 'app.organizacion.rrhh.buscarUsuario');
 
-                } else if(stateName.indexOf('app.administracion')>-1){
-                    var dashboard = this.addItem('Dashboard', '/app/dashboard', 'linecons-cog');
+                } else if(stateName.indexOf('app.administracion') > -1){
+                    var administracion = this.addItem('Personas', '', 'linecons-user');
+
+                    administracion.addItem('Naturales', 'app.administracion.personas.buscarPersonaNatural');
+                    administracion.addItem('Juridicas', 'app.administracion.personas.buscarPersonaJuridica');
                 } else {
                     return [];
                 }
@@ -84,6 +87,12 @@ define([
                     estructura.addItem('Agencias', 'app.organizacion.estructura.buscarAgencia');
                     estructura.addItem('Bovedas', 'app.organizacion.estructura.buscarBoveda');
                     estructura.addItem('Cajas', 'app.organizacion.estructura.buscarCaja');
+
+                } else if(stateName.indexOf('app.administracion') > -1){
+                    var administracion = this.addItem('Personas', '', 'linecons-user');
+
+                    administracion.addItem('Naturales', 'app.administracion.personas.buscarPersonaNatural');
+                    administracion.addItem('Juridicas', 'app.administracion.personas.buscarPersonaJuridica');
                 } else {
                     return [];
                 }
@@ -94,6 +103,11 @@ define([
                     estructura.addItem('Agencias', 'app.organizacion.estructura.buscarAgencia');
                     estructura.addItem('Bovedas', 'app.organizacion.estructura.buscarBoveda');
                     estructura.addItem('Cajas', 'app.organizacion.estructura.buscarCaja');
+                } else if(stateName.indexOf('app.administracion') > -1){
+                    var administracion = this.addItem('Personas', '', 'linecons-user');
+
+                    administracion.addItem('Naturales', 'app.administracion.personas.buscarPersonaNatural');
+                    administracion.addItem('Juridicas', 'app.administracion.personas.buscarPersonaJuridica');
                 } else {
                     return [];
                 }
@@ -103,12 +117,22 @@ define([
 
                     estructura.addItem('Bovedas', 'app.organizacion.estructura.buscarBoveda');
                     estructura.addItem('Cajas', 'app.organizacion.estructura.buscarCaja');
+                } else if(stateName.indexOf('app.administracion') > -1){
+                    var administracion = this.addItem('Personas', '', 'linecons-user');
+
+                    administracion.addItem('Naturales', 'app.administracion.personas.buscarPersonaNatural');
+                    administracion.addItem('Juridicas', 'app.administracion.personas.buscarPersonaJuridica');
                 } else {
                     return [];
                 }
             } else if(roles.indexOf('PLATAFORMA') != -1){
                 if(stateName.indexOf('app.organizacion') > -1){
 
+                } else if(stateName.indexOf('app.administracion') > -1){
+                    var administracion = this.addItem('Personas', '', 'linecons-user');
+
+                    administracion.addItem('Naturales', 'app.administracion.personas.buscarPersonaNatural');
+                    administracion.addItem('Juridicas', 'app.administracion.personas.buscarPersonaJuridica');
                 } else {
                     return [];
                 }
@@ -118,8 +142,11 @@ define([
 
                     estructura.addItem('Bovedas', 'app.organizacion.estructura.buscarBoveda');
                     estructura.addItem('Cajas', 'app.organizacion.estructura.buscarCaja');
-                } else if(stateName.indexOf('app.administracion')>-1){
-                    var dashboard = this.addItem('Dashboard', '/app/dashboard', 'linecons-cog');
+                } else if(stateName.indexOf('app.administracion') > -1){
+                    var administracion = this.addItem('Personas', '', 'linecons-user');
+
+                    administracion.addItem('Naturales', 'app.administracion.personas.buscarPersonaNatural');
+                    administracion.addItem('Juridicas', 'app.administracion.personas.buscarPersonaJuridica');
                 } else {
                     return [];
                 }
@@ -129,6 +156,11 @@ define([
                 } else {
                     return [];
                 }
+            } else if(stateName.indexOf('app.administracion') > -1){
+                var administracion = this.addItem('Personas', '', 'linecons-user');
+
+                administracion.addItem('Naturales', 'app.administracion.personas.buscarPersonaNatural');
+                administracion.addItem('Juridicas', 'app.administracion.personas.buscarPersonaJuridica');
             } else {
                 return undefined;
             }
@@ -138,6 +170,7 @@ define([
         this.prepareHorizontalMenu = function(roles) {
             if(roles.indexOf('ADMIN') != -1){
                 var organizacion = this.addItem('Organizacion', 'app.organizacion', 'linecons-desktop');
+                var administracion = this.addItem('Administracion', 'app.administracion', 'linecons-params');
                 var configuracion = this.addItem('Configuracion', 'app.configuracion', 'linecons-cog');
             } else if(roles.indexOf('GERENTE_GENERAL') != -1){
                 var organizacion = this.addItem('Organizacion', 'app.organizacion', 'linecons-desktop');

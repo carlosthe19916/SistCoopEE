@@ -30,7 +30,7 @@ define(['../module'], function (module) {
 
         $scope.goTabRepresentante = function(){
             if($scope.form.$valid){
-                $state.go('app.administracion.crearPersonaJuridica.representante');
+                $state.go('app.administracion.personas.crearPersonaJuridica.representante');
             } else {
                 $scope.form.$setSubmitted();
             }

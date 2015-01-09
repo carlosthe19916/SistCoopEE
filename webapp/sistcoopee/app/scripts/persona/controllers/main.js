@@ -1,6 +1,5 @@
 define([
     'angular',
-    './BuscarCtrl',
 
     './personaJuridica/BuscarPersonaJuridicaCtrl',
     './personaJuridica/CrearPersonaJuridicaCtrl',
