@@ -13,6 +13,8 @@ requirejs.config({
     baseUrl: '/base/app/scripts',
 
     paths: {
+        domReady: '../../bower_components/requirejs-domready/domReady',
+        jquery: '../../bower_components/jquery/dist/jquery',
         angular: '../../bower_components/angular/angular',
         'angular-sanitize': '../../bower_components/angular-sanitize/angular-sanitize',
         'angular-cookies': '../../bower_components/angular-cookies/angular-cookies',

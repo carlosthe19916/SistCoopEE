@@ -85,6 +85,7 @@
                     <div ng-bind-html="item.username | highlight: $select.search"></div>
                 </ui-select-choices>
             </ui-select>
+            {{combo.usuario}}
             <div ng-messages="form.usuario.$error" ng-if="form.usuario.$touched || form.$submitted">
                 <div class="validate-has-error" ng-message="required">Ingrese denominacion.</div>
             </div>

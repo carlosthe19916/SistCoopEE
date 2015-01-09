@@ -1,8 +1,9 @@
 define(['./module'], function (module) {
     'use strict';
 
-    module.factory('Usuario', function(OrganizacionRestangular) {
+    module.factory('Usuario', function(OrganizacionRestangular, KeycloakRestangular) {
         var url = "usuarios";
+        var keycloakUrl = "users";
 
         OrganizacionRestangular.extendModel(url, function(obj) {
             obj.$getAgencias = function(){
@@ -13,7 +14,10 @@ define(['./module'], function (module) {
 
         return {
             $find: function(username){
-                return OrganizacionRestangular.one(url, username).get();
+                return KeycloakRestangular.one(keycloakUrl, username).get();
+            },
+            $search: function(queryParams){
+                return KeycloakRestangular.all(keycloakUrl).getList(queryParams);
             },
             $getSucursal: function(username){
                 return OrganizacionRestangular.one(url+'/'+username+'/sucursal').get();

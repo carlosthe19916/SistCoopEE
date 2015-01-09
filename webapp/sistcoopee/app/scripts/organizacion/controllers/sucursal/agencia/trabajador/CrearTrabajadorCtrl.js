@@ -65,8 +65,13 @@ define(['../../../module'], function (module) {
             }
         };
 
-        $scope.refreshComboUsuario = function(username){
-            console.log(username);
+        $scope.refreshComboUsuario = function(filterText){
+            var queryParams = {
+                search: filterText,
+                first: 0,
+                max: 5
+            };
+            $scope.combo.usuario = Usuario.$search(queryParams).$object;
         };
 
     });

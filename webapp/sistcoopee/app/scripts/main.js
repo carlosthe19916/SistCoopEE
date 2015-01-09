@@ -1,6 +1,6 @@
 require.config({
     paths: {
-        'domReady': '../../bower_components/requirejs-domready/domReady',
+        domReady: '../../bower_components/requirejs-domready/domReady',
         jquery: '../../bower_components/jquery/dist/jquery',
         angular: '../../bower_components/angular/angular',
         'angular-sanitize': '../../bower_components/angular-sanitize/angular-sanitize',
@@ -23,7 +23,9 @@ require.config({
         underscore: '../../bower_components/underscore/underscore',
         ocLazyLoad: '../../bower_components/ocLazyLoad/dist/ocLazyLoad',
         bootstrap: '../../bower_components/bootstrap/dist/js/bootstrap',
-        oclazyload: '../../bower_components/oclazyload/dist/ocLazyLoad.min'
+        oclazyload: '../../bower_components/oclazyload/dist/ocLazyLoad.min',
+        domready: '../../bower_components/domready/ready',
+        'requirejs-domready': '../../bower_components/requirejs-domready/domReady'
     },
     shim: {
         angular: {

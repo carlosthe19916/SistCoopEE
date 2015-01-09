@@ -110,14 +110,18 @@ define([
 
             //saca el primer objeto
             RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
-                var extractedData;
-                if(data){
-                    extractedData = data[Object.keys(data)[0]];
-                    extractedData.meta = data.meta;
+                if(url.indexOf("https://keycloak")){
+
                 } else {
-                    extractedData = data;
+                    var extractedData;
+                    if(data){
+                        extractedData = data[Object.keys(data)[0]];
+                        extractedData.meta = data.meta;
+                    } else {
+                        extractedData = data;
+                    }
+                    return extractedData;
                 }
-                return extractedData;
             });
             //saca los @ de los atributos
             RestangularProvider.setResponseExtractor(function(response) {
@@ -167,6 +171,12 @@ define([
         app.factory('OrganizacionRestangular', function(Restangular) {
             return Restangular.withConfig(function(RestangularConfigurer) {
                 RestangularConfigurer.setBaseUrl('http://localhost:8080/restapi-organizacion/rest/v1');
+            });
+        });
+
+        app.factory('KeycloakRestangular', function(Restangular) {
+            return Restangular.withConfig(function(RestangularConfigurer) {
+                RestangularConfigurer.setBaseUrl('https://keycloak-softgreen.rhcloud.com/auth/admin/realms/SISTCOOP');
             });
         });
 
