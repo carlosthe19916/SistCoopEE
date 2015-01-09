@@ -40,6 +40,6 @@ public interface AgenciaModel extends Model {
 
 	List<TrabajadorModel> getTrabajadores();
 
-	
+	List<TrabajadorModel> getTrabajadores(boolean estado);
 
 }

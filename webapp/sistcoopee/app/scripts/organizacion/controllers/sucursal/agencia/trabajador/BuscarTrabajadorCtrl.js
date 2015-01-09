@@ -1,7 +1,7 @@
 define(['../../../module'], function (module) {
     'use strict';
 
-    module.controller('BuscarTrabajadorCtrl', function($scope, $state, activeProfile, Sucursal, Agencia){
+    module.controller('BuscarTrabajadorCtrl', function($scope, $state, activeProfile, Sucursal, Agencia, PersonaNatural){
 
         $scope.combo = {
             sucursal: undefined,
@@ -46,11 +46,12 @@ define(['../../../module'], function (module) {
             enableRowHeaderSelection: false,
             multiSelect: false,
             columnDefs: [
-                {field: 'codigo', displayName: 'Codigo'},
-                {field: 'denominacion', displayName: 'Denominacion'},
-                {field: 'abreviatura', displayName: 'Abreviatura'},
-                {field: 'ubigeo', displayName: 'Ubigeo'},
-                {field: 'estado', displayName: 'Estado'},
+                {field: 'tipoDocumento', displayName: 'T.Documento'},
+                {field: 'numeroDocumento', displayName: 'N.Documento'},
+                {field: 'persona.apellidoPaterno', displayName: 'A.Paterno'},
+                {field: 'persona.apellidoMaterno', displayName: 'A.Materno'},
+                {field: 'persona.nombres', displayName: 'Nombres'},
+                {field: 'estado', displayName: 'Estado', cellFilter: 'si_no: "Activo"'},
                 {
                     name: 'edit',
                     displayName: 'Edit',
@@ -60,22 +61,22 @@ define(['../../../module'], function (module) {
         };
         $scope.gridActions = {
             edit: function(row){
-                $state.go('app.organizacion.editarSucursal.editarAgencia', {id: row.id});
+                $state.go('app.organizacion.rrhh.editarTrabajador.resumen', {id: row.id});
             }
         };
         $scope.nuevo = function(){
-            $state.go('app.organizacion.editarSucursal.crearAgencia');
+            $state.go('app.organizacion.rrhh.crearTrabajador.datosPrincipales');
         };
         $scope.search = function(){
-            if($scope.view){
-                $scope.gridOptions.data = $scope.view.sucursalDB.$getAgencias().$object;
-            } else {
-                if($scope.combo.selected.sucursal && $scope.combo.selected.agencia){
-                    $scope.gridOptions.data = Agencia.$new($scope.combo.selected.agencia.id).$getCajas().$object;
-                }
+            if($scope.combo.selected.sucursal && $scope.combo.selected.agencia){
+                Agencia.$new($scope.combo.selected.agencia.id).$getTrabajadores($scope.filterOptions).then(function(response){
+                    $scope.gridOptions.data = response;
+                    angular.forEach($scope.gridOptions.data, function(row){
+                        row.persona = PersonaNatural.$findByTipoNumeroDocumento(row.tipoDocumento, row.numeroDocumento).$object;
+                    });
+                });
             }
         };
-        $scope.search();
 
     });
 });

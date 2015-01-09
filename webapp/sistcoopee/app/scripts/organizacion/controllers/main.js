@@ -29,6 +29,11 @@ define([
     './sucursal/agencia/caja/CajaCerrarCtrl',
 
     './sucursal/agencia/trabajador/BuscarTrabajadorCtrl',
+    './sucursal/agencia/trabajador/CrearTrabajadorCtrl',
+    './sucursal/agencia/trabajador/EditarTrabajadorCtrl',
+    './sucursal/agencia/trabajador/TrabajadorDatosPrincipalesCtrl',
+    './sucursal/agencia/trabajador/TrabajadorResumenCtrl',
+
     './usuario/BuscarUsuarioCtrl'
 ], function () {
 

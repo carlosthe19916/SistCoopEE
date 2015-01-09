@@ -133,6 +133,24 @@ public class AgenciaAdapter implements AgenciaModel {
 	}
 
 	@Override
+	public List<BovedaModel> getBovedas(boolean estado) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<CajaModel> getCajas(boolean estado) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<TrabajadorModel> getTrabajadores(boolean estado) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;
@@ -146,18 +164,6 @@ public class AgenciaAdapter implements AgenciaModel {
 	@Override
 	public int hashCode() {
 		return getId().hashCode();
-	}
-
-	@Override
-	public List<BovedaModel> getBovedas(boolean estado) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<CajaModel> getCajas(boolean estado) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

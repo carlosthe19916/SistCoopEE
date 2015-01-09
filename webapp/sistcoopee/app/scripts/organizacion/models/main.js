@@ -4,7 +4,9 @@ define([
     './Caja',
     './Agencia',
     './Sucursal',
-    './Usuario'
+    './Usuario',
+    './Trabajador'
+
 ], function () {
 
 });

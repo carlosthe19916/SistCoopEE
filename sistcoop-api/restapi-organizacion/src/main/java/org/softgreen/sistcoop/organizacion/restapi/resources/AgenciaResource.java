@@ -25,15 +25,18 @@ import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaProvider;
 import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.CajaProvider;
+import org.softgreen.sistcoop.organizacion.client.models.TrabajadorModel;
 import org.softgreen.sistcoop.organizacion.client.models.util.ModelToRepresentation;
 import org.softgreen.sistcoop.organizacion.client.models.util.RepresentationToModel;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.AgenciaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.BovedaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.CajaRepresentation;
+import org.softgreen.sistcoop.organizacion.client.representations.idm.TrabajadorRepresentation;
 import org.softgreen.sistcoop.organizacion.managers.SucursalManager;
 import org.softgreen.sistcoop.organizacion.restapi.config.Jsend;
 import org.softgreen.sistcoop.organizacion.restapi.representation.BovedaList;
 import org.softgreen.sistcoop.organizacion.restapi.representation.CajaList;
+import org.softgreen.sistcoop.organizacion.restapi.representation.TrabajadorList;
 
 @Path("/agencias")
 @Stateless
@@ -120,6 +123,26 @@ public class AgenciaResource {
 		return new CajaList(result);
 	}
 
+	@GET
+	@Path("/{id}/trabajadores")
+	@Produces({ "application/xml", "application/json" })
+	public TrabajadorList getTrabajadores(@PathParam("id") Integer id, @QueryParam("estado") Boolean estado) {
+		AgenciaModel agenciaModel = agenciaProvider.getAgenciaById(id);
+		if (agenciaModel == null)
+			throw new NotFoundException();
+
+		List<TrabajadorModel> list;
+		if (estado == null)
+			list = agenciaModel.getTrabajadores();
+		else
+			list = agenciaModel.getTrabajadores(estado);
+		List<TrabajadorRepresentation> result = new ArrayList<TrabajadorRepresentation>();
+		for (TrabajadorModel model : list) {
+			result.add(ModelToRepresentation.toRepresentation(model));
+		}
+		return new TrabajadorList(result);
+	}
+	
 	@PUT
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })

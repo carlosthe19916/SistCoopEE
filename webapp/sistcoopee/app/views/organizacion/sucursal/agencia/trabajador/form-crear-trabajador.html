@@ -1,0 +1,31 @@
+<div>
+    <div class="page-title full-width">
+        <div class="title-env">
+            <h1 class="title ng-binding">Crear trabajador</h1>
+            <p class="description ng-binding">Crea un trabajador en una agencia.</p>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title" ui-sref=".datosPrincipales">Ingrese los datos</h3>
+            <div class="panel-options">
+                <a href="" data-toggle="panel">
+                    <span class="collapse-icon">–</span>
+                    <span class="expand-icon">+</span>
+                </a>
+                <a href="" data-toggle="remove">
+                    ×
+                </a>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    <form name="form" ng-submit="submit()" novalidate>
+                        <div ui-view></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

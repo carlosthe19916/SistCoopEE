@@ -9,7 +9,7 @@ define(['./module'], function (module) {
             obj.$save = function() {
                 return PersonaRestangular.one(url, this.id).customPUT({'personaNatural': PersonaRestangular.copy(this)},'',{},{});
             };
-            obj.fullName = function(){
+            obj.$fullName = function(){
                 return this.apellidoPaterno+' '+this.apellidoMaterno+', '+this.nombres;
             };
             return obj;
