@@ -77,7 +77,7 @@ public class CajaResource {
 	@Path("/{id}/trabajadores")
 	@Produces({ "application/xml", "application/json" })
 	public TrabajadorList getTrabajadoresAsignados(@PathParam("id") Integer id) {
-		CajaModel model = cajaProvider.getCajaById(id);	
+		CajaModel model = cajaProvider.getCajaById(id);
 		List<TrabajadorCajaModel> trabajadorCajaList = model.getTrabajadorCajas();
 		List<TrabajadorRepresentation> list = new ArrayList<TrabajadorRepresentation>();
 		for (TrabajadorCajaModel trabajadorCajaModel : trabajadorCajaList) {
@@ -93,7 +93,7 @@ public class CajaResource {
 		}
 		return new TrabajadorList(list);
 	}
-	
+
 	@GET
 	@Path("/{id}/detalle")
 	@Produces({ "application/xml", "application/json" })

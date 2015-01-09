@@ -31,15 +31,16 @@ public interface AgenciaModel extends Model {
 	SucursalModel getSucursal();
 
 	List<BovedaModel> getBovedas();
-	
+
 	List<BovedaModel> getBovedas(boolean estado);
 
 	List<CajaModel> getCajas();
-	
+
 	List<CajaModel> getCajas(boolean estado);
 
 	List<TrabajadorModel> getTrabajadores();
 
 	List<TrabajadorModel> getTrabajadores(boolean estado);
 
+	List<TrabajadorModel> getTrabajadores(String filterText, int limit, int offset);
 }

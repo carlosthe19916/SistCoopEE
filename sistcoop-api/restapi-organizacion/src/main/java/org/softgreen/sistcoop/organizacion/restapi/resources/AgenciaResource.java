@@ -41,13 +41,13 @@ import org.softgreen.sistcoop.organizacion.restapi.representation.TrabajadorList
 @Path("/agencias")
 @Stateless
 public class AgenciaResource {
-	
+
 	@Inject
 	protected BovedaProvider bovedaProvider;
 
 	@Inject
 	protected BovedaCajaProvider bovedaCajaProvider;
-	
+
 	@Inject
 	protected CajaProvider cajaProvider;
 
@@ -126,23 +126,31 @@ public class AgenciaResource {
 	@GET
 	@Path("/{id}/trabajadores")
 	@Produces({ "application/xml", "application/json" })
-	public TrabajadorList getTrabajadores(@PathParam("id") Integer id, @QueryParam("estado") Boolean estado) {
+	public TrabajadorList getTrabajadores(@PathParam("id") Integer id, @QueryParam("estado") Boolean estado, @QueryParam("filterText") String filterText, @QueryParam("limit") Integer limit, @QueryParam("offset") Integer offset) {
 		AgenciaModel agenciaModel = agenciaProvider.getAgenciaById(id);
 		if (agenciaModel == null)
 			throw new NotFoundException();
 
 		List<TrabajadorModel> list;
-		if (estado == null)
-			list = agenciaModel.getTrabajadores();
-		else
+		if (estado == null) {
+			if (limit == null) {
+				limit = -1;
+			}
+			if (offset == null) {
+				offset = -1;
+			}			
+			list = agenciaModel.getTrabajadores(filterText, limit, offset);
+		} else {
 			list = agenciaModel.getTrabajadores(estado);
+		}
+			
 		List<TrabajadorRepresentation> result = new ArrayList<TrabajadorRepresentation>();
 		for (TrabajadorModel model : list) {
 			result.add(ModelToRepresentation.toRepresentation(model));
 		}
 		return new TrabajadorList(result);
 	}
-	
+
 	@PUT
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
@@ -180,7 +188,7 @@ public class AgenciaResource {
 		BovedaModel bovedaModel = representationToModel.createBoveda(agenciaModel, bovedaRepresentation, bovedaProvider);
 		return Response.created(uriInfo.getAbsolutePathBuilder().path(bovedaModel.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(bovedaModel.getId())).build();
 	}
-	
+
 	@POST
 	@Path("/{id}/cajas")
 	@Produces({ "application/xml", "application/json" })

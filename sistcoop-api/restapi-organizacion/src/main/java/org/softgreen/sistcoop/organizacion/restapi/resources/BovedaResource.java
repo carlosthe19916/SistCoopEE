@@ -34,10 +34,10 @@ public class BovedaResource {
 
 	@Inject
 	protected BovedaProvider bovedaProvider;
-	
+
 	@Inject
 	protected BovedaManager bovedaManager;
-	
+
 	@BadgerFish
 	@GET
 	@Path("/{id}")
@@ -47,7 +47,7 @@ public class BovedaResource {
 		BovedaRepresentation bovedaRepresentation = ModelToRepresentation.toRepresentation(bovedaModel);
 		return bovedaRepresentation;
 	}
-	
+
 	@GET
 	@Path("/{id}/cajas")
 	@Produces({ "application/xml", "application/json" })
@@ -63,19 +63,19 @@ public class BovedaResource {
 			cajaRepresentation.setAbierto(cajaModel.isAbierto());
 			cajaRepresentation.setEstadoMovimiento(cajaModel.getEstadoMovimiento());
 			cajaRepresentation.setEstado(cajaModel.getEstado());
-			
+
 			list.add(cajaRepresentation);
 		}
 		return new CajaList(list);
 	}
-	
+
 	@GET
 	@Path("/{id}/detalle")
 	@Produces({ "application/xml", "application/json" })
 	public DetalleHistorialList getDetalle(@PathParam("id") Integer id) {
 		BovedaModel bovedaModel = bovedaProvider.getBovedaById(id);
 		HistorialModel historialModel = bovedaModel.getHistorialActivo();
-		if(historialModel != null){
+		if (historialModel != null) {
 			List<DetalleHistorialModel> detalleHistorialModel = historialModel.getDetalle();
 			List<DetalleHistorialRepresentation> detalleHistorialRepresentations = new ArrayList<DetalleHistorialRepresentation>();
 			for (DetalleHistorialModel detHistModel : detalleHistorialModel) {
@@ -85,18 +85,18 @@ public class BovedaResource {
 			return new DetalleHistorialList(detalleHistorialRepresentations);
 		} else {
 			return null;
-		}				
+		}
 	}
-	
+
 	@PUT
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
 	public void update(@PathParam("id") Integer id, BovedaRepresentation rep) {
 		BovedaModel model = bovedaProvider.getBovedaById(id);
-		model.setDenominacion(rep.getDenominacion());		
+		model.setDenominacion(rep.getDenominacion());
 		model.commit();
 	}
-	
+
 	@POST
 	@Path("/{id}/desactivar")
 	@Produces({ "application/xml", "application/json" })
@@ -107,7 +107,7 @@ public class BovedaResource {
 		}
 		bovedaManager.desactivarBoveda(model);
 	}
-	
+
 	@POST
 	@Path("/{id}/abrir")
 	@Produces({ "application/xml", "application/json" })
@@ -118,7 +118,7 @@ public class BovedaResource {
 		}
 		bovedaManager.abrir(model);
 	}
-	
+
 	@POST
 	@Path("/{id}/cerrar")
 	@Produces({ "application/xml", "application/json" })

@@ -32,5 +32,5 @@ public class CurrencyResource {
 		}
 		return new CurrencyList(result);
 	}
-	
+
 }

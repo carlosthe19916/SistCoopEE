@@ -151,6 +151,12 @@ public class AgenciaAdapter implements AgenciaModel {
 	}
 
 	@Override
+	public List<TrabajadorModel> getTrabajadores(String filterText, int limit, int offset) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;
