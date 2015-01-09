@@ -12,6 +12,9 @@ define(['./module'], function (module) {
         });
 
         return {
+            $find: function(username){
+                return OrganizacionRestangular.one(url, username).get();
+            },
             $getSucursal: function(username){
                 return OrganizacionRestangular.one(url+'/'+username+'/sucursal').get();
             },

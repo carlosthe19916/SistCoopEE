@@ -36,8 +36,7 @@
     <div class="col-sm-4">
         <div class="form-group" ng-class="{ 'validate-has-error' : form.tipoDocumento.$invalid && (form.tipoDocumento.$touched || form.$submitted)}">
             <label>Tipo documento</label>
-            <ui-select name="tipoDocumento" ng-model="combo.selected.tipoDocumento" theme="bootstrap" required>
-                <ui-select-autoload pk-name="abreviatura" comparator="view.persona.tipoDocumento" ignore-case="true"></ui-select-autoload>
+            <ui-select name="tipoDocumento" ng-model="combo.selected.tipoDocumento" required>
                 <ui-select-match placeholder="Seleccione">{{$select.selected.abreviatura}}</ui-select-match>
                 <ui-select-choices repeat="item in combo.tipoDocumento | filter: $select.search">
                     <div ng-bind-html="item.abreviatura | highlight: $select.search"></div>
@@ -52,7 +51,7 @@
         <div class="form-group">
             <label>N&uacute;mero documento</label>
             <div class="input-group">
-                <input type="text" name="numeroDocumento" ng-model="view.persona.numeroDocumento" ui-keypress="{13:'check($event)'}" ng-pattern="/^[0-9]+$/" ng-minlength="combo.selected.tipoDocumento.cantidadCaracteres" ng-maxlength="combo.selected.tipoDocumento.cantidadCaracteres" class="form-control" required/>
+                <input type="text" name="numeroDocumento" ng-model="view.trabajador.numeroDocumento" ui-keypress="{13:'check($event)'}" ng-pattern="/^[0-9]+$/" ng-minlength="combo.selected.tipoDocumento.cantidadCaracteres" ng-maxlength="combo.selected.tipoDocumento.cantidadCaracteres" class="form-control" required/>
                 <span class="input-group-btn"><button type="button" ng-click="check()" tooltip="Check" tooltip-trigger="mouseenter" tooltip-placement="bottom" class="btn btn-default"><span class="glyphicon glyphicon-check"></span></button></span>
             </div>
             <div ng-messages="form.numeroDocumento.$error" ng-if="form.numeroDocumento.$dirty || form.numeroDocumento.$touched || form.$submitted">
@@ -64,17 +63,30 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="form-group" ng-class="{ 'validate-has-error' : form.tipoDocumento.$invalid && (form.tipoDocumento.$touched || form.$submitted)}">
+            <label>Persona</label>
+            <h4><span ng-bind="view.persona.apellidoPaterno"></span>&nbsp;<span ng-bind="view.persona.apellidoMaterno"></span>,&nbsp;<span ng-bind="view.persona.nombres"></span></h4>
+        </div>
+    </div>
+</div>
 
 <h4><strong>Acceso al sistema</strong></h4>
 <div class="row">
     <div class="col-sm-4">
-        <div class="form-group" ng-class="{ 'validate-has-error' : form.denominacion.$invalid && (form.denominacion.$touched || form.$submitted)}">
+        <div class="form-group" ng-class="{ 'validate-has-error' : form.usuario.$invalid && (form.usuario.$touched || form.$submitted)}">
             <label>Usuario</label>
-            <input type="text" name="denominacion" ng-model="view.boveda.denominacion" ng-minlength="1" ng-maxlength="30" class="form-control" required/>
-            <div ng-messages="form.denominacion.$error" ng-if="form.denominacion.$touched || form.$submitted">
+            <ui-select name="usuario" ng-model="combo.selected.usuario" required>
+                <ui-select-match placeholder="Seleccione">{{$select.selected.username}}</ui-select-match>
+                <ui-select-choices repeat="item in combo.usuario track by $index"
+                                   refresh="refreshComboUsuario($select.search)"
+                                   refresh-delay="0">
+                    <div ng-bind-html="item.username | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+            <div ng-messages="form.usuario.$error" ng-if="form.usuario.$touched || form.$submitted">
                 <div class="validate-has-error" ng-message="required">Ingrese denominacion.</div>
-                <div class="validate-has-error" ng-message="minlength">Debe tener minimo 1 digitos.</div>
-                <div class="validate-has-error" ng-message="maxlength">Debe tener maximo 30 digitos.</div>
             </div>
         </div>
     </div>

@@ -8,6 +8,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 
 import org.jboss.resteasy.annotations.providers.jaxb.json.BadgerFish;
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
@@ -21,6 +22,8 @@ import org.softgreen.sistcoop.organizacion.client.representations.idm.AgenciaRep
 import org.softgreen.sistcoop.organizacion.client.representations.idm.CajaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.SucursalRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.TrabajadorRepresentation;
+import org.softgreen.sistcoop.organizacion.client.representations.idm.UsuarioRepresentation;
+import org.softgreen.sistcoop.organizacion.restapi.representation.UsuarioList;
 
 @Path("/usuarios")
 @Stateless
@@ -31,13 +34,29 @@ public class UsuarioResource {
 
 	@BadgerFish
 	@GET
+	@Path("/{username}")
+	@Produces({ "application/xml", "application/json" })
+	public UsuarioRepresentation findUsuario(@PathParam("username") String username, @QueryParam("idAgencia") Integer idAgencia) {
+		// TODO code here
+		return null;
+	}
+
+	@GET
+	@Produces({ "application/xml", "application/json" })
+	public UsuarioList findAll(@QueryParam("estado") Boolean estado, @QueryParam("filterText") String filterText, @QueryParam("limit") Integer limit, @QueryParam("offset") Integer offset) {
+		// TODO code here
+		return null;
+	}
+
+	@BadgerFish
+	@GET
 	@Path("/{username}/sucursal")
 	@Produces({ "application/xml", "application/json" })
 	public SucursalRepresentation getSucursal(@PathParam("username") String username) {
 		TrabajadorModel trabajadorModel = trabajadorProvider.getTrabajadorByUsuario(username);
-		if(trabajadorModel == null)
+		if (trabajadorModel == null)
 			return null;
-		
+
 		AgenciaModel agenciaModel = trabajadorModel.getAgencia();
 		SucursalModel sucursalModel = agenciaModel.getSucursal();
 		return ModelToRepresentation.toRepresentation(sucursalModel);
@@ -49,9 +68,9 @@ public class UsuarioResource {
 	@Produces({ "application/xml", "application/json" })
 	public AgenciaRepresentation getAgencia(@PathParam("username") String username) {
 		TrabajadorModel trabajadorModel = trabajadorProvider.getTrabajadorByUsuario(username);
-		if(trabajadorModel == null)
+		if (trabajadorModel == null)
 			return null;
-		
+
 		AgenciaModel agenciaModel = trabajadorModel.getAgencia();
 		return ModelToRepresentation.toRepresentation(agenciaModel);
 	}
@@ -71,9 +90,9 @@ public class UsuarioResource {
 	@Produces({ "application/xml", "application/json" })
 	public CajaRepresentation getCaja(@PathParam("username") String username) {
 		TrabajadorModel trabajadorModel = trabajadorProvider.getTrabajadorByUsuario(username);
-		if(trabajadorModel == null)
+		if (trabajadorModel == null)
 			return null;
-		
+
 		List<TrabajadorCajaModel> trabajadorCajas = trabajadorModel.getTrabajadorCajas();
 		TrabajadorCajaModel trabajadorCajaModel = null;
 		for (TrabajadorCajaModel trabCajModel : trabajadorCajas) {

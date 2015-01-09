@@ -35,7 +35,7 @@ define(['../module'], function (module) {
         };
 
         $scope.submit = function(){
-            console.log("carlos");
+
         };
 
     });

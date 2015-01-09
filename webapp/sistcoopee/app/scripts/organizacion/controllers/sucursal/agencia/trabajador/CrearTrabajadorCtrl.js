@@ -1,11 +1,37 @@
 define(['../../../module'], function (module) {
     'use strict';
 
-    module.controller('CrearTrabajadorCtrl', function($scope, $state, Trabajador, Notifications){
+    module.controller('CrearTrabajadorCtrl', function($scope, $state, Usuario, Sucursal, Agencia, Trabajador, PersonaNatural, TipoDocumento, Notifications){
 
         $scope.view = {
-            trabajador: Trabajador.$build()
+            trabajador: Trabajador.$build(),
+            persona: undefined
         };
+
+        $scope.combo = {
+            sucursal: undefined,
+            agencia: undefined,
+            usuario: undefined,
+
+            tipoDocumento: undefined
+        };
+        $scope.combo.selected = {
+            sucursal: undefined,
+            agencia: undefined,
+            usuario: undefined,
+
+            tipoDocumento: undefined
+        };
+        $scope.$watch('combo.selected.sucursal', function(){
+            if(angular.isDefined($scope.combo.selected.sucursal)){
+                $scope.combo.agencia = $scope.combo.selected.sucursal.$getAgencias().$object;
+            }
+        }, true);
+        $scope.loadCombo = function(){
+            $scope.combo.sucursal = Sucursal.$search().$object;
+            $scope.combo.tipoDocumento = TipoDocumento.$search({tipoPersona: 'natural'}).$object
+        };
+        $scope.loadCombo();
 
         $scope.submit = function(){
             if ($scope.form.$valid) {
@@ -22,6 +48,25 @@ define(['../../../module'], function (module) {
                     }
                 );
             }
+        };
+
+        $scope.check = function($event){
+            if(!angular.isUndefined($event))
+                $event.preventDefault();
+            if(!angular.isUndefined($scope.combo.selected.tipoDocumento) && !angular.isUndefined($scope.view.trabajador.numeroDocumento)){
+                PersonaNatural.$findByTipoNumeroDocumento($scope.combo.selected.tipoDocumento.abreviatura, $scope.view.trabajador.numeroDocumento).then(function(data){
+                    if(!data){
+                        Notifications.warn("Persona no encontrada.");
+                        $scope.view.persona = undefined;
+                    } else {
+                        $scope.view.persona = data;
+                    }
+                });
+            }
+        };
+
+        $scope.refreshComboUsuario = function(username){
+            console.log(username);
         };
 
     });
