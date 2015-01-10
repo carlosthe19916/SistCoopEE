@@ -1,0 +1,26 @@
+<h4><strong>Acceso al sistema</strong></h4>
+
+<div class="row">
+    <div class="col-sm-4">
+        <div class="form-group" ng-class="{ 'validate-has-error' : form.usuario.$invalid && (form.usuario.$touched || form.$submitted)}">
+            <label>Usuario</label>
+            <ui-select name="usuario" ng-model="combo.selected.usuario" required>
+                <ui-select-autoload pk-name="username" comparator="view.trabajador.usuario"></ui-select-autoload>
+                <ui-select-match placeholder="Seleccione">{{$select.selected.username}}</ui-select-match>
+                <ui-select-choices repeat="item in combo.usuario track by $index"
+                                   refresh="refreshComboUsuario($select.search)"
+                                   refresh-delay="500">
+                    <div ng-bind-html="item.username | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+            <div ng-messages="form.usuario.$error" ng-if="form.usuario.$touched || form.$submitted">
+                <div class="validate-has-error" ng-message="required">Ingrese denominacion.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p>
+    <button type="button" class="btn btn-primary" ng-click="setUsuario()" ladda="control.block" data-style="expand-right">Guardar</button>
+    <button type="button" class="btn btn-white" ui-sref="^.resumen">Cancelar</button>
+</p>

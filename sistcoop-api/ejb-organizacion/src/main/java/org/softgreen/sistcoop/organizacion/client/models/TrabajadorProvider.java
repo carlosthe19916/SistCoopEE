@@ -12,5 +12,7 @@ public interface TrabajadorProvider extends Provider {
 	boolean removeTrabajador(TrabajadorModel trabajadorModel);
 	
 	TrabajadorModel getTrabajadorByUsuario(String usuario);
+	
+	TrabajadorModel getTrabajadorById(Integer id);
 
 }

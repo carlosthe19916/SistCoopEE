@@ -4,7 +4,7 @@ define([
     'use strict';
 
     angular.module('xenon.controllers', [])
-        .controller('MainCtrl', function($scope, $rootScope, $location, $layout, $layoutToggles, $pageLoadingBar, $timeout, $http, blockUI, Auth, Usuario, Notifications, activeProfile) {
+        .controller('MainCtrl', function($scope, $rootScope, $location, $window, $state, $layout, $layoutToggles, $pageLoadingBar, $timeout, $http, blockUI, Auth, Usuario, Notifications, activeProfile, KeycloakRestangular) {
             $rootScope.isLoginPage = false;
             $rootScope.isLightLoginPage = false;
             $rootScope.isLockscreenPage = false;
@@ -50,8 +50,17 @@ define([
 
 
             /******************/
-            $scope.auth = Auth;
+            $scope.control = {
+                block: false
+            };
+            $scope.blockControl = function(){
+                $scope.control.block = true;
+            };
+            $scope.unblockControl = function(){
+                $scope.control.block = false;
+            };
 
+            $scope.auth = Auth;
             $scope.$watch(function() {
                 return $location.path();
             }, function() {
@@ -63,29 +72,38 @@ define([
             $scope.auth.user = {};
             $scope.auth.user.username = activeProfile.idToken.preferred_username;
 
+            $scope.accountManagement = function() {
+                $scope.auth.authz.accountManagement();
+            };
+            $scope.getUsersManagementUrl = function() {
+                //baseUrl = https://keycloak-softgreen.rhcloud.com/auth/admin/realms/SISTCOOP
+                var baseUrl = KeycloakRestangular.configuration.baseUrl;
+                var userUrl = baseUrl.replace('/realms/', "/");
+                userUrl = userUrl + '/console/index.html';
+                //userUrl = https://keycloak-softgreen.rhcloud.com/auth/admin/SISTCOOP/console/index.html
+                $window.open(userUrl);
+            };
             $scope.logout = function(){
                 $scope.auth.authz.logout();
             };
             $scope.logoutTime = function(time){
                 $timeout(function() {
-                    $scope.logout();
-                }, (time ? time : 7000));
-            };
-
-            $scope.control = {
-                block: false
-            };
-            $scope.blockControl = function(){
-                $scope.control.block = true;
-            };
-            $scope.unblockControl = function(){
-                $scope.control.block = false;
+                    //$scope.logout();
+                }, (time ? time : 15000));
             };
 
             $scope.auth.user.trabajador = Usuario.$getTrabajador($scope.auth.user.username).$object;
             $scope.auth.user.caja = Usuario.$getCaja($scope.auth.user.username).$object;
             $scope.auth.user.sucursal = Usuario.$getSucursal($scope.auth.user.username).$object;
             $scope.auth.user.agencia = Usuario.$getAgencia($scope.auth.user.username).$object;
+
+            $scope.goToTrabajadorSession = function(){
+                if($scope.auth.user.trabajador.id){
+                    $state.go('app.organizacion.rrhh.editarTrabajador.resumen', {id: $scope.auth.user.trabajador.id});
+                } else {
+                    alert('El usuario no tiene un trabajador asignado.');
+                }
+            };
 
              if(activeProfile.realmAccess.roles.indexOf('ADMIN') != -1){
 

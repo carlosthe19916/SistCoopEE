@@ -52,7 +52,7 @@
             <label>N&uacute;mero documento</label>
             <div class="input-group">
                 <input type="text" name="numeroDocumento" ng-model="view.trabajador.numeroDocumento" ui-keypress="{13:'check($event)'}" ng-pattern="/^[0-9]+$/" ng-minlength="combo.selected.tipoDocumento.cantidadCaracteres" ng-maxlength="combo.selected.tipoDocumento.cantidadCaracteres" class="form-control" required/>
-                <span class="input-group-btn"><button type="button" ng-click="check()" tooltip="Check" tooltip-trigger="mouseenter" tooltip-placement="bottom" class="btn btn-default"><span class="glyphicon glyphicon-check"></span></button></span>
+                <span class="input-group-btn"><button type="button" ng-click="check()" tooltip="Check" tooltip-trigger="mouseenter" tooltip-placement="bottom" class="btn btn-white"><span class="glyphicon glyphicon-check"></span></button></span>
             </div>
             <div ng-messages="form.numeroDocumento.$error" ng-if="form.numeroDocumento.$dirty || form.numeroDocumento.$touched || form.$submitted">
                 <div class="validate-has-error" ng-message="required">Ingrese numero documento.</div>
@@ -72,28 +72,7 @@
     </div>
 </div>
 
-<h4><strong>Acceso al sistema</strong></h4>
-<div class="row">
-    <div class="col-sm-4">
-        <div class="form-group" ng-class="{ 'validate-has-error' : form.usuario.$invalid && (form.usuario.$touched || form.$submitted)}">
-            <label>Usuario</label>
-            <ui-select name="usuario" ng-model="combo.selected.usuario" required>
-                <ui-select-match placeholder="Seleccione">{{$select.selected.username}}</ui-select-match>
-                <ui-select-choices repeat="item in combo.usuario track by $index"
-                                   refresh="refreshComboUsuario($select.search)"
-                                   refresh-delay="0">
-                    <div ng-bind-html="item.username | highlight: $select.search"></div>
-                </ui-select-choices>
-            </ui-select>
-            {{combo.usuario}}
-            <div ng-messages="form.usuario.$error" ng-if="form.usuario.$touched || form.$submitted">
-                <div class="validate-has-error" ng-message="required">Ingrese denominacion.</div>
-            </div>
-        </div>
-    </div>
-</div>
-
 <p>
-    <button type="button" class="btn btn-primary" ng-click="addBoveda()" ladda="control.block" data-style="expand-right">Guardar</button>
-    <button type="button" class="btn btn-white" ui-sref="app.organizacion.estructura.buscarBoveda">Cancelar</button>
+    <button type="submit" class="btn btn-primary" ladda="control.block" data-style="expand-right">Guardar</button>
+    <button type="button" class="btn btn-white" ui-sref="app.organizacion.estructura.buscarTrabajador">Cancelar</button>
 </p>

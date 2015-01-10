@@ -5,40 +5,27 @@
     </div>
 </div>
 
-<div class="panel panel-default ng-scope">
-    <div class="panel-heading">
-        <h3 class="panel-title">Resultado de busqueda</h3>
-
-        <div class="panel-options">
-            <a href="" data-toggle="panel">
-                <span class="collapse-icon">–</span>
-                <span class="expand-icon">+</span>
-            </a>
-            <a href="" data-toggle="remove">
-                ×
-            </a>
-        </div>
-    </div>
+<div class="panel panel-headerless ng-scope">
     <div class="panel-body">
-        <form name="ctrl.form" ng-submit="search()" novalidate>
-            <div class="sg-grid-top-panel">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input type="text" name="filterText" class="form-control" ng-model="filterOptions.filterText" placeholder="Denominacion" autofocus>
-                                <span class="input-group-btn"><button class="btn btn-white" type="submit"><i class="fa-search"></i></button></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group pull-right">
-                            <button type="button" ng-click="nuevo()" class="btn btn-primary">Nuevo</button>
-                        </div>
-                    </div>
+
+        <ul class="highlights list-unstyled">
+            <li class="version">
+                <h4>VERSION 1.3</h4>
+            </li>
+            <li>
+                <a href="" class="entry-img">
+                    <img src="../../images/keycloak.png">
+                </a>
+                <div class="entry-description">
+                    <h3>Keycloak administra los usuarios</h3>
+                    <p>Los usuarios del sistema son administrador por Keycloak, un sistema de administracion externo.</p>
+                    <p>La seguridad esta garantizada por Keycloak, para acceder al sistema haga clic en el boton "Administrar".</p>
+                    <p>
+                        <button ng-click="getUsersManagementUrl()" class="btn btn-blue">Administrar</button>
+                    </p>
                 </div>
-            </div>
-        </form>
-        <div ui-grid="gridOptions" external-scopes="gridActions" ui-grid-selection class="grid"></div>
+            </li>
+        </ul>
+
     </div>
 </div>

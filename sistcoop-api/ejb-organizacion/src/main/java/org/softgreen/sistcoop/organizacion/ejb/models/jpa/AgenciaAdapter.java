@@ -33,7 +33,7 @@ public class AgenciaAdapter implements AgenciaModel {
 	}
 
 	@Override
-	public void commit() {		
+	public void commit() {
 		em.merge(agenciaEntity);
 	}
 
@@ -116,16 +116,33 @@ public class AgenciaAdapter implements AgenciaModel {
 
 	@Override
 	public List<TrabajadorModel> getTrabajadores() {
+		return getTrabajadores(true);
+	}
+
+	@Override
+	public List<TrabajadorModel> getTrabajadores(boolean estado) {
 		Set<TrabajadorEntity> list = agenciaEntity.getTrabajadores();
 		List<TrabajadorModel> result = new ArrayList<TrabajadorModel>();
 		for (TrabajadorEntity entity : list) {
-			if (entity.isEstado())
+			if (entity.isEstado() == estado)
 				result.add(new TrabajadorAdapter(em, entity));
 		}
 		return result;
 	}
 
-	public static AgenciaEntity toSucursalEntity(AgenciaModel model, EntityManager em) {
+	@Override
+	public List<TrabajadorModel> getTrabajadores(String filterText, int limit, int offset) {
+		Set<TrabajadorEntity> list = agenciaEntity.getTrabajadores();
+		List<TrabajadorModel> result = new ArrayList<TrabajadorModel>();
+		for (TrabajadorEntity entity : list) {
+			if (entity.isEstado() == true)
+				result.add(new TrabajadorAdapter(em, entity));
+		}
+		return result;
+	}
+
+	public static AgenciaEntity toSucursalEntity(AgenciaModel model,
+			EntityManager em) {
 		if (model instanceof AgenciaAdapter) {
 			return ((AgenciaAdapter) model).getAgenciaEntity();
 		}
@@ -140,18 +157,6 @@ public class AgenciaAdapter implements AgenciaModel {
 
 	@Override
 	public List<CajaModel> getCajas(boolean estado) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<TrabajadorModel> getTrabajadores(boolean estado) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<TrabajadorModel> getTrabajadores(String filterText, int limit, int offset) {
 		// TODO Auto-generated method stub
 		return null;
 	}

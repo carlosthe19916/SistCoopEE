@@ -1,5 +1,6 @@
 define([
     'angular',
+
     './sucursal/BuscarSucursalCtrl',
     './sucursal/CrearSucursalCtrl',
     './sucursal/EditarSucursalCtrl',
@@ -32,6 +33,8 @@ define([
     './sucursal/agencia/trabajador/CrearTrabajadorCtrl',
     './sucursal/agencia/trabajador/EditarTrabajadorCtrl',
     './sucursal/agencia/trabajador/TrabajadorDatosPrincipalesCtrl',
+    './sucursal/agencia/trabajador/TrabajadorAccesoAlSistemaCtrl',
+    './sucursal/agencia/trabajador/TrabajadorAsignarCajaCtrl',
     './sucursal/agencia/trabajador/TrabajadorResumenCtrl',
 
     './usuario/BuscarUsuarioCtrl'

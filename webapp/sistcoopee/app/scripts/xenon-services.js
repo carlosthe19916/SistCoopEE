@@ -71,6 +71,28 @@ define([
                     rrhh.addItem('Trabajadores', 'app.organizacion.rrhh.buscarTrabajador');
                     rrhh.addItem('Usuarios', 'app.organizacion.rrhh.buscarUsuario');
 
+                } else if(stateName.indexOf('app.cliente') > -1){
+                    var cuentaAporte = this.addItem('Cuentas aporte', '', 'linecons-eye');
+                    var cuentaBancaria = this.addItem('Cuentas bancarias', '', 'linecons-globe');
+
+                    cuentaAporte.addItem('Buscar cuentas', 'app.administracion.personas.buscarPersonaNatural');
+                    cuentaBancaria.addItem('Crear cuenta ahorro', 'app.administracion.personas.buscarPersonaJuridica');
+                    cuentaBancaria.addItem('Crear cuenta plazo fijo', 'app.administracion.personas.buscarPersonaJuridica');
+                    cuentaBancaria.addItem('Crear cuenta corriente', 'app.administracion.personas.buscarPersonaJuridica');
+                    cuentaBancaria.addItem('Buscar cuentas', 'app.administracion.personas.buscarPersonaJuridica');
+                } else if(stateName.indexOf('app.transaccion') > -1){
+                    var transaccionInterna = this.addItem('Interno', '', 'linecons-beaker');
+                    var transaccionExterna = this.addItem('Externa', '', 'linecons-money');
+                    var monitoreo = this.addItem('Monitoreo', '', 'linecons-mobile');
+
+                    transaccionInterna.addItem('Transaccion cta. aporte', 'app.administracion.personas.buscarPersonaNatural');
+                    transaccionInterna.addItem('Transaccion cta. bancaria', 'app.administracion.personas.buscarPersonaNatural');
+                    transaccionInterna.addItem('Transaccion cta. cheque', 'app.administracion.personas.buscarPersonaNatural');
+                    transaccionInterna.addItem('Transaccion cta. compra/venta', 'app.administracion.personas.buscarPersonaNatural');
+
+                    transaccionExterna.addItem('Trans. Boveda/boveda', 'app.administracion.personas.buscarPersonaJuridica');
+                    transaccionExterna.addItem('Trans. Boveda/caja', 'app.administracion.personas.buscarPersonaJuridica');
+                    transaccionExterna.addItem('Trans. caja/caja', 'app.administracion.personas.buscarPersonaJuridica');
                 } else if(stateName.indexOf('app.administracion') > -1){
                     var administracion = this.addItem('Personas', '', 'linecons-user');
 
@@ -114,9 +136,11 @@ define([
             } else if(roles.indexOf('ADMINISTRADOR') != -1){
                 if(stateName.indexOf('app.organizacion') > -1){
                     var estructura = this.addItem('Estructura', '', 'linecons-inbox');
+                    var rrhh = this.addItem('RRHH', '', 'linecons-t-shirt');
 
                     estructura.addItem('Bovedas', 'app.organizacion.estructura.buscarBoveda');
                     estructura.addItem('Cajas', 'app.organizacion.estructura.buscarCaja');
+                    rrhh.addItem('Trabajadores', 'app.organizacion.rrhh.buscarTrabajador');
                 } else if(stateName.indexOf('app.administracion') > -1){
                     var administracion = this.addItem('Personas', '', 'linecons-user');
 
@@ -139,9 +163,11 @@ define([
             } else if(roles.indexOf('JEFE_CAJA') != -1){
                 if(stateName.indexOf('app.organizacion') > -1){
                     var estructura = this.addItem('Estructura', '', 'linecons-inbox');
+                    var rrhh = this.addItem('RRHH', '', 'linecons-t-shirt');
 
                     estructura.addItem('Bovedas', 'app.organizacion.estructura.buscarBoveda');
                     estructura.addItem('Cajas', 'app.organizacion.estructura.buscarCaja');
+                    rrhh.addItem('Trabajadores', 'app.organizacion.rrhh.buscarTrabajador');
                 } else if(stateName.indexOf('app.administracion') > -1){
                     var administracion = this.addItem('Personas', '', 'linecons-user');
 

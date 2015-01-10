@@ -15,6 +15,7 @@ import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorModel;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorProvider;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.AgenciaEntity;
+import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.BovedaEntity;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.TrabajadorEntity;
 
 @Named
@@ -40,6 +41,7 @@ public class JpaTrabajadorProvider implements TrabajadorProvider {
 
 		trabajadorEntity.setTipoDocumento(tipoDocumento);
 		trabajadorEntity.setNumeroDocumento(numeroDocumento);
+		trabajadorEntity.setEstado(true);
 
 		em.persist(trabajadorEntity);
 		return new TrabajadorAdapter(em, trabajadorEntity);
@@ -70,6 +72,12 @@ public class JpaTrabajadorProvider implements TrabajadorProvider {
 		else {
 			return null;
 		}
+	}
+
+	@Override
+	public TrabajadorModel getTrabajadorById(Integer id) {
+		TrabajadorEntity trabajadorEntity = this.em.find(TrabajadorEntity.class, id);
+		return trabajadorEntity != null ? new TrabajadorAdapter(em, trabajadorEntity) : null;
 	}
 
 }

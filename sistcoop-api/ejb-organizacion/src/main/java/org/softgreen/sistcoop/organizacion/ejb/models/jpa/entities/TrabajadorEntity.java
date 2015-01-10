@@ -94,10 +94,7 @@ public class TrabajadorEntity implements Serializable{
 		this.numeroDocumento = numeroDocumento;
 	}
 
-	@NotNull
 	@Size(min = 0, max = 40)
-	@NotBlank
-	@NotEmpty
 	public String getUsuario() {
 		return usuario;
 	}

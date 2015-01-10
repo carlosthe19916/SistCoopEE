@@ -100,7 +100,7 @@ public class RepresentationToModel {
 	}
 	
 	/**
-	 * Crear un trabajador a partir de un objeto TrabajadorRepresentation.
+	 * Crear un trabajador a partir de un objeto TrabajadorRepresentation sin un Usuario.
 	 * 
 	 * @param agenciaModel
 	 * @param representation
@@ -112,5 +112,5 @@ public class RepresentationToModel {
 				rep.getNumeroDocumento());		
 		return trabajadorModel;
 	} 
-
+	
 }

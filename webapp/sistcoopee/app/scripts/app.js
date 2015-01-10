@@ -94,8 +94,30 @@ define([
                 return obj;
             };
 
-            var unWrapper = function(){
-
+            var unWrapper = function(obj){
+                angular.forEach(obj, function(value, key) {
+                    if(angular.isDate(value)){
+                        if(key.substring(0,1) == '@') {
+                            var newKey = key.replace('@', '');
+                            this[newKey.toString()] = value;
+                            delete this[key];
+                        }
+                    } else if (angular.isArray(value)){
+                        this[key.toString()] = [];
+                        for(var i = 0; i< value.length; i++){
+                            this[key.toString()][i] = unWrapper(value[i]);
+                        }
+                    } else if (angular.isObject(value)){
+                        this[key.toString()] = unWrapper(value);
+                    } else {
+                        if(key.substring(0,1) == '@') {
+                            var newKey = key.replace('@', '');
+                            this[newKey.toString()] = value;
+                            delete this[key];
+                        }
+                    }
+                }, obj);
+                return obj;
             };
 
             //añade @ a los atributos
@@ -110,47 +132,24 @@ define([
 
             //saca el primer objeto
             RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
-                if(url.indexOf("https://keycloak")){
-
-                } else {
-                    var extractedData;
-                    if(data){
+                var extractedData;
+                if(data){
+                    if(!angular.isArray(data)){
                         extractedData = data[Object.keys(data)[0]];
                         extractedData.meta = data.meta;
                     } else {
                         extractedData = data;
                     }
-                    return extractedData;
+                } else {
+                    extractedData = data;
                 }
+                return extractedData;
             });
             //saca los @ de los atributos
             RestangularProvider.setResponseExtractor(function(response) {
                 var newResponse = angular.copy(response);
-                if (angular.isArray(response)) {
-                    angular.forEach(newResponse, function(value, key) {
-                        newResponse[key].originalElement = angular.copy(value);
-                    });
-                } else {
-                    if(response){
-                        //newResponse.originalElement = angular.copy(response);
-                        angular.forEach(response, function(value, key) {
-                            if(key.substring(0,1) == '@') {
-                                var newKey = key.replace('@', '');
-                                this[newKey.toString()] = value;
-                                delete this[key];
-                            } else {
-                                var obj = angular.copy(value);
-                                angular.forEach(value, function(val, k) {
-                                    if(k.substring(0,1) == '@') {
-                                        var newKey = k.replace('@', '');
-                                        this[newKey.toString()] = val;
-                                        delete this[k];
-                                    }
-                                }, obj);
-                                this[key.toString()] = obj;
-                            }
-                        }, newResponse);
-                    }
+                if(response){
+                    newResponse = unWrapper(response);
                 }
                 return newResponse;
             });
@@ -337,6 +336,12 @@ define([
                 templateUrl: appHelper.templatePath('dashboards/home')
             }).state('app.organizacion', {
                 url: '/organizacion',
+                templateUrl: appHelper.templatePath('layout/app-body')
+            }).state('app.cliente', {
+                url: '/cliente',
+                templateUrl: appHelper.templatePath('layout/app-body')
+            }).state('app.transaccion', {
+                url: '/cliente',
                 templateUrl: appHelper.templatePath('layout/app-body')
             }).state('app.administracion', {
                 url: '/administracion',
@@ -628,19 +633,31 @@ define([
             }).state('app.organizacion.rrhh.buscarTrabajador', {
                 url: '/trabajador/buscar',
                 templateUrl: appHelper.viewsPath('organizacion/sucursal/agencia/trabajador/form-buscar-trabajador'),
-                controller: 'BuscarTrabajadorCtrl'
+                controller: 'BuscarTrabajadorCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'ADMINISTRADOR', 'JEFE_CAJA'],
+                operator: 'OR'
             }).state('app.organizacion.rrhh.buscarUsuario', {
                 url: '/usuario/buscar',
                 templateUrl: appHelper.viewsPath('organizacion/usuario/form-buscar-usuario'),
-                controller: 'BuscarUsuarioCtrl'
+                controller: 'BuscarUsuarioCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'ADMINISTRADOR'],
+                operator: 'OR'
             }).state('app.organizacion.rrhh.crearTrabajador', {
                 url: '/trabajador',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/trabajador/form-crear-trabajador"),
-                controller: 'CrearTrabajadorCtrl'
+                controller: 'CrearTrabajadorCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'ADMINISTRADOR'],
+                operator: 'OR'
             }).state('app.organizacion.rrhh.crearTrabajador.datosPrincipales', {
                 url: '/principal',
-                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/trabajador/form-datosPrincipales"),
-                controller: 'TrabajadorDatosPrincipalesCtrl'
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/trabajador/form-datosPrincipales-crear"),
+                controller: 'TrabajadorDatosPrincipalesCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'ADMINISTRADOR'],
+                operator: 'OR'
             }).state('app.organizacion.rrhh.editarTrabajador', {
                 url: '/trabajador/{id:[0-9]{1,8}}',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/trabajador/form-editar-trabajador"),
@@ -653,15 +670,38 @@ define([
                     $scope.params = {};
                     $scope.params.id = $stateParams.id;
                     $scope.params.object = trabajador;
-                }
+                },
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'ADMINISTRADOR', 'PLATAFORMA', 'JEFE_CAJA', 'CAJERO'],
+                operator: 'OR'
             }).state('app.organizacion.rrhh.editarTrabajador.resumen', {
                 url: '/resumen',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/trabajador/form-resumen"),
-                controller: 'TrabajadorResumenCtrl'
+                controller: 'TrabajadorResumenCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'ADMINISTRADOR', 'PLATAFORMA', 'JEFE_CAJA', 'CAJERO'],
+                operator: 'OR'
             }).state('app.organizacion.rrhh.editarTrabajador.datosPrincipales', {
                 url: '/principal',
-                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/trabajador/form-datosPrincipales"),
-                controller: 'TrabajadorDatosPrincipalesCtrl'
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/trabajador/form-datosPrincipales-editar"),
+                controller: 'TrabajadorDatosPrincipalesCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'ADMINISTRADOR'],
+                operator: 'OR'
+            }).state('app.organizacion.rrhh.editarTrabajador.accesoAlSistema', {
+                url: '/acceso',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/trabajador/form-accesoAlSistema"),
+                controller: 'TrabajadorAccesoAlSistemaCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'ADMINISTRADOR'],
+                operator: 'OR'
+            }).state('app.organizacion.rrhh.editarTrabajador.asignarCaja', {
+                url: '/caja',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/trabajador/form-asignarCaja"),
+                controller: 'TrabajadorAsignarCajaCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'ADMINISTRADOR'],
+                operator: 'OR'
 
                 /************* ADMINISTRACION PERSONAS*****************/
             }).state('app.administracion.personas.buscarPersonaNatural', {

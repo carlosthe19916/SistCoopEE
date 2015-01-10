@@ -149,6 +149,10 @@ public class ModelToRepresentation {
 		rep.setNumeroDocumento(model.getNumeroDocumento());
 		rep.setUsuario(model.getUsuario());
 		rep.setEstado(model.getEstado());
+		
+		AgenciaModel agenciaModel = model.getAgencia();
+		AgenciaRepresentation agenciaRepresentation = toRepresentation(agenciaModel);
+		rep.setAgencia(agenciaRepresentation);
 		return rep;
 	}
 

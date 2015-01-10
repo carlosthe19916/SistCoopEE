@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "trabajador")
@@ -21,6 +23,9 @@ public class TrabajadorRepresentation implements Serializable {
 	private String usuario;
 	private boolean estado;
 
+	private AgenciaRepresentation agencia;
+
+	@XmlAttribute
 	public Integer getId() {
 		return id;
 	}
@@ -29,6 +34,7 @@ public class TrabajadorRepresentation implements Serializable {
 		this.id = id;
 	}
 
+	@XmlAttribute
 	public String getTipoDocumento() {
 		return tipoDocumento;
 	}
@@ -37,6 +43,7 @@ public class TrabajadorRepresentation implements Serializable {
 		this.tipoDocumento = tipoDocumento;
 	}
 
+	@XmlAttribute
 	public String getNumeroDocumento() {
 		return numeroDocumento;
 	}
@@ -45,6 +52,7 @@ public class TrabajadorRepresentation implements Serializable {
 		this.numeroDocumento = numeroDocumento;
 	}
 
+	@XmlAttribute
 	public String getUsuario() {
 		return usuario;
 	}
@@ -53,12 +61,22 @@ public class TrabajadorRepresentation implements Serializable {
 		this.usuario = usuario;
 	}
 
+	@XmlAttribute
 	public boolean isEstado() {
 		return estado;
 	}
 
 	public void setEstado(boolean estado) {
 		this.estado = estado;
+	}	
+
+	@XmlElement
+	public AgenciaRepresentation getAgencia() {
+		return agencia;
+	}
+
+	public void setAgencia(AgenciaRepresentation agencia) {
+		this.agencia = agencia;
 	}
 
 }
