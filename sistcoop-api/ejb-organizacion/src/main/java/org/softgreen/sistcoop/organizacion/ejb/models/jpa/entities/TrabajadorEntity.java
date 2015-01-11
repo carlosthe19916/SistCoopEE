@@ -30,12 +30,12 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-@Table(name="TRABAJADOR", indexes = { @Index(columnList = "id") })
+@Table(name = "TRABAJADOR", indexes = { @Index(columnList = "id") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @NamedQueries(value = {
-		@NamedQuery(name = TrabajadorEntity.findByUsuario, query = "SELECT t FROM TrabajadorEntity t WHERE t.usuario = :usuario")
-		})
+		@NamedQuery(name = TrabajadorEntity.findByUsuario, query = "SELECT t FROM TrabajadorEntity t WHERE t.usuario = :usuario"),
+		@NamedQuery(name = TrabajadorEntity.findByTipoAndNumeroDocumento, query = "SELECT t FROM TrabajadorEntity t WHERE t.tipoDocumento = :tipoDocumento AND t.numeroDocumento = :numeroDocumento "), })
 public class TrabajadorEntity implements Serializable{
 
 	/**
@@ -44,6 +44,7 @@ public class TrabajadorEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
 	public final static String base = "org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.TrabajadorEntity.";
 	public final static String findByUsuario = base + "findByUsuario";
+	public final static String findByTipoAndNumeroDocumento = base + "findByTipoAndNumeroDocumento";
 	
 	private Integer id;
 	private String tipoDocumento;

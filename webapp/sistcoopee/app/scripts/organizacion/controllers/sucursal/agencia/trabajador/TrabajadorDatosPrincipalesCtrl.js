@@ -1,7 +1,7 @@
 define(['../../../module'], function (module) {
     'use strict';
 
-    module.controller('TrabajadorDatosPrincipalesCtrl', function($scope, Sucursal, Agencia, Trabajador, PersonaNatural, TipoDocumento, Notifications, activeProfile){
+    module.controller('TrabajadorDatosPrincipalesCtrl', function($scope, $state, Sucursal, Agencia, Trabajador, PersonaNatural, TipoDocumento, Notifications, activeProfile){
 
         var comboSucursalListener = $scope.$watch('combo.selected.sucursal', function(){
             if(angular.isDefined($scope.combo.selected.sucursal)){
@@ -36,12 +36,25 @@ define(['../../../module'], function (module) {
                 PersonaNatural.$findByTipoNumeroDocumento($scope.combo.selected.tipoDocumento.abreviatura, $scope.view.trabajador.numeroDocumento).then(function(data){
                     if(!data){
                         Notifications.warn("Persona no encontrada.");
-                        $scope.view.persona = undefined;
+                        $scope.view.loaded.persona = undefined;
                     } else {
-                        $scope.view.persona = data;
+                        $scope.view.loaded.persona = data;
+                    }
+                });
+
+                Trabajador.$findByTipoNumeroDocumento($scope.combo.selected.tipoDocumento.abreviatura, $scope.view.trabajador.numeroDocumento).then(function(data){
+                    if(data){
+                        Notifications.warn("El trabajador ya fue registrado, no puede continuar.");
+                        $scope.view.loaded.trabajador = data;
+                    } else {
+                        $scope.view.loaded.trabajador = undefined;
                     }
                 });
             }
+        };
+
+        $scope.addPersona = function(){
+            $state.go('app.administracion.personas.crearPersonaNatural.datosPrincipales');
         };
 
     });

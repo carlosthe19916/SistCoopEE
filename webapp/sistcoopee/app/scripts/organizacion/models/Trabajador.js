@@ -11,11 +11,11 @@ define(['./module'], function (module) {
             obj.$addCaja = function(caja){
                 return OrganizacionRestangular.all(url+'/'+this.id+'/cajas').post({'caja': OrganizacionRestangular.copy(caja)});
             };
+            obj.$removeCaja = function(caja){
+                return OrganizacionRestangular.one(url+'/'+this.id+'/cajas').remove();
+            };
             obj.$desactivar = function(){
                 return OrganizacionRestangular.all(url+'/'+this.id+'/desactivar').post();
-            };
-            obj.$getCajas = function() {
-                return OrganizacionRestangular.all(url+'/'+this.id+'/cajas').getList();
             };
             return obj;
         });
@@ -36,6 +36,9 @@ define(['./module'], function (module) {
             },
             $find: function(id){
                 return OrganizacionRestangular.one(url, id).get();
+            },
+            $findByTipoNumeroDocumento: function(tipoDocumento, numeroDocumento){
+                return OrganizacionRestangular.one(url+'/buscar').get({tipoDocumento: tipoDocumento, numeroDocumento: numeroDocumento});
             }
         };
     });

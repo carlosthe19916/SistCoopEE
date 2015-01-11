@@ -1,7 +1,7 @@
 define(['../../../module'], function (module) {
     'use strict';
 
-    module.controller('TrabajadorAccesoAlSistemaCtrl', function($scope, $state, Usuario, Notifications){
+    module.controller('TrabajadorAccesoAlSistemaCtrl', function($scope, Usuario, Notifications, Dialog){
 
         $scope.combo = {
             usuario: undefined
@@ -19,6 +19,25 @@ define(['../../../module'], function (module) {
             $scope.combo.usuario = Usuario.$search(queryParams).$object;
         };
 
+        $scope.desvincular = function(){
+            Dialog.confirm('Desvincular', 'Estas seguro de quitar el usuario para el trabajador?', function() {
+                $scope.blockControl();
+                $scope.view.trabajador.usuario = undefined;
+                $scope.view.trabajador.$save().then(
+                    function(response){
+                        $scope.unblockControl();
+                        Notifications.success("Trabajador actualizado.");
+                        $scope.combo.selected.usuario = undefined;
+                        $scope.view.trabajadorDB = angular.copy($scope.view.trabajador);
+                    },
+                    function error(error){
+                        $scope.unblockControl();
+                        Notifications.error(error.data+".");
+                    }
+                );
+            });
+        };
+
         $scope.setUsuario = function(){
             if ($scope.form.$valid) {
                 $scope.blockControl();
@@ -28,7 +47,6 @@ define(['../../../module'], function (module) {
                         $scope.unblockControl();
                         Notifications.success("Trabajador actualizado.");
                         $scope.view.trabajadorDB = angular.copy($scope.view.trabajador);
-                        $state.go('^.resumen');
                     },
                     function error(error){
                         $scope.unblockControl();

@@ -79,4 +79,16 @@ public class JpaTrabajadorProvider implements TrabajadorProvider {
 		return trabajadorEntity != null ? new TrabajadorAdapter(em, trabajadorEntity) : null;
 	}
 
+	@Override
+	public TrabajadorModel getTrabajadorByTipoNumeroDocumento(
+			String tipoDocumento, String numeroDocumento) {
+		TypedQuery<TrabajadorEntity> query = em.createNamedQuery(TrabajadorEntity.findByTipoAndNumeroDocumento, TrabajadorEntity.class);
+		query.setParameter("tipoDocumento", tipoDocumento);
+		query.setParameter("numeroDocumento", numeroDocumento);
+		List<TrabajadorEntity> results = query.getResultList();
+		if (results.size() == 0)
+			return null;
+		return new TrabajadorAdapter(em, results.get(0));
+	}
+
 }

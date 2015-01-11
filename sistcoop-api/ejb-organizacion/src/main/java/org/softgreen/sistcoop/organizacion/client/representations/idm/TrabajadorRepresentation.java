@@ -23,6 +23,7 @@ public class TrabajadorRepresentation implements Serializable {
 	private String usuario;
 	private boolean estado;
 
+	private CajaRepresentation caja;
 	private AgenciaRepresentation agencia;
 
 	@XmlAttribute
@@ -68,7 +69,16 @@ public class TrabajadorRepresentation implements Serializable {
 
 	public void setEstado(boolean estado) {
 		this.estado = estado;
-	}	
+	}
+
+	@XmlElement
+	public CajaRepresentation getCaja() {
+		return caja;
+	}
+
+	public void setCaja(CajaRepresentation caja) {
+		this.caja = caja;
+	}
 
 	@XmlElement
 	public AgenciaRepresentation getAgencia() {

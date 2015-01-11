@@ -62,17 +62,27 @@
             </div>
         </div>
     </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <div class="form-group">
+                <label>&nbsp;</label>
+                <div class="input-group">
+                    <button type="button" ng-click="addPersona()" class="btn btn-white">Nuevo</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="row">
     <div class="col-sm-12">
         <div class="form-group" ng-class="{ 'validate-has-error' : form.tipoDocumento.$invalid && (form.tipoDocumento.$touched || form.$submitted)}">
             <label>Persona</label>
-            <h4><span ng-bind="view.persona.apellidoPaterno"></span>&nbsp;<span ng-bind="view.persona.apellidoMaterno"></span>,&nbsp;<span ng-bind="view.persona.nombres"></span></h4>
+            <h4><span ng-bind="view.loaded.persona.apellidoPaterno"></span>&nbsp;<span ng-bind="view.loaded.persona.apellidoMaterno"></span>,&nbsp;<span ng-bind="view.loaded.persona.nombres"></span></h4>
         </div>
     </div>
 </div>
 
 <p>
     <button type="submit" class="btn btn-primary" ladda="control.block" data-style="expand-right">Guardar</button>
-    <button type="button" class="btn btn-white" ui-sref="app.organizacion.estructura.buscarTrabajador">Cancelar</button>
+    <button type="button" class="btn btn-white" ui-sref="app.organizacion.rrhh.buscarTrabajador">Cancelar</button>
 </p>

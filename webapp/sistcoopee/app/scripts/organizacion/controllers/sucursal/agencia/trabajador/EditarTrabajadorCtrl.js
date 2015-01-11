@@ -5,25 +5,20 @@ define(['../../../module'], function (module) {
 
         $scope.view = {
             trabajador: undefined,
-            trabajadorDB: undefined,
-            persona: undefined,
-            cajas: []
+            trabajadorDB: undefined
+        };
+
+        $scope.view.loaded = {
+            persona: undefined
         };
 
         $scope.loadParams = function(){
             $scope.view.trabajador = $scope.params.object;
-            $scope.view.trabajadorDB = angular.copy($scope.params.object);
+            $scope.view.trabajadorDB = angular.copy($scope.view.trabajador);
+
+            $scope.view.loaded.persona = PersonaNatural.$findByTipoNumeroDocumento($scope.view.trabajador.tipoDocumento, $scope.view.trabajador.numeroDocumento).$object;
         };
         $scope.loadParams();
-
-        $scope.loadPersona = function(){
-            $scope.view.persona = PersonaNatural.$findByTipoNumeroDocumento($scope.view.trabajador.tipoDocumento, $scope.view.trabajador.numeroDocumento).$object;
-        };
-        $scope.loadPersona();
-        $scope.loadCajas = function(){
-            $scope.view.cajas =  $scope.view.trabajadorDB.$getCajas().$object;
-        };
-        $scope.loadCajas();
 
         $scope.combo = {
             sucursal: undefined,
@@ -38,7 +33,7 @@ define(['../../../module'], function (module) {
 
         $scope.submit = function(){
             if ($scope.form.$valid) {
-                if(angular.isUndefined($scope.view.persona)){
+                if(angular.isUndefined($scope.view.loaded.persona)){
                     Notifications.warn("Debe de seleccionar una persona.");
                     return;
                 }

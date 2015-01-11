@@ -83,7 +83,7 @@ define(['./app'], function(app) {
                 },
                 cancel: {
                     label: 'Cancel',
-                    cssClass: 'btn btn-default'
+                    cssClass: 'btn btn-white'
                 }
             };
 

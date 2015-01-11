@@ -1,6 +1,5 @@
 package org.softgreen.sistcoop.organizacion.restapi.resources;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -14,6 +13,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
@@ -34,7 +34,6 @@ import org.softgreen.sistcoop.organizacion.client.representations.idm.CajaRepres
 import org.softgreen.sistcoop.organizacion.client.representations.idm.TrabajadorRepresentation;
 import org.softgreen.sistcoop.organizacion.managers.TrabajadorManager;
 import org.softgreen.sistcoop.organizacion.restapi.config.Jsend;
-import org.softgreen.sistcoop.organizacion.restapi.representation.CajaList;
 
 @Path("/trabajadores")
 @Stateless
@@ -70,23 +69,21 @@ public class TrabajadorResource {
 		TrabajadorRepresentation rep = ModelToRepresentation.toRepresentation(model);
 		return rep;
 	}	
-
+	
+	@BadgerFish
 	@GET
-	@Path("/{id}/cajas")
+	@Path("/buscar")
 	@Produces({ "application/xml", "application/json" })
-	public CajaList getCajas(@PathParam("id") Integer id) {
-		TrabajadorModel model = trabajadorProvider.getTrabajadorById(id);
-		if (model == null)
-			throw new NotFoundException();
+	public TrabajadorRepresentation findByTipoNumeroDocumento(@QueryParam("tipoDocumento") String tipoDocumento, @QueryParam("numeroDocumento") String numeroDocumento) {
+		if (tipoDocumento == null)
+			return null;
+		if (numeroDocumento == null)
+			return null;
 
-		List<TrabajadorCajaModel> trabajadorCajaModels = model.getTrabajadorCajas();
-		List<CajaRepresentation> result = new ArrayList<CajaRepresentation>();
-		for (TrabajadorCajaModel trabajadorCajaModel : trabajadorCajaModels) {
-			CajaModel cajaModel = trabajadorCajaModel.getCaja();
-			result.add(ModelToRepresentation.toRepresentation(cajaModel));
-		}
-		return new CajaList(result);
-	}
+		TrabajadorModel model = trabajadorProvider.getTrabajadorByTipoNumeroDocumento(tipoDocumento, numeroDocumento);
+		TrabajadorRepresentation rep = ModelToRepresentation.toRepresentation(model);
+		return rep;
+	}	
 	
 	@POST
 	@Produces({ "application/xml", "application/json" })
@@ -131,7 +128,7 @@ public class TrabajadorResource {
 	@POST
 	@Path("/{id}/cajas")
 	@Produces({ "application/xml", "application/json" })
-	public Response addBoveda(@PathParam("id") Integer id, CajaRepresentation cajaRepresentation) {
+	public Response setCaja(@PathParam("id") Integer id, CajaRepresentation cajaRepresentation) {
 		TrabajadorModel model = trabajadorProvider.getTrabajadorById(id);
 		CajaModel cajaModel = cajaProvider.getCajaById(cajaRepresentation.getId());
 		if (model == null) {
@@ -140,8 +137,36 @@ public class TrabajadorResource {
 		if (cajaModel == null) {
 			throw new NotFoundException("Caja not found.");
 		}
-		TrabajadorCajaModel trabajadorCajaModel = trabajadorCajaProvider.addTrabajadorCaja(cajaModel, model);					
-		return Response.created(uriInfo.getAbsolutePathBuilder().path(trabajadorCajaModel.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(trabajadorCajaModel.getId())).build();		
+		List<TrabajadorCajaModel> trabajadorCajaModels = model.getTrabajadorCajas();
+		if(trabajadorCajaModels.size() > 0){
+			TrabajadorCajaModel trabajadorCajaModel = trabajadorCajaModels.get(0);
+			CajaModel cajaModelDB = trabajadorCajaModel.getCaja();
+			if(!cajaModel.equals(cajaModelDB)){			
+				TrabajadorCajaModel trabajadorCajaModelNew = trabajadorManager.setCaja(model, cajaModel);
+				return Response.created(uriInfo.getAbsolutePathBuilder().path(trabajadorCajaModelNew.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(trabajadorCajaModelNew.getId())).build();
+			} else {
+				return Response.noContent().build();
+			}
+		} else {
+			TrabajadorCajaModel trabajadorCajaModelNew = trabajadorManager.setCaja(model, cajaModel);
+			return Response.created(uriInfo.getAbsolutePathBuilder().path(trabajadorCajaModelNew.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(trabajadorCajaModelNew.getId())).build();
+		}			
+							
+	}
+	
+	@DELETE
+	@Path("/{id}/cajas")
+	@Produces({ "application/xml", "application/json" })
+	public void removeCaja(@PathParam("id") Integer id) {
+		TrabajadorModel model = trabajadorProvider.getTrabajadorById(id);		
+		if (model == null) {
+			throw new NotFoundException("Trabajador not found.");
+		}		
+		List<TrabajadorCajaModel> trabajadorCajaModels = model.getTrabajadorCajas();
+		if(trabajadorCajaModels.size() > 0){
+			TrabajadorCajaModel trabajadorCajaModel = trabajadorCajaModels.get(0);
+			trabajadorCajaProvider.removeTrabajadorCaja(trabajadorCajaModel);
+		}			
 	}
 	
 }

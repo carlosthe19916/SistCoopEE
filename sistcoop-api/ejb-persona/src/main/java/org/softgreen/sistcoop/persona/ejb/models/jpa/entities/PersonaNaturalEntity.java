@@ -41,7 +41,7 @@ public class PersonaNaturalEntity extends PersonaEntity implements Serializable 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public final static String base = "org.softgreen.persona.entity.PersonaNatural";
+	public final static String base = "org.softgreen.sistcoop.persona.ejb.models.jpa.entities.PersonaNatural";
 	public final static String findAll = base + "findAll";
 	public final static String findByTipoAndNumeroDocumento = base + "findByTipoAndNumeroDocumento";
 	public final static String findByFilterText = base + "findByFilterText";

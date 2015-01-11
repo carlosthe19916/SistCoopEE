@@ -4,8 +4,12 @@ define(['../../../module'], function (module) {
     module.controller('CrearTrabajadorCtrl', function($scope, $state, Sucursal, Agencia, Trabajador, PersonaNatural, TipoDocumento, Notifications, activeProfile){
 
         $scope.view = {
-            trabajador: Trabajador.$build(),
-            persona: undefined
+            trabajador: Trabajador.$build()
+        };
+
+        $scope.view.loaded = {
+            persona: undefined,
+            trabajador: undefined
         };
 
         $scope.combo = {
@@ -21,8 +25,12 @@ define(['../../../module'], function (module) {
 
         $scope.submit = function(){
             if ($scope.form.$valid) {
-                if(angular.isUndefined($scope.view.persona)){
+                if(angular.isUndefined($scope.view.loaded.persona)){
                     Notifications.warn("Debe de seleccionar una persona.");
+                    return;
+                }
+                if(angular.isDefined($scope.view.loaded.trabajador)){
+                    Notifications.warn("El trabajador ya fue registrado, no puede continuar.");
                     return;
                 }
                 $scope.blockControl();

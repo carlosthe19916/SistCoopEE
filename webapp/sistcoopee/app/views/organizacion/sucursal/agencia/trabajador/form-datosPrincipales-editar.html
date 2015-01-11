@@ -38,13 +38,13 @@
     <div class="col-sm-4">
         <div class="form-group" ng-class="{ 'validate-has-error' : form.tipoDocumento.$invalid && (form.tipoDocumento.$touched || form.$submitted)}">
             <label>Tipo documento</label>
-            <h4><span ng-bind="view.persona.tipoDocumento"></span></h4>
+            <h4><span ng-bind="view.loaded.persona.tipoDocumento"></span></h4>
         </div>
     </div>
     <div class="col-sm-4" ng-class="{ 'validate-has-error' : form.numeroDocumento.$invalid && (form.numeroDocumento.$dirty || form.numeroDocumento.$touched || form.$submitted)}">
         <div class="form-group">
             <label>N&uacute;mero documento</label>
-            <h4><span ng-bind="view.persona.numeroDocumento"></span></h4>
+            <h4><span ng-bind="view.loaded.persona.numeroDocumento"></span></h4>
         </div>
     </div>
 </div>
@@ -52,7 +52,7 @@
     <div class="col-sm-12">
         <div class="form-group" ng-class="{ 'validate-has-error' : form.tipoDocumento.$invalid && (form.tipoDocumento.$touched || form.$submitted)}">
             <label>Persona</label>
-            <h4><span ng-bind="view.persona.apellidoPaterno"></span>&nbsp;<span ng-bind="view.persona.apellidoMaterno"></span>,&nbsp;<span ng-bind="view.persona.nombres"></span></h4>
+            <h4><span ng-bind="view.loaded.persona.apellidoPaterno"></span>&nbsp;<span ng-bind="view.loaded.persona.apellidoMaterno"></span>,&nbsp;<span ng-bind="view.loaded.persona.nombres"></span></h4>
         </div>
     </div>
 </div>

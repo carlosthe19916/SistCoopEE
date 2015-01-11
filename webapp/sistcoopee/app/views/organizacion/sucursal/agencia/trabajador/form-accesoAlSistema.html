@@ -4,7 +4,7 @@
     <div class="col-sm-4">
         <div class="form-group" ng-class="{ 'validate-has-error' : form.usuario.$invalid && (form.usuario.$touched || form.$submitted)}">
             <label>Usuario</label>
-            <ui-select name="usuario" ng-model="combo.selected.usuario" required>
+            <ui-select name="usuario" ng-model="combo.selected.usuario" ui-autofocus required>
                 <ui-select-autoload pk-name="username" comparator="view.trabajador.usuario"></ui-select-autoload>
                 <ui-select-match placeholder="Seleccione">{{$select.selected.username}}</ui-select-match>
                 <ui-select-choices repeat="item in combo.usuario track by $index"
@@ -15,6 +15,16 @@
             </ui-select>
             <div ng-messages="form.usuario.$error" ng-if="form.usuario.$touched || form.$submitted">
                 <div class="validate-has-error" ng-message="required">Ingrese denominacion.</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <div class="form-group">
+                <label>&nbsp;</label>
+                <div class="input-group">
+                    <button type="button" ng-click="desvincular()" class="btn btn-danger">Desvincular</button>
+                </div>
             </div>
         </div>
     </div>
