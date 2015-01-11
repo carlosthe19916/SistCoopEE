@@ -8,6 +8,9 @@ define(['./module'], function (module) {
             obj.$save = function() {
                 return OrganizacionRestangular.one(url, this.id).customPUT({'trabajador': OrganizacionRestangular.copy(this)},'',{},{});
             };
+            obj.$addCaja = function(caja){
+                return OrganizacionRestangular.all(url+'/'+this.id+'/cajas').post({'caja': OrganizacionRestangular.copy(caja)});
+            };
             obj.$desactivar = function(){
                 return OrganizacionRestangular.all(url+'/'+this.id+'/desactivar').post();
             };

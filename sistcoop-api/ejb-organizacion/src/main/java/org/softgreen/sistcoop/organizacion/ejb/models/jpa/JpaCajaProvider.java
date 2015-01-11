@@ -12,7 +12,6 @@ import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
 import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.CajaProvider;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.AgenciaEntity;
-import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.BovedaEntity;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.CajaEntity;
 
 @Named

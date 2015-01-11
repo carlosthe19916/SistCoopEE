@@ -43,17 +43,17 @@ public class BovedaResource {
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
 	public BovedaRepresentation getBovedaById(@PathParam("id") Integer id) {
-		BovedaModel bovedaModel = bovedaProvider.getBovedaById(id);
-		BovedaRepresentation bovedaRepresentation = ModelToRepresentation.toRepresentation(bovedaModel);
-		return bovedaRepresentation;
+		BovedaModel model = bovedaProvider.getBovedaById(id);
+		BovedaRepresentation rep = ModelToRepresentation.toRepresentation(model);
+		return rep;
 	}
 
 	@GET
 	@Path("/{id}/cajas")
 	@Produces({ "application/xml", "application/json" })
 	public CajaList getCajasAsignadas(@PathParam("id") Integer id) {
-		BovedaModel bovedaModel = bovedaProvider.getBovedaById(id);
-		List<BovedaCajaModel> bovedaCajaList = bovedaModel.getBovedaCajas();
+		BovedaModel model = bovedaProvider.getBovedaById(id);
+		List<BovedaCajaModel> bovedaCajaList = model.getBovedaCajas();
 		List<CajaRepresentation> list = new ArrayList<CajaRepresentation>();
 		for (BovedaCajaModel bovedaCajaModel : bovedaCajaList) {
 			CajaModel cajaModel = bovedaCajaModel.getCaja();
@@ -73,8 +73,8 @@ public class BovedaResource {
 	@Path("/{id}/detalle")
 	@Produces({ "application/xml", "application/json" })
 	public DetalleHistorialList getDetalle(@PathParam("id") Integer id) {
-		BovedaModel bovedaModel = bovedaProvider.getBovedaById(id);
-		HistorialModel historialModel = bovedaModel.getHistorialActivo();
+		BovedaModel model = bovedaProvider.getBovedaById(id);
+		HistorialModel historialModel = model.getHistorialActivo();
 		if (historialModel != null) {
 			List<DetalleHistorialModel> detalleHistorialModel = historialModel.getDetalle();
 			List<DetalleHistorialRepresentation> detalleHistorialRepresentations = new ArrayList<DetalleHistorialRepresentation>();

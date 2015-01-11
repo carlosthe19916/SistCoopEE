@@ -7,7 +7,7 @@ define(['../../../module'], function (module) {
             trabajador: undefined,
             trabajadorDB: undefined,
             persona: undefined,
-            cajas: undefined
+            cajas: []
         };
 
         $scope.loadParams = function(){

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
@@ -12,10 +13,16 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 
 import org.jboss.resteasy.annotations.providers.jaxb.json.BadgerFish;
+import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaCajaModel;
+import org.softgreen.sistcoop.organizacion.client.models.BovedaCajaProvider;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
+import org.softgreen.sistcoop.organizacion.client.models.BovedaProvider;
 import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.CajaProvider;
 import org.softgreen.sistcoop.organizacion.client.models.DetalleHistorialModel;
@@ -23,11 +30,13 @@ import org.softgreen.sistcoop.organizacion.client.models.HistorialModel;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorCajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorModel;
 import org.softgreen.sistcoop.organizacion.client.models.util.ModelToRepresentation;
+import org.softgreen.sistcoop.organizacion.client.models.util.RepresentationToModel;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.BovedaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.CajaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.DetalleHistorialRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.TrabajadorRepresentation;
 import org.softgreen.sistcoop.organizacion.managers.CajaManager;
+import org.softgreen.sistcoop.organizacion.restapi.config.Jsend;
 import org.softgreen.sistcoop.organizacion.restapi.representation.BovedaList;
 import org.softgreen.sistcoop.organizacion.restapi.representation.DetalleHistorialList;
 import org.softgreen.sistcoop.organizacion.restapi.representation.TrabajadorList;
@@ -37,19 +46,31 @@ import org.softgreen.sistcoop.organizacion.restapi.representation.TrabajadorList
 public class CajaResource {
 
 	@Inject
+	protected BovedaProvider bovedaProvider;
+	
+	@Inject
+	protected BovedaCajaProvider bovedaCajaProvider;
+	
+	@Inject
 	protected CajaProvider cajaProvider;
 
 	@Inject
 	protected CajaManager cajaManager;
 
+	@Inject
+	protected RepresentationToModel representationToModel;
+	
+	@Context
+	protected UriInfo uriInfo;
+	
 	@BadgerFish
 	@GET
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
 	public CajaRepresentation getCajaById(@PathParam("id") Integer id) {
 		CajaModel model = cajaProvider.getCajaById(id);
-		CajaRepresentation representation = ModelToRepresentation.toRepresentation(model);
-		return representation;
+		CajaRepresentation rep = ModelToRepresentation.toRepresentation(model);
+		return rep;
 	}
 
 	@GET
@@ -117,10 +138,9 @@ public class CajaResource {
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
 	public void update(@PathParam("id") Integer id, CajaRepresentation rep) {
-		/*
-		 * CajaModel model = cajaProvider.getCajaById(id);
-		 * model.setDenominacion(rep.getDenominacion()); model.commit();
-		 */
+		 CajaModel model = cajaProvider.getCajaById(id);
+		 model.setDenominacion(rep.getDenominacion()); model.commit();
+		 model.commit();
 	}
 
 	@POST
@@ -154,5 +174,47 @@ public class CajaResource {
 			throw new NotFoundException("Caja not found.");
 		}
 		cajaManager.cerrar(model);
+	}
+	
+	@POST
+	@Path("/{id}/bovedas")
+	@Produces({ "application/xml", "application/json" })
+	public Response addBoveda(@PathParam("id") Integer id, BovedaRepresentation bovedaRepresentation) {
+		CajaModel model = cajaProvider.getCajaById(id);
+		if (model == null) {
+			throw new NotFoundException("Caja not found.");
+		}
+
+		AgenciaModel agenciaModel = model.getAgencia();		
+		BovedaModel bovedaModel = representationToModel.createBoveda(agenciaModel, bovedaRepresentation, bovedaProvider);
+		return Response.created(uriInfo.getAbsolutePathBuilder().path(bovedaModel.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(bovedaModel.getId())).build();		
+	}
+		
+	@DELETE
+	@Path("/{id}/bovedas/{idBoveda}")
+	@Produces({ "application/xml", "application/json" })
+	public void addBoveda(@PathParam("id") Integer id, @PathParam("idBoveda") Integer idBoveda) {
+		CajaModel model = cajaProvider.getCajaById(id);
+		BovedaModel bovedaModel = bovedaProvider.getBovedaById(idBoveda);
+		if (model == null) {
+			throw new NotFoundException("Caja not found.");
+		}
+		if (bovedaModel == null) {
+			throw new NotFoundException("Boveda not found.");
+		}
+		BovedaCajaModel bovedaCajaModelToRemove = null;
+		List<BovedaCajaModel> bovedaCajaModels = model.getBovedaCajas();
+		for (BovedaCajaModel bovedaCajaModel : bovedaCajaModels) {
+			BovedaModel bovedaModel2 = bovedaCajaModel.getBoveda();
+			if(bovedaModel.equals(bovedaModel2)){
+				bovedaCajaModelToRemove = bovedaCajaModel;
+			}
+		}		
+		
+		if(bovedaCajaModelToRemove ==  null){
+			throw new NotFoundException("BovedaCaja not found.");
+		}
+		
+		bovedaCajaProvider.removeBovedaCaja(bovedaCajaModelToRemove);
 	}
 }

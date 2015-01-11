@@ -15,7 +15,7 @@ define(['../../../module'], function (module) {
                 $scope.combo.sucursal = [];
                 $scope.combo.sucursal[0] = $scope.auth.user.sucursal;
                 $scope.combo.selected.sucursal = $scope.combo.sucursal[0];
-            } else if(activeProfile.hasRole('ORGANIZACION', ['ADMINISTRADOR'], 'OR')){
+            } else if(activeProfile.hasRole('ORGANIZACION', ['ADMINISTRADOR', 'JEFE_CAJA'], 'OR')){
                 comboSucursalListener();
                 $scope.combo.sucursal = [];
                 $scope.combo.sucursal[0] = $scope.auth.user.sucursal;

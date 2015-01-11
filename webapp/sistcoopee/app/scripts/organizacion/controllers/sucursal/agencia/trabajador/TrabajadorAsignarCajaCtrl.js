@@ -18,12 +18,12 @@ define(['../../../module'], function (module) {
         $scope.setCaja = function(){
             if ($scope.form.$valid) {
                 $scope.blockControl();
-                $scope.view.trabajador.caja = $scope.combo.selected.caja;
-                $scope.view.trabajador.$save().then(
+                $scope.view.trabajador.$addCaja($scope.combo.selected.caja).then(
                     function(response){
                         $scope.unblockControl();
-                        Notifications.success("Trabajador actualizado.");
+                        Notifications.success("Caja asignada a Trabajador.");
                         $scope.view.trabajadorDB = angular.copy($scope.view.trabajador);
+                        $scope.view.cajas.push($scope.combo.selected.caja);
                         $state.go('^.resumen');
                     },
                     function error(error){

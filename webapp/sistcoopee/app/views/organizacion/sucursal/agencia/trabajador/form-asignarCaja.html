@@ -2,6 +2,20 @@
 
 <div class="row">
     <div class="col-sm-4">
+        <div class="form-group" ng-class="{ 'validate-has-error' : form.sucursal.$invalid && (form.sucursal.$touched || form.$submitted)}">
+            <label>Sucursal</label>
+            <h4><span ng-bind="view.trabajador.agencia.sucursal.denominacion"></span></h4>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group" ng-class="{ 'validate-has-error' : form.agencia.$invalid && (form.agencia.$touched || form.$submitted)}">
+            <label>Agencia</label>
+            <h4><span ng-bind="view.trabajador.agencia.denominacion"></span></h4>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
         <div class="form-group" ng-class="{ 'validate-has-error' : form.caja.$invalid && (form.caja.$touched || form.$submitted)}">
             <label>Caja</label>
             <ui-select name="caja" ng-model="combo.selected.caja" required>

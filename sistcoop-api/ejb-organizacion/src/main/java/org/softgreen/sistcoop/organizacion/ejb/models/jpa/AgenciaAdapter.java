@@ -139,6 +139,28 @@ public class AgenciaAdapter implements AgenciaModel {
 				result.add(new TrabajadorAdapter(em, entity));
 		}
 		return result;
+	}	
+
+	@Override
+	public List<BovedaModel> getBovedas(boolean estado) {
+		Set<BovedaEntity> list = agenciaEntity.getBovedas();
+		List<BovedaModel> result = new ArrayList<BovedaModel>();
+		for (BovedaEntity entity : list) {
+			if (entity.isEstado() == true)
+				result.add(new BovedaAdapter(em, entity));
+		}
+		return result;	
+	}
+
+	@Override
+	public List<CajaModel> getCajas(boolean estado) {
+		Set<CajaEntity> list = agenciaEntity.getCajas();
+		List<CajaModel> result = new ArrayList<CajaModel>();
+		for (CajaEntity entity : list) {
+			if (entity.isEstado() == true)
+				result.add(new CajaAdapter(em, entity));
+		}
+		return result;
 	}
 
 	public static AgenciaEntity toSucursalEntity(AgenciaModel model,
@@ -148,19 +170,7 @@ public class AgenciaAdapter implements AgenciaModel {
 		}
 		return em.getReference(AgenciaEntity.class, model.getId());
 	}
-
-	@Override
-	public List<BovedaModel> getBovedas(boolean estado) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<CajaModel> getCajas(boolean estado) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)

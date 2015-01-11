@@ -65,40 +65,40 @@ public class AgenciaResource {
 
 	@BadgerFish
 	@GET
-	@Path("/codigo/{codigo}")
-	@Produces({ "application/xml", "application/json" })
-	public AgenciaRepresentation getAgenciaByCodigo(@PathParam("codigo") String codigo) {
-		AgenciaModel agenciaModel = agenciaProvider.getAgenciaByCodigo(codigo);
-		AgenciaRepresentation agenciaRepresentation = ModelToRepresentation.toRepresentation(agenciaModel);
-		return agenciaRepresentation;
-	}
-
-	@BadgerFish
-	@GET
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
 	public AgenciaRepresentation getAgenciaById(@PathParam("id") Integer id) {
-		AgenciaModel agenciaModel = agenciaProvider.getAgenciaById(id);
-		AgenciaRepresentation agenciaRepresentation = ModelToRepresentation.toRepresentation(agenciaModel);
-		return agenciaRepresentation;
+		AgenciaModel model = agenciaProvider.getAgenciaById(id);
+		AgenciaRepresentation rep = ModelToRepresentation.toRepresentation(model);
+		return rep;
+	}
+	
+	@BadgerFish
+	@GET
+	@Path("/codigo/{codigo}")
+	@Produces({ "application/xml", "application/json" })
+	public AgenciaRepresentation getAgenciaByCodigo(@PathParam("codigo") String codigo) {
+		AgenciaModel model = agenciaProvider.getAgenciaByCodigo(codigo);
+		AgenciaRepresentation rep = ModelToRepresentation.toRepresentation(model);
+		return rep;
 	}
 
 	@GET
 	@Path("/{id}/bovedas")
 	@Produces({ "application/xml", "application/json" })
 	public BovedaList getBovedas(@PathParam("id") Integer id, @QueryParam("estado") Boolean estado) {
-		AgenciaModel agenciaModel = agenciaProvider.getAgenciaById(id);
-		if (agenciaModel == null)
+		AgenciaModel model = agenciaProvider.getAgenciaById(id);
+		if (model == null)
 			throw new NotFoundException();
 
 		List<BovedaModel> list;
 		if (estado == null)
-			list = agenciaModel.getBovedas();
+			list = model.getBovedas();
 		else
-			list = agenciaModel.getBovedas(estado);
+			list = model.getBovedas(estado);
 		List<BovedaRepresentation> result = new ArrayList<BovedaRepresentation>();
-		for (BovedaModel model : list) {
-			result.add(ModelToRepresentation.toRepresentation(model));
+		for (BovedaModel bovedaModel : list) {
+			result.add(ModelToRepresentation.toRepresentation(bovedaModel));
 		}
 		return new BovedaList(result);
 	}
@@ -107,18 +107,18 @@ public class AgenciaResource {
 	@Path("/{id}/cajas")
 	@Produces({ "application/xml", "application/json" })
 	public CajaList getCajas(@PathParam("id") Integer id, @QueryParam("estado") Boolean estado) {
-		AgenciaModel agenciaModel = agenciaProvider.getAgenciaById(id);
-		if (agenciaModel == null)
+		AgenciaModel model = agenciaProvider.getAgenciaById(id);
+		if (model == null)
 			throw new NotFoundException();
 
 		List<CajaModel> list;
 		if (estado == null)
-			list = agenciaModel.getCajas();
+			list = model.getCajas();
 		else
-			list = agenciaModel.getCajas(estado);
+			list = model.getCajas(estado);
 		List<CajaRepresentation> result = new ArrayList<CajaRepresentation>();
-		for (CajaModel model : list) {
-			result.add(ModelToRepresentation.toRepresentation(model));
+		for (CajaModel cajaModel : list) {
+			result.add(ModelToRepresentation.toRepresentation(cajaModel));
 		}
 		return new CajaList(result);
 	}
@@ -127,8 +127,8 @@ public class AgenciaResource {
 	@Path("/{id}/trabajadores")
 	@Produces({ "application/xml", "application/json" })
 	public TrabajadorList getTrabajadores(@PathParam("id") Integer id, @QueryParam("estado") Boolean estado, @QueryParam("filterText") String filterText, @QueryParam("limit") Integer limit, @QueryParam("offset") Integer offset) {
-		AgenciaModel agenciaModel = agenciaProvider.getAgenciaById(id);
-		if (agenciaModel == null)
+		AgenciaModel model = agenciaProvider.getAgenciaById(id);
+		if (model == null)
 			throw new NotFoundException();
 
 		List<TrabajadorModel> list;
@@ -139,14 +139,14 @@ public class AgenciaResource {
 			if (offset == null) {
 				offset = -1;
 			}			
-			list = agenciaModel.getTrabajadores(filterText, limit, offset);
+			list = model.getTrabajadores(filterText, limit, offset);
 		} else {
-			list = agenciaModel.getTrabajadores(estado);
+			list = model.getTrabajadores(estado);
 		}
 			
 		List<TrabajadorRepresentation> result = new ArrayList<TrabajadorRepresentation>();
-		for (TrabajadorModel model : list) {
-			result.add(ModelToRepresentation.toRepresentation(model));
+		for (TrabajadorModel trabajadorModel : list) {
+			result.add(ModelToRepresentation.toRepresentation(trabajadorModel));
 		}
 		return new TrabajadorList(result);
 	}
@@ -155,37 +155,37 @@ public class AgenciaResource {
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
 	public void updateAgencia(@PathParam("id") Integer id, AgenciaRepresentation agenciaRepresentation) {
-		AgenciaModel agenciaModel = agenciaProvider.getAgenciaById(id);
-		if (agenciaModel == null) {
+		AgenciaModel model = agenciaProvider.getAgenciaById(id);
+		if (model == null) {
 			throw new NotFoundException("Agencia not found.");
 		}
-		agenciaModel.setAbreviatura(agenciaRepresentation.getAbreviatura());
-		agenciaModel.setDenominacion(agenciaRepresentation.getDenominacion());
-		agenciaModel.setUbigeo(agenciaRepresentation.getUbigeo());
-		agenciaModel.commit();
+		model.setAbreviatura(agenciaRepresentation.getAbreviatura());
+		model.setDenominacion(agenciaRepresentation.getDenominacion());
+		model.setUbigeo(agenciaRepresentation.getUbigeo());
+		model.commit();
 	}
 
 	@POST
 	@Path("/{id}/desactivar")
 	@Produces({ "application/xml", "application/json" })
 	public void desactivar(@PathParam("id") Integer id) {
-		AgenciaModel agenciaModel = agenciaProvider.getAgenciaById(id);
-		if (agenciaModel == null) {
+		AgenciaModel model = agenciaProvider.getAgenciaById(id);
+		if (model == null) {
 			throw new NotFoundException("Agencia not found.");
 		}
-		sucursalManager.desactivarAgencia(agenciaModel);
+		sucursalManager.desactivarAgencia(model);
 	}
 
 	@POST
 	@Path("/{id}/bovedas")
 	@Produces({ "application/xml", "application/json" })
 	public Response addBoveda(@PathParam("id") Integer id, BovedaRepresentation bovedaRepresentation) {
-		AgenciaModel agenciaModel = agenciaProvider.getAgenciaById(id);
-		if (agenciaModel == null) {
+		AgenciaModel model = agenciaProvider.getAgenciaById(id);
+		if (model == null) {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		}
 
-		BovedaModel bovedaModel = representationToModel.createBoveda(agenciaModel, bovedaRepresentation, bovedaProvider);
+		BovedaModel bovedaModel = representationToModel.createBoveda(model, bovedaRepresentation, bovedaProvider);
 		return Response.created(uriInfo.getAbsolutePathBuilder().path(bovedaModel.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(bovedaModel.getId())).build();
 	}
 
@@ -193,12 +193,12 @@ public class AgenciaResource {
 	@Path("/{id}/cajas")
 	@Produces({ "application/xml", "application/json" })
 	public Response addCaja(@PathParam("id") Integer id, CajaRepresentation cajaRepresentation) {
-		AgenciaModel agenciaModel = agenciaProvider.getAgenciaById(id);
-		if (agenciaModel == null) {
+		AgenciaModel model = agenciaProvider.getAgenciaById(id);
+		if (model == null) {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		}
 
-		CajaModel cajaModel = representationToModel.createCaja(agenciaModel, cajaRepresentation, bovedaProvider, cajaProvider, bovedaCajaProvider);
+		CajaModel cajaModel = representationToModel.createCaja(model, cajaRepresentation, bovedaProvider, cajaProvider, bovedaCajaProvider);
 		return Response.created(uriInfo.getAbsolutePathBuilder().path(cajaModel.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(cajaModel.getId())).build();
 	}
 

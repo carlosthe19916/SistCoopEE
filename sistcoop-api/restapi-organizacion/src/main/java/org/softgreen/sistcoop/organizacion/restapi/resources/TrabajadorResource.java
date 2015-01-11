@@ -24,6 +24,7 @@ import org.softgreen.sistcoop.organizacion.client.models.AgenciaProvider;
 import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.CajaProvider;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorCajaModel;
+import org.softgreen.sistcoop.organizacion.client.models.TrabajadorCajaProvider;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorModel;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorProvider;
 import org.softgreen.sistcoop.organizacion.client.models.util.ModelToRepresentation;
@@ -41,19 +42,22 @@ public class TrabajadorResource {
 
 	@Inject
 	protected AgenciaProvider agenciaProvider;
-	
-	@Inject
-	protected TrabajadorManager trabajadorManager;
-	
+		
 	@Inject
 	protected TrabajadorProvider trabajadorProvider;
 
+	@Inject
+	protected TrabajadorCajaProvider trabajadorCajaProvider;
+	
 	@Inject
 	protected CajaProvider cajaProvider;
 	
 	@Inject
 	protected RepresentationToModel representationToModel;
 
+	@Inject
+	protected TrabajadorManager trabajadorManager;
+	
 	@Context
 	protected UriInfo uriInfo;
 
@@ -122,6 +126,22 @@ public class TrabajadorResource {
 	public void desactivar(@PathParam("id") Integer id) {
 		TrabajadorModel model = trabajadorProvider.getTrabajadorById(id);
 		trabajadorManager.desactivarTrabajador(model);
+	}
+	
+	@POST
+	@Path("/{id}/cajas")
+	@Produces({ "application/xml", "application/json" })
+	public Response addBoveda(@PathParam("id") Integer id, CajaRepresentation cajaRepresentation) {
+		TrabajadorModel model = trabajadorProvider.getTrabajadorById(id);
+		CajaModel cajaModel = cajaProvider.getCajaById(cajaRepresentation.getId());
+		if (model == null) {
+			throw new NotFoundException("Trabajador not found.");
+		}
+		if (cajaModel == null) {
+			throw new NotFoundException("Caja not found.");
+		}
+		TrabajadorCajaModel trabajadorCajaModel = trabajadorCajaProvider.addTrabajadorCaja(cajaModel, model);					
+		return Response.created(uriInfo.getAbsolutePathBuilder().path(trabajadorCajaModel.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(trabajadorCajaModel.getId())).build();		
 	}
 	
 }

@@ -635,28 +635,28 @@ define([
                 templateUrl: appHelper.viewsPath('organizacion/sucursal/agencia/trabajador/form-buscar-trabajador'),
                 controller: 'BuscarTrabajadorCtrl',
                 module: 'ORGANIZACION',
-                roles: ['ADMIN', 'ADMINISTRADOR', 'JEFE_CAJA'],
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR', 'JEFE_CAJA'],
                 operator: 'OR'
             }).state('app.organizacion.rrhh.buscarUsuario', {
                 url: '/usuario/buscar',
                 templateUrl: appHelper.viewsPath('organizacion/usuario/form-buscar-usuario'),
                 controller: 'BuscarUsuarioCtrl',
                 module: 'ORGANIZACION',
-                roles: ['ADMIN', 'ADMINISTRADOR'],
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR'],
                 operator: 'OR'
             }).state('app.organizacion.rrhh.crearTrabajador', {
                 url: '/trabajador',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/trabajador/form-crear-trabajador"),
                 controller: 'CrearTrabajadorCtrl',
                 module: 'ORGANIZACION',
-                roles: ['ADMIN', 'ADMINISTRADOR'],
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR'],
                 operator: 'OR'
             }).state('app.organizacion.rrhh.crearTrabajador.datosPrincipales', {
                 url: '/principal',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/trabajador/form-datosPrincipales-crear"),
                 controller: 'TrabajadorDatosPrincipalesCtrl',
                 module: 'ORGANIZACION',
-                roles: ['ADMIN', 'ADMINISTRADOR'],
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR'],
                 operator: 'OR'
             }).state('app.organizacion.rrhh.editarTrabajador', {
                 url: '/trabajador/{id:[0-9]{1,8}}',
@@ -672,35 +672,35 @@ define([
                     $scope.params.object = trabajador;
                 },
                 module: 'ORGANIZACION',
-                roles: ['ADMIN', 'ADMINISTRADOR', 'PLATAFORMA', 'JEFE_CAJA', 'CAJERO'],
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR', 'PLATAFORMA', 'JEFE_CAJA', 'CAJERO'],
                 operator: 'OR'
             }).state('app.organizacion.rrhh.editarTrabajador.resumen', {
                 url: '/resumen',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/trabajador/form-resumen"),
                 controller: 'TrabajadorResumenCtrl',
                 module: 'ORGANIZACION',
-                roles: ['ADMIN', 'ADMINISTRADOR', 'PLATAFORMA', 'JEFE_CAJA', 'CAJERO'],
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR', 'PLATAFORMA', 'JEFE_CAJA', 'CAJERO'],
                 operator: 'OR'
             }).state('app.organizacion.rrhh.editarTrabajador.datosPrincipales', {
                 url: '/principal',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/trabajador/form-datosPrincipales-editar"),
                 controller: 'TrabajadorDatosPrincipalesCtrl',
                 module: 'ORGANIZACION',
-                roles: ['ADMIN', 'ADMINISTRADOR'],
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR'],
                 operator: 'OR'
             }).state('app.organizacion.rrhh.editarTrabajador.accesoAlSistema', {
                 url: '/acceso',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/trabajador/form-accesoAlSistema"),
                 controller: 'TrabajadorAccesoAlSistemaCtrl',
                 module: 'ORGANIZACION',
-                roles: ['ADMIN', 'ADMINISTRADOR'],
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR', 'JEFE_CAJA'],
                 operator: 'OR'
             }).state('app.organizacion.rrhh.editarTrabajador.asignarCaja', {
                 url: '/caja',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/trabajador/form-asignarCaja"),
                 controller: 'TrabajadorAsignarCajaCtrl',
                 module: 'ORGANIZACION',
-                roles: ['ADMIN', 'ADMINISTRADOR'],
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR', 'JEFE_CAJA'],
                 operator: 'OR'
 
                 /************* ADMINISTRACION PERSONAS*****************/

@@ -125,15 +125,15 @@ public class SucursalResource {
 	@Path("/{id}/agencias")
 	@Produces({ "application/xml", "application/json" })
 	public AgenciaList getAgencias(@PathParam("id") Integer id, @QueryParam("estado") Boolean estado) {
-		SucursalModel sucursalModel = sucursalProvider.getSucursalById(id);
+		SucursalModel model = sucursalProvider.getSucursalById(id);
 		List<AgenciaModel> list;
 		if (estado == null)
-			list = sucursalModel.getAgencias();
+			list = model.getAgencias();
 		else
-			list = sucursalModel.getAgencias(estado);
+			list = model.getAgencias(estado);
 		List<AgenciaRepresentation> result = new ArrayList<AgenciaRepresentation>();
-		for (AgenciaModel model : list) {
-			result.add(ModelToRepresentation.toRepresentation(model));
+		for (AgenciaModel agenciaModel : list) {
+			result.add(ModelToRepresentation.toRepresentation(agenciaModel));
 		}
 		return new AgenciaList(result);
 	}
@@ -142,12 +142,12 @@ public class SucursalResource {
 	@Path("/{id}/agencias")
 	@Produces({ "application/xml", "application/json" })
 	public Response addAgencia(@PathParam("id") Integer id, AgenciaRepresentation agenciaRepresentation) {
-		SucursalModel sucursalModel = sucursalProvider.getSucursalById(id);
-		if (sucursalModel == null) {
+		SucursalModel model = sucursalProvider.getSucursalById(id);
+		if (model == null) {
 			return Response.status(Response.Status.NOT_FOUND).build();
 		}
 
-		AgenciaModel agenciaModel = representationToModel.createAgencia(sucursalModel, agenciaRepresentation, agenciaProvider);
+		AgenciaModel agenciaModel = representationToModel.createAgencia(model, agenciaRepresentation, agenciaProvider);
 		return Response.created(uriInfo.getAbsolutePathBuilder().path(agenciaModel.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(agenciaModel.getId())).build();
 	}
 
