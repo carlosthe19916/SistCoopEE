@@ -39,8 +39,8 @@ public abstract class HistorialEntity {
 
 	private Set<DetalleHistorialEntity> detalle = new HashSet<DetalleHistorialEntity>();
 
-	private Timestamp optlk;
-
+	private Timestamp optlk;	
+	
 	@Id
 	@GeneratedValue(generator = "SgGenericGenerator")
 	public Long getId() {

@@ -125,10 +125,10 @@ define([
             };
 
             var checkRolesListener = $scope.$watch('loadedObjectToCheck', function(){
-                if( angular.isDefined($scope.loadedObjectToCheck.caja) &&
-                    angular.isDefined($scope.loadedObjectToCheck.trabajador) &&
-                    angular.isDefined($scope.loadedObjectToCheck.agencia) &&
-                    angular.isDefined($scope.loadedObjectToCheck.sucursal)){
+                if( $scope.loadedObjectToCheck.caja &&
+                    $scope.loadedObjectToCheck.trabajador &&
+                    $scope.loadedObjectToCheck.agencia &&
+                    $scope.loadedObjectToCheck.sucursal){
                     $scope.checkRoles();
                 }
             }, true);
@@ -182,15 +182,15 @@ define([
                  } else if(activeProfile.realmAccess.roles.indexOf('JEFE_CAJA') != -1){
                      if(angular.isUndefined($scope.auth.user.sucursal) ||
                          angular.isUndefined($scope.auth.user.agencia) ||
-                         angular.isUndefined($scope.auth.user.trabajador)){
+                         angular.isUndefined($scope.auth.user.trabajador)) {
                          $scope.blockMessage = "El usuario no tiene una sucursal, agencia y/o trabajador asignado, no puede continuar. En 5 segundos se cerrará la session.";
-                         $scope.logoutTime();
+                         //$scope.logoutTime();
                      }
                  } else if(activeProfile.realmAccess.roles.indexOf('CAJERO') != -1){
                      if(angular.isUndefined($scope.auth.user.sucursal) ||
                          angular.isUndefined($scope.auth.user.agencia) ||
                          angular.isUndefined($scope.auth.user.trabajador) ||
-                         angular.isUndefined($scope.auth.user.caja)){
+                         angular.isUndefined($scope.auth.user.caja)) {
                          $scope.blockMessage = "El usuario no tiene una sucursal, agencia, trabajador y/o caja asignada, no puede continuar. En 5 segundos se cerrará la session.";
                          $scope.logoutTime();
                      }

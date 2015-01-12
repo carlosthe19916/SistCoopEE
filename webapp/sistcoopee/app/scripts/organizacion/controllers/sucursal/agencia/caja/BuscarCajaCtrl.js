@@ -59,7 +59,6 @@ define(['../../../module'], function (module) {
         };
         $scope.gridActions = {
             edit: function(row){
-                console.log("ss");
                 $state.go('app.organizacion.estructura.editarCaja.resumen', {id: row.id});
             }
         };

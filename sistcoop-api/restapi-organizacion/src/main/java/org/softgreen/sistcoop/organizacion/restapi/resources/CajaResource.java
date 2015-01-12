@@ -1,5 +1,6 @@
 package org.softgreen.sistcoop.organizacion.restapi.resources;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.InternalServerErrorException;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -18,7 +20,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import org.jboss.resteasy.annotations.providers.jaxb.json.BadgerFish;
-import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaCajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaCajaProvider;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
@@ -144,7 +145,6 @@ public class CajaResource {
 		 model.commit();
 	}
 
-	//verificar saldo de caja antes de desactivar
 	@POST
 	@Path("/{id}/desactivar")
 	@Produces({ "application/xml", "application/json" })
@@ -209,6 +209,10 @@ public class CajaResource {
 		if (bovedaModel == null) {
 			throw new NotFoundException("Boveda not found.");
 		}
+		if(model.isAbierto()){
+			throw new InternalServerErrorException("Caja abierta, debe cerrarla antes de desvincular boveda.");
+		}		
+		
 		BovedaCajaModel bovedaCajaModelToRemove = null;
 		List<BovedaCajaModel> bovedaCajaModels = model.getBovedaCajas();
 		for (BovedaCajaModel bovedaCajaModel : bovedaCajaModels) {
@@ -220,6 +224,11 @@ public class CajaResource {
 		
 		if(bovedaCajaModelToRemove ==  null){
 			throw new NotFoundException("BovedaCaja not found.");
+		}
+		
+		BigDecimal saldo = bovedaCajaModelToRemove.getSaldo();			
+		if (saldo.compareTo(BigDecimal.ZERO) != 0) {
+			throw new InternalServerErrorException("Caja tiene saldo diferente de 0.");
 		}
 		
 		bovedaCajaProvider.removeBovedaCaja(bovedaCajaModelToRemove);
