@@ -352,9 +352,18 @@ define([
             }).state('app.organizacion.rrhh', {
                 url: '/rrhh',
                 template: '<div ui-view></div>'
+            }).state('app.cliente.socio', {
+                url: '/rrhh',
+                template: '<div ui-view></div>'
+            }).state('app.cliente.cuentaBancaria', {
+                url: '/rrhh',
+                template: '<div ui-view></div>'
             }).state('app.administracion.personas', {
                 url: '/personas',
                 template: '<div ui-view></div>'
+
+
+                /**************** ESTRUCTURA ****************/
             }).state('app.organizacion.estructura.buscarSucursal', {
                 url: '/sucursal/buscar',
                 templateUrl: appHelper.viewsPath('organizacion/sucursal/form-buscar-sucursal'),
@@ -615,6 +624,13 @@ define([
                 module: 'ORGANIZACION',
                 roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR', 'JEFE_CAJA'],
                 operator: 'OR'
+            }).state('app.organizacion.estructura.editarCaja.bovedas', {
+                url: '/bovedas',
+                templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/caja/form-bovedas-editar"),
+                controller: 'CajaBovedasCtrl',
+                module: 'ORGANIZACION',
+                roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR', 'JEFE_CAJA'],
+                operator: 'OR'
             }).state('app.organizacion.estructura.editarCaja.abrir', {
                 url: '/abrir',
                 templateUrl: appHelper.viewsPath("organizacion/sucursal/agencia/caja/form-abrir"),
@@ -628,6 +644,7 @@ define([
                 controller: 'CajaCerrarCtrl',
                 roles: ['CAJERO'],
                 operator: 'OR'
+
 
                 /**************** RRHH ****************/
             }).state('app.organizacion.rrhh.buscarTrabajador', {
@@ -702,6 +719,55 @@ define([
                 module: 'ORGANIZACION',
                 roles: ['ADMIN', 'GERENTE_GENERAL', 'ADMINISTRADOR_GENERAL', 'ADMINISTRADOR', 'JEFE_CAJA'],
                 operator: 'OR'
+
+                /************* CUENTA APORTE*****************/
+            }).state('app.cliente.socio.buscarCuentaAporte', {
+                url: '/cuentaaporte/buscar',
+                templateUrl: appHelper.viewsPath('organizacion/cliente/cuentaAporte/form-buscar-cuenta-aporte'),
+                controller: 'BuscarCuentaAporteCtrl'
+            }).state('app.cliente.cuentaBancaria.buscarCuentaBancaria', {
+                url: '/cuentabancaria/buscar',
+                templateUrl: appHelper.viewsPath('organizacion/cliente/cuentaBancaria/form-buscar-cuenta-bancaria'),
+                controller: 'BuscarCuentaBancariaCtrl'
+            }).state('app.cliente.socio.crearCuentaAporte', {
+                url: '/cuentaaporte',
+                templateUrl: appHelper.viewsPath("organizacion/cliente/cuentaAporte/form-crear-cuenta-aporte"),
+                controller: 'CrearCuentaAporteCtrl'
+            }).state('app.cliente.socio.crearCuentaAporte.datosPrincipales', {
+                url: '/principal',
+                templateUrl: appHelper.viewsPath("organizacion/cliente/cuentaAporte/form-datosPrincipales-crear"),
+                controller: 'CuentaAporteDatosPrincipalesCtrl'
+            }).state('app.cliente.socio.crearCuentaAporte.apoderado', {
+                url: '/apoderado',
+                templateUrl: appHelper.viewsPath("organizacion/cliente/cuentaAporte/form-apoderado"),
+                controller: 'CuentaAporteApoderadoCtrl'
+            }).state('app.cliente.socio.editarCuentaAporte', {
+                url: '/cuentaaporte/{id:[0-9]{1,8}}',
+                templateUrl: appHelper.viewsPath("organizacion/cliente/cuentaAporte/form-editar-cuenta-aporte"),
+                resolve: {
+                    cuentaAporte: function($state, $stateParams, CuentaAporte) {
+                        return CuentaAporte.$find($stateParams.id);
+                    }
+                },
+                controller: function($scope, $stateParams, cuentaAporte) {
+                    $scope.params = {};
+                    $scope.params.id = $stateParams.id;
+                    $scope.params.object = cuentaAporte;
+                }
+            }).state('app.cliente.socio.editarCuentaAporte.resumen', {
+                url: '/resumen',
+                templateUrl: appHelper.viewsPath("organizacion/cliente/cuentaAporte/form-resumen"),
+                controller: 'CuentaAporteResumenCtrl'
+            }).state('app.cliente.socio.editarCuentaAporte.datosPrincipales', {
+                url: '/principal',
+                templateUrl: appHelper.viewsPath("organizacion/cliente/cuentaAporte/form-datosPrincipales-editar"),
+                controller: 'CuentaAporteDatosPrincipalesCtrl'
+            }).state('app.cliente.socio.editarCuentaAporte.apoderado', {
+                url: '/apoderado',
+                templateUrl: appHelper.viewsPath("organizacion/cliente/cuentaAporte/form-apoderado"),
+                controller: 'CuentaAporteApoderadoCtrl'
+
+
 
                 /************* ADMINISTRACION PERSONAS*****************/
             }).state('app.administracion.personas.buscarPersonaNatural', {

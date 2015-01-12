@@ -1,6 +1,12 @@
 define([
     'angular',
 
+    './cliente/cuentaAporte/BuscarCuentaAporteCtrl',
+    './cliente/cuentaAporte/CrearCuentaAporteCtrl',
+    './cliente/cuentaAporte/CuentaAporteApoderadoCtrl',
+    './cliente/cuentaAporte/CuentaAporteDatosPrincipalesCtrl',
+    './cliente/cuentaAporte/EditarCuentaAporteCtrl',
+
     './sucursal/BuscarSucursalCtrl',
     './sucursal/CrearSucursalCtrl',
     './sucursal/EditarSucursalCtrl',
@@ -26,6 +32,7 @@ define([
     './sucursal/agencia/caja/EditarCajaCtrl',
     './sucursal/agencia/caja/CajaResumenCtrl',
     './sucursal/agencia/caja/CajaDatosPrincipalesCtrl',
+    './sucursal/agencia/caja/CajaBovedasCtrl',
     './sucursal/agencia/caja/CajaAbrirCtrl',
     './sucursal/agencia/caja/CajaCerrarCtrl',
 

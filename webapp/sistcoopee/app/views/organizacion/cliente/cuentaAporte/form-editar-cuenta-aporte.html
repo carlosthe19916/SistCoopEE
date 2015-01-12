@@ -1,11 +1,11 @@
 <div class="page-title full-width">
     <div class="title-env">
-        <h1 class="title ng-binding">Editar caja</h1>
-        <p class="description ng-binding">Puede editar los datos de la caja.</p>
+        <h1 class="title ng-binding">Editar sucursal</h1>
+        <p class="description ng-binding">Puede editar los datos de la sucursal.</p>
     </div>
 </div>
 
-<div class="form-wizard" ng-controller="EditarCajaCtrl">
+<div class="form-wizard" ng-controller="EditarSucursalCtrl">
 
     <ul class="tabs">
         <li ui-sref-active="active">
@@ -19,18 +19,8 @@
             </a>
         </li>
         <li ui-sref-active="active">
-            <a href ui-sref=".bovedas">
-                Bovedas asignadas
-            </a>
-        </li>
-        <li ui-sref-active="active" sg-data-keep="{module: 'ORGANIZACION', rol: ['JEFE_CAJA']}">
-            <a href ui-sref=".abrir">
-                Abrir caja
-            </a>
-        </li>
-        <li ui-sref-active="active" sg-data-keep="{module: 'ORGANIZACION', rol: ['CAJERO']}">
-            <a href ui-sref=".cerrar">
-                Cerrar caja
+            <a href ui-sref=".crearAgencia.datosPrincipales">
+                Crear agencia
             </a>
         </li>
         <li sg-data-keep="{module: 'ORGANIZACION', rol: ['ADMIN']}">

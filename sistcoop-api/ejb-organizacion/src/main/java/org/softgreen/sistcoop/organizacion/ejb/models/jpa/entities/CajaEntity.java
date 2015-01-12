@@ -70,7 +70,6 @@ public class CajaEntity {
 	@Size(min = 1, max = 20)
 	@NotBlank
 	@NotEmpty
-	@NaturalId
 	public String getDenominacion() {
 		return denominacion;
 	}

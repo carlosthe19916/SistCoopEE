@@ -20,24 +20,9 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-8">
-        <div class="form-group" ng-class="{ 'validate-has-error' : form.boveda.$invalid && (form.boveda.$touched || form.$submitted)}">
-            <label>Bovedas asignadas</label>
-            <ui-select name="boveda" multiple ng-model="combo.selected.boveda" required>
-                <ui-select-match placeholder="Boveda">{{$item.denominacion}} &lt;{{$item.moneda}}&gt;</ui-select-match>
-                <ui-select-choices repeat="item in combo.boveda | filter: $select.search">
-                    <div ng-bind-html="item.denominacion | highlight: $select.search"></div>
-                    <small>Moneda: {{item.moneda}}</small>
-                </ui-select-choices>
-            </ui-select>
-            <div ng-messages="form.boveda.$error" ng-if="form.boveda.$touched || form.$submitted">
-                <div class="validate-has-error" ng-message="required">Ingrese boveda.</div>
-            </div>
-        </div>
-    </div>
 </div>
 
 <p>
-    <button type="button" class="btn btn-primary" ng-click="addBoveda()" ladda="control.block" data-style="expand-right">Guardar</button>
+    <button type="submit" class="btn btn-primary" ladda="control.block" data-style="expand-right">Guardar</button>
     <button type="button" class="btn btn-white" ui-sref="^.resumen">Cancelar</button>
 </p>

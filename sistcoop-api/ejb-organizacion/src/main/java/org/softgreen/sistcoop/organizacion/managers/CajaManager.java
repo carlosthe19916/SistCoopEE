@@ -26,7 +26,7 @@ public class CajaManager {
 	@Inject
 	protected TrabajadorCajaProvider trabajadorCajaProvider;
 	
-	public BovedaCajaModel addBovedaCaja(BovedaModel bovedaModel, CajaModel cajaModel){
+	public BovedaCajaModel addBoveda(CajaModel cajaModel, BovedaModel bovedaModel){
 		BovedaCajaModel bovedaCajaModel = bovedaCajaProvider.addBovedaCaja(bovedaModel, cajaModel);
 		return bovedaCajaModel;
 	}
@@ -73,5 +73,7 @@ public class CajaManager {
 	public void descongelar(CajaModel cajaModel) {
 
 	}
+
+	
 
 }

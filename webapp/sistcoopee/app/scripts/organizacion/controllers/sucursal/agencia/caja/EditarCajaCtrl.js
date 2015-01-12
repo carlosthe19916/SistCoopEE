@@ -20,7 +20,7 @@ define(['../../../module'], function (module) {
             boveda: undefined
         };
         $scope.combo.selected = {
-            boveda: []
+            boveda: undefined
         };
         $scope.loadCombo = function() {
             $scope.combo.boveda = Agencia.$new($scope.view.cajaDB.agencia.id).$getBovedas().$object;

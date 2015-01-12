@@ -23,6 +23,12 @@ define(['./module'], function (module) {
             obj.$getDetalle = function() {
                 return OrganizacionRestangular.all(url+'/'+this.id+'/detalle').getList();
             };
+            obj.$addBoveda = function(boveda){
+                return OrganizacionRestangular.all(url+'/'+this.id+'/bovedas').post({'boveda': OrganizacionRestangular.copy(boveda)});
+            };
+            obj.$removeBoveda = function(idBoveda){
+                return OrganizacionRestangular.one(url+'/'+this.id+'/bovedas', idBoveda).remove();
+            };
             obj.$desactivar = function(){
                 return OrganizacionRestangular.all(url+'/'+this.id+'/desactivar').post();
             };

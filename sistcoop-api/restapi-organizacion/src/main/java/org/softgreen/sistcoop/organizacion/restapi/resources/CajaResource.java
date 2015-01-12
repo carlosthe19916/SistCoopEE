@@ -84,6 +84,7 @@ public class CajaResource {
 			BovedaModel bovedaModel = bovedaCajaModel.getBoveda();
 			BovedaRepresentation bovedaRepresentation = new BovedaRepresentation();
 			bovedaRepresentation.setId(bovedaModel.getId());
+			bovedaRepresentation.setMoneda(bovedaModel.getMoneda());
 			bovedaRepresentation.setDenominacion(bovedaModel.getDenominacion());
 			bovedaRepresentation.setAbierto(bovedaModel.isAbierto());
 			bovedaRepresentation.setEstadoMovimiento(bovedaModel.getEstadoMovimiento());
@@ -143,6 +144,7 @@ public class CajaResource {
 		 model.commit();
 	}
 
+	//verificar saldo de caja antes de desactivar
 	@POST
 	@Path("/{id}/desactivar")
 	@Produces({ "application/xml", "application/json" })
@@ -181,19 +183,24 @@ public class CajaResource {
 	@Produces({ "application/xml", "application/json" })
 	public Response addBoveda(@PathParam("id") Integer id, BovedaRepresentation bovedaRepresentation) {
 		CajaModel model = cajaProvider.getCajaById(id);
+		BovedaModel bovedaModel = bovedaProvider.getBovedaById(bovedaRepresentation.getId());
 		if (model == null) {
 			throw new NotFoundException("Caja not found.");
 		}
+		if (bovedaModel == null) {
+			throw new NotFoundException("Boveda not found.");
+		}
 
-		AgenciaModel agenciaModel = model.getAgencia();		
-		BovedaModel bovedaModel = representationToModel.createBoveda(agenciaModel, bovedaRepresentation, bovedaProvider);
-		return Response.created(uriInfo.getAbsolutePathBuilder().path(bovedaModel.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(bovedaModel.getId())).build();		
+		BovedaCajaModel bovedaCajaModel = cajaManager.addBoveda(model, bovedaModel);
+		return Response.created(uriInfo.getAbsolutePathBuilder().path(bovedaCajaModel.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(bovedaCajaModel.getId())).build();							
 	}
 		
+	
+	//TODO DEBE DE VERIFICAR EL SALDO DE CAJA BOVEDA ANTES DE ELIMINAR LA RELACION. DEBE DE TENER SALDO 0
 	@DELETE
 	@Path("/{id}/bovedas/{idBoveda}")
 	@Produces({ "application/xml", "application/json" })
-	public void addBoveda(@PathParam("id") Integer id, @PathParam("idBoveda") Integer idBoveda) {
+	public void addBoveda(@PathParam("id") Integer id, @PathParam("idBoveda") Integer idBoveda) {				
 		CajaModel model = cajaProvider.getCajaById(id);
 		BovedaModel bovedaModel = bovedaProvider.getBovedaById(idBoveda);
 		if (model == null) {

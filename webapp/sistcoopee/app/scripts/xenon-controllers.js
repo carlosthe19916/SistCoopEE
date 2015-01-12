@@ -92,17 +92,28 @@ define([
                 }, (time ? time : 7000));
             };
 
+            $scope.loadedObjectToCheck = {
+                trabajador: false,
+                caja: false,
+                agencia: false,
+                sucursal: false
+            };
+
             Usuario.$getTrabajador($scope.auth.user.username).then(function(response){
                 $scope.auth.user.trabajador = response;
+                $scope.loadedObjectToCheck.trabajador = true;
             });
             Usuario.$getCaja($scope.auth.user.username).then(function(response){
                 $scope.auth.user.caja = response;
+                $scope.loadedObjectToCheck.caja = true;
             });
             Usuario.$getSucursal($scope.auth.user.username).then(function(response){
                 $scope.auth.user.sucursal  = response;
+                $scope.loadedObjectToCheck.sucursal = true;
             });
             Usuario.$getAgencia($scope.auth.user.username).then(function(response){
                 $scope.auth.user.agencia = response;
+                $scope.loadedObjectToCheck.agencia = true;
             });
 
             $scope.goToTrabajadorSession = function(){
@@ -113,19 +124,29 @@ define([
                 }
             };
 
-            var checkRolesListener = $scope.$watchGroup([
+            var checkRolesListener = $scope.$watch('loadedObjectToCheck', function(){
+                if( angular.isDefined($scope.loadedObjectToCheck.caja) &&
+                    angular.isDefined($scope.loadedObjectToCheck.trabajador) &&
+                    angular.isDefined($scope.loadedObjectToCheck.agencia) &&
+                    angular.isDefined($scope.loadedObjectToCheck.sucursal)){
+                    $scope.checkRoles();
+                }
+            }, true);
+            /*var checkRolesListener = $scope.$watchGroup([
                 'auth.user.trabajador',
                 'auth.user.caja',
                 'auth.user.sucursal',
                 'auth.user.agencia'
             ], function(newValue, oldValue){
+                console.log("newValue:"+newValue[0]);
+                console.log("oldValue:"+oldValue[0]);
                 if( angular.isDefined(newValue[0]) &&
                     angular.isDefined(newValue[1]) &&
                     angular.isDefined(newValue[2]) &&
                     angular.isDefined(newValue[3])){
                     $scope.checkRoles();
                 }
-            });
+            });*/
 
              $scope.checkRoles = function(){
                  checkRolesListener();
@@ -133,44 +154,44 @@ define([
                  if(activeProfile.realmAccess.roles.indexOf('ADMIN') != -1){
 
                  } else if(activeProfile.realmAccess.roles.indexOf('GERENTE_GENERAL') != -1){
-                     if(angular.isUndefined($scope.auth.user.sucursal.id) ||
-                         angular.isUndefined($scope.auth.user.trabajador.id)){
+                     if(angular.isUndefined($scope.auth.user.sucursal) ||
+                         angular.isUndefined($scope.auth.user.trabajador)){
                          $scope.blockMessage = "El usuario no tiene un trabajador y/o sucursal asignada, no puede continuar. En 5 segundos se cerrará la session.";
                          $scope.logoutTime();
                      }
                  } else if(activeProfile.realmAccess.roles.indexOf('ADMINISTRADOR_GENERAL') != -1){
-                     if(angular.isUndefined($scope.auth.user.sucursal.id) ||
-                         angular.isUndefined($scope.auth.user.trabajador.id)){
+                     if(angular.isUndefined($scope.auth.user.sucursal) ||
+                         angular.isUndefined($scope.auth.user.trabajador)){
                          $scope.blockMessage = "El usuario no tiene un trabajador y/o sucursal asignada, no puede continuar. En 5 segundos se cerrará la session.";
                          $scope.logoutTime();
                      }
                  } else if(activeProfile.realmAccess.roles.indexOf('ADMINISTRADOR') != -1){
-                     if(angular.isUndefined($scope.auth.user.sucursal.id) ||
-                         angular.isUndefined($scope.auth.user.agencia.id) ||
-                         angular.isUndefined($scope.auth.user.trabajador.id)){
+                     if(angular.isUndefined($scope.auth.user.sucursal) ||
+                         angular.isUndefined($scope.auth.user.agencia) ||
+                         angular.isUndefined($scope.auth.user.trabajador)){
                          $scope.blockMessage = "El usuario no tiene un sucursal, agencia y/o trabajador asignado, no puede continuar. En 5 segundos se cerrará la session.";
                          $scope.logoutTime();
                      }
                  } else if(activeProfile.realmAccess.roles.indexOf('PLATAFORMA') != -1){
-                     if(angular.isUndefined($scope.auth.user.sucursal.id) ||
-                         angular.isUndefined($scope.auth.user.agencia.id) ||
-                         angular.isUndefined($scope.auth.user.trabajador.id)){
+                     if(angular.isUndefined($scope.auth.user.sucursal) ||
+                         angular.isUndefined($scope.auth.user.agencia) ||
+                         angular.isUndefined($scope.auth.user.trabajador)){
                          $scope.blockMessage = "El usuario no tiene un sucursal, agencia y/o trabajador asignado, no puede continuar. En 5 segundos se cerrará la session.";
                          $scope.logoutTime();
                      }
                  } else if(activeProfile.realmAccess.roles.indexOf('JEFE_CAJA') != -1){
-                     if(angular.isUndefined($scope.auth.user.sucursal.id) ||
-                         angular.isUndefined($scope.auth.user.agencia.id) ||
-                         angular.isUndefined($scope.auth.user.trabajador.id)){
-                         $scope.blockMessage = "El usuario no tiene un sucursal, agencia y/o trabajador asignado, no puede continuar. En 5 segundos se cerrará la session.";
+                     if(angular.isUndefined($scope.auth.user.sucursal) ||
+                         angular.isUndefined($scope.auth.user.agencia) ||
+                         angular.isUndefined($scope.auth.user.trabajador)){
+                         $scope.blockMessage = "El usuario no tiene una sucursal, agencia y/o trabajador asignado, no puede continuar. En 5 segundos se cerrará la session.";
                          $scope.logoutTime();
                      }
                  } else if(activeProfile.realmAccess.roles.indexOf('CAJERO') != -1){
-                     if(angular.isUndefined($scope.auth.user.sucursal.id) ||
-                         angular.isUndefined($scope.auth.user.agencia.id) ||
-                         angular.isUndefined($scope.auth.user.trabajador.id) ||
-                         angular.isUndefined($scope.auth.user.caja.id)){
-                         $scope.blockMessage = "El usuario no tiene un sucursal, agencia, trabajador y/o caja asignada, no puede continuar. En 5 segundos se cerrará la session.";
+                     if(angular.isUndefined($scope.auth.user.sucursal) ||
+                         angular.isUndefined($scope.auth.user.agencia) ||
+                         angular.isUndefined($scope.auth.user.trabajador) ||
+                         angular.isUndefined($scope.auth.user.caja)){
+                         $scope.blockMessage = "El usuario no tiene una sucursal, agencia, trabajador y/o caja asignada, no puede continuar. En 5 segundos se cerrará la session.";
                          $scope.logoutTime();
                      }
                  } else {

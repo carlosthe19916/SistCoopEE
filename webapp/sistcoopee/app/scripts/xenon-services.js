@@ -75,11 +75,11 @@ define([
                     var cuentaAporte = this.addItem('Cuentas aporte', '', 'linecons-eye');
                     var cuentaBancaria = this.addItem('Cuentas bancarias', '', 'linecons-globe');
 
-                    cuentaAporte.addItem('Buscar cuentas', 'app.administracion.personas.buscarPersonaNatural');
-                    cuentaBancaria.addItem('Crear cuenta ahorro', 'app.administracion.personas.buscarPersonaJuridica');
-                    cuentaBancaria.addItem('Crear cuenta plazo fijo', 'app.administracion.personas.buscarPersonaJuridica');
-                    cuentaBancaria.addItem('Crear cuenta corriente', 'app.administracion.personas.buscarPersonaJuridica');
-                    cuentaBancaria.addItem('Buscar cuentas', 'app.administracion.personas.buscarPersonaJuridica');
+                    cuentaAporte.addItem('Buscar cuentas', 'app.cliente.socio.buscarCuentaAporte');
+                    cuentaBancaria.addItem('Crear cuenta ahorro', 'app.cliente.cuentaBancaria.crearCuentaAhorro');
+                    cuentaBancaria.addItem('Crear cuenta plazo fijo', 'app.cliente.cuentaBancaria.crearCuentaPlazoFijo');
+                    cuentaBancaria.addItem('Crear cuenta corriente', 'app.cliente.cuentaBancaria.crearCuentaCorriente');
+                    cuentaBancaria.addItem('Buscar cuentas', 'app.cliente.cuentaBancaria.buscarCuentaBancaria');
                 } else if(stateName.indexOf('app.transaccion') > -1){
                     var transaccionInterna = this.addItem('Interno', '', 'linecons-beaker');
                     var transaccionExterna = this.addItem('Externa', '', 'linecons-money');
