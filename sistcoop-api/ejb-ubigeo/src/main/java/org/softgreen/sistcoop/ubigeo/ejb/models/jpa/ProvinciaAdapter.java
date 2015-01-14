@@ -86,6 +86,11 @@ public class ProvinciaAdapter implements ProvinciaModel {
 		provinciaEntity.setDistritos(result);
 	}
 
+	@Override
+	public void commit() {
+		em.merge(provinciaEntity);
+	}
+
 	public static ProvinciaEntity toProvinciaEntity(ProvinciaModel model, EntityManager em) {
 		if (model instanceof ProvinciaAdapter) {
 			return ((ProvinciaAdapter) model).getProvinciaEntity();
@@ -109,9 +114,4 @@ public class ProvinciaAdapter implements ProvinciaModel {
 		return getId().hashCode();
 	}
 
-	@Override
-	public void commit() {
-		// TODO Auto-generated method stub
-
-	}
 }

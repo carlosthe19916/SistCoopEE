@@ -16,7 +16,7 @@ public class DepartamentoAdapter implements DepartamentoModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	protected DepartamentoEntity departamentoEntity;
 	protected EntityManager em;
 
@@ -73,6 +73,11 @@ public class DepartamentoAdapter implements DepartamentoModel {
 		departamentoEntity.setProvincias(result);
 	}
 
+	@Override
+	public void commit() {
+		em.merge(departamentoEntity);
+	}
+
 	public static DepartamentoEntity toDepartamentoEntity(DepartamentoModel model, EntityManager em) {
 		if (model instanceof DepartamentoAdapter) {
 			return ((DepartamentoAdapter) model).getDepartamentoEntity();
@@ -94,12 +99,6 @@ public class DepartamentoAdapter implements DepartamentoModel {
 	@Override
 	public int hashCode() {
 		return getId().hashCode();
-	}
-
-	@Override
-	public void commit() {
-		// TODO Auto-generated method stub
-
 	}
 
 }

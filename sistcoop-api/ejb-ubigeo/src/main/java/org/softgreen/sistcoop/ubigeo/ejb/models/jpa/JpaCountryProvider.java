@@ -27,20 +27,38 @@ public class JpaCountryProvider implements CountryProvider {
 
 	@Override
 	public CountryModel findByAlpha2Code(String code) {
-		// TODO Auto-generated method stub
-		return null;
+		TypedQuery<CountryEntity> query = em.createNamedQuery(CountryEntity.findByAlpha2Code, CountryEntity.class);
+		query.setParameter("code", code);
+		List<CountryEntity> list = query.getResultList();
+		if (list.size() > 0) {
+			return new CountryAdapter(em, list.get(0));
+		} else {
+			return null;
+		}
 	}
 
 	@Override
 	public CountryModel findByAlpha3Code(String code) {
-		// TODO Auto-generated method stub
-		return null;
+		TypedQuery<CountryEntity> query = em.createNamedQuery(CountryEntity.findByAlpha3Code, CountryEntity.class);
+		query.setParameter("code", code);
+		List<CountryEntity> list = query.getResultList();
+		if (list.size() > 0) {
+			return new CountryAdapter(em, list.get(0));
+		} else {
+			return null;
+		}
 	}
 
 	@Override
 	public CountryModel findByNumericCode(String code) {
-		// TODO Auto-generated method stub
-		return null;
+		TypedQuery<CountryEntity> query = em.createNamedQuery(CountryEntity.findByNumericCode, CountryEntity.class);
+		query.setParameter("code", code);
+		List<CountryEntity> list = query.getResultList();
+		if (list.size() > 0) {
+			return new CountryAdapter(em, list.get(0));
+		} else {
+			return null;
+		}
 	}
 
 	@Override

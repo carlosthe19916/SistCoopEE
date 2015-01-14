@@ -37,7 +37,7 @@ public class CajaManager {
 
 	@Inject
 	protected DetalleHistorialProvider detalleHistorialProvider;
-
+		
 	public BovedaCajaModel addBoveda(CajaModel cajaModel, BovedaModel bovedaModel) {
 		BovedaCajaModel bovedaCajaModel = bovedaCajaProvider.addBovedaCaja(bovedaModel, cajaModel);
 		return bovedaCajaModel;
@@ -121,7 +121,11 @@ public class CajaManager {
 
 		Calendar calendar = Calendar.getInstance();
 		if (firstTime) {
-
+			for (BovedaCajaModel bovedaCajaModel : bovedaCajaModels) {
+				BovedaModel bovedaModel = bovedaCajaModel.getBoveda();
+				String moneda = bovedaModel.getMoneda();
+				ss
+			}			
 		} else {
 			for (BovedaCajaModel bovedaCajaModel : bovedaCajaModels) {
 				HistorialModel historialActivoModel = bovedaCajaModel.getHistorialActivo();

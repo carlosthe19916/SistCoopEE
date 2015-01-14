@@ -14,7 +14,7 @@ public class DistritoAdapter implements DistritoModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	protected DistritoEntity distritoEntity;
 	protected EntityManager em;
 
@@ -63,6 +63,11 @@ public class DistritoAdapter implements DistritoModel {
 		distritoEntity.setProvincia(provinciaEntity);
 	}
 
+	@Override
+	public void commit() {
+		em.merge(distritoEntity);
+	}
+
 	public static DistritoEntity toDistritoEntity(DistritoModel model, EntityManager em) {
 		if (model instanceof DistritoAdapter) {
 			return ((DistritoAdapter) model).getDistritoEntity();
@@ -84,12 +89,6 @@ public class DistritoAdapter implements DistritoModel {
 	@Override
 	public int hashCode() {
 		return getId().hashCode();
-	}
-
-	@Override
-	public void commit() {
-		// TODO Auto-generated method stub
-
 	}
 
 }

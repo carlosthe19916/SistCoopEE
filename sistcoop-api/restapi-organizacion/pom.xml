@@ -41,7 +41,7 @@
 			<artifactId>ejb-organizacion</artifactId>
 			<type>ejb</type>
 			<scope>provided</scope>
-		</dependency>
+		</dependency>		
 
 		<dependency>
 			<groupId>org.jboss.spec.javax.ejb</groupId>

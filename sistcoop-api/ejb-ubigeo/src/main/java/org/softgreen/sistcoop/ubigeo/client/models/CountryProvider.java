@@ -16,4 +16,5 @@ public interface CountryProvider extends Provider {
 	public CountryModel findByNumericCode(String code);
 
 	public List<CountryModel> findAll();
+	
 }

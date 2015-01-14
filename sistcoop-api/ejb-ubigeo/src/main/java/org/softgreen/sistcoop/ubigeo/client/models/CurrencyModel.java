@@ -4,20 +4,20 @@ import java.util.Set;
 
 public interface CurrencyModel extends Model {
 
-	public String getCode();
+	String getCode();
 
-	public void setCode(String code);
+	void setCode(String code);
 
-	public String getDenomination();
+	String getDenomination();
 
-	public void setDenomination(String denomination);
+	void setDenomination(String denomination);
 
-	public String getSimbol();
+	String getSimbol();
 
-	public void setSimbol(String simbol);
+	void setSimbol(String simbol);
 
-	public Set<DenominationModel> getDenominations();
+	Set<DenominationModel> getDenominations();
 
-	public void setDenominations(Set<DenominationModel> denominations);
+	void setDenominations(Set<DenominationModel> denominations);
 
 }

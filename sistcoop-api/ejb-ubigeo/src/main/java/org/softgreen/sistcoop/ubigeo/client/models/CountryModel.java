@@ -2,50 +2,50 @@ package org.softgreen.sistcoop.ubigeo.client.models;
 
 public interface CountryModel extends Model {
 
-	public Integer getId();
+	Integer getId();
 
-	public String getAlpha2Code();
+	String getAlpha2Code();
 
-	public void setAlpha2Code(String alpha2Code);
+	void setAlpha2Code(String alpha2Code);
 
-	public String getShortName();
+	String getShortName();
 
-	public void setShortName(String shortName);
+	void setShortName(String shortName);
 
-	public String getShortNameLowerCase();
+	String getShortNameLowerCase();
 
-	public void setShortNameLowerCase(String shortNameLowerCase);
+	void setShortNameLowerCase(String shortNameLowerCase);
 
-	public String getFullName();
+	String getFullName();
 
-	public void setFullName(String fullName);
+	void setFullName(String fullName);
 
-	public String getAlpha3Code();
+	String getAlpha3Code();
 
-	public void setAlpha3Code(String alpha3Code);
+	void setAlpha3Code(String alpha3Code);
 
-	public String getNumericCode();
+	String getNumericCode();
 
-	public void setNumericCode(String numericCode);
+	void setNumericCode(String numericCode);
 
-	public String getRemarks();
+	String getRemarks();
 
-	public void setRemarks(String remarks);
+	void setRemarks(String remarks);
 
-	public boolean isIndependent();
+	boolean isIndependent();
 
-	public void setIndependent(boolean independent);
+	void setIndependent(boolean independent);
 
-	public String getTerritoryName();
+	String getTerritoryName();
 
-	public void setTerritoryName(String territoryName);
+	void setTerritoryName(String territoryName);
 
-	public String getStatus();
+	String getStatus();
 
-	public void setStatus(String status);
+	void setStatus(String status);
 
-	public CurrencyModel getCurrency();
+	CurrencyModel getCurrency();
 
-	public void setCurrency(CurrencyModel currency);
+	void setCurrency(CurrencyModel currency);
 
 }

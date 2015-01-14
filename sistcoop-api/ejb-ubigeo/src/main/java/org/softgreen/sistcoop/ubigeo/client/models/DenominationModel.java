@@ -4,14 +4,14 @@ import java.math.BigDecimal;
 
 public interface DenominationModel extends Model {
 
-	public Integer getId();
+	Integer getId();
 
-	public CurrencyModel getCurrency();
+	CurrencyModel getCurrency();
 
-	public void setCurrency(CurrencyModel currency);
+	void setCurrency(CurrencyModel currency);
 
-	public BigDecimal getValue();
+	BigDecimal getValue();
 
-	public void setValue(BigDecimal value);
+	void setValue(BigDecimal value);
 
 }

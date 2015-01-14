@@ -15,5 +15,4 @@ public interface UbigeoProvider extends Provider {
 
 	public List<DistritoModel> getDistritos(String codigoDepartamento, String codigoProvincia);
 
-
 }

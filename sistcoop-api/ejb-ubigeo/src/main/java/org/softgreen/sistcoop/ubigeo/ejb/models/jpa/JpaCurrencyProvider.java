@@ -32,14 +32,26 @@ public class JpaCurrencyProvider implements CurrencyProvider {
 
 	@Override
 	public CurrencyModel findByCode(String code) {
-		// TODO Auto-generated method stub
-		return null;
+		TypedQuery<CurrencyEntity> query = em.createNamedQuery(CurrencyEntity.findByCode, CurrencyEntity.class);
+		query.setParameter("code", code);
+		List<CurrencyEntity> list = query.getResultList();
+		if (list.size() > 0) {
+			return new CurrencyAdapter(em, list.get(0));
+		} else {
+			return null;
+		}
 	}
 
 	@Override
 	public CurrencyModel findBySimbol(String simbol) {
-		// TODO Auto-generated method stub
-		return null;
+		TypedQuery<CurrencyEntity> query = em.createNamedQuery(CurrencyEntity.findBySimbol, CurrencyEntity.class);
+		query.setParameter("simbol", simbol);
+		List<CurrencyEntity> list = query.getResultList();
+		if (list.size() > 0) {
+			return new CurrencyAdapter(em, list.get(0));
+		} else {
+			return null;
+		}
 	}
 
 	@Override

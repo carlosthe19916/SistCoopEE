@@ -16,7 +16,7 @@ public class CurrencyAdapter implements CurrencyModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	protected CurrencyEntity currencyEntity;
 	protected EntityManager em;
 
@@ -81,8 +81,7 @@ public class CurrencyAdapter implements CurrencyModel {
 
 	@Override
 	public void commit() {
-		// TODO Auto-generated method stub
-
+		em.merge(currencyEntity);
 	}
 
 	public static CurrencyEntity toCurrencyEntity(CurrencyModel model, EntityManager em) {

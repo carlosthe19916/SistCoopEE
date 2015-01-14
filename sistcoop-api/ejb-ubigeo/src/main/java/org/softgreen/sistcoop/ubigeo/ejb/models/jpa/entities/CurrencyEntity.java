@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -30,6 +31,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @NamedQuery(name = CurrencyEntity.findAll, query = "Select c from CurrencyEntity c")
+@NamedQueries(value = {
+		@NamedQuery(name = CurrencyEntity.findByCode, query = "Select p from CurrencyEntity p WHERE p.code = :code"),
+		@NamedQuery(name = CurrencyEntity.findBySimbol, query = "Select p from CurrencyEntity p WHERE p.simbol = :simbol") })
 public class CurrencyEntity implements Serializable{
 
 	/**
@@ -39,6 +43,8 @@ public class CurrencyEntity implements Serializable{
 	
 	public final static String base = "org.softgreen.sistcoop.ubigeo.ejb.models.jpa.entities.CurrencyEntity";
 	public final static String findAll = base + "findAll";
+	public final static String findByCode = base + "findByCode";
+	public final static String findBySimbol = base + "findBySimbol";
 	
 	private String code;
 	private String denomination;

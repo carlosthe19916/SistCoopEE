@@ -15,7 +15,7 @@ public class DenominationAdapter implements DenominationModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	protected DenominationEntity denominationEntity;
 	protected EntityManager em;
 
@@ -56,8 +56,7 @@ public class DenominationAdapter implements DenominationModel {
 
 	@Override
 	public void commit() {
-		// TODO Auto-generated method stub
-
+		em.merge(denominationEntity);
 	}
 
 	public static DenominationEntity toDenominationEntity(DenominationModel model, EntityManager em) {

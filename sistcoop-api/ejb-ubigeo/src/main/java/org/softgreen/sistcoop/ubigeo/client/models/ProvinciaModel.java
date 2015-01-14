@@ -4,22 +4,22 @@ import java.util.Set;
 
 public interface ProvinciaModel extends Model {
 
-	public Integer getId();
+	Integer getId();
 
-	public String getCodigo();
+	String getCodigo();
 
-	public void setCodigo(String codigo);
+	void setCodigo(String codigo);
 
-	public String getDenominacion();
+	String getDenominacion();
 
-	public void setDenominacion(String denominacion);
+	void setDenominacion(String denominacion);
 
-	public DepartamentoModel getDepartamento();
+	DepartamentoModel getDepartamento();
 
-	public void setDepartamento(DepartamentoModel departamentoModel);
+	void setDepartamento(DepartamentoModel departamentoModel);
 
-	public Set<DistritoModel> getDistritos();
+	Set<DistritoModel> getDistritos();
 
-	public void setDistritos(Set<DistritoModel> provincias);
+	void setDistritos(Set<DistritoModel> provincias);
 
 }
