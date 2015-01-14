@@ -38,7 +38,6 @@ public class RepresentationToModel {
 		return model;
 	}
 
-
 	/**
 	 * Crear una agencia a partir de un objeto AgenciaRepresentation.
 	 * 
@@ -47,14 +46,10 @@ public class RepresentationToModel {
 	 * @param agenciaProvider
 	 */
 	public AgenciaModel createAgencia(SucursalModel sucursalModel, AgenciaRepresentation rep, AgenciaProvider agenciaProvider) {
-		AgenciaModel agenciaModel = agenciaProvider.addAgencia(sucursalModel, 
-				rep.getCodigo(), 
-				rep.getAbreviatura(),
-				rep.getDenominacion(), 
-				rep.getUbigeo());
+		AgenciaModel agenciaModel = agenciaProvider.addAgencia(sucursalModel, rep.getCodigo(), rep.getAbreviatura(), rep.getDenominacion(), rep.getUbigeo());
 		return agenciaModel;
 	}
-	
+
 	/**
 	 * Crear una boveda a partir de un objeto BovedaRepresentation.
 	 * 
@@ -63,11 +58,10 @@ public class RepresentationToModel {
 	 * @param bovedaProvider
 	 */
 	public BovedaModel createBoveda(AgenciaModel agenciaModel, BovedaRepresentation rep, BovedaProvider bovedaProvider) {
-		BovedaModel bovedaModel = bovedaProvider.addBoveda(agenciaModel, 
-				rep.getMoneda(), rep.getDenominacion());		
+		BovedaModel bovedaModel = bovedaProvider.addBoveda(agenciaModel, rep.getMoneda(), rep.getDenominacion());
 		return bovedaModel;
 	}
-	
+
 	/**
 	 * Crear una caja a partir de un objeto CajaRepresentation.
 	 * 
@@ -76,12 +70,13 @@ public class RepresentationToModel {
 	 * @param cajaProvider
 	 */
 	public CajaModel createCaja(AgenciaModel agenciaModel, CajaRepresentation rep, CajaProvider cajaProvider) {
-		CajaModel cajaModel = cajaProvider.addCaja(agenciaModel, rep.getDenominacion());			
+		CajaModel cajaModel = cajaProvider.addCaja(agenciaModel, rep.getDenominacion());
 		return cajaModel;
 	}
-	
+
 	/**
-	 * Crear una caja y asigna bovedas a la misma a partir de un objeto CajaRepresentation.
+	 * Crear una caja y asigna bovedas a la misma a partir de un objeto
+	 * CajaRepresentation.
 	 * 
 	 * @param agenciaModel
 	 * @param representation
@@ -98,19 +93,18 @@ public class RepresentationToModel {
 		}
 		return cajaModel;
 	}
-	
+
 	/**
-	 * Crear un trabajador a partir de un objeto TrabajadorRepresentation sin un Usuario.
+	 * Crear un trabajador a partir de un objeto TrabajadorRepresentation sin un
+	 * Usuario.
 	 * 
 	 * @param agenciaModel
 	 * @param representation
-	 * @param trabajadorProvider	
+	 * @param trabajadorProvider
 	 */
 	public TrabajadorModel createTrabajador(AgenciaModel agenciaModel, TrabajadorRepresentation rep, TrabajadorProvider trabajadorProvider) {
-		TrabajadorModel trabajadorModel = trabajadorProvider.addTrabajador(agenciaModel, 
-				rep.getTipoDocumento(), 
-				rep.getNumeroDocumento());		
+		TrabajadorModel trabajadorModel = trabajadorProvider.addTrabajador(agenciaModel, rep.getTipoDocumento(), rep.getNumeroDocumento());
 		return trabajadorModel;
-	} 
-	
+	}
+
 }

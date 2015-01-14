@@ -35,7 +35,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 @NamedQueries(value = {
 		@NamedQuery(name = TrabajadorEntity.findByUsuario, query = "SELECT t FROM TrabajadorEntity t WHERE t.usuario = :usuario"),
-		@NamedQuery(name = TrabajadorEntity.findByTipoAndNumeroDocumento, query = "SELECT t FROM TrabajadorEntity t WHERE t.tipoDocumento = :tipoDocumento AND t.numeroDocumento = :numeroDocumento "), })
+		@NamedQuery(name = TrabajadorEntity.findByTipoAndNumeroDocumento, query = "SELECT t FROM TrabajadorEntity t WHERE t.tipoDocumento = :tipoDocumento AND t.numeroDocumento = :numeroDocumento "),
+		@NamedQuery(name = TrabajadorEntity.findByFilterText, query = "SELECT t FROM TrabajadorEntity t WHERE t.numeroDocumento LIKE :filterText") })
 public class TrabajadorEntity implements Serializable{
 
 	/**
@@ -45,6 +46,7 @@ public class TrabajadorEntity implements Serializable{
 	public final static String base = "org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.TrabajadorEntity.";
 	public final static String findByUsuario = base + "findByUsuario";
 	public final static String findByTipoAndNumeroDocumento = base + "findByTipoAndNumeroDocumento";
+	public final static String findByFilterText = base + "findByFilterText";
 	
 	private Integer id;
 	private String tipoDocumento;

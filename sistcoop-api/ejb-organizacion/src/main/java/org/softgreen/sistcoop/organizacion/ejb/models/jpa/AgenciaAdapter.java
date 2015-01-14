@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
@@ -94,10 +95,15 @@ public class AgenciaAdapter implements AgenciaModel {
 
 	@Override
 	public List<BovedaModel> getBovedas() {
+		return getBovedas(true);
+	}
+
+	@Override
+	public List<BovedaModel> getBovedas(boolean estado) {
 		Set<BovedaEntity> list = agenciaEntity.getBovedas();
 		List<BovedaModel> result = new ArrayList<BovedaModel>();
 		for (BovedaEntity entity : list) {
-			if (entity.isEstado())
+			if (entity.isEstado() == estado)
 				result.add(new BovedaAdapter(em, entity));
 		}
 		return result;
@@ -105,10 +111,15 @@ public class AgenciaAdapter implements AgenciaModel {
 
 	@Override
 	public List<CajaModel> getCajas() {
+		return getCajas(true);
+	}
+
+	@Override
+	public List<CajaModel> getCajas(boolean estado) {
 		Set<CajaEntity> list = agenciaEntity.getCajas();
 		List<CajaModel> result = new ArrayList<CajaModel>();
 		for (CajaEntity entity : list) {
-			if (entity.isEstado())
+			if (entity.isEstado() == estado)
 				result.add(new CajaAdapter(em, entity));
 		}
 		return result;
@@ -132,45 +143,29 @@ public class AgenciaAdapter implements AgenciaModel {
 
 	@Override
 	public List<TrabajadorModel> getTrabajadores(String filterText, int limit, int offset) {
-		Set<TrabajadorEntity> list = agenciaEntity.getTrabajadores();
-		List<TrabajadorModel> result = new ArrayList<TrabajadorModel>();
+		TypedQuery<TrabajadorEntity> query = em.createNamedQuery(TrabajadorEntity.findByFilterText, TrabajadorEntity.class);
+		if (filterText == null)
+			filterText = "";
+		if (limit != -1)
+			query.setFirstResult(offset);
+		if (offset != -1)
+			query.setMaxResults(offset);
+		query.setParameter("filterText", "%" + filterText + "%");
+		List<TrabajadorEntity> list = query.getResultList();
+		List<TrabajadorModel> results = new ArrayList<TrabajadorModel>();
 		for (TrabajadorEntity entity : list) {
-			if (entity.isEstado() == true)
-				result.add(new TrabajadorAdapter(em, entity));
+			results.add(new TrabajadorAdapter(em, entity));
 		}
-		return result;
-	}	
-
-	@Override
-	public List<BovedaModel> getBovedas(boolean estado) {
-		Set<BovedaEntity> list = agenciaEntity.getBovedas();
-		List<BovedaModel> result = new ArrayList<BovedaModel>();
-		for (BovedaEntity entity : list) {
-			if (entity.isEstado() == true)
-				result.add(new BovedaAdapter(em, entity));
-		}
-		return result;	
+		return results;
 	}
 
-	@Override
-	public List<CajaModel> getCajas(boolean estado) {
-		Set<CajaEntity> list = agenciaEntity.getCajas();
-		List<CajaModel> result = new ArrayList<CajaModel>();
-		for (CajaEntity entity : list) {
-			if (entity.isEstado() == true)
-				result.add(new CajaAdapter(em, entity));
-		}
-		return result;
-	}
-
-	public static AgenciaEntity toSucursalEntity(AgenciaModel model,
-			EntityManager em) {
+	public static AgenciaEntity toSucursalEntity(AgenciaModel model, EntityManager em) {
 		if (model instanceof AgenciaAdapter) {
 			return ((AgenciaAdapter) model).getAgenciaEntity();
 		}
 		return em.getReference(AgenciaEntity.class, model.getId());
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)

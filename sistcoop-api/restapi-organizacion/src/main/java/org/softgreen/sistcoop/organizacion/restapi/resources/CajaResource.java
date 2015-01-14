@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.EJBException;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.DELETE;
@@ -34,7 +35,6 @@ import org.softgreen.sistcoop.organizacion.client.models.util.ModelToRepresentat
 import org.softgreen.sistcoop.organizacion.client.models.util.RepresentationToModel;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.BovedaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.CajaRepresentation;
-import org.softgreen.sistcoop.organizacion.client.representations.idm.DetalleHistorialRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.TrabajadorRepresentation;
 import org.softgreen.sistcoop.organizacion.managers.CajaManager;
 import org.softgreen.sistcoop.organizacion.restapi.config.Jsend;
@@ -122,7 +122,46 @@ public class CajaResource {
 	@Produces({ "application/xml", "application/json" })
 	public DetalleHistorialList getDetalle(@PathParam("id") Integer id) {
 		CajaModel model = cajaProvider.getCajaById(id);
-		HistorialModel historialModel = model.getHistorialActivo();
+		List<BovedaCajaModel> bovedaCajaModels = model.getBovedaCajas();
+		
+		List<HistorialModel> historialesActivos = new ArrayList<HistorialModel>();
+		for (BovedaCajaModel bovedaCajaModel : bovedaCajaModels) {
+			HistorialModel historialModel = bovedaCajaModel.getHistorialActivo();
+			if (historialModel != null)
+				historialesActivos.add(historialModel);
+		}
+		
+		boolean firstTime;
+		if (historialesActivos.size() == 0) {
+			firstTime = true;
+		} else if (historialesActivos.size() == bovedaCajaModels.size()) {
+			firstTime = false;
+		} else {
+			throw new EJBException("Error interno, existen cajas que no tienen historiales. Pongase en contacto con el area de sistemas.");
+		}
+		
+		if (firstTime) {
+
+		} else {
+			for (BovedaCajaModel bovedaCajaModel : bovedaCajaModels) {
+				HistorialModel historialActivoModel = bovedaCajaModel.getHistorialActivo();
+
+				List<DetalleHistorialModel> detalleHistorialActivoModels = historialActivoModel.getDetalle();
+
+				historialActivoModel.setEstado(false);
+				historialActivoModel.setFechaCierre(calendar.getTime());
+				historialActivoModel.setHoraCierre(calendar.getTime());
+
+				HistorialModel historialNewModel = historialProvider.addHistorial(bovedaCajaModel);
+				for (DetalleHistorialModel detalleHistorialActivoModel : detalleHistorialActivoModels) {
+					int cantidad = detalleHistorialActivoModel.getCantidad();
+					BigDecimal valor = detalleHistorialActivoModel.getValor();
+					detalleHistorialProvider.addDetalleHistorial(historialNewModel, cantidad, valor);
+				}
+
+				historialActivoModel.commit();
+			}
+		}
 		if (historialModel != null) {
 			List<DetalleHistorialModel> detalleHistorialModel = historialModel.getDetalle();
 			List<DetalleHistorialRepresentation> detalleHistorialRepresentations = new ArrayList<DetalleHistorialRepresentation>();
@@ -134,6 +173,7 @@ public class CajaResource {
 		} else {
 			return null;
 		}
+		return null;
 	}
 
 	@PUT

@@ -7,10 +7,10 @@ import org.softgreen.sistcoop.organizacion.client.providers.Provider;
 @Local
 public interface HistorialProvider extends Provider {
 
-	HistorialModel addHistorial(CajaModel cajaModel);
+	HistorialModel addHistorial(BovedaCajaModel bovedaCajaModel);
 
 	HistorialModel addHistorial(BovedaModel bovedaModel);
 
-	boolean removeHistorial(HistorialModel HistorialModel);	
+	boolean removeHistorial(HistorialModel HistorialModel);
 
 }

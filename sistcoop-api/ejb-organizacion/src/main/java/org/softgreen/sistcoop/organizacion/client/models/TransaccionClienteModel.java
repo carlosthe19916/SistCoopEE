@@ -22,7 +22,7 @@ public interface TransaccionClienteModel extends Model {
 
 	void setObservacion();
 
-	HistorialCajaModel getHistorial();
+	HistorialBovedaCajaModel getHistorial();
 
 	List<DetalleTransaccionClienteModel> getDetalle();
 

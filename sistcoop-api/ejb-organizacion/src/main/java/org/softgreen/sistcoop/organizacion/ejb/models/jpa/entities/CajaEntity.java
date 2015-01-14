@@ -45,8 +45,7 @@ public class CajaEntity {
 	private boolean estadoMovimiento;
 
 	private AgenciaEntity agencia;
-
-	private Set<HistorialCajaEntity> historiales = new HashSet<HistorialCajaEntity>();
+	
 	private Set<BovedaCajaEntity> bovedaCajas = new HashSet<BovedaCajaEntity>();
 	private Set<TrabajadorCajaEntity> trabajadorCajas = new HashSet<TrabajadorCajaEntity>();
 
@@ -118,16 +117,6 @@ public class CajaEntity {
 
 	public void setAgencia(AgenciaEntity agencia) {
 		this.agencia = agencia;
-	}
-
-	@XmlTransient
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "caja")
-	public Set<HistorialCajaEntity> getHistoriales() {
-		return historiales;
-	}
-
-	public void setHistoriales(Set<HistorialCajaEntity> historiales) {
-		this.historiales = historiales;
 	}
 
 	@XmlTransient

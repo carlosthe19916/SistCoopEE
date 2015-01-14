@@ -56,8 +56,8 @@ public class JpaCajaProvider implements CajaProvider {
 
 	@Override
 	public CajaModel getCajaById(Integer id) {
-		CajaEntity CajaEntity = this.em.find(CajaEntity.class, id);
-		return CajaEntity != null ? new CajaAdapter(em, CajaEntity) : null;
+		CajaEntity cajaEntity = this.em.find(CajaEntity.class, id);
+		return cajaEntity != null ? new CajaAdapter(em, cajaEntity) : null;
 	}
 
 }

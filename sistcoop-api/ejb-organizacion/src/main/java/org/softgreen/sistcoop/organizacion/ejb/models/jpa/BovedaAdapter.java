@@ -95,7 +95,7 @@ public class BovedaAdapter implements BovedaModel {
 	public HistorialModel getHistorialActivo() {
 		TypedQuery<HistorialBovedaEntity> query = em.createNamedQuery(HistorialBovedaEntity.findByEstado, HistorialBovedaEntity.class);
 		query.setParameter("idBoveda", getId());
-		query.setParameter("estado", true);		
+		query.setParameter("estado", true);
 		List<HistorialBovedaEntity> list = query.getResultList();
 		if (list.size() > 0)
 			return new HistorialBovedaAdapter(em, list.get(0));
@@ -108,7 +108,8 @@ public class BovedaAdapter implements BovedaModel {
 		Set<BovedaCajaEntity> bovedaCajaEntities = bovedaEntity.getBovedaCajas();
 		List<BovedaCajaModel> result = new ArrayList<BovedaCajaModel>();
 		for (BovedaCajaEntity bovedaCajaEntity : bovedaCajaEntities) {
-			result.add(new BovedaCajaAdapter(em, bovedaCajaEntity));
+			if (bovedaCajaEntity.isEstado())
+				result.add(new BovedaCajaAdapter(em, bovedaCajaEntity));
 		}
 		return result;
 	}

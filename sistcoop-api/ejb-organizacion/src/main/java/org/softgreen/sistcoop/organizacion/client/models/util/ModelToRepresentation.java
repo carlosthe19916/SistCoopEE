@@ -149,23 +149,23 @@ public class ModelToRepresentation {
 		rep.setNumeroDocumento(model.getNumeroDocumento());
 		rep.setUsuario(model.getUsuario());
 		rep.setEstado(model.getEstado());
-		
+
 		AgenciaModel agenciaModel = model.getAgencia();
 		AgenciaRepresentation agenciaRepresentation = toRepresentation(agenciaModel);
 		rep.setAgencia(agenciaRepresentation);
-				
+
 		List<TrabajadorCajaModel> trabajadorCajaModels = model.getTrabajadorCajas();
-		if(trabajadorCajaModels.size() > 0){
+		if (trabajadorCajaModels.size() > 0) {
 			CajaModel cajaModel = trabajadorCajaModels.get(0).getCaja();
-			CajaRepresentation cajaRepresentation = new CajaRepresentation();			
+			CajaRepresentation cajaRepresentation = new CajaRepresentation();
 			cajaRepresentation.setId(cajaModel.getId());
 			cajaRepresentation.setDenominacion(cajaModel.getDenominacion());
 			cajaRepresentation.setAbierto(cajaModel.isAbierto());
 			cajaRepresentation.setEstadoMovimiento(cajaModel.getEstadoMovimiento());
 			cajaRepresentation.setEstado(cajaModel.getEstado());
 			rep.setCaja(cajaRepresentation);
-		}		
-		
+		}
+
 		return rep;
 	}
 

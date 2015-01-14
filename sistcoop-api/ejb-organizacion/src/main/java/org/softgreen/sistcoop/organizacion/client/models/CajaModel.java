@@ -22,9 +22,7 @@ public interface CajaModel extends Model {
 
 	void setEstado(boolean estado);
 
-	AgenciaModel getAgencia();
-
-	HistorialModel getHistorialActivo();
+	AgenciaModel getAgencia();	
 
 	List<BovedaCajaModel> getBovedaCajas();
 

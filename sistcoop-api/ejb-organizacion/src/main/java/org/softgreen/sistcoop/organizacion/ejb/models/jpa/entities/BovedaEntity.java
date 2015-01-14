@@ -34,7 +34,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name="BOVEDA", indexes = { @Index(columnList = "id") })
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.PROPERTY)
-@NamedQueries({ @NamedQuery(name = BovedaEntity.findAllByIdAgencia, query = "SELECT b FROM BovedaEntity b INNER JOIN b.agencia a WHERE a.id = :idAgencia") })
+@NamedQueries({ 
+	@NamedQuery(name = BovedaEntity.findAllByIdAgencia, query = "SELECT b FROM BovedaEntity b INNER JOIN b.agencia a WHERE a.id = :idAgencia") })
 public class BovedaEntity implements Serializable {
 
 	/**

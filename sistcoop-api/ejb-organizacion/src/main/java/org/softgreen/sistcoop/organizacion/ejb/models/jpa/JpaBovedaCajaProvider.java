@@ -42,6 +42,7 @@ public class JpaBovedaCajaProvider implements BovedaCajaProvider {
 		bovedaCajaEntity.setBoveda(bovedaEntity);
 		bovedaCajaEntity.setCaja(cajaEntity);
 		bovedaCajaEntity.setSaldo(BigDecimal.ZERO);
+		bovedaCajaEntity.setEstado(true);
 
 		em.persist(bovedaCajaEntity);
 		return new BovedaCajaAdapter(em, bovedaCajaEntity);

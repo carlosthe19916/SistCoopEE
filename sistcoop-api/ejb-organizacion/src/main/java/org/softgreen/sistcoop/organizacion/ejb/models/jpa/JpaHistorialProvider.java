@@ -10,14 +10,14 @@ import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.softgreen.sistcoop.organizacion.client.models.BovedaCajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
-import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.HistorialModel;
 import org.softgreen.sistcoop.organizacion.client.models.HistorialProvider;
+import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.BovedaCajaEntity;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.BovedaEntity;
-import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.CajaEntity;
+import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.HistorialBovedaCajaEntity;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.HistorialBovedaEntity;
-import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.HistorialCajaEntity;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.HistorialEntity;
 
 @Named
@@ -35,30 +35,30 @@ public class JpaHistorialProvider implements HistorialProvider {
 	}
 
 	@Override
-	public HistorialModel addHistorial(CajaModel cajaModel) {
+	public HistorialModel addHistorial(BovedaCajaModel bovedaCajaModel) {
 		Calendar calendar = Calendar.getInstance();
-		
-		CajaEntity cajaEntity = CajaAdapter.toCajaEntity(cajaModel, em);							
-		HistorialCajaEntity historialEntity = new HistorialCajaEntity();	
-		historialEntity.setCaja(cajaEntity);
+
+		BovedaCajaEntity bovedaCajaEntity = BovedaCajaAdapter.toBovedaCajaEntity(bovedaCajaModel, em);
+		HistorialBovedaCajaEntity historialEntity = new HistorialBovedaCajaEntity();
+		historialEntity.setBovedaCaja(bovedaCajaEntity);
 		historialEntity.setFechaApertura(calendar.getTime());
-		historialEntity.setHoraApertura(calendar.getTime());		
-		historialEntity.setEstado(true);		
-		em.persist(historialEntity);		
-		return new HistorialCajaAdapter(em, historialEntity);
+		historialEntity.setHoraApertura(calendar.getTime());
+		historialEntity.setEstado(true);
+		em.persist(historialEntity);
+		return new HistorialBovedaCajaAdapter(em, historialEntity);
 	}
 
 	@Override
 	public HistorialModel addHistorial(BovedaModel bovedaModel) {
 		Calendar calendar = Calendar.getInstance();
-		
-		BovedaEntity bovedaEntity = BovedaAdapter.toBovedaEntity(bovedaModel, em);							
-		HistorialBovedaEntity historialEntity = new HistorialBovedaEntity();	
+
+		BovedaEntity bovedaEntity = BovedaAdapter.toBovedaEntity(bovedaModel, em);
+		HistorialBovedaEntity historialEntity = new HistorialBovedaEntity();
 		historialEntity.setBoveda(bovedaEntity);
 		historialEntity.setFechaApertura(calendar.getTime());
-		historialEntity.setHoraApertura(calendar.getTime());		
-		historialEntity.setEstado(true);		
-		em.persist(historialEntity);		
+		historialEntity.setHoraApertura(calendar.getTime());
+		historialEntity.setEstado(true);
+		em.persist(historialEntity);
 		return new HistorialBovedaAdapter(em, historialEntity);
 	}
 

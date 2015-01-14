@@ -50,7 +50,7 @@ public class PendienteCajaEntity implements java.io.Serializable {
 	private String observacion;
 	private String trabajador;
 
-	private HistorialCajaEntity historialCaja;
+	private HistorialBovedaCajaEntity historialCaja;
 
 	private Timestamp optlk;
 
@@ -138,11 +138,11 @@ public class PendienteCajaEntity implements java.io.Serializable {
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(foreignKey = @ForeignKey)
-	public HistorialCajaEntity getHistorialCaja() {
+	public HistorialBovedaCajaEntity getHistorialCaja() {
 		return historialCaja;
 	}
 
-	public void setHistorialCaja(HistorialCajaEntity historialCaja) {
+	public void setHistorialCaja(HistorialBovedaCajaEntity historialCaja) {
 		this.historialCaja = historialCaja;
 	}
 

@@ -18,12 +18,12 @@ import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 
 @Entity
-@DiscriminatorValue("caja")
+@DiscriminatorValue("bovedaCaja")
 @NamedQueries({ 
-	@NamedQuery(name = HistorialCajaEntity.findByHistorialActivo, query = "SELECT h FROM HistorialCajaEntity h INNER JOIN h.caja c WHERE c.id = :idCaja AND h.estado = true"), 
-	@NamedQuery(name = HistorialCajaEntity.findByHistorialDateRange, query = "SELECT h FROM HistorialCajaEntity h INNER JOIN h.caja c WHERE c.id = :idCaja AND h.fechaApertura BETWEEN :desde AND :hasta AND h.estado = false ORDER BY h.horaApertura DESC"),
-	@NamedQuery(name = HistorialCajaEntity.findByEstado, query = "SELECT s FROM HistorialCajaEntity s WHERE s.caja.id = :idCaja AND s.estado = :estado")})
-public class HistorialCajaEntity extends HistorialEntity implements Serializable {
+	@NamedQuery(name = HistorialBovedaCajaEntity.findByHistorialActivo, query = "SELECT h FROM HistorialBovedaCajaEntity h INNER JOIN h.bovedaCaja c WHERE c.id = :idCaja AND h.estado = true"), 
+	@NamedQuery(name = HistorialBovedaCajaEntity.findByHistorialDateRange, query = "SELECT h FROM HistorialBovedaCajaEntity h INNER JOIN h.bovedaCaja c WHERE c.id = :idCaja AND h.fechaApertura BETWEEN :desde AND :hasta AND h.estado = false ORDER BY h.horaApertura DESC"),
+	@NamedQuery(name = HistorialBovedaCajaEntity.findByEstado, query = "SELECT s FROM HistorialBovedaCajaEntity s WHERE s.bovedaCaja.id = :idBovedaCaja AND s.estado = :estado")})
+public class HistorialBovedaCajaEntity extends HistorialEntity implements Serializable {
 	
 	/**
 	 * 
@@ -35,30 +35,30 @@ public class HistorialCajaEntity extends HistorialEntity implements Serializable
 	public final static String findByHistorialDateRange = base+"findByHistorialDateRange";
 	public final static String findByEstado = base+"findByEstado";
 	
-	private CajaEntity caja;
+	private BovedaCajaEntity bovedaCaja;
 	private Set<TransaccionBovedaCajaEntity> transaccionesBovedaCaja = new HashSet<TransaccionBovedaCajaEntity>();
 	private Set<TransaccionCajaCajaEntity> transaccionesCajaCajaOrigen = new HashSet<TransaccionCajaCajaEntity>();
 	private Set<TransaccionCajaCajaEntity> transaccionesCajaCajaDestino = new HashSet<TransaccionCajaCajaEntity>();
 	private Set<PendienteCajaEntity> transaccionesPendienteCaja = new HashSet<PendienteCajaEntity>();
 	private Set<TransaccionClienteEntity> transaccionesCliente = new HashSet<TransaccionClienteEntity>();
 
-	public HistorialCajaEntity() {
+	public HistorialBovedaCajaEntity() {
 		// TODO Auto-generated constructor stub
 	}
 
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(foreignKey = @ForeignKey)
-	public CajaEntity getCaja() {
-		return caja;
+	public BovedaCajaEntity getBovedaCaja() {
+		return bovedaCaja;
 	}
 
-	public void setCaja(CajaEntity caja) {
-		this.caja = caja;
+	public void setBovedaCaja(BovedaCajaEntity bovedaCaja) {
+		this.bovedaCaja = bovedaCaja;
 	}
 
 	@XmlTransient
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "historialCaja")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "historialBovedaCaja")
 	public Set<TransaccionBovedaCajaEntity> getTransaccionesBovedaCaja() {
 		return transaccionesBovedaCaja;
 	}
@@ -78,7 +78,7 @@ public class HistorialCajaEntity extends HistorialEntity implements Serializable
 	}
 
 	@XmlTransient
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "historialCaja")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "historialBovedaCaja")
 	public Set<TransaccionClienteEntity> getTransaccionesCliente() {
 		return transaccionesCliente;
 	}
@@ -88,7 +88,7 @@ public class HistorialCajaEntity extends HistorialEntity implements Serializable
 	}
 
 	@XmlTransient
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "historialCajaOrigen")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "historialBovedaCajaOrigen")
 	public Set<TransaccionCajaCajaEntity> getTransaccionesCajaCajaOrigen() {
 		return transaccionesCajaCajaOrigen;
 	}
@@ -98,7 +98,7 @@ public class HistorialCajaEntity extends HistorialEntity implements Serializable
 	}
 
 	@XmlTransient
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "historialCajaDestino")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "historialBovedaCajaDestino")
 	public Set<TransaccionCajaCajaEntity> getTransaccionesCajaCajaDestino() {
 		return transaccionesCajaCajaDestino;
 	}
@@ -111,7 +111,7 @@ public class HistorialCajaEntity extends HistorialEntity implements Serializable
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((caja == null) ? 0 : caja.hashCode());
+		result = prime * result + ((bovedaCaja == null) ? 0 : bovedaCaja.hashCode());
 		return result;
 	}
 
@@ -121,13 +121,13 @@ public class HistorialCajaEntity extends HistorialEntity implements Serializable
 			return true;
 		if (!super.equals(obj))
 			return false;
-		if (!(obj instanceof HistorialCajaEntity))
+		if (!(obj instanceof HistorialBovedaCajaEntity))
 			return false;
-		HistorialCajaEntity other = (HistorialCajaEntity) obj;
-		if (caja == null) {
-			if (other.caja != null)
+		HistorialBovedaCajaEntity other = (HistorialBovedaCajaEntity) obj;
+		if (bovedaCaja == null) {
+			if (other.bovedaCaja != null)
 				return false;
-		} else if (!caja.equals(other.caja))
+		} else if (!bovedaCaja.equals(other.bovedaCaja))
 			return false;
 		return true;
 	}

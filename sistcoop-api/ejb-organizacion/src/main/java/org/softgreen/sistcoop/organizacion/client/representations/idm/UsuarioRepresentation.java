@@ -15,14 +15,14 @@ public class UsuarioRepresentation implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	private String username;
 	private String password;
 	private boolean estado;
 
 	public UsuarioRepresentation() {
 		// TODO Auto-generated constructor stub
-	}	
+	}
 
 	@XmlAttribute
 	public String getUsername() {

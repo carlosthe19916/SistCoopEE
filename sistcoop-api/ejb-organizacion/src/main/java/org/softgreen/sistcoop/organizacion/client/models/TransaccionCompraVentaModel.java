@@ -3,8 +3,7 @@ package org.softgreen.sistcoop.organizacion.client.models;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public interface TransaccionCompraVentaModel extends TransaccionInternaModel,
-		Model {
+public interface TransaccionCompraVentaModel extends TransaccionInternaModel, Model {
 
 	Long getId();
 

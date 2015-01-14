@@ -4,14 +4,19 @@ import java.math.BigDecimal;
 
 public interface BovedaCajaModel extends Model {
 
-	public Integer getId();
+	Integer getId();
 
-	public BigDecimal getSaldo();
+	BigDecimal getSaldo();
 
-	public void setSaldo(BigDecimal saldo);
+	void setSaldo(BigDecimal saldo);
 
-	public BovedaModel getBoveda();
+	boolean getEstado();
 
-	public CajaModel getCaja();
+	void setEstado(boolean estado);
 
+	BovedaModel getBoveda();
+
+	CajaModel getCaja();
+
+	HistorialModel getHistorialActivo();
 }

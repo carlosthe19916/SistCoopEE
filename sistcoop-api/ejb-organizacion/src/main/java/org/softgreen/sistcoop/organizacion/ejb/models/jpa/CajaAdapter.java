@@ -5,16 +5,13 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaCajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
-import org.softgreen.sistcoop.organizacion.client.models.HistorialModel;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorCajaModel;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.BovedaCajaEntity;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.CajaEntity;
-import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.HistorialCajaEntity;
 import org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.TrabajadorCajaEntity;
 
 public class CajaAdapter implements CajaModel {
@@ -89,23 +86,12 @@ public class CajaAdapter implements CajaModel {
 	}
 
 	@Override
-	public HistorialModel getHistorialActivo() {
-		TypedQuery<HistorialCajaEntity> query = em.createNamedQuery(HistorialCajaEntity.findByEstado, HistorialCajaEntity.class);
-		query.setParameter("idCaja", getId());
-		query.setParameter("estado", true);
-		List<HistorialCajaEntity> list = query.getResultList();
-		if (list.size() > 0)
-			return new HistorialCajaAdapter(em, list.get(0));
-		else
-			return null;
-	}
-
-	@Override
 	public List<BovedaCajaModel> getBovedaCajas() {
 		Set<BovedaCajaEntity> bovedaCajas = cajaEntity.getBovedaCajas();
 		List<BovedaCajaModel> result = new ArrayList<BovedaCajaModel>();
 		for (BovedaCajaEntity bovedaCajaEntity : bovedaCajas) {
-			result.add(new BovedaCajaAdapter(em, bovedaCajaEntity));
+			if (bovedaCajaEntity.isEstado())
+				result.add(new BovedaCajaAdapter(em, bovedaCajaEntity));
 		}
 		return result;
 	}

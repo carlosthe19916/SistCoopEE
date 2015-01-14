@@ -46,7 +46,7 @@ public class TransaccionBovedaCajaEntity extends TransaccionInternaEntity implem
 
 	private Long id;
 	private HistorialBovedaEntity historialBoveda;
-	private HistorialCajaEntity historialCaja;
+	private HistorialBovedaCajaEntity historialBovedaCaja;
 
 	private BigDecimal saldoDisponibleOrigen;
 	private BigDecimal saldoDisponibleDestino;
@@ -82,12 +82,12 @@ public class TransaccionBovedaCajaEntity extends TransaccionInternaEntity implem
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(foreignKey = @ForeignKey)
-	public HistorialCajaEntity getHistorialCaja() {
-		return historialCaja;
+	public HistorialBovedaCajaEntity getHistorialBovedaCaja() {
+		return historialBovedaCaja;
 	}
 
-	public void setHistorialCaja(HistorialCajaEntity historialCaja) {
-		this.historialCaja = historialCaja;
+	public void setHistorialBovedaCaja(HistorialBovedaCajaEntity historialCaja) {
+		this.historialBovedaCaja = historialCaja;
 	}
 
 	@NotNull

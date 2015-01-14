@@ -33,12 +33,12 @@ public class BovedaManager {
 		for (BovedaCajaModel bovCajModel : list) {
 			BigDecimal saldo = bovCajModel.getSaldo();
 			CajaModel caja = bovCajModel.getCaja();
-			if (saldo.compareTo(BigDecimal.ZERO) != 0) {
-				throw new EJBException("La boveda tiene saldo asignado a caja diferente de cero.");
-			}
 			if (caja.isAbierto()) {
 				throw new EJBException("Caja abierta no se puede desactivar boveda.");
 			}
+			if (saldo.compareTo(BigDecimal.ZERO) != 0) {
+				throw new EJBException("La boveda tiene saldo asignado a caja diferente de cero.");
+			}			
 			bovedaCajaProvider.removeBovedaCaja(bovCajModel);
 		}
 	}

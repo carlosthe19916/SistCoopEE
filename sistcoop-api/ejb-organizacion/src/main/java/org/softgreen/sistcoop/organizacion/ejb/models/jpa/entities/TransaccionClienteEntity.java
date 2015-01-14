@@ -45,7 +45,7 @@ public class TransaccionClienteEntity implements Serializable {
 	private boolean estado;
 	private String observacion;
 
-	private HistorialCajaEntity historialCaja;
+	private HistorialBovedaCajaEntity historialBovedaCaja;
 	private Set<DetalleTransaccionClienteEntity> detalle = new HashSet<DetalleTransaccionClienteEntity>();
 
 	private Timestamp optlk;
@@ -117,12 +117,12 @@ public class TransaccionClienteEntity implements Serializable {
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(foreignKey = @ForeignKey)
-	public HistorialCajaEntity getHistorialCaja() {
-		return historialCaja;
+	public HistorialBovedaCajaEntity getHistorialBovedaCaja() {
+		return historialBovedaCaja;
 	}
 
-	public void setHistorialCaja(HistorialCajaEntity historialCaja) {
-		this.historialCaja = historialCaja;
+	public void setHistorialBovedaCaja(HistorialBovedaCajaEntity historialBovedaCaja) {
+		this.historialBovedaCaja = historialBovedaCaja;
 	}
 
 	@XmlTransient

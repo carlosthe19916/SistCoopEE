@@ -23,7 +23,7 @@ public class AgenciaRepresentation implements Serializable {
 	private String denominacion;
 	private String ubigeo;
 	private boolean estado;
-	
+
 	private SucursalRepresentation sucursal;
 
 	public AgenciaRepresentation() {

@@ -26,7 +26,7 @@ public class BovedaRepresentation implements Serializable {
 	private boolean estado;
 
 	private BigDecimal saldo;
-	
+
 	private AgenciaRepresentation agencia;
 
 	@XmlAttribute
@@ -92,7 +92,7 @@ public class BovedaRepresentation implements Serializable {
 		this.saldo = saldo;
 	}
 
-	@XmlElement	
+	@XmlElement
 	public AgenciaRepresentation getAgencia() {
 		return agencia;
 	}
