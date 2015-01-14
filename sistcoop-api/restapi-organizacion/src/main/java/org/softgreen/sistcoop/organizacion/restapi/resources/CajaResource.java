@@ -35,11 +35,13 @@ import org.softgreen.sistcoop.organizacion.client.models.util.ModelToRepresentat
 import org.softgreen.sistcoop.organizacion.client.models.util.RepresentationToModel;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.BovedaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.CajaRepresentation;
+import org.softgreen.sistcoop.organizacion.client.representations.idm.DetalleHistorialRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.TrabajadorRepresentation;
 import org.softgreen.sistcoop.organizacion.managers.CajaManager;
 import org.softgreen.sistcoop.organizacion.restapi.config.Jsend;
 import org.softgreen.sistcoop.organizacion.restapi.representation.BovedaList;
-import org.softgreen.sistcoop.organizacion.restapi.representation.DetalleHistorialList;
+import org.softgreen.sistcoop.organizacion.restapi.representation.DetalleHistorialCajaList;
+import org.softgreen.sistcoop.organizacion.restapi.representation.DetalleHistorialCajaRepresentation;
 import org.softgreen.sistcoop.organizacion.restapi.representation.TrabajadorList;
 
 @Path("/cajas")
@@ -48,10 +50,10 @@ public class CajaResource {
 
 	@Inject
 	protected BovedaProvider bovedaProvider;
-	
+
 	@Inject
 	protected BovedaCajaProvider bovedaCajaProvider;
-	
+
 	@Inject
 	protected CajaProvider cajaProvider;
 
@@ -60,10 +62,10 @@ public class CajaResource {
 
 	@Inject
 	protected RepresentationToModel representationToModel;
-	
+
 	@Context
 	protected UriInfo uriInfo;
-	
+
 	@BadgerFish
 	@GET
 	@Path("/{id}")
@@ -120,17 +122,17 @@ public class CajaResource {
 	@GET
 	@Path("/{id}/detalle")
 	@Produces({ "application/xml", "application/json" })
-	public DetalleHistorialList getDetalle(@PathParam("id") Integer id) {
+	public DetalleHistorialCajaList getDetalle(@PathParam("id") Integer id) {
 		CajaModel model = cajaProvider.getCajaById(id);
 		List<BovedaCajaModel> bovedaCajaModels = model.getBovedaCajas();
-		
+
 		List<HistorialModel> historialesActivos = new ArrayList<HistorialModel>();
 		for (BovedaCajaModel bovedaCajaModel : bovedaCajaModels) {
 			HistorialModel historialModel = bovedaCajaModel.getHistorialActivo();
 			if (historialModel != null)
 				historialesActivos.add(historialModel);
 		}
-		
+
 		boolean firstTime;
 		if (historialesActivos.size() == 0) {
 			firstTime = true;
@@ -139,50 +141,44 @@ public class CajaResource {
 		} else {
 			throw new EJBException("Error interno, existen cajas que no tienen historiales. Pongase en contacto con el area de sistemas.");
 		}
-		
+
 		if (firstTime) {
-
+			return null;
 		} else {
+			List<DetalleHistorialCajaRepresentation> result = new ArrayList<DetalleHistorialCajaRepresentation>();
 			for (BovedaCajaModel bovedaCajaModel : bovedaCajaModels) {
-				HistorialModel historialActivoModel = bovedaCajaModel.getHistorialActivo();
+				BovedaModel bovedaModel = bovedaCajaModel.getBoveda();
+				HistorialModel historialModel = bovedaCajaModel.getHistorialActivo();
+				List<DetalleHistorialModel> detalleHistorialModels = historialModel.getDetalle();
 
-				List<DetalleHistorialModel> detalleHistorialActivoModels = historialActivoModel.getDetalle();
+				List<DetalleHistorialRepresentation> detalleHistorialRepresentations = new ArrayList<DetalleHistorialRepresentation>();
+				for (DetalleHistorialModel detalleHistorialModel : detalleHistorialModels) {
+					int cantidad = detalleHistorialModel.getCantidad();
+					BigDecimal valor = detalleHistorialModel.getValor();
 
-				historialActivoModel.setEstado(false);
-				historialActivoModel.setFechaCierre(calendar.getTime());
-				historialActivoModel.setHoraCierre(calendar.getTime());
+					DetalleHistorialRepresentation detalleHistorialRepresentation = new DetalleHistorialRepresentation();
+					detalleHistorialRepresentation.setCantidad(cantidad);
+					detalleHistorialRepresentation.setValor(valor);
 
-				HistorialModel historialNewModel = historialProvider.addHistorial(bovedaCajaModel);
-				for (DetalleHistorialModel detalleHistorialActivoModel : detalleHistorialActivoModels) {
-					int cantidad = detalleHistorialActivoModel.getCantidad();
-					BigDecimal valor = detalleHistorialActivoModel.getValor();
-					detalleHistorialProvider.addDetalleHistorial(historialNewModel, cantidad, valor);
+					detalleHistorialRepresentations.add(detalleHistorialRepresentation);
 				}
 
-				historialActivoModel.commit();
+				DetalleHistorialCajaRepresentation detalleHistorialCajaRepresentation = new DetalleHistorialCajaRepresentation(detalleHistorialRepresentations);
+				detalleHistorialCajaRepresentation.setBoveda(ModelToRepresentation.toRepresentation(bovedaModel));
+				result.add(detalleHistorialCajaRepresentation);
 			}
+			return new DetalleHistorialCajaList(result);
 		}
-		if (historialModel != null) {
-			List<DetalleHistorialModel> detalleHistorialModel = historialModel.getDetalle();
-			List<DetalleHistorialRepresentation> detalleHistorialRepresentations = new ArrayList<DetalleHistorialRepresentation>();
-			for (DetalleHistorialModel detHistModel : detalleHistorialModel) {
-				DetalleHistorialRepresentation detalleHistorialRepresentation = ModelToRepresentation.toRepresentation(detHistModel);
-				detalleHistorialRepresentations.add(detalleHistorialRepresentation);
-			}
-			return new DetalleHistorialList(detalleHistorialRepresentations);
-		} else {
-			return null;
-		}
-		return null;
 	}
 
 	@PUT
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
 	public void update(@PathParam("id") Integer id, CajaRepresentation rep) {
-		 CajaModel model = cajaProvider.getCajaById(id);
-		 model.setDenominacion(rep.getDenominacion()); model.commit();
-		 model.commit();
+		CajaModel model = cajaProvider.getCajaById(id);
+		model.setDenominacion(rep.getDenominacion());
+		model.commit();
+		model.commit();
 	}
 
 	@POST
@@ -217,7 +213,7 @@ public class CajaResource {
 		}
 		cajaManager.cerrar(model);
 	}
-	
+
 	@POST
 	@Path("/{id}/bovedas")
 	@Produces({ "application/xml", "application/json" })
@@ -232,15 +228,15 @@ public class CajaResource {
 		}
 
 		BovedaCajaModel bovedaCajaModel = cajaManager.addBoveda(model, bovedaModel);
-		return Response.created(uriInfo.getAbsolutePathBuilder().path(bovedaCajaModel.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(bovedaCajaModel.getId())).build();							
+		return Response.created(uriInfo.getAbsolutePathBuilder().path(bovedaCajaModel.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(bovedaCajaModel.getId())).build();
 	}
-		
-	
-	//TODO DEBE DE VERIFICAR EL SALDO DE CAJA BOVEDA ANTES DE ELIMINAR LA RELACION. DEBE DE TENER SALDO 0
+
+	// TODO DEBE DE VERIFICAR EL SALDO DE CAJA BOVEDA ANTES DE ELIMINAR LA
+	// RELACION. DEBE DE TENER SALDO 0
 	@DELETE
 	@Path("/{id}/bovedas/{idBoveda}")
 	@Produces({ "application/xml", "application/json" })
-	public void addBoveda(@PathParam("id") Integer id, @PathParam("idBoveda") Integer idBoveda) {				
+	public void addBoveda(@PathParam("id") Integer id, @PathParam("idBoveda") Integer idBoveda) {
 		CajaModel model = cajaProvider.getCajaById(id);
 		BovedaModel bovedaModel = bovedaProvider.getBovedaById(idBoveda);
 		if (model == null) {
@@ -249,28 +245,28 @@ public class CajaResource {
 		if (bovedaModel == null) {
 			throw new NotFoundException("Boveda not found.");
 		}
-		if(model.isAbierto()){
+		if (model.isAbierto()) {
 			throw new InternalServerErrorException("Caja abierta, debe cerrarla antes de desvincular boveda.");
-		}		
-		
+		}
+
 		BovedaCajaModel bovedaCajaModelToRemove = null;
 		List<BovedaCajaModel> bovedaCajaModels = model.getBovedaCajas();
 		for (BovedaCajaModel bovedaCajaModel : bovedaCajaModels) {
 			BovedaModel bovedaModel2 = bovedaCajaModel.getBoveda();
-			if(bovedaModel.equals(bovedaModel2)){
+			if (bovedaModel.equals(bovedaModel2)) {
 				bovedaCajaModelToRemove = bovedaCajaModel;
 			}
-		}		
-		
-		if(bovedaCajaModelToRemove ==  null){
+		}
+
+		if (bovedaCajaModelToRemove == null) {
 			throw new NotFoundException("BovedaCaja not found.");
 		}
-		
-		BigDecimal saldo = bovedaCajaModelToRemove.getSaldo();			
+
+		BigDecimal saldo = bovedaCajaModelToRemove.getSaldo();
 		if (saldo.compareTo(BigDecimal.ZERO) != 0) {
 			throw new InternalServerErrorException("Caja tiene saldo diferente de 0.");
 		}
-		
+
 		bovedaCajaProvider.removeBovedaCaja(bovedaCajaModelToRemove);
 	}
 }

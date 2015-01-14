@@ -17,7 +17,6 @@ import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
 import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.DetalleHistorialModel;
 import org.softgreen.sistcoop.organizacion.client.models.DetalleHistorialProvider;
-import org.softgreen.sistcoop.organizacion.client.models.HistorialBovedaCajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.HistorialModel;
 import org.softgreen.sistcoop.organizacion.client.models.HistorialProvider;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorCajaModel;
