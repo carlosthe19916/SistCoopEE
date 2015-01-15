@@ -107,7 +107,7 @@ public class CajaManager {
 		for (BovedaCajaModel bovedaCajaModel : bovedaCajaModels) {
 			BovedaModel bovedaModel = bovedaCajaModel.getBoveda();
 			if (!bovedaModel.isAbierto())
-				throw new EJBException("Boveda cerrada, no se puede abrir");
+				throw new EJBException("Boveda asociada cerrada, no se puede abrir");
 		}
 
 		List<HistorialModel> historialesActivos = new ArrayList<HistorialModel>();
@@ -162,7 +162,10 @@ public class CajaManager {
 				historialActivoModel.commit();
 			}
 		}
-
+		
+		cajaModel.setAbierto(true);
+		cajaModel.setEstadoMovimiento(false);
+		cajaModel.commit();
 	}
 
 	public void cerrar(CajaModel cajaModel) {
