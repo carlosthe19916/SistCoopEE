@@ -3,13 +3,13 @@ define(['angular'], function (angular) {
 
   /**
    * @ngdoc function
-   * @name xenonApp.controller:MainCtrl
+   * @name xenonApp.controller:AboutCtrl
    * @description
-   * # MainCtrl
+   * # AboutCtrl
    * Controller of the xenonApp
    */
-  angular.module('xenonApp.controllers.MainCtrl', [])
-    .controller('MainCtrl', function ($scope) {
+  angular.module('xenonApp.controllers.AboutCtrl', [])
+    .controller('AboutCtrl', function ($scope) {
       $scope.awesomeThings = [
         'HTML5 Boilerplate',
         'AngularJS',
