@@ -11,7 +11,6 @@
                     </a>
                 </div>
             </div>
-
             <div class="panel-body">
                 <div style="border-bottom: 1px solid #e5e5e5;margin-bottom: 20px;">
                     <div class="row">
@@ -66,6 +65,40 @@
                     </div>
                 </div>
                 <button type="button" ui-sref="^.datosPrincipales" class="btn btn-white">Editar</button>
+            </div>
+
+            <br/>
+            <div class="panel-heading">
+                <h3 class="panel-title">Datos adicionales</h3>
+                <div class="panel-options">
+                    <a href>
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div style="border-bottom: 1px solid #e5e5e5;margin-bottom: 20px;">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <p>Agencia:&nbsp;</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <p><strong ng-bind="view.bovedaDB.agencia.denominacion"></strong></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <p>Codigo:&nbsp;</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <p><strong ng-bind="view.bovedaDB.agencia.codigo"></strong></p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

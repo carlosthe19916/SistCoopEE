@@ -39,7 +39,9 @@ public class BovedaManager {
 			if (saldo.compareTo(BigDecimal.ZERO) != 0) {
 				throw new EJBException("La boveda tiene saldo asignado a caja diferente de cero.");
 			}			
-			bovedaCajaProvider.removeBovedaCaja(bovCajModel);
+			
+			bovCajModel.setEstado(false);
+			bovCajModel.commit();
 		}
 	}
 

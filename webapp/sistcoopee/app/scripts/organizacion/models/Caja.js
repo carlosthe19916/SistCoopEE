@@ -26,8 +26,8 @@ define(['./module'], function (module) {
             obj.$addBoveda = function(boveda){
                 return OrganizacionRestangular.all(url+'/'+this.id+'/bovedas').post({'boveda': OrganizacionRestangular.copy(boveda)});
             };
-            obj.$removeBoveda = function(idBoveda){
-                return OrganizacionRestangular.one(url+'/'+this.id+'/bovedas', idBoveda).remove();
+            obj.$desactivarBoveda = function(idBoveda){
+                return OrganizacionRestangular.all(url+'/'+this.id+'/bovedas/'+idBoveda+'/desactivar').post();
             };
             obj.$desactivar = function(){
                 return OrganizacionRestangular.all(url+'/'+this.id+'/desactivar').post();

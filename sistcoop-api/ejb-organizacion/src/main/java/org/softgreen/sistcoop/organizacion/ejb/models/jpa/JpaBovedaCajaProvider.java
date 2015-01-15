@@ -33,10 +33,12 @@ public class JpaBovedaCajaProvider implements BovedaCajaProvider {
 	}
 
 	@Override
-	public BovedaCajaModel addBovedaCaja(BovedaModel bovedaModel, CajaModel cajaModel) {
+	public BovedaCajaModel addBovedaCaja(BovedaModel bovedaModel,
+			CajaModel cajaModel) {
 		BovedaCajaEntity bovedaCajaEntity = new BovedaCajaEntity();
 
-		BovedaEntity bovedaEntity = BovedaAdapter.toBovedaEntity(bovedaModel, em);
+		BovedaEntity bovedaEntity = BovedaAdapter.toBovedaEntity(bovedaModel,
+				em);
 		CajaEntity cajaEntity = CajaAdapter.toCajaEntity(cajaModel, em);
 
 		bovedaCajaEntity.setBoveda(bovedaEntity);
@@ -46,16 +48,6 @@ public class JpaBovedaCajaProvider implements BovedaCajaProvider {
 
 		em.persist(bovedaCajaEntity);
 		return new BovedaCajaAdapter(em, bovedaCajaEntity);
-	}
-
-	@Override
-	public boolean removeBovedaCaja(BovedaCajaModel BovedaCajaModel) {
-		BovedaCajaEntity BovedaCajaEntity = em.find(BovedaCajaEntity.class, BovedaCajaModel.getId());
-		if (em.contains(BovedaCajaEntity))
-			em.remove(BovedaCajaEntity);
-		else
-			em.remove(em.getReference(BovedaCajaEntity.class, BovedaCajaEntity.getId()));
-		return true;
 	}
 
 }

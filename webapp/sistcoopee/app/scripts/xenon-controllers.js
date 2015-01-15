@@ -184,7 +184,7 @@ define([
                          angular.isUndefined($scope.auth.user.agencia) ||
                          angular.isUndefined($scope.auth.user.trabajador)) {
                          $scope.blockMessage = "El usuario no tiene una sucursal, agencia y/o trabajador asignado, no puede continuar. En 5 segundos se cerrará la session.";
-                         //$scope.logoutTime();
+                         $scope.logoutTime();
                      }
                  } else if(activeProfile.realmAccess.roles.indexOf('CAJERO') != -1){
                      if(angular.isUndefined($scope.auth.user.sucursal) ||

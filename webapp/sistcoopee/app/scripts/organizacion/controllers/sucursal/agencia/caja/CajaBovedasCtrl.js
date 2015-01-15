@@ -44,7 +44,7 @@ define(['../../../module'], function (module) {
         $scope.removeBoveda = function($index, item){
             Dialog.confirm('Eliminar', '¿Estas seguro de desvincular la boveda para la caja?. Debes de asegurarte que no existe saldo en caja en la moneda de la boveda para continuar.', function() {
                 $scope.blockControl();
-                $scope.view.caja.$removeBoveda(item.id).then(
+                $scope.view.caja.$desactivarBoveda(item.id).then(
                     function(response){
                         $scope.unblockControl();
                         Notifications.success("Trabajador actualizado.");

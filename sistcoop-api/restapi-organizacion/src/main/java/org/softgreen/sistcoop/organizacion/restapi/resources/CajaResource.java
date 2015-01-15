@@ -231,12 +231,10 @@ public class CajaResource {
 		return Response.created(uriInfo.getAbsolutePathBuilder().path(bovedaCajaModel.getId().toString()).build()).header("Access-Control-Expose-Headers", "Location").entity(Jsend.getSuccessJSend(bovedaCajaModel.getId())).build();
 	}
 
-	// TODO DEBE DE VERIFICAR EL SALDO DE CAJA BOVEDA ANTES DE ELIMINAR LA
-	// RELACION. DEBE DE TENER SALDO 0
-	@DELETE
-	@Path("/{id}/bovedas/{idBoveda}")
+	@POST
+	@Path("/{id}/bovedas/{idBoveda}/desactivar")
 	@Produces({ "application/xml", "application/json" })
-	public void addBoveda(@PathParam("id") Integer id, @PathParam("idBoveda") Integer idBoveda) {
+	public void desactivarBovedaCaja(@PathParam("id") Integer id, @PathParam("idBoveda") Integer idBoveda) {
 		CajaModel model = cajaProvider.getCajaById(id);
 		BovedaModel bovedaModel = bovedaProvider.getBovedaById(idBoveda);
 		if (model == null) {
@@ -247,6 +245,9 @@ public class CajaResource {
 		}
 		if (model.isAbierto()) {
 			throw new InternalServerErrorException("Caja abierta, debe cerrarla antes de desvincular boveda.");
+		}
+		if (bovedaModel.isAbierto()) {
+			throw new InternalServerErrorException("Boveda abierta, debe cerrarla antes de desvincular boveda.");
 		}
 
 		BovedaCajaModel bovedaCajaModelToRemove = null;
@@ -267,6 +268,7 @@ public class CajaResource {
 			throw new InternalServerErrorException("Caja tiene saldo diferente de 0.");
 		}
 
-		bovedaCajaProvider.removeBovedaCaja(bovedaCajaModelToRemove);
+		bovedaCajaModelToRemove.setEstado(false);
+		bovedaCajaModelToRemove.commit();
 	}
 }

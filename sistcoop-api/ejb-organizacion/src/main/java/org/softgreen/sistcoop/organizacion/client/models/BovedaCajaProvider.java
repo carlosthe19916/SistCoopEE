@@ -9,6 +9,4 @@ public interface BovedaCajaProvider extends Provider {
 
 	BovedaCajaModel addBovedaCaja(BovedaModel bovedaModel, CajaModel cajaModel);
 
-	boolean removeBovedaCaja(BovedaCajaModel bovedaCajaModel);
-
 }

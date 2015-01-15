@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.EJBException;
 import javax.ejb.Stateless;
@@ -21,6 +22,9 @@ import org.softgreen.sistcoop.organizacion.client.models.HistorialModel;
 import org.softgreen.sistcoop.organizacion.client.models.HistorialProvider;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorCajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.TrabajadorCajaProvider;
+import org.softgreen.sistcoop.ubigeo.client.models.CurrencyModel;
+import org.softgreen.sistcoop.ubigeo.client.models.CurrencyProvider;
+import org.softgreen.sistcoop.ubigeo.client.models.DenominationModel;
 
 @Stateless
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
@@ -37,7 +41,10 @@ public class CajaManager {
 
 	@Inject
 	protected DetalleHistorialProvider detalleHistorialProvider;
-		
+	
+	@Inject
+	protected CurrencyProvider currencyProvider;
+	
 	public BovedaCajaModel addBoveda(CajaModel cajaModel, BovedaModel bovedaModel) {
 		BovedaCajaModel bovedaCajaModel = bovedaCajaProvider.addBovedaCaja(bovedaModel, cajaModel);
 		return bovedaCajaModel;
@@ -92,7 +99,7 @@ public class CajaManager {
 		if (cajaModel.getEstadoMovimiento()) {
 			throw new EJBException("Caja descongelada, no se puede abrir.");
 		}
-		if (cajaModel.getEstado()) {
+		if (!cajaModel.getEstado()) {
 			throw new EJBException("Caja inactiva, no se puede abrir.");
 		}
 
@@ -122,9 +129,18 @@ public class CajaManager {
 		Calendar calendar = Calendar.getInstance();
 		if (firstTime) {
 			for (BovedaCajaModel bovedaCajaModel : bovedaCajaModels) {
+				HistorialModel historialModel = historialProvider.addHistorial(bovedaCajaModel);
+				
 				BovedaModel bovedaModel = bovedaCajaModel.getBoveda();
 				String moneda = bovedaModel.getMoneda();
-				ss
+				
+				CurrencyModel currencyModel = currencyProvider.findByCode(moneda);
+				Set<DenominationModel> denominationModels = currencyModel.getDenominations();
+				for (DenominationModel denominationModel : denominationModels) {
+					int cantidad = 0;
+					BigDecimal valor = denominationModel.getValue();
+					detalleHistorialProvider.addDetalleHistorial(historialModel, cantidad, valor);
+				}
 			}			
 		} else {
 			for (BovedaCajaModel bovedaCajaModel : bovedaCajaModels) {

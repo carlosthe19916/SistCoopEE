@@ -108,7 +108,6 @@ public class CajaEntity {
 	}
 
 	@NotNull
-	@NaturalId
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(foreignKey = @ForeignKey)
 	public AgenciaEntity getAgencia() {
