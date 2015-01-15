@@ -1,7 +1,0 @@
-define([
-    'angular',
-    './sgCodigoAgenciaValidate'
-], function () {
-
-});
-

@@ -30,7 +30,15 @@
     "inject": false,
     "it": false,
     "jasmine": false,
-    "spyOn": false
+    "spyOn": false,
+    "angular": false,
+    /* AMD */
+    "define": false,
+    /* Custom */
+    "ngRoutes": false,
+    "ngSanitize": false,
+    "ngCookies": false,
+    "ngResource": false
   }
 }
 

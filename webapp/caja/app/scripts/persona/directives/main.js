@@ -1,8 +1,0 @@
-define([
-    'angular',
-    './sgDocumentoIdentidad'
-
-], function () {
-
-});
-

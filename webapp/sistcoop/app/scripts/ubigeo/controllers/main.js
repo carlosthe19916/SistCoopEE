@@ -1,8 +1,0 @@
-define([
-    'angular',
-    './BuscarCtrl'
-
-], function () {
-
-});
-
