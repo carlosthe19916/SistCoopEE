@@ -20,7 +20,7 @@ import org.hibernate.annotations.NamedQuery;
 @Entity
 @DiscriminatorValue("boveda")
 @NamedQueries(value = {		
-		@NamedQuery(name = HistorialBovedaEntity.findByEstado, query = "SELECT s FROM HistorialBovedaEntity s WHERE s.boveda.id = :idBoveda AND s.estado = :estado") })
+		@NamedQuery(name = HistorialBovedaEntity.findByEstado, query = "SELECT s FROM HistorialBovedaEntity s WHERE s.boveda.id = :idBoveda AND s.estado = :estado")})
 public class HistorialBovedaEntity extends HistorialEntity implements Serializable {
 
 	/**
@@ -29,7 +29,7 @@ public class HistorialBovedaEntity extends HistorialEntity implements Serializab
 	private static final long serialVersionUID = 1L;
 
 	public final static String base = "org.softgreen.sistcoop.organizacion.ejb.models.jpa.entities.HistorialBovedaEntity.";	
-	public final static String findByEstado = base + "findByEstado";
+	public final static String findByEstado = base + "findByEstado";	
 	
 	private BovedaEntity boveda;
 	private Set<TransaccionBovedaCajaEntity> transaccionesBovedaCaja = new HashSet<TransaccionBovedaCajaEntity>();

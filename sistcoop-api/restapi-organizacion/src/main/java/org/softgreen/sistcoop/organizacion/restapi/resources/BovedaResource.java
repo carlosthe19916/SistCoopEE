@@ -86,7 +86,7 @@ public class BovedaResource {
 		} else {
 			return null;
 		}
-	}
+	}	
 
 	@PUT
 	@Path("/{id}")
@@ -128,5 +128,27 @@ public class BovedaResource {
 			throw new NotFoundException("Boveda not found.");
 		}
 		bovedaManager.cerrar(model);
+	}
+
+	@POST
+	@Path("/{id}/congelar")
+	@Produces({ "application/xml", "application/json" })
+	public void congelar(@PathParam("id") Integer id) {
+		BovedaModel model = bovedaProvider.getBovedaById(id);
+		if (model == null) {
+			throw new NotFoundException("Boveda not found.");
+		}
+		bovedaManager.congelar(model);
+	}
+
+	@POST
+	@Path("/{id}/descongelar")
+	@Produces({ "application/xml", "application/json" })
+	public void descongelar(@PathParam("id") Integer id) {
+		BovedaModel model = bovedaProvider.getBovedaById(id);
+		if (model == null) {
+			throw new NotFoundException("Boveda not found.");
+		}
+		bovedaManager.descongelar(model);
 	}
 }

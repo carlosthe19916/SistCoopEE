@@ -14,6 +14,12 @@ define(['./module'], function (module) {
             obj.$cerrar = function() {
                 return OrganizacionRestangular.all(url+'/'+this.id+'/cerrar').post();
             };
+            obj.$congelar = function() {
+                return OrganizacionRestangular.all(url+'/'+this.id+'/congelar').post();
+            };
+            obj.$descongelar = function() {
+                return OrganizacionRestangular.all(url+'/'+this.id+'/descongelar').post();
+            };
             obj.$getCajas = function() {
                 return OrganizacionRestangular.all(url+'/'+this.id+'/cajas').getList();
             };

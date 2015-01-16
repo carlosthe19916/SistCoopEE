@@ -13,7 +13,7 @@
     </div>
     <div class="panel-body">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-8">
                 <form name="form" ng-submit="submit()" novalidate>
                     <strong ng-if="!view.boveda.detalle.length">No se encontró detalle de boveda, si es la primera vez que abre la boveda haga click en GUARDAR, sino pongase en contacto con su administrador.</strong>
                     <table ng-if="view.boveda.detalle.length" class="table table-bordered table-striped table-condensed table-hover">
@@ -23,7 +23,6 @@
                             <th>Valor</th>
                             <th>Cantidad</th>
                             <th>Sub total</th>
-                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -31,14 +30,17 @@
                             <td><span ng-bind="$index+1"></span></td>
                             <td><span ng-bind="item.valor | currency: ''"></span></td>
                             <td><span ng-bind="item.cantidad"></span></td>
-                            <td><span ng-bind="item.getSubTotal() | currency: ''"></span></td>
-                            <td><span ng-bind="view.boveda.moneda"></span></td>
+                            <td>
+                                <span ng-bind="item.getSubTotal() | currency: ''"></span>
+                                &nbsp;
+                                <span ng-bind="view.boveda.moneda"></span>
+                            </td>
                         </tr>
                         </tbody>
                         <tfoot>
                         <tr>
                             <th rowspan="1" colspan="3">Total:</th>
-                            <th rowspan="1" colspan="2"><span ng-bind="getTotal() | currency : ''"></span></th>
+                            <th rowspan="1" colspan="1"><span ng-bind="getTotal() | currency : ''"></span></th>
                         </tr>
                         </tfoot>
                     </table>

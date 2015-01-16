@@ -41,6 +41,7 @@ import org.softgreen.sistcoop.organizacion.restapi.config.Jsend;
 import org.softgreen.sistcoop.organizacion.restapi.representation.BovedaList;
 import org.softgreen.sistcoop.organizacion.restapi.representation.DetalleHistorialCajaList;
 import org.softgreen.sistcoop.organizacion.restapi.representation.DetalleHistorialCajaRepresentation;
+import org.softgreen.sistcoop.organizacion.restapi.representation.DetalleHistorialList;
 import org.softgreen.sistcoop.organizacion.restapi.representation.TrabajadorList;
 
 @Path("/cajas")
@@ -168,6 +169,13 @@ public class CajaResource {
 			}
 			return new DetalleHistorialCajaList(result);
 		}
+	}
+	
+	@GET
+	@Path("/{id}/detalle/penultimo")
+	@Produces({ "application/xml", "application/json" })
+	public DetalleHistorialList getPenultimoDetalle(@PathParam("id") Integer id) {
+		return null;
 	}
 
 	@PUT

@@ -25,7 +25,7 @@ define(['../../../module'], function (module) {
         };
 
         $scope.abrir = function(){
-            if($scope.view.boveda.abierto == "true" || $scope.view.boveda.abierto == true){
+            if($scope.view.boveda.abierto == true){
                 Notifications.warn('Boveda abierta, no se puede abrir nuevamente.');
                 return;
             }

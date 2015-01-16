@@ -89,7 +89,7 @@ public class BovedaAdapter implements BovedaModel {
 	@Override
 	public AgenciaModel getAgencia() {
 		return new AgenciaAdapter(em, bovedaEntity.getAgencia());
-	}
+	}	
 
 	@Override
 	public HistorialModel getHistorialActivo() {

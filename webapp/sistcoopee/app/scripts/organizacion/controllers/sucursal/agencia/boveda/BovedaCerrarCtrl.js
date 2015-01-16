@@ -24,13 +24,19 @@ define(['../../../module'], function (module) {
             return total;
         };
 
-        $scope.abrir = function(){
+        $scope.cerrar = function(){
+            if($scope.view.boveda.abierto == "false" == false){
+                Notifications.warn('Boveda cerrada, no se puede cerrar nuevamente.');
+                return;
+            }
             if ($scope.form.$valid) {
                 $scope.blockControl();
                 $scope.view.boveda.$cerrar().then(
                     function(response){
                         $scope.unblockControl();
                         Notifications.success('Boveda cerrada');
+                        $scope.view.bovedaDB.abierto = false;
+                        $scope.view.boveda = angular.copy($scope.view.bovedaDB);
                         $state.go('^.resumen');
                     },
                     function error(error){
