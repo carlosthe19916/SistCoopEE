@@ -22,19 +22,23 @@
                             <th>#</th>
                             <th>Valor</th>
                             <th>Cantidad</th>
+                            <th>Sub total</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="item in view.boveda.detalle">
+                        <tr ng-repeat="item in view.boveda.detalle | orderBy: 'valor'">
                             <td><span ng-bind="$index+1"></span></td>
                             <td><span ng-bind="item.valor | currency: ''"></span></td>
                             <td><span ng-bind="item.cantidad"></span></td>
+                            <td><span ng-bind="item.getSubTotal() | currency: ''"></span></td>
+                            <td><span ng-bind="view.boveda.moneda"></span></td>
                         </tr>
                         </tbody>
                         <tfoot>
                         <tr>
-                            <td>Total:</td>
-                            <td>Nada</td>
+                            <th rowspan="1" colspan="3">Total:</th>
+                            <th rowspan="1" colspan="2"><span ng-bind="getTotal() | currency : ''"></span></th>
                         </tr>
                         </tfoot>
                     </table>

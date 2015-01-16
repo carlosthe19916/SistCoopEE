@@ -92,8 +92,7 @@ public class CurrencyEntity implements Serializable{
 		this.simbol = simbol;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "currency")
 	public Set<DenominationEntity> getDenominations() {
 		return denominations;
 	}
