@@ -1,0 +1,8 @@
+define([
+    'angular',
+    './BuscarCtrl'
+
+], function () {
+
+});
+

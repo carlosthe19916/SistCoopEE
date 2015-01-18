@@ -1,0 +1,68 @@
+<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title ng-binding">Trabajadores</h1>
+        <p class="description ng-binding">Trabajadores activos del sistema.</p>
+    </div>
+</div>
+<div class="panel panel-default ng-scope">
+    <div class="panel-heading">
+        <h3 class="panel-title">Resultado de busqueda</h3>
+
+        <div class="panel-options">
+            <a href="" data-toggle="panel">
+                <span class="collapse-icon">–</span>
+                <span class="expand-icon">+</span>
+            </a>
+            <a href="" data-toggle="remove">
+                ×
+            </a>
+        </div>
+    </div>
+
+    <div class="panel-body">
+        <div class="">
+            <form name="form" ng-submit="search()" novalidate>
+                <div class="sg-grid-top-panel">
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <input type="text" name="filterText" class="form-control ng-pristine ng-valid ng-touched" ng-model="filterOptions.filterText" placeholder="Denominacion" capitalize autofocus>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group" ng-if="!view" ng-class="{ 'validate-has-error' : form.sucursal.$invalid && (form.$submitted)}">
+                                <ui-select name="sucursal" ng-model="combo.selected.sucursal" required>
+                                    <ui-select-match placeholder="Sucursal">{{$select.selected.denominacion}}</ui-select-match>
+                                    <ui-select-choices repeat="item in combo.sucursal | filter: $select.search">
+                                        <div ng-bind-html="item.denominacion | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group" ng-if="!view" ng-class="{ 'validate-has-error' : form.agencia.$invalid && (form.$submitted)}">
+                                <div class="input-group">
+                                    <ui-select name="agencia" ng-model="combo.selected.agencia" required>
+                                        <ui-select-match placeholder="Agencia">{{$select.selected.denominacion}}</ui-select-match>
+                                        <ui-select-choices repeat="item in combo.agencia | filter: $select.search">
+                                            <div ng-bind-html="item.denominacion | highlight: $select.search"></div>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                    <span class="input-group-btn"><button type="submit" class="btn btn-white"><span class="glyphicon glyphicon-search"></span></button></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2" sg-data-keep="{module: 'PERSONA', permission: 'CREATE'}" style="text-align: right;">
+                            <div class="form-group" style="margin-bottom: 0px;">
+                                <button type="button" ng-click="nuevo()" class="btn btn-primary">Nuevo</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+            <div ui-grid="gridOptions" external-scopes="gridActions" ui-grid-selection class="grid"></div>
+        </div>
+    </div>
+</div>

@@ -23,9 +23,7 @@ require.config({
         underscore: '../../bower_components/underscore/underscore',
         ocLazyLoad: '../../bower_components/ocLazyLoad/dist/ocLazyLoad',
         bootstrap: '../../bower_components/bootstrap/dist/js/bootstrap',
-        oclazyload: '../../bower_components/oclazyload/dist/ocLazyLoad.min',
-        domready: '../../bower_components/domready/ready',
-        'requirejs-domready': '../../bower_components/requirejs-domready/domReady'
+        oclazyload: '../../bower_components/oclazyload/dist/ocLazyLoad.min'
     },
     shim: {
         angular: {

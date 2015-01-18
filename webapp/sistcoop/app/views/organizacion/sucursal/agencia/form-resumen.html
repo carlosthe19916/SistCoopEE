@@ -1,0 +1,166 @@
+<div class="row">
+    <div class="col-sm-6">
+
+        <div class="panel panel-default panel-border panel-shadow">
+            <div class="panel-heading">
+                <h3 class="panel-title">Datos principales</h3>
+
+                <div class="panel-options">
+                    <a href>
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <div style="border-bottom: 1px solid #e5e5e5;margin-bottom: 20px;">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <p>Codigo:&nbsp;</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <p><strong ng-bind="view.agenciaDB.codigo"></strong></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <p>Denominacion:&nbsp;</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <p><strong ng-bind="view.agenciaDB.denominacion"></strong></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <p>Abreviatura:&nbsp;</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <p><strong ng-bind="view.agenciaDB.abreviatura"></strong></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <p>Estado:&nbsp;</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <p><strong ng-bind="view.agenciaDB.estado | si_no:'activo' | uppercase"></strong></p>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" ui-sref="^.datosPrincipales" class="btn btn-white">Editar</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-sm-6">
+        <div class="panel panel-default panel-border panel-shadow">
+            <div class="panel-heading">
+            <h3 class="panel-title">Bovedas</h3>
+
+            <div class="panel-options">
+                <a href>
+                    <i class="glyphicon glyphicon-info-sign"></i>
+                </a>
+            </div>
+        </div>
+            <div class="panel-body">
+                <div class="row" ng-controller="BuscarBovedaFromAgenciaCtrl">
+                    <div class="col-sm-12">
+                        <table class="table table-striped table-bordered table-condensed">
+                            <caption ng-show="!gridOptions.data.length">No se encontraron bovedas.</caption>
+                            <thead ng-show="gridOptions.data.length">
+                            <tr>
+                                <th>#</th>
+                                <th>Moneda</th>
+                                <th>Denominacion</th>
+                                <th>Saldo</th>
+                                <th>Estado</th>
+                                <th>Edit</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in gridOptions.data">
+                                <td><span ng-bind="$index+1"></span></td>
+                                <td>
+                                    <span ng-bind="item.moneda"></span>
+                                </td>
+                                <td>
+                                    <span ng-bind="item.denominacion"></span>
+                                </td>
+                                <td>
+                                    <span ng-bind="item.saldo | currency: ''"></span>
+                                </td>
+                                <td>
+                                    <span ng-bind="item.estado | si_no:'activo'"></span>
+                                </td>
+                                <td style="text-align: center">
+                                    <button type="button" ng-click="gridActions.edit(item)" class="btn btn-info btn-xs">Ver</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <button type="button" ui-sref="^.crearBoveda.datosPrincipales" class="btn btn-primary">Nuevo</button>
+            </div>
+
+            <br/><br/>
+            <div class="panel-heading">
+                <h3 class="panel-title">Cajas</h3>
+                <div class="panel-options">
+                    <a href>
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row" ng-controller="BuscarCajaFromAgenciaCtrl">
+                    <div class="col-sm-12">
+                        <table class="table table-striped table-bordered table-condensed">
+                            <caption ng-show="!gridOptions.data.length">No se encontraron cajas.</caption>
+                            <thead ng-show="gridOptions.data.length">
+                            <tr>
+                                <th>#</th>
+                                <th>Denom.</th>
+                                <th>Abierto</th>
+                                <th>Movimiento</th>
+                                <th>Estado</th>
+                                <th>Edit</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in gridOptions.data">
+                                <td><span ng-bind="$index+1"></span></td>
+                                <td>
+                                    <span ng-bind="item.denominacion"></span>
+                                </td>
+                                <td>
+                                    <span ng-bind="item.abierto | si_no: 'Abierto'"></span>
+                                </td>
+                                <td>
+                                    <span ng-bind="item.estadoMovimiento | si_no:'Congelado'"></span>
+                                </td>
+                                <td>
+                                    <span ng-bind="item.estado | si_no:'Activo'"></span>
+                                </td>
+                                <td style="text-align: center">
+                                    <button type="button" ng-click="gridActions.edit(item)" class="btn btn-info btn-xs">Ver</button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <button type="button" ui-sref="^.crearCaja.datosPrincipales" class="btn btn-primary">Nuevo</button>
+            </div>
+        </div>
+    </div>
+</div>

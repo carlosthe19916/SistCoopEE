@@ -1,0 +1,67 @@
+<div ng-controller="PersonaNaturalDatosAdicionalesCtrl">
+    <h4><strong>Datos adicionales</strong></h4>
+    <sg-ubigeo ng-model="view.persona.ubigeo"></sg-ubigeo>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group" ng-class="{ 'validate-has-error' : form.direccion.$invalid && (form.direccion.$touched || form.$submitted)}">
+                <label>Direcci&oacute;n</label>
+                <input name="direccion" type="text" ng-model="view.persona.direccion" ng-maxlength="70" class="form-control" capitalize />
+                <div ng-messages="form.direccion.$error" ng-if="form.direccion.$touched || form.$submitted">
+                    <div class="validate-has-error" ng-message="maxlength">Maximo 70 Caracteres.</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group" ng-class="{ 'validate-has-error' : form.referencia.$invalid && (form.referencia.$touched || form.$submitted)}">
+                <label>Referencia</label>
+                <input name="referencia" type="text" ng-model="view.persona.referencia" ng-maxlength="70" class="form-control" capitalize />
+                <div ng-messages="form.referencia.$error" ng-if="form.referencia.$touched || form.$submitted">
+                    <div class="validate-has-error" ng-message="maxlength">Maximo 70 Caracteres.</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group" ng-class="{ 'validate-has-error' : form.ocupacion.$invalid && (form.ocupacion.$touched || form.$submitted)}">
+                <label>Ocupaci&oacute;n</label>
+                <input name="ocupacion" type="text" ng-model="view.persona.ocupacion" ng-maxlength="70" class="form-control" capitalize />
+                <div ng-messages="form.ocupacion.$error" ng-if="form.ocupacion.$touched || form.$submitted">
+                    <div class="validate-has-error" ng-message="maxlength">Maximo 70 Caracteres.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group" ng-class="{ 'validate-has-error' : form.telefono.$invalid && (form.telefono.$touched || form.$submitted)}">
+                <label>Telefono</label>
+                <input name="telefono" type="text" ng-model="view.persona.telefono" ng-maxlength="20" class="form-control" />
+                <div ng-messages="form.telefono.$error" ng-if="form.telefono.$touched || form.$submitted">
+                    <div class="validate-has-error" ng-message="maxlength">Maximo 20 Caracteres.</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group" ng-class="{ 'validate-has-error' : form.celular.$invalid && (form.celular.$touched || form.$submitted)}">
+                <label>Celular</label>
+                <input name="celular" type="text" ng-model="view.persona.celular" ng-maxlength="20" class="form-control" />
+                <div ng-messages="form.celular.$error" ng-if="form.celular.$touched || form.$submitted">
+                    <div class="validate-has-error" ng-message="maxlength">Maximo 20 Caracteres.</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group" ng-class="{ 'validate-has-error' : form.email.$invalid && (form.email.$touched || form.$submitted)}">
+                <label>Email</label>
+                <input name="email" type="email" ng-model="view.persona.email" ng-maxlength="70" class="form-control" />
+                <div ng-messages="form.email.$error" ng-if="form.email.$touched || form.$submitted">
+                    <div class="validate-has-error" ng-message="email">Email Incorrecto.</div>
+                    <div class="validate-has-error" ng-message="maxlength">Maximo 70 Caracteres.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p ng-if="view.persona.id">
+        <button type="submit" class="btn btn-primary" ladda="control.block" data-style="expand-right">Guardar</button>
+        <button type="button" class="btn btn-default" ui-sref="^.resumen">Cancelar</button>
+    </p>
+</div>

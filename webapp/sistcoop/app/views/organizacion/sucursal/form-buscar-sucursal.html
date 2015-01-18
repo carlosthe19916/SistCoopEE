@@ -1,0 +1,74 @@
+<div class="panel-body">
+
+<form role="form">
+<div class="form-group">
+    <label class="control-label">Select list</label>
+    <ui-select ng-model="person.selected" theme="select2" ng-disabled="disabled" style="width: 300px;">
+        <ui-select-match placeholder="Select a person in the list or search his name/age...">{{$select.selected.name}}</ui-select-match>
+        <ui-select-choices repeat="person in people | filter: $select.search">
+            <div ng-bind-html="person.name | highlight: $select.search"></div>
+            <small>
+                email: {{person.email}}
+                age: <span ng-bind-html="''+person.age | highlight: $select.search"></span>
+            </small>
+        </ui-select-choices>
+    </ui-select>
+</div>
+</form>
+</div>
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+
+
+
+<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title ng-binding">Sucursales</h1>
+        <p class="description ng-binding">Sucursales activas en el sistema.</p>
+    </div>
+</div>
+
+<div class="panel panel-default ng-scope">
+    <div class="panel-heading">
+        <h3 class="panel-title">Resultado de busqueda</h3>
+
+        <div class="panel-options">
+            <a href="" data-toggle="panel">
+                <span class="collapse-icon">–</span>
+                <span class="expand-icon">+</span>
+            </a>
+            <a href="" data-toggle="remove">
+                ×
+            </a>
+        </div>
+    </div>
+    <div class="panel-body">
+        <form name="ctrl.form" ng-submit="search()" novalidate>
+            <div class="sg-grid-top-panel">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" name="filterText" class="form-control" ng-model="filterOptions.filterText" placeholder="Denominacion" autofocus>
+                                <span class="input-group-btn"><button class="btn btn-white" type="submit"><i class="fa-search"></i></button></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group pull-right">
+                            <button type="button" ng-click="nuevo()" sg-data-keep="{module: 'ORGANIZACION', rol: ['ADMIN', 'GERENTE_GENERAL']}" class="btn btn-primary">Nuevo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div ui-grid="gridOptions" external-scopes="gridActions" ui-grid-selection class="grid"></div>
+    </div>
+</div>

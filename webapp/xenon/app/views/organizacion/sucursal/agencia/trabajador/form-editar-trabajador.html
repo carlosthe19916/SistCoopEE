@@ -1,0 +1,49 @@
+<div>
+    <div class="page-title full-width">
+        <div class="title-env">
+            <h1 class="title ng-binding">Editar trabajador</h1>
+            <p class="description ng-binding">Puede editar los datos del trabajador.</p>
+        </div>
+    </div>
+
+    <div class="form-wizard" ng-controller="EditarTrabajadorCtrl">
+
+        <ul class="tabs">
+            <li ui-sref-active="active">
+                <a href ui-sref=".resumen">
+                    Resumen
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a href ui-sref=".datosPrincipales">
+                    Datos principales
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a href ui-sref=".accesoAlSistema">
+                    Acceso al sistema
+                </a>
+            </li>
+            <li ui-sref-active="active">
+                <a href ui-sref=".asignarCaja">
+                    Asignar caja
+                </a>
+            </li>
+            <li sg-data-keep="{module: 'ORGANIZACION', rol: ['ADMIN']}">
+                <div class="btn-group ">
+                    <button type="button" ng-click="desactivar()" class="btn btn-danger" style="margin-bottom: 0px;">Desactivar</button>
+                </div>
+            </li>
+        </ul>
+
+        <div class="tab-content no-margin">
+            <div class="tab-pane with-bg active" >
+                <form name="form" ng-submit="submit()" novalidate>
+                    <div ui-view></div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+

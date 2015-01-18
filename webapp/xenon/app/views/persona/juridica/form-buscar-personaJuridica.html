@@ -1,0 +1,44 @@
+<div class="page-title full-width">
+    <div class="title-env">
+        <h1 class="title ng-binding">Personas juridicas</h1>
+        <p class="description ng-binding">Personas activas en el sistema.</p>
+    </div>
+</div>
+
+<div class="panel panel-default ng-scope">
+    <div class="panel-heading">
+        <h3 class="panel-title">Resultado de busqueda</h3>
+
+        <div class="panel-options">
+            <a href="" data-toggle="panel">
+                <span class="collapse-icon">–</span>
+                <span class="expand-icon">+</span>
+            </a>
+            <a href="" data-toggle="remove">
+                ×
+            </a>
+        </div>
+    </div>
+    <div class="panel-body">
+        <form name="ctrl.form" ng-submit="search()" novalidate>
+            <div class="sg-grid-top-panel">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" name="filterText" class="form-control" ng-model="filterOptions.filterText" placeholder="Denominacion" autofocus>
+                                <span class="input-group-btn"><button class="btn btn-white" type="submit"><i class="fa-search"></i></button></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group pull-right">
+                            <button type="button" ng-click="nuevo()" class="btn btn-primary">Nuevo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div ui-grid="gridOptions" external-scopes="gridActions" ui-grid-selection class="grid"></div>
+    </div>
+</div>

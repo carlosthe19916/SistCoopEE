@@ -1,0 +1,63 @@
+<h4><strong>Datos principales</strong></h4>
+
+<div class="row">
+    <div class="col-sm-4">
+        <div class="form-group" ng-class="{ 'validate-has-error' : form.sucursal.$invalid && (form.sucursal.$touched || form.$submitted)}">
+            <label>Sucursal</label>
+            <ui-select name="sucursal" ng-model="combo.selected.sucursal" ui-autofocus required>
+                <ui-select-autoload pk-name="id" comparator="view.trabajador.agencia.sucursal.id"></ui-select-autoload>
+                <ui-select-match placeholder="Sucursal">{{$select.selected.denominacion}}</ui-select-match>
+                <ui-select-choices repeat="item in combo.sucursal | filter: $select.search">
+                    <div ng-bind-html="item.denominacion | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+            <div ng-messages="form.sucursal.$error" ng-if="form.sucursal.$touched || form.$submitted">
+                <div class="validate-has-error" ng-message="required">Ingrese sucursal.</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group" ng-class="{ 'validate-has-error' : form.agencia.$invalid && (form.agencia.$touched || form.$submitted)}">
+            <label>Agencia</label>
+            <ui-select name="agencia" ng-model="combo.selected.agencia" required>
+                <ui-select-autoload pk-name="id" comparator="view.trabajador.agencia.id"></ui-select-autoload>
+                <ui-select-match placeholder="Agencia">{{$select.selected.denominacion}}</ui-select-match>
+                <ui-select-choices repeat="item in combo.agencia | filter: $select.search">
+                    <div ng-bind-html="item.denominacion | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+            <div ng-messages="form.agencia.$error" ng-if="form.agencia.$touched || form.$submitted">
+                <div class="validate-has-error" ng-message="required">Ingrese agencia.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h4><strong>Buscar persona</strong></h4>
+<div class="row">
+    <div class="col-sm-4">
+        <div class="form-group" ng-class="{ 'validate-has-error' : form.tipoDocumento.$invalid && (form.tipoDocumento.$touched || form.$submitted)}">
+            <label>Tipo documento</label>
+            <h4><span ng-bind="view.loaded.persona.tipoDocumento"></span></h4>
+        </div>
+    </div>
+    <div class="col-sm-4" ng-class="{ 'validate-has-error' : form.numeroDocumento.$invalid && (form.numeroDocumento.$dirty || form.numeroDocumento.$touched || form.$submitted)}">
+        <div class="form-group">
+            <label>N&uacute;mero documento</label>
+            <h4><span ng-bind="view.loaded.persona.numeroDocumento"></span></h4>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="form-group" ng-class="{ 'validate-has-error' : form.tipoDocumento.$invalid && (form.tipoDocumento.$touched || form.$submitted)}">
+            <label>Persona</label>
+            <h4><span ng-bind="view.loaded.persona.apellidoPaterno"></span>&nbsp;<span ng-bind="view.loaded.persona.apellidoMaterno"></span>,&nbsp;<span ng-bind="view.loaded.persona.nombres"></span></h4>
+        </div>
+    </div>
+</div>
+
+<p>
+    <button type="submit" class="btn btn-primary" ladda="control.block" data-style="expand-right">Guardar</button>
+    <button type="button" class="btn btn-white" ui-sref="^.resumen">Cancelar</button>
+</p>

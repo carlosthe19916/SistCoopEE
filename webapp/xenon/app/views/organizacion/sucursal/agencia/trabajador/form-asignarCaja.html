@@ -1,0 +1,48 @@
+<h4><strong>Acceso al sistema</strong></h4>
+
+<div class="row">
+    <div class="col-sm-4">
+        <div class="form-group" ng-class="{ 'validate-has-error' : form.sucursal.$invalid && (form.sucursal.$touched || form.$submitted)}">
+            <label>Sucursal</label>
+            <h4><span ng-bind="view.trabajador.agencia.sucursal.denominacion"></span></h4>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group" ng-class="{ 'validate-has-error' : form.agencia.$invalid && (form.agencia.$touched || form.$submitted)}">
+            <label>Agencia</label>
+            <h4><span ng-bind="view.trabajador.agencia.denominacion"></span></h4>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        <div class="form-group" ng-class="{ 'validate-has-error' : form.caja.$invalid && (form.caja.$touched || form.$submitted)}">
+            <label>Caja</label>
+            <ui-select name="caja" ng-model="combo.selected.caja" required>
+                <ui-select-autoload pk-name="id" comparator="view.trabajador.caja.id"></ui-select-autoload>
+                <ui-select-match placeholder="Seleccione">{{$select.selected.denominacion}}</ui-select-match>
+                <ui-select-choices repeat="item in combo.caja | filter: $select.search">
+                    <div ng-bind-html="item.denominacion | highlight: $select.search"></div>
+                </ui-select-choices>
+            </ui-select>
+            <div ng-messages="form.caja.$error" ng-if="form.caja.$touched || form.$submitted">
+                <div class="validate-has-error" ng-message="required">Ingrese caja.</div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <div class="form-group">
+                <label>&nbsp;</label>
+                <div class="input-group">
+                    <button type="button" ng-click="removeCaja()" class="btn btn-danger">Desvincular</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p>
+    <button type="button" class="btn btn-primary" ng-click="setCaja()" ladda="control.block" data-style="expand-right">Guardar</button>
+    <button type="button" class="btn btn-white" ui-sref="^.resumen">Cancelar</button>
+</p>
