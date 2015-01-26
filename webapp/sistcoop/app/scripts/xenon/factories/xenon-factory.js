@@ -276,7 +276,6 @@ define(['./module'], function (module) {
 
                 loadOptionsFromCookies: function()
                 {
-
                     var dis = this,
                         cookie_entries = dis.iterateObject($rootScope.layoutOptions, '', {}),
                         loaded_props = {};

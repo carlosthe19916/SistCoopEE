@@ -1,18 +1,5 @@
 require.config({
     paths: {
-/*
-
-    <script src="scripts/js/resizeable.js" id="script-resource-9"></script>
-    <!-- App -->
-    <script src="scripts/js/app.js" id="script-resource-10"></script>
-    <script src="scripts/js/controllers.js" id="script-resource-11"></script>
-    <script src="scripts/js/directives.js" id="script-resource-12"></script>
-    <script src="scripts/js/factory.js" id="script-resource-13"></script>
-    <script src="scripts/js/services.js" id="script-resource-14"></script>
-    <!-- JavaScripts initializations and stuff -->
-    <script src="scripts/js/xenon-custom.js" id="script-resource-15"></script>
-
-    */
         jquery: '../../bower_components/jquery/dist/jquery',
         angular: '../../bower_components/angular/angular',
         keycloak: '../../bower_components/keycloak/dist/keycloak',
@@ -37,19 +24,6 @@ require.config({
         underscore: '../../bower_components/underscore/underscore',
         TweenLite: '../../bower_components/gsap/src/uncompressed/TweenLite',
         TweenMax: '../../bower_components/gsap/src/uncompressed/TweenMax',
-        TimelineLite: '../../bower_components/gsap/src/uncompressed/TimelineLite',
-        TimelineMax: '../../bower_components/gsap/src/uncompressed/TimelineMax',
-        EasePack: '../../bower_components/gsap/src/uncompressed/easing/EasePack',
-        CSSPlugin: '../../bower_components/gsap/src/uncompressed/plugins/CSSPlugin',
-        BezierPlugin: '../../bower_components/gsap/src/uncompressed/plugins/BezierPlugin',
-        AttrPlugin: '../../bower_components/gsap/src/uncompressed/plugins/AttrPlugin',
-        DirectionalRotationPlugin: '../../bower_components/gsap/src/uncompressed/plugins/DirectionalRotationPlugin',
-        'jquery-autosize': '../../bower_components/jquery-autosize/jquery.autosize',
-        'scrollMonitor': '../../bower_components/scrollMonitor/scrollMonitor',
-        'perfect-scrollbar': '../../bower_components/perfect-scrollbar/src/perfect-scrollbar',
-        'jquery-hoverIntent': '../../bower_components/jquery-hoverIntent/jquery.hoverIntent',
-        'cookies-js': '../../bower_components/cookies-js/src/cookies',
-
         'requirejs-domready': '../../bower_components/requirejs-domready/domReady',
         'angular-fullscreen': '../../bower_components/angular-fullscreen/src/angular-fullscreen'
     },
@@ -162,66 +136,6 @@ require.config({
                 'jquery'
             ]
         },
-        TimelineLite: {
-            deps: [
-                'jquery'
-            ]
-        },
-        TimelineMax: {
-            deps: [
-                'jquery'
-            ]
-        },
-        EasePack: {
-            deps: [
-                'jquery'
-            ]
-        },
-        CSSPlugin: {
-            deps: [
-                'jquery'
-            ]
-        },
-        BezierPlugin: {
-            deps: [
-                'jquery'
-            ]
-        },
-        AttrPlugin: {
-            deps: [
-                'jquery'
-            ]
-        },
-        DirectionalRotationPlugin: {
-            deps: [
-                'jquery'
-            ]
-        },
-        'jquery-autosize': {
-            deps: [
-                'jquery'
-            ]
-        },
-        'scrollMonitor': {
-            deps: [
-                'jquery'
-            ]
-        },
-        'perfect-scrollbar': {
-            deps: [
-                'jquery'
-            ]
-        },
-        'jquery-hoverIntent': {
-            deps: [
-                'jquery'
-            ]
-        },
-        'cookies-js': {
-            deps: [
-                'jquery'
-            ]
-        },
         'angular-mocks': {
             deps: [
                 'angular'
@@ -265,18 +179,8 @@ require([
     'restangular',
     'underscore',
 
-    'perfect-scrollbar',
-    'jquery-hoverIntent',
-    'jquery-autosize',
     'TweenLite',
-    'TweenMax',
-    'TimelineLite',
-    'TimelineMax',
-    'EasePack',
-    'CSSPlugin',
-    'BezierPlugin',
-    'AttrPlugin',
-    'DirectionalRotationPlugin'
+    'TweenMax'
 
 ], function() {
 

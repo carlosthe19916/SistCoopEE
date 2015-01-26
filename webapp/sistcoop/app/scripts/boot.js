@@ -8,6 +8,7 @@ define([
 
     require(['requirejs-domready!'], function (document) {
 
+        //keycloak
         var consoleBaseUrl = window.location.href;
         var consoleBaseUrl = consoleBaseUrl.substring(0, consoleBaseUrl.indexOf("/admin"));
         var consoleBaseUrl = consoleBaseUrl + "/admin";

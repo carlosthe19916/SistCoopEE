@@ -313,7 +313,6 @@ define([
 
         app.config(function($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
 
-            //$urlRouterProvider.otherwise('/app/home');
             $urlRouterProvider.otherwise('/app/layout-and-skins');
 
             $stateProvider.

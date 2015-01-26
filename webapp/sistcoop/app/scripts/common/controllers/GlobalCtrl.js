@@ -51,7 +51,7 @@ define(['./module'], function (module) {
             agencia: false,
             sucursal: false
         };
-
+/*
         Usuario.$getTrabajador($scope.auth.user.username).then(function(response){
             $scope.auth.user.trabajador = response;
             $scope.loadedObjectToCheck.trabajador = true;
@@ -135,6 +135,6 @@ define(['./module'], function (module) {
             } else {
                 $scope.logout();
             }
-        };
+        };*/
     });
 });

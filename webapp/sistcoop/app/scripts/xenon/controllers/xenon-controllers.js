@@ -72,7 +72,8 @@ define(['./module'], function (module) {
 
             $layout.loadOptionsFromCookies(); // remove this line if you don't want to support cookies that remember layout changes
 
-            $scope.updatePsScrollbars = function()
+
+            /*$scope.updatePsScrollbars = function()
             {
                 var $scrollbars = jQuery(".ps-scrollbar:visible");
 
@@ -87,11 +88,11 @@ define(['./module'], function (module) {
                         jQuery(el).perfectScrollbar('update');
                     }
                 })
-            };
+            };*/
 
 
             // Define Public Vars
-            public_vars.$body = jQuery("body");
+            /*public_vars.$body = jQuery("body");*/
 
 
             // Init Layout Toggles
@@ -110,7 +111,7 @@ define(['./module'], function (module) {
             // Watch changes to replace checkboxes
             $scope.$watch(function()
             {
-                cbr_replace();
+                /*cbr_replace();*/
             });
 
             // Watch sidebar status to remove the psScrollbar
@@ -164,14 +165,13 @@ define(['./module'], function (module) {
             }
 
         }).
-        controller('SidebarMenuCtrl', function($scope, $rootScope, $menuItems, $timeout, $location, $state, $layout, activeProfile)
+        controller('SidebarMenuCtrl', function($scope, $rootScope, $menuItems, $timeout, $location, $state, $layout)
         {
 
             // Menu Items
             var $sidebarMenuItems = $menuItems.instantiate();
 
-            $scope.menuItems = $sidebarMenuItems.prepareSidebarMenu($state.current.name, activeProfile.realmAccess.roles).getAll();
-
+            $scope.menuItems = $sidebarMenuItems.prepareSidebarMenu().getAll();
 
             // Set Active Menu Item
             $sidebarMenuItems.setActive( $location.path() );
@@ -183,15 +183,15 @@ define(['./module'], function (module) {
 
             // Trigger menu setup
             public_vars.$sidebarMenu = public_vars.$body.find('.sidebar-menu');
-            $timeout(setup_sidebar_menu, 500);
+            $timeout(setup_sidebar_menu, 1);
 
             ps_init(); // perfect scrollbar for sidebar
         }).
-        controller('HorizontalMenuCtrl', function($scope, $rootScope, $menuItems, $timeout, $location, $state, activeProfile)
+        controller('HorizontalMenuCtrl', function($scope, $rootScope, $menuItems, $timeout, $location, $state)
         {
             var $horizontalMenuItems = $menuItems.instantiate();
 
-            $scope.menuItems = $horizontalMenuItems.prepareHorizontalMenu(activeProfile.realmAccess.roles).getAll();
+            $scope.menuItems = $horizontalMenuItems.prepareHorizontalMenu().getAll();
 
             // Set Active Menu Item
             $horizontalMenuItems.setActive( $location.path() );
@@ -486,4 +486,5 @@ define(['./module'], function (module) {
                 }
             }
         });
+
 });
