@@ -1,33 +1,5 @@
 <div class="panel-body">
 
-<form role="form">
-<div class="form-group">
-    <label class="control-label">Select list</label>
-    <ui-select ng-model="person.selected" theme="select2" ng-disabled="disabled" style="width: 300px;">
-        <ui-select-match placeholder="Select a person in the list or search his name/age...">{{$select.selected.name}}</ui-select-match>
-        <ui-select-choices repeat="person in people | filter: $select.search">
-            <div ng-bind-html="person.name | highlight: $select.search"></div>
-            <small>
-                email: {{person.email}}
-                age: <span ng-bind-html="''+person.age | highlight: $select.search"></span>
-            </small>
-        </ui-select-choices>
-    </ui-select>
-</div>
-</form>
-</div>
-
-
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-
-
-
-
-
 <div class="page-title full-width">
     <div class="title-env">
         <h1 class="title ng-binding">Sucursales</h1>

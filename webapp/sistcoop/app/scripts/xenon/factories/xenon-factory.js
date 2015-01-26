@@ -2,7 +2,7 @@ define(['./module'], function (module) {
     'use strict';
 
     module.
-        factory('$layoutToggles', function($rootScope, $layout){
+        factory('$layoutToggles', function($rootScope, $window, $layout){
 
             return {
 
@@ -18,10 +18,10 @@ define(['./module'], function (module) {
                     // Settings Pane
                     $rootScope.settingsPaneToggle = function()
                     {
-                        var use_animation = $rootScope.layoutOptions.settingsPane.useAnimation && ! isxs();
+                        var use_animation = $rootScope.layoutOptions.settingsPane.useAnimation;
 
                         var scroll = {
-                            top: jQuery(document).scrollTop(),
+                            top: $window.scrollTop(),
                             toTop: 0
                         };
 
@@ -85,7 +85,6 @@ define(['./module'], function (module) {
                         });
                     };
 
-
                     // Chat Toggle
                     $rootScope.chatToggle = function()
                     {
@@ -115,105 +114,9 @@ define(['./module'], function (module) {
 
                 init: function()
                 {
-                    var pl = this;
-
-                    $window.showLoadingBar = this.showLoadingBar;
-                    $window.hideLoadingBar = this.hideLoadingBar;
-
-                    $rootScope.$on('$stateChangeStart', function()
-                    {
-                        pl.showLoadingBar({
-                            pct: 95,
-                            delay: 1.1,
-                            resetOnEnd: false
-                        });
-
-                        jQuery('body .page-container .main-content').addClass('is-loading');
-                    });
-
-                    $rootScope.$on('$stateChangeSuccess', function()
-                    {
-                        pl.showLoadingBar({
-                            pct: 100,
-                            delay: .65,
-                            resetOnEnd: true
-                        });
-
-                        jQuery('body .page-container .main-content').removeClass('is-loading');
-                    });
                 },
 
-                showLoadingBar: function(options)
-                {
-                    var defaults = {
-                            pct: 0,
-                            delay: 1.3,
-                            wait: 0,
-                            before: function(){},
-                            finish: function(){},
-                            resetOnEnd: true
-                        },
-                        pl = this;
-
-                    if(typeof options == 'object')
-                        defaults = jQuery.extend(defaults, options);
-                    else
-                    if(typeof options == 'number')
-                        defaults.pct = options;
-
-
-                    if(defaults.pct > 100)
-                        defaults.pct = 100;
-                    else
-                    if(defaults.pct < 0)
-                        defaults.pct = 0;
-
-                    var $ = jQuery,
-                        $loading_bar = $(".xenon-loading-bar");
-
-                    if($loading_bar.length == 0)
-                    {
-                        $loading_bar = $('<div class="xenon-loading-bar progress-is-hidden"><span data-pct="0"></span></div>');
-                        public_vars.$body.append( $loading_bar );
-                    }
-
-                    var $pct = $loading_bar.find('span'),
-                        current_pct = $pct.data('pct'),
-                        is_regress = current_pct > defaults.pct;
-
-
-                    defaults.before(current_pct);
-
-                    TweenMax.to($pct, defaults.delay, {css: {width: defaults.pct + '%'}, delay: defaults.wait, ease: is_regress ? Expo.easeOut : Expo.easeIn,
-                        onStart: function()
-                        {
-                            $loading_bar.removeClass('progress-is-hidden');
-                        },
-                        onComplete: function()
-                        {
-                            var pct = $pct.data('pct');
-
-                            if(pct == 100 && defaults.resetOnEnd)
-                            {
-                                hideLoadingBar();
-                            }
-
-                            defaults.finish(pct);
-                        },
-                        onUpdate: function()
-                        {
-                            $pct.data('pct', parseInt($pct.get(0).style.width, 10));
-                        }});
-                },
-
-                hideLoadingBar: function()
-                {
-                    var $ = jQuery,
-                        $loading_bar = $(".xenon-loading-bar"),
-                        $pct = $loading_bar.find('span');
-
-                    $loading_bar.addClass('progress-is-hidden');
-                    $pct.width(0).data('pct', 0);
+                showLoadingBar: function(options) {
                 }
             };
         }).
@@ -249,7 +152,7 @@ define(['./module'], function (module) {
                         options = this.pathToObject(options, the_value);
                     }
 
-                    jQuery.extend(true, $rootScope.layoutOptions, options);
+                    angular.extend($rootScope.layoutOptions, options);
 
                     this.saveCookies();
                 },
@@ -286,11 +189,11 @@ define(['./module'], function (module) {
 
                         if(typeof cookie_val != 'undefined')
                         {
-                            jQuery.extend(true, loaded_props, dis.pathToObject(prop, cookie_val));
+                            angular.extend(loaded_props, dis.pathToObject(prop, cookie_val));
                         }
                     });
 
-                    jQuery.extend($rootScope.layoutOptions, loaded_props);
+                    angular.extend($rootScope.layoutOptions, loaded_props);
                 },
 
                 is: function(prop, value)
