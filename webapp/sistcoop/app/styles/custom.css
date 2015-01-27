@@ -9,3 +9,7 @@ body {
 
 a {
 }
+
+.navbar.horizontal-menu.navbar-minimal.navbar-fixed-top+.page-container>div>.sidebar-menu.fixed .sidebar-menu-inner{
+    top: 55px;
+}

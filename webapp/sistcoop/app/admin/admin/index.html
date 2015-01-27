@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Sistema de administracion financiera." />
+    <meta name="description" content="Sistema de administracion financiera" />
     <meta name="author" content="Sostgreen S.A.C." />
     <title>SistCoopEE - Admin</title>
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Arimo:400,700,400italic">
@@ -59,14 +59,13 @@
       'right-sidebar': layoutOptions.sidebar.isRight,
       'boxed-container': layoutOptions.container.isBoxed}">
 
-<div ng-controller="GlobalCtrl" style="height: inherit;">
-    <settings-pane is-open="layoutOptions.settingsPane.isOpen" use-animation="layoutOptions.settingsPane.useAnimation">
-    </settings-pane>
+<settings-pane is-open="layoutOptions.settingsPane.isOpen" use-animation="layoutOptions.settingsPane.useAnimation">
+</settings-pane>
 
-    <horizontal-menu ng-if="layoutOptions.horizontalMenu.isVisible"></horizontal-menu>
+<horizontal-menu ng-if="layoutOptions.horizontalMenu.isVisible">
+</horizontal-menu>
 
-    <div class="page-container" ui-view></div>
-</div>
+<div class="page-container" ui-view></div>
 
 <!-- App -->
 <script src="../../bower_components/requirejs/require.js" data-main="../../scripts/main.js"></script>
