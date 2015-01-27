@@ -57,6 +57,7 @@ define([
             }
         });
 
+        app.constant('TweenMax', TweenMax);
 
         app.factory('authInterceptor', function($q, Auth) {
             return {

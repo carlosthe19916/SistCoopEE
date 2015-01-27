@@ -11,10 +11,10 @@ define(['./module'], function (module) {
 
             $rootScope.layoutOptions = {
                 horizontalMenu: {
-                    isVisible		: false,
+                    isVisible		: true,
                     isFixed			: true,
-                    minimal			: false,
-                    clickToExpand	: false,
+                    minimal			: true,
+                    clickToExpand	: true,
 
                     isMenuOpenMobile: false
                 },
@@ -49,19 +49,15 @@ define(['./module'], function (module) {
                 userInfoNavVisible	: false
             };
 
-            $layout.loadOptionsFromCookies(); // remove this line if you don't want to support cookies that remember layout changes
-
-            // Init Layout Toggles
-            $layoutToggles.initToggles();
+            $rootScope.settingsPaneToggle = function(toggle){
+                $scope.layoutOptions.settingsPane.isOpen = toggle || !$scope.layoutOptions.settingsPane.isOpen;
+            };
         }).
         controller('SidebarMenuCtrl', function($scope, $rootScope, $menuItems, $timeout, $location, $state, $layout)
         {
 
         }).
         controller('HorizontalMenuCtrl', function($scope, $rootScope, $menuItems, $timeout, $location, $state)
-        {
-        }).
-        controller('SettingsPaneCtrl', function($rootScope)
         {
         }).
         controller('ChatCtrl', function($scope, $element)

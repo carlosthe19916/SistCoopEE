@@ -6,7 +6,59 @@ define(['./module'], function (module) {
             return {
                 restrict: 'E',
                 templateUrl: appHelper.templatePath('layout/settings-pane'),
-                controller: 'SettingsPaneCtrl'
+                scope: {
+                    isOpen: '=isOpen',//@ one way binding; = two way binding
+                    useAnimation: '=useAnimation'
+                },
+                controller: function($scope) {
+                    $scope.settingsPaneToggle = function(toggle){
+                        $scope.isOpen = toggle || !$scope.isOpen;
+                    };
+                },
+                link: function($scope, elem, attrs, ngModel){
+                    var $settingsPane = elem.find('.settings-pane');
+                    var $settingsPaneIn = $settingsPane.find('.settings-pane-inner');
+
+                    var use_animation = $scope.useAnimation;
+
+                    $scope.activeListener = function(){
+                        $scope.$watch('isOpen', function(oldValue, newValue){
+                            if(oldValue != newValue){
+                                // Opening
+                                if( !newValue) {
+                                    var height = $settingsPane.outerHeight(true);
+                                    $settingsPane.css({
+                                        height: 0
+                                    });
+                                    TweenMax.to($settingsPane, .25, {css: {height: height}, ease: Circ.easeInOut, onComplete: function()
+                                    {
+                                        $settingsPane.css({height: ''});
+                                    }});
+                                    $settingsPaneIn.addClass('visible');
+                                }
+                                // Closing
+                                else {
+                                    $settingsPaneIn.addClass('closing');
+                                    TweenMax.to($settingsPane, .25, {css: {height: 0}, delay: .15, ease: Power1.easeInOut, onComplete: function()
+                                    {
+                                        $settingsPane.css({height: ''});
+                                        $settingsPaneIn.removeClass('closing visible');
+                                    }});
+                                }
+                            }
+                        }, true);
+                    };
+
+                    if(use_animation) {
+                        // With Animation
+                        $settingsPaneIn.addClass('with-animation');
+                        $scope.activeListener();
+                    } else {
+                        // Without Animation
+                        $settingsPaneIn.removeClass('visible');
+                        $settingsPaneIn.removeClass('with-animation');
+                    }
+                }
             };
         }).
         directive('horizontalMenu', function(){
@@ -129,7 +181,7 @@ define(['./module'], function (module) {
                                 separator: 		attrDefault($el, 'separator', ','),
                                 decimal: 		attrDefault($el, 'decimal', '.'),
                                 prefix: 		attrDefault($el, 'prefix', ''),
-                                suffix:			attrDefault($el, 'suffix', ''),
+                                suffix:			attrDefault($el, 'suffix', '')
                             },
                             $count		= attrDefault($el, 'count', 'this') == 'this' ? $el : $el.find($el.data('count')),
                             from        = attrDefault($el, 'from', 0),
@@ -162,13 +214,13 @@ define(['./module'], function (module) {
                                 from: 		attrDefault($el, 'fill-from', 0),
                                 to: 		attrDefault($el, 'fill-to', 100),
                                 property: 	attrDefault($el, 'fill-property', 'width'),
-                                unit: 		attrDefault($el, 'fill-unit', '%'),
+                                unit: 		attrDefault($el, 'fill-unit', '%')
                             },
                             opts 		= {
                                 current: fill.to, onUpdate: function(){
                                     $el.css(fill.property, fill.current + fill.unit);
                                 },
-                                delay: attrDefault($el, 'delay', 0),
+                                delay: attrDefault($el, 'delay', 0)
                             },
                             easing 		= attrDefault($el, 'fill-easing', true),
                             duration 	= attrDefault($el, 'fill-duration', 2.5);
@@ -344,7 +396,7 @@ define(['./module'], function (module) {
                         size: 'white',
                         stylesheets: stylesheets.split(','),
                         "html": attrDefault($this, 'html', true),
-                        "color": attrDefault($this, 'colors', true),
+                        "color": attrDefault($this, 'colors', true)
                     });
                 }
             }
@@ -837,7 +889,7 @@ define(['./module'], function (module) {
                             startDate: attrDefault($this, 'startDate', ''),
                             endDate: attrDefault($this, 'endDate', ''),
                             daysOfWeekDisabled: attrDefault($this, 'disabledDays', ''),
-                            startView: attrDefault($this, 'startView', 0),
+                            startView: attrDefault($this, 'startView', 0)
                             //rtl: rtl()
                         },
                         $n = $this.next(),
@@ -891,7 +943,7 @@ define(['./module'], function (module) {
                             format: attrDefault($this, 'format', 'MM/DD/YYYY'),
                             timePicker: attrDefault($this, 'timePicker', false),
                             timePickerIncrement: attrDefault($this, 'timePickerIncrement', false),
-                            separator: attrDefault($this, 'separator', ' - '),
+                            separator: attrDefault($this, 'separator', ' - ')
                         },
                         min_date   = attrDefault($this, 'minDate', ''),
                         max_date   = attrDefault($this, 'maxDate', ''),

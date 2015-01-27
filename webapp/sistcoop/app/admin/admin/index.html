@@ -60,8 +60,11 @@
       'boxed-container': layoutOptions.container.isBoxed}">
 
 <div ng-controller="GlobalCtrl" style="height: inherit;">
-    <settings-pane></settings-pane>
+    <settings-pane is-open="layoutOptions.settingsPane.isOpen" use-animation="layoutOptions.settingsPane.useAnimation">
+    </settings-pane>
+
     <horizontal-menu ng-if="layoutOptions.horizontalMenu.isVisible"></horizontal-menu>
+
     <div class="page-container" ui-view></div>
 </div>
 
