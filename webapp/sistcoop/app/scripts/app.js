@@ -1,13 +1,14 @@
 /*jshint unused: vars */
 define([
         'angular',
+        'TweenMax',
         './xenon/main',
         './common/main',
         './organizacion/main',
         './persona/main',
         './ubigeo/main'
     ]/*deps*/,
-    function (angular){
+    function (angular, TweenMax){
 
         'use strict';
 

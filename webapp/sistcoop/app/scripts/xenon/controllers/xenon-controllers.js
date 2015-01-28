@@ -49,16 +49,6 @@ define(['./module'], function (module) {
                 userInfoNavVisible	: false
             };
 
-            $rootScope.settingsPaneToggle = function(toggle){
-                $scope.layoutOptions.settingsPane.isOpen = toggle || !$scope.layoutOptions.settingsPane.isOpen;
-            };
-        }).
-        controller('SidebarMenuCtrl', function($scope, $rootScope, $menuItems, $timeout, $location, $state, $layout)
-        {
-
-        }).
-        controller('HorizontalMenuCtrl', function($scope, $rootScope, $menuItems, $timeout, $location, $state)
-        {
         }).
         controller('ChatCtrl', function($scope, $element)
         {

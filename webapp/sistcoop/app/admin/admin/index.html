@@ -59,11 +59,16 @@
       'right-sidebar': layoutOptions.sidebar.isRight,
       'boxed-container': layoutOptions.container.isBoxed}">
 
-<settings-pane is-open="layoutOptions.settingsPane.isOpen" use-animation="layoutOptions.settingsPane.useAnimation">
-</settings-pane>
+<settings-pane is-open="layoutOptions.settingsPane.isOpen" use-animation="layoutOptions.settingsPane.useAnimation"></settings-pane>
 
-<horizontal-menu ng-if="layoutOptions.horizontalMenu.isVisible">
-</horizontal-menu>
+<horizontal-menu ng-if="layoutOptions.horizontalMenu.isVisible"
+                 is-visible = "layoutOptions.horizontalMenu.isVisible"
+                 is-fixed = "layoutOptions.horizontalMenu.isFixed"
+                 minimal = "layoutOptions.horizontalMenu.minimal"
+                 is-menu-open-mobile="layoutOptions.horizontalMenu.isMenuOpenMobile"
+                 click-to-expand="layoutOptions.horizontalMenu.clickToExpand"
+                 user-info-navbar="layoutOptions.skins.userInfoNavbar"
+                 settings-pane-is-open="layoutOptions.settingsPane.isOpen"></horizontal-menu>
 
 <div class="page-container" ui-view></div>
 

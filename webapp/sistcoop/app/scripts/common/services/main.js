@@ -3,7 +3,8 @@ define([
     './Util',
     './Dialog',
     './Notifications',
-    './TimeUnit'
+    './TimeUnit',
+    './MenuItemsApp'
 ], function () {
 
 });

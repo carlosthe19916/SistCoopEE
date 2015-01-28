@@ -214,7 +214,7 @@ define(['./module'], function (module) {
 
             this.prepareHorizontalMenu = function()
             {
-                var dashboard    = this.addItem('Dashboard', 		'/app/dashboard', 			'linecons-cog');
+                var dashboard    = this.addItem('Dashboard', 		'', 			'linecons-cog');
                 var layouts      = this.addItem('Layout',			'/app/layout-and-skins',	'linecons-desktop');
                 var ui_elements  = this.addItem('UI Elements', 		'/app/ui', 					'linecons-note');
                 var forms  	 	 = this.addItem('Forms', 			'/app/forms', 				'linecons-params');

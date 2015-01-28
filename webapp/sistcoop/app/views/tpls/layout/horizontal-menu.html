@@ -1,4 +1,4 @@
-<nav class="navbar horizontal-menu" ng-class="{'navbar-fixed-top': layoutOptions.horizontalMenu.isFixed, 'navbar-minimal': layoutOptions.horizontalMenu.minimal, 'click-to-expand': layoutOptions.horizontalMenu.clickToExpand}">
+<nav class="navbar horizontal-menu" ng-class="{'navbar-fixed-top': isFixed, 'navbar-minimal': minimal, 'click-to-expand': clickToExpand}">
 
 <script type="text/ng-template" id="menu-item-link-tpl">
     <i ng-if="item.icon" class="{{item.icon}}"></i>
@@ -7,7 +7,10 @@
 </script>
 
 <script type="text/ng-template" id="menu-items-tpl">
-    <li ng-repeat="item in menuItems" ui-sref-active="active" ng-class="{'opened': item.isOpen, 'active': item.isActive, 'has-sub': item.menuItems.length}">
+    <li ng-repeat="item in menuItems"
+        ui-sref-active="active"
+        ng-class="{'opened': item.isOpen, 'active': item.isActive, 'has-sub': item.menuItems.length}">
+
         <a href ng-if="item.link" ui-sref="{{item.link}}" ng-include="'menu-item-link-tpl'"></a>
         <a href ng-if="!item.link" ng-include="'menu-item-link-tpl'"></a>
         <ul ng-if="item.menuItems.length" ng-init="subItems = item.menuItems" ng-include="'menu-items-recursive-tpl'"></ul>
@@ -62,7 +65,7 @@
 <div class="navbar-mobile-clear"></div>
 
 
-<ul class="navbar-nav" ng-class="{'mobile-is-visible': layoutOptions.horizontalMenu.isMenuOpenMobile}" ng-include="'menu-items-tpl'"></ul>
+<ul class="navbar-nav" ng-class="{'mobile-is-visible': isMenuOpenMobile}" ng-include="'menu-items-tpl'"></ul>
 
 
 <ul class="nav nav-userinfo navbar-right" ng-class="{'mobile-is-visible': layoutOptions.userInfoNavVisible}">

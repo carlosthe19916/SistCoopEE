@@ -134,7 +134,8 @@ require.config({
         TweenMax: {
             deps: [
                 'jquery'
-            ]
+            ],
+            exports: 'TweenMax'
         },
         'angular-mocks': {
             deps: [
