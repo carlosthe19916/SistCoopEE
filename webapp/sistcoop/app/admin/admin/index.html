@@ -36,8 +36,12 @@
 
     <script>
         var appHelper = {
+            viewsDir: '../../views',
             templatesDir: '../../views/tpls',
             assetsDir: '../../scripts',
+            viewPath: function(view_name) {
+                return this.viewsDir + '/' + view_name + '.html';
+            },
             templatePath: function(view_name) {
                 return this.templatesDir + '/' + view_name + '.html';
             },

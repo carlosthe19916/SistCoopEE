@@ -22,8 +22,8 @@ require.config({
         FBAngular: '../../bower_components/angular-fullscreen/src/angular-fullscreen',
         restangular: '../../bower_components/restangular/dist/restangular',
         underscore: '../../bower_components/underscore/underscore',
-        TweenLite: '../../bower_components/gsap/src/uncompressed/TweenLite',
-        TweenMax: '../../bower_components/gsap/src/uncompressed/TweenMax',
+        //TweenLite: '../../bower_components/gsap/src/uncompressed/TweenLite',
+        //TweenMax: '../../bower_components/gsap/src/uncompressed/TweenMax',
         'requirejs-domready': '../../bower_components/requirejs-domready/domReady',
         'angular-fullscreen': '../../bower_components/angular-fullscreen/src/angular-fullscreen'
     },
@@ -126,7 +126,7 @@ require.config({
         underscore: {
             exports: '_'
         },
-        TweenLite: {
+        /*TweenLite: {
             deps: [
                 'jquery'
             ]
@@ -136,7 +136,7 @@ require.config({
                 'jquery'
             ],
             exports: 'TweenMax'
-        },
+        },*/
         'angular-mocks': {
             deps: [
                 'angular'
@@ -178,10 +178,10 @@ require([
     'oclazyload',
     'FBAngular',
     'restangular',
-    'underscore',
+    'underscore'
 
-    'TweenLite',
-    'TweenMax'
+    /*'TweenLite',
+    'TweenMax'*/
 
 ], function() {
 

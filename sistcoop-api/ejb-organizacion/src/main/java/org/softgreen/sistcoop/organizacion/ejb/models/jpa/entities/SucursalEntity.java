@@ -34,7 +34,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 @NamedQueries({ 
 	@NamedQuery(name = SucursalEntity.findAll, query = "SELECT s FROM SucursalEntity s"), 
 	@NamedQuery(name = SucursalEntity.findByEstado, query = "SELECT s FROM SucursalEntity s WHERE s.estado = :estado"),
-	@NamedQuery(name = SucursalEntity.findByFilterText, query = "SELECT s FROM SucursalEntity s WHERE (s.denominacion LIKE :filterText OR s.abreviatura LIKE :filterText) AND s.estado = TRUE")})
+	@NamedQuery(name = SucursalEntity.findByFilterText, query = "SELECT s FROM SucursalEntity s WHERE (UPPER(s.denominacion) LIKE :filterText OR s.abreviatura LIKE :filterText) AND s.estado = TRUE")})
 public class SucursalEntity implements Serializable {
 
 	/**

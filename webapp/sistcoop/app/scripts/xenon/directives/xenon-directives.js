@@ -2,7 +2,7 @@ define(['./module'], function (module) {
     'use strict';
 
     module.
-        directive('settingsPane', function(TweenMax){
+        directive('settingsPane', function(){
             return {
                 restrict: 'E',
                 templateUrl: appHelper.templatePath('layout/settings-pane'),

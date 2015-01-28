@@ -82,7 +82,7 @@ public class JpaSucursalProvider implements SucursalProvider {
 			query.setFirstResult(offset);
 		if (offset != -1)
 			query.setMaxResults(offset);
-		query.setParameter("filterText", "%" + filterText + "%");
+		query.setParameter("filterText", "%" + filterText.toUpperCase() + "%");
 		List<SucursalEntity> list = query.getResultList();
 		List<SucursalModel> results = new ArrayList<SucursalModel>();
 		for (SucursalEntity entity : list) {

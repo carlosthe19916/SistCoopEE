@@ -57,7 +57,7 @@ public class SucursalResource {
 	@Produces({ "application/xml", "application/json" })
 	public SucursalRepresentation findById(@PathParam("id") Integer id) {
 		SucursalModel model = sucursalProvider.getSucursalById(id);
-		SucursalRepresentation rep = ModelToRepresentation.toRepresentation(model);
+		SucursalRepresentation rep = ModelToRepresentation.toRepresentation(model);				
 		return rep;
 	}
 
@@ -121,6 +121,7 @@ public class SucursalResource {
 	/**
 	 * Agencias
 	 * */
+	@BadgerFish
 	@GET
 	@Path("/{id}/agencias")
 	@Produces({ "application/xml", "application/json" })

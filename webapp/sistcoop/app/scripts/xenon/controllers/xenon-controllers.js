@@ -49,6 +49,18 @@ define(['./module'], function (module) {
                 userInfoNavVisible	: false
             };
 
+
+            //Control functions
+            $scope.control = {
+                block: false
+            };
+            $scope.blockControl = function(){
+                $scope.control.block = true;
+            };
+            $scope.unblockControl = function(){
+                $scope.control.block = false;
+            };
+
         }).
         controller('ChatCtrl', function($scope, $element)
         {
