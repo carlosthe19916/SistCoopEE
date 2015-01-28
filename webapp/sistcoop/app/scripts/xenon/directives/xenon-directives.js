@@ -19,7 +19,7 @@ define(['./module'], function (module) {
                 }
             };
         }).
-        directive('horizontalMenu', function($timeout, $menuItemsApp){
+        directive('horizontalMenu', function($timeout, $menuItemsApp, KeycloakRestangular, Auth){
             return {
                 restrict: 'E',
                 replace: true,
@@ -39,8 +39,18 @@ define(['./module'], function (module) {
                         $scope.settingsPaneIsOpen = toggle || !$scope.settingsPaneIsOpen;
                     };
 
+                    $scope.username = Auth.authz.idToken.preferred_username;
+                    $scope.profile = function(){
+                        Auth.authz.accountManagement();
+                    };
+                    $scope.logout = function(){
+                        Auth.authz.logout();
+                    };
+
                     var $horizontalMenuItems = $menuItemsApp.instantiate();
                     $scope.menuItems = $horizontalMenuItems.prepareHorizontalMenu().getAll();
+
+                    //notifications
                 },
                 link: function($scope, elem, attrs, ngModel){
                 }
