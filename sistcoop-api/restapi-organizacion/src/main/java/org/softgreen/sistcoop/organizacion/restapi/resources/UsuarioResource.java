@@ -9,7 +9,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import org.jboss.resteasy.annotations.providers.jaxb.json.BadgerFish;
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
 import org.softgreen.sistcoop.organizacion.client.models.CajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.SucursalModel;
@@ -29,7 +28,6 @@ public class UsuarioResource {
 	@Inject
 	protected TrabajadorProvider trabajadorProvider;	
 
-	@BadgerFish
 	@GET
 	@Path("/{username}/sucursal")
 	@Produces({ "application/xml", "application/json" })
@@ -43,7 +41,6 @@ public class UsuarioResource {
 		return ModelToRepresentation.toRepresentation(sucursalModel);
 	}
 
-	@BadgerFish
 	@GET
 	@Path("/{username}/agencia")
 	@Produces({ "application/xml", "application/json" })
@@ -56,7 +53,6 @@ public class UsuarioResource {
 		return ModelToRepresentation.toRepresentation(agenciaModel);
 	}
 
-	@BadgerFish
 	@GET
 	@Path("/{username}/trabajador")
 	@Produces({ "application/xml", "application/json" })
@@ -65,7 +61,6 @@ public class UsuarioResource {
 		return ModelToRepresentation.toRepresentation(trabajadorModel);
 	}
 
-	@BadgerFish
 	@GET
 	@Path("/{username}/caja")
 	@Produces({ "application/xml", "application/json" })

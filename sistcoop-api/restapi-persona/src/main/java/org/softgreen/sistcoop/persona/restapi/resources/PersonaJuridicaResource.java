@@ -19,7 +19,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import org.jboss.resteasy.annotations.providers.jaxb.json.BadgerFish;
 import org.softgreen.sistcoop.persona.clien.enums.TipoEmpresa;
 import org.softgreen.sistcoop.persona.client.models.AccionistaModel;
 import org.softgreen.sistcoop.persona.client.models.AccionistaProvider;
@@ -34,8 +33,6 @@ import org.softgreen.sistcoop.persona.client.models.util.RepresentationToModel;
 import org.softgreen.sistcoop.persona.client.representations.idm.AccionistaRepresentation;
 import org.softgreen.sistcoop.persona.client.representations.idm.PersonaJuridicaRepresentation;
 import org.softgreen.sistcoop.persona.restapi.config.Jsend;
-import org.softgreen.sistcoop.persona.restapi.representation.AccionistaList;
-import org.softgreen.sistcoop.persona.restapi.representation.PersonaJuridicaList;
 
 @Path("/personas/juridicas")
 @Stateless
@@ -59,7 +56,6 @@ public class PersonaJuridicaResource {
 	@Context
 	protected UriInfo uriInfo;
 
-	@BadgerFish
 	@GET
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
@@ -69,7 +65,6 @@ public class PersonaJuridicaResource {
 		return rep;
 	}
 
-	@BadgerFish
 	@GET
 	@Path("/buscar")
 	@Produces({ "application/xml", "application/json" })
@@ -82,7 +77,7 @@ public class PersonaJuridicaResource {
 
 	@GET
 	@Produces({ "application/xml", "application/json" })
-	public PersonaJuridicaList findAll(@QueryParam("filterText") String filterText, @QueryParam("offset") Integer offset, @QueryParam("limit") Integer limit) {
+	public List<PersonaJuridicaRepresentation> findAll(@QueryParam("filterText") String filterText, @QueryParam("offset") Integer offset, @QueryParam("limit") Integer limit) {
 		filterText = (filterText == null ? "" : filterText);
 		offset = (offset == null ? -1 : offset);
 		limit = (limit == null ? -1 : limit);
@@ -92,7 +87,7 @@ public class PersonaJuridicaResource {
 		for (PersonaJuridicaModel model : list) {
 			result.add(ModelToRepresentation.toRepresentation(model));
 		}
-		return new PersonaJuridicaList(result);
+		return result;
 	}
 
 	@GET
@@ -156,7 +151,6 @@ public class PersonaJuridicaResource {
 	/**
 	 * ACCIONISTA
 	 */
-	@BadgerFish
 	@GET
 	@Path("/{id}/accionistas/{idAccionista}")
 	@Produces({ "application/xml", "application/json" })
@@ -173,14 +167,14 @@ public class PersonaJuridicaResource {
 	@GET
 	@Path("/{id}/accionistas")
 	@Produces({ "application/xml", "application/json" })
-	public AccionistaList findAllAccionistas(@PathParam("id") Long id) {
+	public List<AccionistaRepresentation> findAllAccionistas(@PathParam("id") Long id) {
 		PersonaJuridicaModel personaJuridicaModel = personaJuridicaProvider.getPersonaJuridicaById(id);
 		List<AccionistaModel> list = personaJuridicaModel.getAccionistas();
 		List<AccionistaRepresentation> result = new ArrayList<AccionistaRepresentation>();
 		for (AccionistaModel model : list) {
 			result.add(ModelToRepresentation.toRepresentation(model));
 		}
-		return new AccionistaList(result);
+		return result;
 	}
 
 	@POST

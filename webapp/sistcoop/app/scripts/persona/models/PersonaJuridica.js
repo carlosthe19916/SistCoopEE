@@ -6,10 +6,10 @@ define(['./module'], function (module) {
 
         PersonaRestangular.extendModel(url, function(obj) {
             obj.$save = function() {
-                return PersonaRestangular.one(url, this.id).customPUT({'personaJuridica': PersonaRestangular.copy(this)},'',{},{});
+                return PersonaRestangular.one(url, this.id).customPUT(PersonaRestangular.copy(this),'',{},{});
             };
             obj.$addAccionista = function(accionista){
-                return PersonaRestangular.all(url+'/'+this.id+'/accionistas').post({'accionista': PersonaRestangular.copy(accionista)});
+                return PersonaRestangular.all(url+'/'+this.id+'/accionistas').post(PersonaRestangular.copy(accionista));
             };
             obj.$getAccionistas = function(){
                 return PersonaRestangular.all(url+'/'+this.id+'/accionistas').getList();

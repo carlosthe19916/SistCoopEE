@@ -17,7 +17,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import org.jboss.resteasy.annotations.providers.jaxb.json.BadgerFish;
 import org.softgreen.sistcoop.persona.clien.enums.EstadoCivil;
 import org.softgreen.sistcoop.persona.clien.enums.Sexo;
 import org.softgreen.sistcoop.persona.client.models.PersonaNaturalModel;
@@ -28,7 +27,6 @@ import org.softgreen.sistcoop.persona.client.models.util.ModelToRepresentation;
 import org.softgreen.sistcoop.persona.client.models.util.RepresentationToModel;
 import org.softgreen.sistcoop.persona.client.representations.idm.PersonaNaturalRepresentation;
 import org.softgreen.sistcoop.persona.restapi.config.Jsend;
-import org.softgreen.sistcoop.persona.restapi.representation.PersonaNaturalList;
 
 @Path("/personas/naturales")
 @Stateless
@@ -46,7 +44,6 @@ public class PersonaNaturalResource {
 	@Context
 	protected UriInfo uriInfo;
 
-	@BadgerFish
 	@GET
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
@@ -56,7 +53,6 @@ public class PersonaNaturalResource {
 		return rep;
 	}
 
-	@BadgerFish
 	@GET
 	@Path("/buscar")
 	@Produces({ "application/xml", "application/json" })
@@ -74,7 +70,7 @@ public class PersonaNaturalResource {
 
 	@GET
 	@Produces({ "application/xml", "application/json" })
-	public PersonaNaturalList listAll(@QueryParam("filterText") String filterText, @QueryParam("offset") Integer offset, @QueryParam("limit") Integer limit) {
+	public List<PersonaNaturalRepresentation> listAll(@QueryParam("filterText") String filterText, @QueryParam("offset") Integer offset, @QueryParam("limit") Integer limit) {
 		List<PersonaNaturalRepresentation> results = new ArrayList<PersonaNaturalRepresentation>();
 		List<PersonaNaturalModel> userModels;
 		if (filterText == null) {
@@ -93,7 +89,7 @@ public class PersonaNaturalResource {
 		for (PersonaNaturalModel personaNaturalModel : userModels) {
 			results.add(ModelToRepresentation.toRepresentation(personaNaturalModel));
 		}
-		return new PersonaNaturalList(results);
+		return results;
 	}
 
 	@GET

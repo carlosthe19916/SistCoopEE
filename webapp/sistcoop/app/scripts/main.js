@@ -19,13 +19,11 @@ require.config({
         'angular-block-ui': '../../bower_components/angular-block-ui/dist/angular-block-ui',
         'angular-ladda': '../../bower_components/angular-ladda/dist/angular-ladda.min',
         oclazyload: '../../bower_components/oclazyload/dist/ocLazyLoad.min',
-        FBAngular: '../../bower_components/angular-fullscreen/src/angular-fullscreen',
         restangular: '../../bower_components/restangular/dist/restangular',
         underscore: '../../bower_components/underscore/underscore',
         //TweenLite: '../../bower_components/gsap/src/uncompressed/TweenLite',
         //TweenMax: '../../bower_components/gsap/src/uncompressed/TweenMax',
-        'requirejs-domready': '../../bower_components/requirejs-domready/domReady',
-        'angular-fullscreen': '../../bower_components/angular-fullscreen/src/angular-fullscreen'
+        'requirejs-domready': '../../bower_components/requirejs-domready/domReady'
     },
     shim: {
         jquery: {
@@ -112,11 +110,6 @@ require.config({
                 'angular'
             ]
         },
-        FBAngular: {
-            deps: [
-                'angular'
-            ]
-        },
         restangular: {
             deps: [
                 'underscore',
@@ -176,7 +169,6 @@ require([
     'angular-block-ui',
     'angular-ladda',
     'oclazyload',
-    'FBAngular',
     'restangular',
     'underscore'
 

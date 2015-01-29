@@ -17,7 +17,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import org.jboss.resteasy.annotations.providers.jaxb.json.BadgerFish;
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaProvider;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaCajaProvider;
@@ -34,9 +33,6 @@ import org.softgreen.sistcoop.organizacion.client.representations.idm.CajaRepres
 import org.softgreen.sistcoop.organizacion.client.representations.idm.TrabajadorRepresentation;
 import org.softgreen.sistcoop.organizacion.managers.SucursalManager;
 import org.softgreen.sistcoop.organizacion.restapi.config.Jsend;
-import org.softgreen.sistcoop.organizacion.restapi.representation.BovedaList;
-import org.softgreen.sistcoop.organizacion.restapi.representation.CajaList;
-import org.softgreen.sistcoop.organizacion.restapi.representation.TrabajadorList;
 
 @Path("/agencias")
 @Stateless
@@ -63,7 +59,6 @@ public class AgenciaResource {
 	@Context
 	protected UriInfo uriInfo;
 
-	@BadgerFish
 	@GET
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
@@ -72,8 +67,7 @@ public class AgenciaResource {
 		AgenciaRepresentation rep = ModelToRepresentation.toRepresentation(model);
 		return rep;
 	}
-	
-	@BadgerFish
+
 	@GET
 	@Path("/codigo/{codigo}")
 	@Produces({ "application/xml", "application/json" })
@@ -86,7 +80,7 @@ public class AgenciaResource {
 	@GET
 	@Path("/{id}/bovedas")
 	@Produces({ "application/xml", "application/json" })
-	public BovedaList getBovedas(@PathParam("id") Integer id, @QueryParam("estado") Boolean estado) {
+	public List<BovedaRepresentation> getBovedas(@PathParam("id") Integer id, @QueryParam("estado") Boolean estado) {
 		AgenciaModel model = agenciaProvider.getAgenciaById(id);
 		if (model == null)
 			throw new NotFoundException();
@@ -100,13 +94,13 @@ public class AgenciaResource {
 		for (BovedaModel bovedaModel : list) {
 			result.add(ModelToRepresentation.toRepresentation(bovedaModel));
 		}
-		return new BovedaList(result);
+		return result;
 	}
 
 	@GET
 	@Path("/{id}/cajas")
 	@Produces({ "application/xml", "application/json" })
-	public CajaList getCajas(@PathParam("id") Integer id, @QueryParam("estado") Boolean estado) {
+	public List<CajaRepresentation> getCajas(@PathParam("id") Integer id, @QueryParam("estado") Boolean estado) {
 		AgenciaModel model = agenciaProvider.getAgenciaById(id);
 		if (model == null)
 			throw new NotFoundException();
@@ -120,13 +114,13 @@ public class AgenciaResource {
 		for (CajaModel cajaModel : list) {
 			result.add(ModelToRepresentation.toRepresentation(cajaModel));
 		}
-		return new CajaList(result);
+		return result;
 	}
 
 	@GET
 	@Path("/{id}/trabajadores")
 	@Produces({ "application/xml", "application/json" })
-	public TrabajadorList getTrabajadores(@PathParam("id") Integer id, @QueryParam("estado") Boolean estado, @QueryParam("filterText") String filterText, @QueryParam("limit") Integer limit, @QueryParam("offset") Integer offset) {
+	public List<TrabajadorRepresentation> getTrabajadores(@PathParam("id") Integer id, @QueryParam("estado") Boolean estado, @QueryParam("filterText") String filterText, @QueryParam("limit") Integer limit, @QueryParam("offset") Integer offset) {
 		AgenciaModel model = agenciaProvider.getAgenciaById(id);
 		if (model == null)
 			throw new NotFoundException();
@@ -138,17 +132,17 @@ public class AgenciaResource {
 			}
 			if (offset == null) {
 				offset = -1;
-			}			
+			}
 			list = model.getTrabajadores(filterText, limit, offset);
 		} else {
 			list = model.getTrabajadores(estado);
 		}
-			
+
 		List<TrabajadorRepresentation> result = new ArrayList<TrabajadorRepresentation>();
 		for (TrabajadorModel trabajadorModel : list) {
 			result.add(ModelToRepresentation.toRepresentation(trabajadorModel));
 		}
-		return new TrabajadorList(result);
+		return result;
 	}
 
 	@PUT

@@ -11,13 +11,11 @@ public class Jsend implements Serializable {
 
 	private Object id;
 
-	public static JsendWrapper getSuccessJSend(Object id) {
+	public static Jsend getSuccessJSend(Object id) {
 		Jsend jsend = new Jsend();
 		jsend.setId(id);
-		
-		JsendWrapper wrapper = new JsendWrapper();
-		wrapper.setData(jsend);
-		return wrapper;
+				
+		return jsend;
 	}
 
 	private Jsend() {

@@ -27,13 +27,9 @@ import org.softgreen.sistcoop.persona.clien.enums.EstadoCivil;
 import org.softgreen.sistcoop.persona.clien.enums.Sexo;
 import org.softgreen.sistcoop.persona.clien.enums.TipoEmpresa;
 import org.softgreen.sistcoop.persona.clien.enums.TipoPersona;
-import org.softgreen.sistcoop.persona.restapi.representation.EstadoCivilList;
 import org.softgreen.sistcoop.persona.restapi.representation.EstadoCivilRepresentation;
-import org.softgreen.sistcoop.persona.restapi.representation.SexoList;
 import org.softgreen.sistcoop.persona.restapi.representation.SexoRepresentation;
-import org.softgreen.sistcoop.persona.restapi.representation.TipoEmpresaList;
 import org.softgreen.sistcoop.persona.restapi.representation.TipoEmpresaRepresentation;
-import org.softgreen.sistcoop.persona.restapi.representation.TipoPersonaList;
 import org.softgreen.sistcoop.persona.restapi.representation.TipoPersonaRepresentation;
 
 @Path("/")
@@ -42,49 +38,49 @@ public class MaestroResource {
 	@GET
 	@Path("/tiposPersona")
 	@Produces({ "application/xml", "application/json" })
-	public TipoPersonaList getTipoPersonas() {
+	public List<TipoPersonaRepresentation> getTipoPersonas() {
 		TipoPersona[] s = TipoPersona.values();
 		List<TipoPersonaRepresentation> list = new ArrayList<TipoPersonaRepresentation>();
 		for (int i = 0; i < s.length; i++) {
 			list.add(new TipoPersonaRepresentation(s[i].toString()));
 		}
-		return new TipoPersonaList(list);
+		return list;
 	}
 
 	@GET
 	@Path("/estadosCiviles")
 	@Produces({ "application/xml", "application/json" })
-	public EstadoCivilList getEstadosCiviles() {
+	public List<EstadoCivilRepresentation> getEstadosCiviles() {
 		EstadoCivil[] e = EstadoCivil.values();
 		List<EstadoCivilRepresentation> list = new ArrayList<EstadoCivilRepresentation>();
 		for (int i = 0; i < e.length; i++) {
 			list.add(new EstadoCivilRepresentation(e[i].toString()));
 		}
-		return new EstadoCivilList(list);
+		return list;
 	}
 
 	@GET
 	@Path("/sexos")
 	@Produces({ "application/xml", "application/json" })
-	public SexoList getSexos() {
+	public List<SexoRepresentation> getSexos() {
 		Sexo[] s = Sexo.values();
 		List<SexoRepresentation> list = new ArrayList<SexoRepresentation>();
 		for (int i = 0; i < s.length; i++) {
 			list.add(new SexoRepresentation(s[i].toString()));
 		}
-		return new SexoList(list);
+		return list;
 	}
 
 	@GET
 	@Path("/tiposEmpresa")
 	@Produces({ "application/xml", "application/json" })
-	public TipoEmpresaList getTiposEmpresa() {
+	public List<TipoEmpresaRepresentation> getTiposEmpresa() {
 		TipoEmpresa[] s = TipoEmpresa.values();
 		List<TipoEmpresaRepresentation> list = new ArrayList<TipoEmpresaRepresentation>();
 		for (int i = 0; i < s.length; i++) {
 			list.add(new TipoEmpresaRepresentation(s[i].toString()));
 		}
-		return new TipoEmpresaList(list);
+		return list;
 	}
 
 }

@@ -6,7 +6,7 @@ define(['./module'], function (module) {
 
         OrganizacionRestangular.extendModel(url, function(obj) {
             obj.$save = function() {
-                return OrganizacionRestangular.one(url, this.id).customPUT({'caja': OrganizacionRestangular.copy(this)},'',{},{});
+                return OrganizacionRestangular.one(url, this.id).customPUT(OrganizacionRestangular.copy(this),'',{},{});
             };
             obj.$abrir = function() {
                 return OrganizacionRestangular.all(url+'/'+this.id+'/abrir').post();
@@ -24,7 +24,7 @@ define(['./module'], function (module) {
                 return OrganizacionRestangular.all(url+'/'+this.id+'/detalle').getList();
             };
             obj.$addBoveda = function(boveda){
-                return OrganizacionRestangular.all(url+'/'+this.id+'/bovedas').post({'boveda': OrganizacionRestangular.copy(boveda)});
+                return OrganizacionRestangular.all(url+'/'+this.id+'/bovedas').post(OrganizacionRestangular.copy(boveda));
             };
             obj.$desactivarBoveda = function(idBoveda){
                 return OrganizacionRestangular.all(url+'/'+this.id+'/bovedas/'+idBoveda+'/desactivar').post();

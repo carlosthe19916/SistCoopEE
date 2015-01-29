@@ -18,14 +18,12 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import org.jboss.resteasy.annotations.providers.jaxb.json.BadgerFish;
 import org.softgreen.sistcoop.persona.clien.enums.TipoPersona;
 import org.softgreen.sistcoop.persona.client.models.TipoDocumentoModel;
 import org.softgreen.sistcoop.persona.client.models.TipoDocumentoProvider;
 import org.softgreen.sistcoop.persona.client.models.util.ModelToRepresentation;
 import org.softgreen.sistcoop.persona.client.models.util.RepresentationToModel;
 import org.softgreen.sistcoop.persona.client.representations.idm.TipoDocumentoRepresentation;
-import org.softgreen.sistcoop.persona.restapi.representation.TipoDocumentoList;
 
 @Path("/tiposDocumento")
 @Stateless
@@ -40,7 +38,6 @@ public class TipoDocumentoResource {
 	@Context
 	protected UriInfo uriInfo;
 
-	@BadgerFish
 	@GET
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
@@ -52,7 +49,7 @@ public class TipoDocumentoResource {
 
 	@GET
 	@Produces({ "application/xml", "application/json" })
-	public TipoDocumentoList findAll(@QueryParam("tipoPersona") String tipoPersona) {
+	public List<TipoDocumentoRepresentation> findAll(@QueryParam("tipoPersona") String tipoPersona) {
 		List<TipoDocumentoModel> list = null;
 		if (tipoPersona != null) {
 			TipoPersona personType = TipoPersona.valueOf(tipoPersona.toUpperCase());
@@ -70,7 +67,7 @@ public class TipoDocumentoResource {
 			result.add(ModelToRepresentation.toRepresentation(model));
 		}
 
-		return new TipoDocumentoList(result);
+		return result;
 	}
 
 	@POST

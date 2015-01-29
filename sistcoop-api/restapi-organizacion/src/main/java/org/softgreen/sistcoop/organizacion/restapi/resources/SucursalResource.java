@@ -18,7 +18,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import org.jboss.resteasy.annotations.providers.jaxb.json.BadgerFish;
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaModel;
 import org.softgreen.sistcoop.organizacion.client.models.AgenciaProvider;
 import org.softgreen.sistcoop.organizacion.client.models.SucursalModel;
@@ -29,8 +28,6 @@ import org.softgreen.sistcoop.organizacion.client.representations.idm.AgenciaRep
 import org.softgreen.sistcoop.organizacion.client.representations.idm.SucursalRepresentation;
 import org.softgreen.sistcoop.organizacion.managers.SucursalManager;
 import org.softgreen.sistcoop.organizacion.restapi.config.Jsend;
-import org.softgreen.sistcoop.organizacion.restapi.representation.AgenciaList;
-import org.softgreen.sistcoop.organizacion.restapi.representation.SucursalList;
 
 @Path("/sucursales")
 @Stateless
@@ -51,7 +48,6 @@ public class SucursalResource {
 	@Context
 	protected UriInfo uriInfo;
 
-	@BadgerFish
 	@GET
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
@@ -63,7 +59,7 @@ public class SucursalResource {
 
 	@GET
 	@Produces({ "application/xml", "application/json" })
-	public SucursalList findAll(@QueryParam("estado") Boolean estado, @QueryParam("filterText") String filterText, @QueryParam("limit") Integer limit, @QueryParam("offset") Integer offset) {
+	public List<SucursalRepresentation> findAll(@QueryParam("estado") Boolean estado, @QueryParam("filterText") String filterText, @QueryParam("limit") Integer limit, @QueryParam("offset") Integer offset) {
 		List<SucursalModel> list = null;
 		if (estado == null) {
 			if (limit == null) {
@@ -80,7 +76,7 @@ public class SucursalResource {
 		for (SucursalModel model : list) {
 			result.add(ModelToRepresentation.toRepresentation(model));
 		}
-		return new SucursalList(result);
+		return result;
 	}
 
 	@POST
@@ -121,11 +117,10 @@ public class SucursalResource {
 	/**
 	 * Agencias
 	 * */
-	@BadgerFish
 	@GET
 	@Path("/{id}/agencias")
 	@Produces({ "application/xml", "application/json" })
-	public AgenciaList getAgencias(@PathParam("id") Integer id, @QueryParam("estado") Boolean estado) {
+	public List<AgenciaRepresentation> getAgencias(@PathParam("id") Integer id, @QueryParam("estado") Boolean estado) {
 		SucursalModel model = sucursalProvider.getSucursalById(id);
 		List<AgenciaModel> list;
 		if (estado == null)
@@ -136,7 +131,7 @@ public class SucursalResource {
 		for (AgenciaModel agenciaModel : list) {
 			result.add(ModelToRepresentation.toRepresentation(agenciaModel));
 		}
-		return new AgenciaList(result);
+		return result;
 	}
 
 	@POST

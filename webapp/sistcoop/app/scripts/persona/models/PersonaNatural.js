@@ -7,7 +7,7 @@ define(['./module'], function (module) {
 
         PersonaRestangular.extendModel(url, function(obj) {
             obj.$save = function() {
-                return PersonaRestangular.one(url, this.id).customPUT({'personaNatural': PersonaRestangular.copy(this)},'',{},{});
+                return PersonaRestangular.one(url, this.id).customPUT(PersonaRestangular.copy(this),'',{},{});
             };
             obj.$fullName = function(){
                 return this.apellidoPaterno+' '+this.apellidoMaterno+', '+this.nombres;

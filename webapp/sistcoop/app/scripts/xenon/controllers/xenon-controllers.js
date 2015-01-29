@@ -2,7 +2,7 @@ define(['./module'], function (module) {
     'use strict';
 
     module.
-        controller('MainCtrl', function($scope, $rootScope, $location, $layout, $layoutToggles, $pageLoadingBar, Fullscreen)
+        controller('MainCtrl', function($scope, $rootScope, $location, $layout, $layoutToggles, $pageLoadingBar)
         {
             $rootScope.isLoginPage        = false;
             $rootScope.isLightLoginPage   = false;

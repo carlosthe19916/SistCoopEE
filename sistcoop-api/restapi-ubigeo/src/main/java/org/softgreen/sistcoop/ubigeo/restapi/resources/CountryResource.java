@@ -14,7 +14,6 @@ import org.softgreen.sistcoop.ubigeo.client.models.CountryModel;
 import org.softgreen.sistcoop.ubigeo.client.models.CountryProvider;
 import org.softgreen.sistcoop.ubigeo.client.models.util.ModelToRepresentation;
 import org.softgreen.sistcoop.ubigeo.client.representations.idm.CountryRepresentation;
-import org.softgreen.sistcoop.ubigeo.restapi.representation.CountryList;
 
 @Path("/paises")
 @Stateless
@@ -26,13 +25,13 @@ public class CountryResource {
 	@Cache
 	@GET
 	@Produces({ "application/xml", "application/json" })
-	public CountryList findAll() {
+	public List<CountryRepresentation> findAll() {
 		List<CountryModel> list = countryProvider.findAll();
 		List<CountryRepresentation> result = new ArrayList<CountryRepresentation>();
 		for (CountryModel model : list) {
 			result.add(ModelToRepresentation.toRepresentation(model));
 		}
-		return new CountryList(result);
+		return result;
 	}
 
 }

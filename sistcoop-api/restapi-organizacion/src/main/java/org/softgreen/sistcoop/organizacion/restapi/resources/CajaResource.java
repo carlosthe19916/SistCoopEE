@@ -19,7 +19,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import org.jboss.resteasy.annotations.providers.jaxb.json.BadgerFish;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaCajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaCajaProvider;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
@@ -38,11 +37,7 @@ import org.softgreen.sistcoop.organizacion.client.representations.idm.DetalleHis
 import org.softgreen.sistcoop.organizacion.client.representations.idm.TrabajadorRepresentation;
 import org.softgreen.sistcoop.organizacion.managers.CajaManager;
 import org.softgreen.sistcoop.organizacion.restapi.config.Jsend;
-import org.softgreen.sistcoop.organizacion.restapi.representation.BovedaList;
-import org.softgreen.sistcoop.organizacion.restapi.representation.DetalleHistorialCajaList;
 import org.softgreen.sistcoop.organizacion.restapi.representation.DetalleHistorialCajaRepresentation;
-import org.softgreen.sistcoop.organizacion.restapi.representation.DetalleHistorialList;
-import org.softgreen.sistcoop.organizacion.restapi.representation.TrabajadorList;
 
 @Path("/cajas")
 @Stateless
@@ -66,7 +61,6 @@ public class CajaResource {
 	@Context
 	protected UriInfo uriInfo;
 
-	@BadgerFish
 	@GET
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
@@ -79,10 +73,10 @@ public class CajaResource {
 	@GET
 	@Path("/{id}/bovedas")
 	@Produces({ "application/xml", "application/json" })
-	public BovedaList getBovedasAsignadas(@PathParam("id") Integer id) {
+	public List<BovedaRepresentation> getBovedasAsignadas(@PathParam("id") Integer id) {
 		CajaModel model = cajaProvider.getCajaById(id);
 		List<BovedaCajaModel> bovedaCajaList = model.getBovedaCajas();
-		List<BovedaRepresentation> list = new ArrayList<BovedaRepresentation>();
+		List<BovedaRepresentation> result = new ArrayList<BovedaRepresentation>();
 		for (BovedaCajaModel bovedaCajaModel : bovedaCajaList) {
 			BovedaModel bovedaModel = bovedaCajaModel.getBoveda();
 			BovedaRepresentation bovedaRepresentation = new BovedaRepresentation();
@@ -93,18 +87,18 @@ public class CajaResource {
 			bovedaRepresentation.setEstadoMovimiento(bovedaModel.getEstadoMovimiento());
 			bovedaRepresentation.setEstado(bovedaModel.getEstado());
 
-			list.add(bovedaRepresentation);
+			result.add(bovedaRepresentation);
 		}
-		return new BovedaList(list);
+		return result;
 	}
 
 	@GET
 	@Path("/{id}/trabajadores")
 	@Produces({ "application/xml", "application/json" })
-	public TrabajadorList getTrabajadoresAsignados(@PathParam("id") Integer id) {
+	public List<TrabajadorRepresentation> getTrabajadoresAsignados(@PathParam("id") Integer id) {
 		CajaModel model = cajaProvider.getCajaById(id);
 		List<TrabajadorCajaModel> trabajadorCajaList = model.getTrabajadorCajas();
-		List<TrabajadorRepresentation> list = new ArrayList<TrabajadorRepresentation>();
+		List<TrabajadorRepresentation> result = new ArrayList<TrabajadorRepresentation>();
 		for (TrabajadorCajaModel trabajadorCajaModel : trabajadorCajaList) {
 			TrabajadorModel trabajadorModel = trabajadorCajaModel.getTrabajador();
 			TrabajadorRepresentation trabajadorRepresentation = new TrabajadorRepresentation();
@@ -114,15 +108,15 @@ public class CajaResource {
 			trabajadorRepresentation.setUsuario(trabajadorModel.getUsuario());
 			trabajadorRepresentation.setEstado(trabajadorModel.getEstado());
 
-			list.add(trabajadorRepresentation);
+			result.add(trabajadorRepresentation);
 		}
-		return new TrabajadorList(list);
+		return result;
 	}
 
 	@GET
 	@Path("/{id}/detalle")
 	@Produces({ "application/xml", "application/json" })
-	public DetalleHistorialCajaList getDetalle(@PathParam("id") Integer id) {
+	public List<DetalleHistorialCajaRepresentation> getDetalle(@PathParam("id") Integer id) {
 		CajaModel model = cajaProvider.getCajaById(id);
 		List<BovedaCajaModel> bovedaCajaModels = model.getBovedaCajas();
 
@@ -167,14 +161,14 @@ public class CajaResource {
 				detalleHistorialCajaRepresentation.setBoveda(ModelToRepresentation.toRepresentation(bovedaModel));
 				result.add(detalleHistorialCajaRepresentation);
 			}
-			return new DetalleHistorialCajaList(result);
+			return result;
 		}
 	}
 	
 	@GET
 	@Path("/{id}/detalle/penultimo")
 	@Produces({ "application/xml", "application/json" })
-	public DetalleHistorialList getPenultimoDetalle(@PathParam("id") Integer id) {
+	public List<DetalleHistorialCajaRepresentation> getPenultimoDetalle(@PathParam("id") Integer id) {
 		return null;
 	}
 

@@ -8,7 +8,7 @@ define([
         './persona/main',
         './ubigeo/main'
     ]/*deps*/,
-    function (angular, TweenMax){
+    function (angular/*, TweenMax*/){
 
         'use strict';
 
@@ -19,7 +19,7 @@ define([
 
                 /*angular*/
                 'ngCookies',
-                'ngAria',
+                //'ngAria',
                 'ngSanitize',
                 'ngMessages',
                 'ngAnimate',
@@ -35,7 +35,6 @@ define([
                 'angular-ladda',
                 'restangular',
                 'blockUI',
-                'FBAngular',
                 'oc.lazyLoad',
 
                 /*sistcoop*/
@@ -130,17 +129,17 @@ define([
             };
 
             //añade @ a los atributos
-            RestangularProvider.addFullRequestInterceptor(function(element, operation, route, url, headers, params, httpConfig) {
+           /* RestangularProvider.addFullRequestInterceptor(function(element, operation, route, url, headers, params, httpConfig) {
                 if(operation == 'post' || operation == 'put'){
                     var newElement;
                     if(element){
                         newElement = wrapper(element[Object.keys(element)[0]]);
                     }
                 }
-            });
+            });*/
 
             //saca el primer objeto
-            RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
+           /* RestangularProvider.addResponseInterceptor(function(data, operation, what, url, response, deferred) {
                 var extractedData;
                 if(data){
                     if(!angular.isArray(data)){
@@ -153,15 +152,15 @@ define([
                     extractedData = data;
                 }
                 return extractedData;
-            });
+            });*/
             //saca los @ de los atributos
-            RestangularProvider.setResponseExtractor(function(response) {
+            /*RestangularProvider.setResponseExtractor(function(response) {
                 var newResponse = angular.copy(response);
                 if(response){
                     newResponse = unWrapper(response);
                 }
                 return newResponse;
-            });
+            });*/
         });
 
         app.factory('PersonaRestangular', function(Restangular, CONFIGURATION) {

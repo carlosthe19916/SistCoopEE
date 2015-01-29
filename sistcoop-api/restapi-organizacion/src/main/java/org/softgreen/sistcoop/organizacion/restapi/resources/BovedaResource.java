@@ -13,7 +13,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-import org.jboss.resteasy.annotations.providers.jaxb.json.BadgerFish;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaCajaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaModel;
 import org.softgreen.sistcoop.organizacion.client.models.BovedaProvider;
@@ -25,8 +24,6 @@ import org.softgreen.sistcoop.organizacion.client.representations.idm.BovedaRepr
 import org.softgreen.sistcoop.organizacion.client.representations.idm.CajaRepresentation;
 import org.softgreen.sistcoop.organizacion.client.representations.idm.DetalleHistorialRepresentation;
 import org.softgreen.sistcoop.organizacion.managers.BovedaManager;
-import org.softgreen.sistcoop.organizacion.restapi.representation.CajaList;
-import org.softgreen.sistcoop.organizacion.restapi.representation.DetalleHistorialList;
 
 @Path("/bovedas")
 @Stateless
@@ -38,7 +35,6 @@ public class BovedaResource {
 	@Inject
 	protected BovedaManager bovedaManager;
 
-	@BadgerFish
 	@GET
 	@Path("/{id}")
 	@Produces({ "application/xml", "application/json" })
@@ -51,7 +47,7 @@ public class BovedaResource {
 	@GET
 	@Path("/{id}/cajas")
 	@Produces({ "application/xml", "application/json" })
-	public CajaList getCajasAsignadas(@PathParam("id") Integer id) {
+	public List<CajaRepresentation> getCajasAsignadas(@PathParam("id") Integer id) {
 		BovedaModel model = bovedaProvider.getBovedaById(id);
 		List<BovedaCajaModel> bovedaCajaList = model.getBovedaCajas();
 		List<CajaRepresentation> list = new ArrayList<CajaRepresentation>();
@@ -66,23 +62,23 @@ public class BovedaResource {
 
 			list.add(cajaRepresentation);
 		}
-		return new CajaList(list);
+		return list;
 	}
 
 	@GET
 	@Path("/{id}/detalle")
 	@Produces({ "application/xml", "application/json" })
-	public DetalleHistorialList getDetalle(@PathParam("id") Integer id) {
+	public List<DetalleHistorialRepresentation> getDetalle(@PathParam("id") Integer id) {
 		BovedaModel model = bovedaProvider.getBovedaById(id);
 		HistorialModel historialModel = model.getHistorialActivo();
 		if (historialModel != null) {
 			List<DetalleHistorialModel> detalleHistorialModel = historialModel.getDetalle();
-			List<DetalleHistorialRepresentation> detalleHistorialRepresentations = new ArrayList<DetalleHistorialRepresentation>();
+			List<DetalleHistorialRepresentation> result = new ArrayList<DetalleHistorialRepresentation>();
 			for (DetalleHistorialModel detHistModel : detalleHistorialModel) {
 				DetalleHistorialRepresentation detalleHistorialRepresentation = ModelToRepresentation.toRepresentation(detHistModel);
-				detalleHistorialRepresentations.add(detalleHistorialRepresentation);
+				result.add(detalleHistorialRepresentation);
 			}
-			return new DetalleHistorialList(detalleHistorialRepresentations);
+			return result;
 		} else {
 			return null;
 		}

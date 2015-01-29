@@ -26,7 +26,6 @@ form .form-group.validate-has-error .form-control + div {
     border: 1px solid #d4d4d4;
 
     position: relative;
-    font-weight: bold;
     background: #f3f3f3;
     background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #eeeeee), color-stop(1, #ffffff));
     background: -ms-linear-gradient(bottom, #eeeeee, #ffffff);

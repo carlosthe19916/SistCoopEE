@@ -6,7 +6,7 @@ define(['./module'], function (module) {
 
         OrganizacionRestangular.extendModel(url, function(obj) {
             obj.$save = function() {
-                return OrganizacionRestangular.one(url, this.id).customPUT({'boveda': OrganizacionRestangular.copy(this)},'',{},{});
+                return OrganizacionRestangular.one(url, this.id).customPUT(OrganizacionRestangular.copy(this),'',{},{});
             };
             obj.$abrir = function() {
                 return OrganizacionRestangular.all(url+'/'+this.id+'/abrir').post();

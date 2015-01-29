@@ -6,7 +6,7 @@ define(['./module'], function (module) {
 
         OrganizacionRestangular.extendModel(url, function(obj) {
             obj.$save = function() {
-                return OrganizacionRestangular.one(url, this.id).customPUT({'agencia': OrganizacionRestangular.copy(this)},'',{},{});
+                return OrganizacionRestangular.one(url, this.id).customPUT(OrganizacionRestangular.copy(this),'',{},{});
             };
             obj.$getBovedas = function(){
                 return OrganizacionRestangular.all(url+'/'+this.id+'/bovedas').getList();
@@ -18,10 +18,10 @@ define(['./module'], function (module) {
                 return OrganizacionRestangular.all(url+'/'+this.id+'/trabajadores').getList(queryParams);
             };
             obj.$addBoveda = function(boveda){
-                return OrganizacionRestangular.all(url+'/'+this.id+'/bovedas').customPOST({'boveda': OrganizacionRestangular.copy(boveda)},'',{},{});
+                return OrganizacionRestangular.all(url+'/'+this.id+'/bovedas').customPOST(OrganizacionRestangular.copy(boveda),'',{},{});
             };
             obj.$addCaja = function(caja){
-                return OrganizacionRestangular.all(url+'/'+this.id+'/cajas').customPOST({'caja': OrganizacionRestangular.copy(caja)},'',{},{});
+                return OrganizacionRestangular.all(url+'/'+this.id+'/cajas').customPOST(OrganizacionRestangular.copy(caja),'',{},{});
             };
             obj.$desactivar = function(){
                 return OrganizacionRestangular.all(url+'/'+this.id+'/desactivar').post();
@@ -43,10 +43,10 @@ define(['./module'], function (module) {
                         return OrganizacionRestangular.all(url + '/' + this.id + '/trabajadores').getList();
                     },
                     $addBoveda: function(boveda){
-                        return OrganizacionRestangular.all(url+'/'+this.id+'/bovedas').customPOST({'boveda': OrganizacionRestangular.copy(boveda)},'',{},{});
+                        return OrganizacionRestangular.all(url+'/'+this.id+'/bovedas').customPOST(OrganizacionRestangular.copy(boveda),'',{},{});
                     },
                     $addCaja: function(caja){
-                        return OrganizacionRestangular.all(url+'/'+this.id+'/cajas').customPOST({'caja': OrganizacionRestangular.copy(caja)},'',{},{});
+                        return OrganizacionRestangular.all(url+'/'+this.id+'/cajas').customPOST(OrganizacionRestangular.copy(caja),'',{},{});
                     }
                 }
             },
