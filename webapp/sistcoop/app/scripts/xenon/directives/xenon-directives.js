@@ -2,42 +2,146 @@ define(['./module'], function (module) {
     'use strict';
 
     module
-        .constant('dropdownConfig', {
-            openClass: 'open'
+        .constant('sgDropdownConfig', {
+            openClass: 'open hover expanded'
         })
-        .directive('sgHorizontalMenu', function() {
+        .directive('sgHorizontalMenu', function($menuItemsApp) {
             return {
                 restrict: 'E',
-                scope: {
-                    menuItems: '@',
-                    isFixed: '@',
-                    minimal: '@',
-                    clickToExpand: '@'
-                },
-                replace: true,
-                templateUrl: appHelper.templatePath('layout/sg-horizontal-menu')
+                templateUrl: appHelper.templatePath('layout/sg-horizontal-menu'),
+                controller: function($scope){
+                    var $horizontalMenuItems = $menuItemsApp.instantiate();
+                    $scope.menuItems = $horizontalMenuItems.prepareHorizontalMenu().getAll();
+                }
+            };
+        })
+        .directive('sgSidebarMenu', function($menuItemsApp) {
+            return {
+                restrict: 'E',
+                templateUrl: appHelper.templatePath('layout/sg-sidebar-menu'),
+                controller: function($scope){
+                    var $sidebarMenuItems = $menuItemsApp.instantiate();
+                    $scope.menuItems = $sidebarMenuItems.prepareSidebarMenu($state.current.name, activeProfile.realmAccess.roles).getAll();
+                }
             };
         })
         .directive('sgDropdown', function() {
             return {
-                restrict: 'E',
+                restrict: 'EA',
                 scope: {
-                    item: '@'
+                    item: '='
                 },
-                //controller: 'DropdownController',
-                link: function(scope, element, attrs, dropdownCtrl) {
-                    dropdownCtrl.init( element );
+                replace: true,
+                templateUrl: appHelper.templatePath('layout/sg-dropdown'),
+                controller: function($scope, $attrs, $parse, sgDropdownConfig, dropdownService, $animate){
+                    var self = this,
+                        scope = $scope.$new(), // create a child scope so we are not polluting original one
+                        openClass = sgDropdownConfig.openClass,
+                        getIsOpen,
+                        setIsOpen = angular.noop,
+                        toggleInvoker = $attrs.onToggle ? $parse($attrs.onToggle) : angular.noop;
+
+                    this.init = function( element ) {
+                        self.$element = element;
+
+                        if ( $attrs.isOpen ) {
+                            getIsOpen = $parse($attrs.isOpen);
+                            setIsOpen = getIsOpen.assign;
+
+                            $scope.$watch(getIsOpen, function(value) {
+                                scope.isOpen = !!value;
+                            });
+                        }
+                    };
+
+                    this.toggle = function( open ) {
+                        return scope.isOpen = arguments.length ? !!open : !scope.isOpen;
+                    };
+
+                    // Allow other directives to watch status
+                    this.isOpen = function() {
+                        return scope.isOpen;
+                    };
+
+                    scope.getToggleElement = function() {
+                        return self.toggleElement;
+                    };
+
+                    scope.focusToggleElement = function() {
+                        if ( self.toggleElement ) {
+                            self.toggleElement[0].focus();
+                        }
+                    };
+
+                    scope.$watch('isOpen', function( isOpen, wasOpen ) {
+                        $animate[isOpen ? 'addClass' : 'removeClass'](self.$element, openClass);
+
+                        if ( isOpen ) {
+                            scope.focusToggleElement();
+                            dropdownService.open( scope );
+                        } else {
+                            dropdownService.close( scope );
+                        }
+
+                        setIsOpen($scope, isOpen);
+                        if (angular.isDefined(isOpen) && isOpen !== wasOpen) {
+                            toggleInvoker($scope, { open: !!isOpen });
+                        }
+                    });
+
+                    $scope.$on('$locationChangeSuccess', function() {
+                        scope.isOpen = false;
+                    });
+
+                    $scope.$on('$destroy', function() {
+                        scope.$destroy();
+                    });
+
+                },
+                link: function(scope, element, attrs, sgDropdownCtrl) {
+                    sgDropdownCtrl.init( element );
                 }
             };
         })
         .directive('sgDropdownToggle', function() {
             return {
                 require: '?^sgDropdown',
-                link: function(scope, element, attrs, dropdownCtrl) {
+                link: function(scope, element, attrs, sgDropdownCtrl) {
 
+                    if ( !sgDropdownCtrl ) {
+                        return;
+                    }
+
+                    sgDropdownCtrl.toggleElement = element;
+
+                    var toggleDropdown = function(event) {
+                        event.preventDefault();
+
+                        if ( !element.hasClass('disabled') && !attrs.disabled ) {
+                            scope.$apply(function() {
+                                sgDropdownCtrl.toggle();
+                            });
+                        }
+                    };
+
+                    element.bind('click', toggleDropdown);
+
+                    // WAI-ARIA
+                    element.attr({ 'aria-haspopup': true, 'aria-expanded': false });
+                    scope.$watch(sgDropdownCtrl.isOpen, function( isOpen ) {
+                        element.attr('aria-expanded', !!isOpen);
+                    });
+
+                    scope.$on('$destroy', function() {
+                        element.unbind('click', toggleDropdown);
+                    });
                 }
             };
         })
+
+
+
+
 
 
         .directive('settingsPane', function(){
