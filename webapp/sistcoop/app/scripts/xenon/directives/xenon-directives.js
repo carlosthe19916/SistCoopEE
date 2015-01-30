@@ -1,8 +1,46 @@
 define(['./module'], function (module) {
     'use strict';
 
-    module.
-        directive('settingsPane', function(){
+    module
+        .constant('dropdownConfig', {
+            openClass: 'open'
+        })
+        .directive('sgHorizontalMenu', function() {
+            return {
+                restrict: 'E',
+                scope: {
+                    menuItems: '@',
+                    isFixed: '@',
+                    minimal: '@',
+                    clickToExpand: '@'
+                },
+                replace: true,
+                templateUrl: appHelper.templatePath('layout/sg-horizontal-menu')
+            };
+        })
+        .directive('sgDropdown', function() {
+            return {
+                restrict: 'E',
+                scope: {
+                    item: '@'
+                },
+                //controller: 'DropdownController',
+                link: function(scope, element, attrs, dropdownCtrl) {
+                    dropdownCtrl.init( element );
+                }
+            };
+        })
+        .directive('sgDropdownToggle', function() {
+            return {
+                require: '?^sgDropdown',
+                link: function(scope, element, attrs, dropdownCtrl) {
+
+                }
+            };
+        })
+
+
+        .directive('settingsPane', function(){
             return {
                 restrict: 'E',
                 templateUrl: appHelper.templatePath('layout/settings-pane'),
