@@ -33,6 +33,11 @@
 		</auth-constraint>
 	</security-constraint>
 
+	<login-config>
+		<auth-method>KEYCLOAK</auth-method>
+		<realm-name>SISTCOOP</realm-name>
+	</login-config>
+
 	<security-role>
 		<role-name>ADMIN</role-name>
 	</security-role>
