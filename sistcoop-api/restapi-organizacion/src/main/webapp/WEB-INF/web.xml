@@ -67,12 +67,7 @@
 		<auth-constraint>
 			<role-name>CAJERO</role-name>
 		</auth-constraint>
-	</security-constraint>
-
-	<login-config>
-		<auth-method>KEYCLOAK</auth-method>
-		<realm-name>SISTCOOP</realm-name>
-	</login-config>
+	</security-constraint>	
 
 	<security-role>
 		<role-name>ADMIN</role-name>
