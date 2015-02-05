@@ -1,7 +1,7 @@
 define(['../../module'], function (module) {
     'use strict';
 
-    module.controller('BuscarAgenciaCtrl', function($scope, $state, activeProfile, Sucursal){
+    var buscarAgenciaCtrl = function($scope, $state, activeProfile, Sucursal){
 
         $scope.combo = {
             sucursal: undefined
@@ -9,22 +9,7 @@ define(['../../module'], function (module) {
         $scope.combo.selected = {
             sucursal: undefined
         };
-        $scope.loadCombo = function(){
-            $scope.combo.sucursal = Sucursal.$search().$object;
-        };
-        $scope.loadCombo();
 
-
-        $scope.loadCombo = function(){
-            if(activeProfile.hasRole('ORGANIZACION', ['ADMIN', 'GERENTE_GENERAL'], 'OR')){
-                $scope.combo.sucursal = Sucursal.$search().$object;
-            } else if(activeProfile.hasRole('ORGANIZACION', ['ADMINISTRADOR_GENERAL'], 'OR')){
-                $scope.combo.sucursal = [];
-                $scope.combo.sucursal[0] = $scope.auth.user.sucursal;
-                $scope.combo.selected.sucursal = $scope.combo.sucursal[0];
-            }
-        };
-        $scope.loadCombo();
 
         $scope.filterOptions = {
             filterText: undefined,
@@ -51,17 +36,39 @@ define(['../../module'], function (module) {
         };
         $scope.gridActions = {
             edit: function(row){
-                $state.go('app.organizacion.estructura.editarAgencia.resumen', {id: row.id});
+                $state.go('^.editarAgencia.resumen', {id: row.id});
             }
         };
         $scope.nuevo = function(){
-            $state.go('app.organizacion.estructura.crearAgencia.datosPrincipales');
+            $state.go('^.crearAgencia.datosPrincipales');
         };
         $scope.search = function(){
             if($scope.combo.selected.sucursal)
                 $scope.gridOptions.data = $scope.combo.selected.sucursal.$getAgencias().$object;
         };
 
+    };
+
+    module.controller('BuscarAgenciaCtrl_Admin', function($injector, $scope, Sucursal){
+        $injector.invoke(buscarAgenciaCtrl, this, {$scope: $scope});
+        $scope.loadCombo = function(){
+            $scope.combo.sucursal = Sucursal.$search().$object;
+        };
+        $scope.loadCombo();
+    }).controller('BuscarAgenciaCtrl_Gerentegeneral', function($injector, $scope, Sucursal){
+        $injector.invoke(buscarAgenciaCtrl, this, {$scope: $scope});
+        $scope.loadCombo = function(){
+            $scope.combo.sucursal = Sucursal.$search().$object;
+        };
+        $scope.loadCombo();
+    }).controller('BuscarAgenciaCtrl_Administradorgeneral', function($injector, $scope, Sucursal){
+        $injector.invoke(buscarAgenciaCtrl, this, {$scope: $scope});
+        $scope.loadCombo = function(){
+            $scope.combo.sucursal = [];
+            $scope.combo.sucursal[0] = $scope.auth.user.sucursal;
+            $scope.combo.selected.sucursal = $scope.combo.sucursal[0];
+        };
+        $scope.loadCombo();
     }).controller('BuscarAgenciaFromSucursalCtrl', function($scope, $state){
 
         $scope.filterOptions = {

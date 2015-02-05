@@ -1,7 +1,7 @@
 define(['../module'], function (module) {
     'use strict';
 
-    var crearSucursalCtrl = function($scope, $state, Sucursal, Notifications){
+    module.controller('CrearSucursalCtrl', function($scope, $state, Sucursal, Notifications){
 
         $scope.view = {
             sucursal: Sucursal.$build()
@@ -24,11 +24,5 @@ define(['../module'], function (module) {
             }
         };
 
-    };
-
-    module.controller('CrearSucursalCtrl_Admin', function($injector, $scope, $state, Sucursal, Notifications){
-        $injector.invoke(crearSucursalCtrl, this, {$scope: $scope});
-    }).controller('CrearSucursalCtrl_Gerentegeneral', function($injector, $scope, $state, Sucursal, Notifications){
-        $injector.invoke(crearSucursalCtrl, this, {$scope: $scope});
     });
 });

@@ -21,8 +21,6 @@ require.config({
         oclazyload: '../../bower_components/oclazyload/dist/ocLazyLoad.min',
         restangular: '../../bower_components/restangular/dist/restangular',
         underscore: '../../bower_components/underscore/underscore',
-        TweenLite: '../../bower_components/gsap/src/uncompressed/TweenLite',
-        TweenMax: '../../bower_components/gsap/src/uncompressed/TweenMax',
         'requirejs-domready': '../../bower_components/requirejs-domready/domReady'
     },
     shim: {
@@ -119,17 +117,6 @@ require.config({
         underscore: {
             exports: '_'
         },
-        TweenLite: {
-            deps: [
-                'jquery'
-            ]
-        },
-        TweenMax: {
-            deps: [
-                'jquery'
-            ],
-            exports: 'TweenMax'
-        },
         'angular-mocks': {
             deps: [
                 'angular'
@@ -155,6 +142,14 @@ require([
     'keycloak',
     'app',
 
+    'config',
+    'security',
+    'route',
+    'route_admin',
+    'route_gerentegeneral',
+    'route_administradorgeneral',
+    'run',
+
     'angular-sanitize',
     'angular-cookies',
     'angular-messages',
@@ -170,10 +165,7 @@ require([
     'angular-ladda',
     'oclazyload',
     'restangular',
-    'underscore',
-
-    'TweenLite',
-    'TweenMax'
+    'underscore'
 
 ], function() {
 

@@ -1,7 +1,7 @@
 define(['../module'], function (module) {
     'use strict';
 
-    var buscarSucursalCtrl = function($scope, $state, Sucursal){
+    module.controller('BuscarSucursalCtrl', function($scope, $state, Sucursal){
 
         $scope.filterOptions = {
             filterText: undefined,
@@ -30,23 +30,16 @@ define(['../module'], function (module) {
             $scope.gridOptions.data = Sucursal.$search($scope.filterOptions).$object;
         };
 
+        $scope.nuevo = function(){
+            $state.go('^.crearSucursal.datosPrincipales');
+        };
+
         $scope.gridActions = {
             edit: function(row){
                 $state.go('^.editarSucursal.resumen', {id: row.id});
             }
         };
 
-        $scope.nuevo = function(){
-            $state.go('^.crearSucursal.datosPrincipales');
-        };
-
-    };
-
-
-    module.controller('BuscarSucursalCtrl_Admin', function($injector, $scope, $state){
-        $injector.invoke(buscarSucursalCtrl, this, {$scope: $scope});
-    }).controller('BuscarSucursalCtrl_Gerentegeneral', function($injector, $scope, $state){
-        $injector.invoke(buscarSucursalCtrl, this, {$scope: $scope});
     });
 
 });

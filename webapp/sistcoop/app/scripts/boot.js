@@ -23,10 +23,6 @@ define([
         var configUrl = consoleBaseUrl + "/config";
         var logoutUrl = consoleBaseUrl + "/logout";
         window.auth = {};
-        var logout = function(){
-            console.log('*** LOGOUT');
-            window.location = logoutUrl;
-        };
 
         angular.element(document).ready(function ($http) {
             var keycloakAuth = new Keycloak(configUrl);

@@ -89,7 +89,7 @@ define(['./module'], function (module) {
                     var rrhh = this.addItem('RRHH', '', 'linecons-t-shirt');
 
                     estructura.addItem('Sucursales', 'app.admin.organizacion.estructura.buscarSucursal');
-                    estructura.addItem('Agencias', 'app.organizacion.estructura.buscarAgencia');
+                    estructura.addItem('Agencias', 'app.admin.organizacion.estructura.buscarAgencia');
                     estructura.addItem('Bovedas', 'app.organizacion.estructura.buscarBoveda');
                     estructura.addItem('Cajas', 'app.organizacion.estructura.buscarCaja');
                     rrhh.addItem('Trabajadores', 'app.organizacion.rrhh.buscarTrabajador');
@@ -131,7 +131,7 @@ define(['./module'], function (module) {
                     var rrhh = this.addItem('RRHH', '', 'linecons-t-shirt');
 
                     estructura.addItem('Sucursales', 'app.gerentegeneral.organizacion.estructura.buscarSucursal');
-                    estructura.addItem('Agencias', 'app.organizacion.estructura.buscarAgencia');
+                    estructura.addItem('Agencias', 'app.gerentegeneral.organizacion.estructura.buscarAgencia');
                     estructura.addItem('Bovedas', 'app.organizacion.estructura.buscarBoveda');
                     estructura.addItem('Cajas', 'app.organizacion.estructura.buscarCaja');
                     rrhh.addItem('Trabajadores', 'app.organizacion.rrhh.buscarTrabajador');
@@ -148,7 +148,7 @@ define(['./module'], function (module) {
                     var estructura = this.addItem('Estructura', '', 'linecons-inbox');
                     var rrhh = this.addItem('RRHH', '', 'linecons-t-shirt');
 
-                    estructura.addItem('Agencias', 'app.organizacion.estructura.buscarAgencia');
+                    estructura.addItem('Agencias', 'app.administradorgeneral.organizacion.estructura.buscarAgencia');
                     estructura.addItem('Bovedas', 'app.organizacion.estructura.buscarBoveda');
                     estructura.addItem('Cajas', 'app.organizacion.estructura.buscarCaja');
                     rrhh.addItem('Trabajadores', 'app.organizacion.rrhh.buscarTrabajador');

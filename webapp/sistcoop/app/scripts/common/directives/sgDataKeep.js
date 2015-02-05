@@ -18,9 +18,6 @@ define(['./module'], function (module) {
                     if(angular.isDefined(yourCustomValue.rol)){
                         return activeProfile.hasRole(yourCustomValue.module, yourCustomValue.rol, 'OR');
                     }
-                    else if (angular.isDefined(yourCustomValue.permission)){
-                        return activeProfile.hasPermission(yourCustomValue.module, yourCustomValue.permission);
-                    }
                     else {
                         return false;
                     }
