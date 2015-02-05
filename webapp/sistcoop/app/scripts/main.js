@@ -21,8 +21,8 @@ require.config({
         oclazyload: '../../bower_components/oclazyload/dist/ocLazyLoad.min',
         restangular: '../../bower_components/restangular/dist/restangular',
         underscore: '../../bower_components/underscore/underscore',
-        //TweenLite: '../../bower_components/gsap/src/uncompressed/TweenLite',
-        //TweenMax: '../../bower_components/gsap/src/uncompressed/TweenMax',
+        TweenLite: '../../bower_components/gsap/src/uncompressed/TweenLite',
+        TweenMax: '../../bower_components/gsap/src/uncompressed/TweenMax',
         'requirejs-domready': '../../bower_components/requirejs-domready/domReady'
     },
     shim: {
@@ -119,7 +119,7 @@ require.config({
         underscore: {
             exports: '_'
         },
-        /*TweenLite: {
+        TweenLite: {
             deps: [
                 'jquery'
             ]
@@ -129,7 +129,7 @@ require.config({
                 'jquery'
             ],
             exports: 'TweenMax'
-        },*/
+        },
         'angular-mocks': {
             deps: [
                 'angular'
@@ -170,10 +170,10 @@ require([
     'angular-ladda',
     'oclazyload',
     'restangular',
-    'underscore'
+    'underscore',
 
-    /*'TweenLite',
-    'TweenMax'*/
+    'TweenLite',
+    'TweenMax'
 
 ], function() {
 

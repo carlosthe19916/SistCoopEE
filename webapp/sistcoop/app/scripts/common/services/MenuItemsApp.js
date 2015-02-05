@@ -84,11 +84,11 @@ define(['./module'], function (module) {
         this.prepareSidebarMenu = function(stateName, roles)
         {
             if(roles.indexOf('ADMIN') != -1){
-                if(stateName.indexOf('app.organizacion') > -1){
+                if(stateName.indexOf('app.admin.organizacion') > -1){
                     var estructura = this.addItem('Estructura', '', 'linecons-inbox');
                     var rrhh = this.addItem('RRHH', '', 'linecons-t-shirt');
 
-                    estructura.addItem('Sucursales', 'app.organizacion.estructura.buscarSucursal');
+                    estructura.addItem('Sucursales', 'app.admin.organizacion.estructura.buscarSucursal');
                     estructura.addItem('Agencias', 'app.organizacion.estructura.buscarAgencia');
                     estructura.addItem('Bovedas', 'app.organizacion.estructura.buscarBoveda');
                     estructura.addItem('Cajas', 'app.organizacion.estructura.buscarCaja');
@@ -126,11 +126,11 @@ define(['./module'], function (module) {
                     return [];
                 }
             } else if(roles.indexOf('GERENTE_GENERAL') != -1){
-                if(stateName.indexOf('app.organizacion') > -1){
+                if(stateName.indexOf('app.gerentegeneral.organizacion') > -1){
                     var estructura = this.addItem('Estructura', '', 'linecons-inbox');
                     var rrhh = this.addItem('RRHH', '', 'linecons-t-shirt');
 
-                    estructura.addItem('Sucursales', 'app.organizacion.estructura.buscarSucursal');
+                    estructura.addItem('Sucursales', 'app.gerentegeneral.organizacion.estructura.buscarSucursal');
                     estructura.addItem('Agencias', 'app.organizacion.estructura.buscarAgencia');
                     estructura.addItem('Bovedas', 'app.organizacion.estructura.buscarBoveda');
                     estructura.addItem('Cajas', 'app.organizacion.estructura.buscarCaja');
@@ -144,7 +144,7 @@ define(['./module'], function (module) {
                     return [];
                 }
             } else if(roles.indexOf('ADMINISTRADOR_GENERAL') != -1){
-                if(stateName.indexOf('app.organizacion') > -1){
+                if(stateName.indexOf('app.administradorgeneral.organizacion') > -1){
                     var estructura = this.addItem('Estructura', '', 'linecons-inbox');
                     var rrhh = this.addItem('RRHH', '', 'linecons-t-shirt');
 
@@ -226,19 +226,31 @@ define(['./module'], function (module) {
             var roles = activeProfile.realmAccess.roles;
 
             if(roles.indexOf('ADMIN') != -1){
-                var organizacion = this.addItem('Organizacion', 'app.organizacion', 'linecons-desktop');
+                var organizacion = this.addItem('Organizacion', 'app.admin.organizacion', 'linecons-desktop');
                 var cliente = this.addItem('Clientes', 'app.cliente', 'linecons-database');
                 var transaccion = this.addItem('Transacciones', 'app.transaccion', 'linecons-doc');
                 var administracion = this.addItem('Administracion', 'app.administracion', 'linecons-params');
                 var configuracion = this.addItem('Configuracion', 'app.configuracion', 'linecons-cog');
+
+
+                var other  	 	 = this.addItem('Other', 			'', 				'linecons-beaker');
+
+                // Subitems of Others
+                var widgets     = other.addItem('Widgets', 			'/app/widgets', 			'linecons-star');
+                var mailbox     = other.addItem('Mailbox', 			'', 			'linecons-mail').setLabel('5', 'secondary', false);
+                var tables      = other.addItem('Tables', 			'/app/tables', 				'linecons-database');
+                var extra       = other.addItem('Extra', 			'/app/extra', 				'linecons-beaker').setLabel('New Items', 'purple');
+                var charts      = other.addItem('Charts', 			'/app/charts', 				'linecons-globe');
+                var menu_lvls   = other.addItem('Menu Levels', 		'', 						'linecons-cloud');
+
             } else if(roles.indexOf('GERENTE_GENERAL') != -1){
-                var organizacion = this.addItem('Organizacion', 'app.organizacion', 'linecons-desktop');
+                var organizacion = this.addItem('Organizacion', 'app.gerentegeneral.organizacion', 'linecons-desktop');
                 var cliente = this.addItem('Clientes', 'app.cliente', 'linecons-database');
                 var transaccion = this.addItem('Transacciones', 'app.transaccion', 'linecons-doc');
                 var administracion = this.addItem('Administracion', 'app.administracion', 'linecons-params');
                 var configuracion = this.addItem('Configuracion', 'app.configuracion', 'linecons-cog');
             } else if(roles.indexOf('ADMINISTRADOR_GENERAL') != -1){
-                var organizacion = this.addItem('Organizacion', 'app.organizacion', 'linecons-desktop');
+                var organizacion = this.addItem('Organizacion', 'app.administradorgeneral.organizacion', 'linecons-desktop');
                 var cliente = this.addItem('Clientes', 'app.cliente', 'linecons-database');
                 var transaccion = this.addItem('Transacciones', 'app.transaccion', 'linecons-doc');
                 var administracion = this.addItem('Administracion', 'app.administracion', 'linecons-params');

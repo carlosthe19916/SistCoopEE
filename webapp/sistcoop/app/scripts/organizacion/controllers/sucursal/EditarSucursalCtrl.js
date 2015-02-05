@@ -9,8 +9,8 @@ define(['../module'], function (module) {
         };
 
         $scope.loadParams = function(){
-            $scope.view.sucursalDB = $scope.params.object;
-            $scope.view.sucursal = angular.copy($scope.view.sucursalDB);
+            $scope.view.sucursal = $scope.params.object;
+            $scope.view.sucursalDB = angular.copy($scope.params.object);
         };
         $scope.loadParams();
 
@@ -38,7 +38,7 @@ define(['../module'], function (module) {
                     function(response){
                         $scope.unblockControl();
                         Notifications.success("Sucursal desactivada");
-                        $state.go('app.organizacion.estructura.buscarSucursal');
+                        $state.go('^.^.buscarSucursal');
                     },
                     function error(error){
                         $scope.unblockControl();

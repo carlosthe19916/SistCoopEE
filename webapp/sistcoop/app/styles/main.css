@@ -35,3 +35,7 @@
 .sg-grid-top-panel .form-group button{
     margin-bottom: 0px;
 }
+
+.sg-is-visible{
+    display: block !important;
+}

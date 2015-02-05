@@ -89,11 +89,11 @@ define(['../../module'], function (module) {
         };
         $scope.gridActions = {
             edit: function(row){
-                $state.go('app.organizacion.estructura.editarAgencia.resumen', {id: row.id});
+                $state.go('^.^.editarAgencia.resumen', {id: row.id});
             }
         };
         $scope.nuevo = function(){
-            $state.go('app.organizacion.estructura.crearAgencia.datosPrincipales');
+            $state.go('^.^.crearAgencia.datosPrincipales');
         };
         $scope.search = function(){
             $scope.gridOptions.data = $scope.view.sucursalDB.$getAgencias().$object;

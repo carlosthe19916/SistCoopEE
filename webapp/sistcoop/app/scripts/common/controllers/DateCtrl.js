@@ -2,6 +2,7 @@ define(['./module'], function (module) {
     'use strict';
 
     module.controller('DateController', function($scope){
+
         $scope.opened = false;
         $scope.dateOptions = {
             formatYear: 'yyyy',

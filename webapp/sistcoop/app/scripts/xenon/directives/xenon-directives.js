@@ -2,26 +2,13 @@ define(['./module'], function (module) {
     'use strict';
 
     module
-        .constant('sgDropdownConfig', {
-            openClass: 'open hover expanded'
-        })
-        .directive('sgHorizontalMenu', function($menuItemsApp) {
+        .directive('sgNavbar', function($menuItemsApp) {
             return {
                 restrict: 'E',
-                templateUrl: appHelper.templatePath('layout/sg-horizontal-menu'),
+                templateUrl: appHelper.templatePath('layout/sg-navbar'),
                 controller: function($scope){
                     var $horizontalMenuItems = $menuItemsApp.instantiate();
                     $scope.menuItems = $horizontalMenuItems.prepareHorizontalMenu().getAll();
-                }
-            };
-        })
-        .directive('sgSidebarMenu', function($menuItemsApp) {
-            return {
-                restrict: 'E',
-                templateUrl: appHelper.templatePath('layout/sg-sidebar-menu'),
-                controller: function($scope){
-                    var $sidebarMenuItems = $menuItemsApp.instantiate();
-                    $scope.menuItems = $sidebarMenuItems.prepareSidebarMenu($state.current.name, activeProfile.realmAccess.roles).getAll();
                 }
             };
         })
@@ -29,17 +16,19 @@ define(['./module'], function (module) {
             return {
                 restrict: 'EA',
                 scope: {
-                    item: '='
+                    item: '=',
+                    closeMode: '@'
                 },
                 replace: true,
                 templateUrl: appHelper.templatePath('layout/sg-dropdown'),
-                controller: function($scope, $attrs, $parse, sgDropdownConfig, dropdownService, $animate){
-                    var self = this,
-                        scope = $scope.$new(), // create a child scope so we are not polluting original one
-                        openClass = sgDropdownConfig.openClass,
-                        getIsOpen,
-                        setIsOpen = angular.noop,
-                        toggleInvoker = $attrs.onToggle ? $parse($attrs.onToggle) : angular.noop;
+                controller: function($scope, $attrs, $parse, dropdownService, $animate){
+
+                    var self = this;
+                    var scope = $scope.$new(); // create a child scope so we are not polluting original one
+                    var openClass = $attrs.expandedClass;
+                    var getIsOpen;
+                    var setIsOpen = angular.noop;
+                    var toggleInvoker = $attrs.onToggle ? $parse($attrs.onToggle) : angular.noop;
 
                     this.init = function( element ) {
                         self.$element = element;
@@ -74,13 +63,23 @@ define(['./module'], function (module) {
                     };
 
                     scope.$watch('isOpen', function( isOpen, wasOpen ) {
-                        $animate[isOpen ? 'addClass' : 'removeClass'](self.$element, openClass);
 
-                        if ( isOpen ) {
-                            scope.focusToggleElement();
-                            dropdownService.open( scope );
-                        } else {
-                            dropdownService.close( scope );
+                        $animate[isOpen ? 'addClass' : 'removeClass'](self.$element, openClass);
+                        if(angular.isDefined(self.toggledElement)){
+                            if(isOpen)
+                                self.toggledElement.addClass($attrs.childExpandedClass);
+                            else
+                                self.toggledElement.removeClass($attrs.childExpandedClass);
+                        }
+
+                        if($scope.closeMode)
+                        {
+                            if ( isOpen ) {
+                                scope.focusToggleElement();
+                                dropdownService.open( scope );
+                            } else {
+                                dropdownService.close( scope );
+                            }
                         }
 
                         setIsOpen($scope, isOpen);
@@ -90,7 +89,10 @@ define(['./module'], function (module) {
                     });
 
                     $scope.$on('$locationChangeSuccess', function() {
-                        scope.isOpen = false;
+                        if($scope.closeMode)
+                        {
+                            scope.isOpen = false;
+                        }
                     });
 
                     $scope.$on('$destroy', function() {
@@ -138,7 +140,20 @@ define(['./module'], function (module) {
                 }
             };
         })
+        .directive('sgDropdownToggled', function() {
+            return {
+                require: '?^sgDropdown',
+                link: function(scope, element, attrs, sgDropdownCtrl) {
 
+                    if ( !sgDropdownCtrl ) {
+                        return;
+                    }
+
+                    sgDropdownCtrl.toggledElement = element;
+
+                }
+            };
+        })
 
 
 
@@ -161,7 +176,7 @@ define(['./module'], function (module) {
                 }
             };
         }).
-        directive('horizontalMenu', function($timeout, $menuItemsApp, KeycloakRestangular, Auth){
+        directive('horizontalMenu', function($timeout, $menuItemsApp, Auth){
             return {
                 restrict: 'E',
                 replace: true,
@@ -192,7 +207,6 @@ define(['./module'], function (module) {
                     var $horizontalMenuItems = $menuItemsApp.instantiate();
                     $scope.menuItems = $horizontalMenuItems.prepareHorizontalMenu().getAll();
 
-                    //notifications
                 },
                 link: function($scope, elem, attrs, ngModel){
                 }
